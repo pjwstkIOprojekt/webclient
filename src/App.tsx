@@ -1,44 +1,34 @@
 import React from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Hello from "./components/Hello";
 import Func from "./components/Func";
 import Class from "./components/Class";
 
-export default class App extends React.Component<any, any>
+export default class App extends React.Component
 {
-    constructor(props: any)
-    {
-        super(props);
-
-        this.state = {
-            value: "Test"
-        };
-    }
-
-    onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-
-        this.setState({
-            value: value
-        });
-    };
-
     render()
     {
         return (
-            <main>
-                <BrowserRouter>
-                    <div>
-                        <input onChange={this.onChange} id="val" value={this.state.value} />
-                        <Link to={`/func/${this.state.value}`}>Func</Link>
-                        <Link to={`/class/${this.state.value}`}>Class</Link>
+            <BrowserRouter>
+                <Container>
+                    <Row>
+                        <Col><Link to="/"><Button variant="primary">Strona główna</Button></Link></Col>
+                        <Col><Link to="/get"><Button variant="secondary">Zobacz dane</Button></Link></Col>
+                        <Col><Link to="/post"><Button variant="secondary">Prześlij dane</Button></Link></Col>
+                    </Row>
+                    <Row>
                         <Routes>
-                            <Route path="/" element={<br />} />
-                            <Route path="/func/:value" element={<Func />} />
-                            <Route path="/class/:value" element={<Class />} />
+                            <Route path="/" element={<Hello />} />
+                            <Route path="/get" element={<Func />} />
+                            <Route path="/post" element={<Class />} />
                         </Routes>
-                    </div>
-                </BrowserRouter>
-            </main>
+                    </Row>
+                </Container>
+            </BrowserRouter>
         );
     }
 }
