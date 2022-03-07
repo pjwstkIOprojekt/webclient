@@ -34,7 +34,7 @@ export default class Class extends React.Component<{}, exampleState>
         const item = { ...this.state.item };
         // item[name] = value; TS doesn't like it
 
-        // This solution is a bit retarded but TS wouldn't compile anything else... or I'm too dumb
+        // This solution is dumb but TS wouldn't compile anything else... or I'm too dumb
         if (id == "title")
         {
             item.title = value;
@@ -101,7 +101,7 @@ export default class Class extends React.Component<{}, exampleState>
                     <Form.Label>ID użytkownika</Form.Label>
                     <Form.Control type="number" value={item.userId} onChange={this.onChange} />
                 </Form.Group>
-                <Button variant="accept" type="submit">Wyślij</Button>
+                <Button variant="success" type="submit">Wyślij</Button>
                 {result ? <Alert key="0" variant="primary">{result < 0 ? "Przetwarzanie w toku..." : `Dane zostały przyjęte pod indeksem: ${result}`}</Alert> : ""}
             </Form>
         );
