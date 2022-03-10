@@ -37,32 +37,6 @@ export default class App extends React.Component {
             <Button>Zaloguj się</Button>
           </Container>
         </Navbar>
-        {/* <Container>
-          <Row>
-            <Col>
-              <Link to="/">
-                <Button variant="primary">Strona główna</Button>
-              </Link>
-            </Col>
-            <Col>
-              <Link to="/get">
-                <Button variant="secondary">Zobacz dane</Button>
-              </Link>
-            </Col>
-            <Col>
-              <Link to="/post">
-                <Button variant="secondary">Prześlij dane</Button>
-              </Link>
-            </Col>
-          </Row>
-          <Row>
-            <Routes>
-              <Route path="/" element={<Hello />} />
-              <Route path="/get" element={<Func />} />
-              <Route path="/post" element={<Class />} />
-            </Routes>
-          </Row>
-        </Container> */}
         <Routes>
           <Route path="/" element={<Hello />} />
           <Route path="/get" element={<Func />} />
