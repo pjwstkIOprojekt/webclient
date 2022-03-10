@@ -1,4 +1,5 @@
-export default function Hello()
-{
-    return <h1>Hello there!</h1>;
+import { Container } from "react-bootstrap";
+
+export default function Hello() {
+  return <Container></Container>;
 }
