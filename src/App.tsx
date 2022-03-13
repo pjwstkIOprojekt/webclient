@@ -1,12 +1,11 @@
 import React from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Hello from "./components/Hello";
-import Func from "./components/Func";
-import Class from "./components/Class";
+import UsersList from "./components/content/users/UsersList";
+import UserForm from "./components/content/users/UserForm";
+import DeleteUser from "./components/content/users/DeleteUser";
 import { Navbar, Nav } from "react-bootstrap";
 
 export default class App extends React.Component {
@@ -22,11 +21,11 @@ export default class App extends React.Component {
               <Nav.Link as={Link} to="/">
                 Strona Główna
               </Nav.Link>
-              <Nav.Link as={Link} to="/get">
-                Zobacz dane
+              <Nav.Link as={Link} to="/users">
+                Zobacz użytkowników
               </Nav.Link>
-              <Nav.Link as={Link} to="/post">
-                Prześlij dane
+              <Nav.Link as={Link} to="/addUser">
+                Dodaj użytkownika
               </Nav.Link>
               {/* Alternative syntax */}
               {/* 
@@ -39,8 +38,10 @@ export default class App extends React.Component {
         </Navbar>
         <Routes>
           <Route path="/" element={<Hello />} />
-          <Route path="/get" element={<Func />} />
-          <Route path="/post" element={<Class />} />
+          <Route path="/users" element={<UsersList />} />
+          <Route path="/addUser" element={<UserForm isNew={true} />} />
+          <Route path="/editUser/:userId" element={<UserForm isNew={false} />} />
+          <Route path="/deleteUser/:userId" element={<DeleteUser />} />
         </Routes>
       </BrowserRouter>
     );
