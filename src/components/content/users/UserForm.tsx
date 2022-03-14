@@ -28,7 +28,7 @@ export default function UserForm(props: { isNew: boolean }) {
 
     // This solution is dumb but TS wouldn't compile anything else... or I'm too dumb
     if (id == "name") {
-      user.name = value;
+      data.name = value;
     } else {
       console.log(event.target);
     }
