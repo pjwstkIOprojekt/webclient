@@ -21,10 +21,10 @@ export default function UsersList() {
   });
 
   const content = users.map((user: Readonly<User>) => (
-    <ListGroup.Item key={user.userId}>
-      <b>{user.title}</b>
-      <Link className="float-end" to={`/editUser/${user.userId}`}><Button variant="secondary">Edytuj</Button></Link>
-      <Link className="float-end" to={`/deleteUser/${user.userId}`}><Button variant="danger">Usuń</Button></Link>
+    <ListGroup.Item key={user.id}>
+      <b>{user.name}</b>
+      <Link className="float-end" to={`/editUser/${user.id}`}><Button variant="secondary">Edytuj</Button></Link>
+      <Link className="float-end" to={`/deleteUser/${user.id}`}><Button variant="danger">Usuń</Button></Link>
     </ListGroup.Item>
   ));
 

@@ -6,9 +6,15 @@ import { Button, Container, Form } from "react-bootstrap";
 // Displays user form
 export default function UserForm(props: { isNew: boolean }) {
   const [user, setUser] = useState({
-    userId: -1,
-    title: "",
-    body: ""
+    id: undefined,
+    name: "",
+    password: "",
+    salt: "",
+    email: "",
+    birthDate: null,
+    phone: "",
+    bandCode: "",
+    medicalInfo: null
   });
 
   const [loaded, setLoaded] = useState(false);
@@ -21,10 +27,8 @@ export default function UserForm(props: { isNew: boolean }) {
     // item[name] = value; TS doesn't like it
 
     // This solution is dumb but TS wouldn't compile anything else... or I'm too dumb
-    if (id == "title") {
-      user.title = value;
-    } else if (id == "body") {
-      user.body = value;
+    if (id == "name") {
+      user.name = value;
     } else {
       console.log(event.target);
     }
@@ -65,22 +69,14 @@ export default function UserForm(props: { isNew: boolean }) {
   return (
     <Container className="mt-5">
       <Form onSubmit={onSubmit}>
-        <Form.Group controlId="userId">
-          <Form.Control type="hidden" value={user.userId} />
+        <Form.Group controlId="id">
+          <Form.Control type="hidden" value={user.id} />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="title">
+        <Form.Group className="mb-3" controlId="name">
           <Form.Label>Tytuł</Form.Label>
           <Form.Control
             type="text"
-            value={user.title}
-            onChange={onChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="body">
-          <Form.Label>Zawartość</Form.Label>
-          <Form.Control
-            type="text"
-            value={user.body}
+            value={user.name}
             onChange={onChange}
           />
         </Form.Group>
