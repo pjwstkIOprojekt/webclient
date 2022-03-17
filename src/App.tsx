@@ -13,7 +13,7 @@ interface AppStatus {
 }
 
 export default class App extends React.Component {
-  state: AppStatus
+  state: AppStatus;
 
   constructor(props: Readonly<{}>) {
     super(props);

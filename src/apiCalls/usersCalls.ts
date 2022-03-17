@@ -1,8 +1,10 @@
 const baseUrl = "http://localhost:8080/person";
 
+type BloodType = "A_PLUS" | "AB_PLUS" | "O_PLUS" | "A_MINUS" | "AB_MINUS" | "O_MINUS" | "UNKNOWN";
+
 interface MedicalInfo {
   id?: number,
-  bloodType: string,
+  bloodType: BloodType | null,
   chronicDeseases: string,
   allergies: string
 }
