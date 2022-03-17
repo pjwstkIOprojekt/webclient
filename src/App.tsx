@@ -8,71 +8,39 @@ import UserForm from "./components/content/users/UserForm";
 import DeleteUser from "./components/content/users/DeleteUser";
 import { Navbar, Nav } from "react-bootstrap";
 
-export default class App extends React.Component {
-  state: { color: number }
+interface AppStatus {
+  isDarkThemeEnabled: boolean
+}
 
-  constructor(props: {}) {
+export default class App extends React.Component {
+  state: AppStatus
+
+  constructor(props: Readonly<{}>) {
     super(props);
 
     this.state = {
-      color: 0
+      isDarkThemeEnabled: false
     };
   }
 
-  changeColor = () => {
-    if (this.state.color > 4) {
-      this.setState({
-        color: 0
-      });
-    }
-    else {
-      this.setState({
-        color: this.state.color + 1
-      });
-    }
+  changeTheme = () => {
+    this.setState({
+      isDarkThemeEnabled: !this.state.isDarkThemeEnabled
+    });
   };
 
-  getNavbarStyle = (id: number) => {
-    switch (id) {
-      case 1:
-        return "success";
-      case 2:
-        return "warning";
-      case 3:
-        return "info";
-      case 4:
-        return "dark";
-      default:
-        return "light";
-    }
+  getNavbarStyle = () => {
+    return this.state.isDarkThemeEnabled ? "dark" : "light";
   };
 
-  getNavbarVariant = (id: number): "dark" | "light" => {
-    switch (id) {
-      case 4:
-        return "dark";
-      default:
-        return "light";
-    }
-  };
-
-  getButtonStyle = (id: number) => {
-    switch (id) {
-      case 1:
-        return "warning";
-      case 2:
-        return "dark";
-      case 3:
-        return "dark";
-      default:
-        return "primary";
-    }
+  getButtonStyle = () => {
+    return this.state.isDarkThemeEnabled ? "warning" : "primary";
   };
 
   render() {
     return (
       <BrowserRouter>
-        <Navbar bg={this.getNavbarStyle(this.state.color)} variant={this.getNavbarVariant(this.state.color)} expand="lg">
+        <Navbar bg={this.getNavbarStyle()} variant={this.getNavbarStyle()} expand="lg">
           <Container>
             <Navbar.Brand>GARY</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -93,7 +61,7 @@ export default class App extends React.Component {
               Strona Główna
               </Link> */}
             </Nav>
-            <Button variant={this.getButtonStyle(this.state.color)} onClick={this.changeColor}>Zmień kolor</Button>
+            <Button variant={this.getButtonStyle()} onClick={this.changeTheme}>Zmień motyw</Button>
           </Container>
         </Navbar>
         <Routes>
