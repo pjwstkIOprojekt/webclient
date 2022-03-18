@@ -1,4 +1,4 @@
-import { useDarkMode } from "./hooks/useDarkMode";
+import { useDarkModeMenager } from "./hooks/useDarkMode";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import Hello from "./components/Hello";
@@ -7,7 +7,7 @@ import UserForm from "./components/content/users/UserForm";
 import DeleteUser from "./components/content/users/DeleteUser";
 
 export default function App() {
-  const darkMode = useDarkMode();
+  const darkMode = useDarkModeMenager();
 
   return (
     <BrowserRouter>
