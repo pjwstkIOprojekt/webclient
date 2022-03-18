@@ -20,7 +20,8 @@ const defaultContext = {
 
 // Dark mode hooks
 const DarkModeContext = createContext(defaultContext);
-export const useDarkMode = () => useContext(DarkModeContext);
+export const useDarkModeMenager = () => useContext(DarkModeContext);
+export const useDarkMode = () => useDarkModeMenager().isDark;
 
 // Helper types for dark mode hooks
 interface DarkModeState {
