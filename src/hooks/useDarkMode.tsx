@@ -45,7 +45,7 @@ const useEffectDarkMode = (): DarkModeHookResult => {
       isDark: darkMode.isDark,
       hasDarkModeMounted: true
     });
-  }, []);
+  }, [darkMode.isDark]);
 
   return [darkMode, setDarkMode];
 };
