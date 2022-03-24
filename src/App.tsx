@@ -11,7 +11,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Navbar bg={darkMode.isDark ? "dark" : "light"} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
+      <Navbar bg={darkMode.isDark ? "warning" : "dark"} variant={darkMode.isDark ? "light" : "dark"} expand="lg">
         <Container>
           <Navbar.Brand>GARY</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -27,7 +27,7 @@ export default function App() {
               Dodaj użytkownika
             </Nav.Link>
           </Nav>
-          <Button variant={darkMode.isDark ? "warning" : "primary"} onClick={darkMode.toggle}>Zmień motyw</Button>
+          <Button variant={darkMode.isDark ? "dark" : "primary"} onClick={darkMode.toggle}>Zmień motyw</Button>
         </Container>
       </Navbar>
       <Routes>
