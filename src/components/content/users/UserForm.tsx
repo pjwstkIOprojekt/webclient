@@ -7,7 +7,8 @@ import { Button, Container, Form } from "react-bootstrap";
 export default function UserForm(props: { isNew: boolean }) {
   const [user, setUser] = useState({
     id: undefined,
-    name: "",
+    firstName: "",
+    lastName: "",
     password: "",
     salt: "",
     email: "",
@@ -28,7 +29,7 @@ export default function UserForm(props: { isNew: boolean }) {
 
     // This solution is dumb but TS wouldn't compile anything else... or I'm too dumb
     if (id == "name") {
-      data.name = value;
+      data.firstName = value;
     } else {
       console.log(event.target);
     }
@@ -76,7 +77,7 @@ export default function UserForm(props: { isNew: boolean }) {
           <Form.Label>Tytuł</Form.Label>
           <Form.Control
             type="text"
-            value={user.name}
+            value={user.firstName}
             onChange={onChange}
           />
         </Form.Group>

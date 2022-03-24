@@ -12,7 +12,8 @@ interface MedicalInfo {
 // User API type
 export interface User {
   id?: number,
-  name: string,
+  firstName: string,
+  lastName: string,
   password: string,
   salt: string,
   email: string,
