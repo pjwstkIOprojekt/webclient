@@ -17,21 +17,36 @@ export default function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
-              Strona Główna
+            <Nav.Link as={Link} to="/hello/primary">
+              Primary
             </Nav.Link>
-            <Nav.Link as={Link} to="/users">
-              Zobacz użytkowników
+            <Nav.Link as={Link} to="/hello/secondary">
+              Secondary
             </Nav.Link>
-            <Nav.Link as={Link} to="/addUser">
-              Dodaj użytkownika
+            <Nav.Link as={Link} to="/hello/success">
+              Success
+            </Nav.Link>
+            <Nav.Link as={Link} to="/hello/danger">
+              Danger
+            </Nav.Link>
+            <Nav.Link as={Link} to="/hello/warning">
+              Warning
+            </Nav.Link>
+            <Nav.Link as={Link} to="/hello/info">
+              Info
+            </Nav.Link>
+            <Nav.Link as={Link} to="/hello/light">
+              Light
+            </Nav.Link>
+            <Nav.Link as={Link} to="/hello/dark">
+              Dark
             </Nav.Link>
           </Nav>
           <Button variant={darkMode.isDark ? "dark" : "primary"} onClick={darkMode.toggle}>Zmień motyw</Button>
         </Container>
       </Navbar>
       <Routes>
-        <Route path="/" element={<Hello />} />
+        <Route path="/hello/:style" element={<Hello />} />
         <Route path="/users" element={<UsersList />} />
         <Route path="/addUser" element={<UserForm isNew={true} />} />
         <Route path="/editUser/:userId" element={<UserForm isNew={false} />} />
