@@ -1,5 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { Dispatch, SetStateAction } from "react";
+import { createContext, useContext, Dispatch, SetStateAction, useState, useEffect } from "react";
 
 // Handles theme changes for document body
 const toggleBodyClasses = (isDark: boolean) => {
@@ -20,8 +19,8 @@ const defaultContext = {
 
 // Dark mode hooks
 const DarkModeContext = createContext(defaultContext);
-export const useDarkModeMenager = () => useContext(DarkModeContext);
-export const useDarkMode = () => useDarkModeMenager().isDark;
+export const useDarkModeManager = () => useContext(DarkModeContext);
+export const useDarkMode = () => useDarkModeManager().isDark;
 
 // Helper types for dark mode hooks
 interface DarkModeState {
@@ -45,7 +44,7 @@ const useEffectDarkMode = (): DarkModeHookResult => {
       isDark: darkMode.isDark,
       hasDarkModeMounted: true
     });
-  }, [darkMode.isDark]);
+  }, []);
 
   return [darkMode, setDarkMode];
 };

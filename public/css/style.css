@@ -1,9 +1,146 @@
 :root
 {
+  /*--background--1: #d6a923;
+  --background--2: #4c4c4c;
+  --background--3: #292929;
+  --background--4: #d6a923;
+  --background--5: #d6a923;
+  --background--6: #d6a923;
+  --color-text: #ffffff;*/
 
+  /*--background--1: #283f9b;
+  --background--2: #549fe6;
+  --background--3: #98c4ce;
+  --background--4: #283f9b;
+  --background--5: #283f9b;
+  --background--6: #283f9b;
+  --color-text: #000000;*/
+
+  --background--1: #4caf50;
+  --background--2: #078f23;
+  --background--3: #80e27e;
+  --background--4: #42a5f5;
+  --background--5: #0077c2;
+  --background--6: #80d6ff;
+  --color-text: #000000;
+
+  /*--background--1: #b3dafc;
+  --background--2: #51aaf8;
+  --background--3: #51aaf8;
+  --background--4: #6edc58;
+  --background--5: #248426;
+  --background--6: #248426;
+  --color-text: #000000;*/
+
+  /*--background--1: #189ab4;
+  --background--2: #b8fff9;
+  --background--3: #fffffd;
+  --background--4: #43edf0;
+  --background--5: #050a30;
+  --background--6: #fffffd;
+  --color-text: #000000;*/
+
+  /*--background--1: #1d3537;
+  --background--2: #1d3537;
+  --background--3: #21b6a8;
+  --background--4: #a1f7a1;
+  --background--5: #b8fff9;
+  --background--6: #fffffd;
+  --color-text: #000000;*/
 }
 
-body
+.btn-custom-1, .btn-outline-custom-1, .alert-custom-1, .alert-custom-1:hover
 {
+  border-color: var(--background--1);
+  color: var(--color-text);
+}
 
+.text-custom-1
+{
+  color: var(--background--1);
+}
+
+.btn-custom-1, .btn-outline-custom-1:hover, .alert-custom-1, .bg-custom-1
+{
+  background-color: var(--background--1);
+}
+
+.btn-custom-2, .btn-outline-custom-2, .alert-custom-2, .alert-custom-2:hover
+{
+  border-color: var(--background--2);
+  color: var(--color-text);
+}
+
+.text-custom-2
+{
+  color: var(--background--2);
+}
+
+.btn-custom-2, .btn-outline-custom-2:hover, .alert-custom-2, .bg-custom-2
+{
+  background-color: var(--background--2);
+}
+
+.btn-custom-3, .btn-outline-custom-3, .alert-custom-3, .alert-custom-3:hover
+{
+  border-color: var(--background--3);
+  color: var(--color-text);
+}
+
+.text-custom-3
+{
+  color: var(--background--3);
+}
+
+.btn-custom-3, .btn-outline-custom-3:hover, .alert-custom-3, .bg-custom-3
+{
+  background-color: var(--background--3);
+}
+
+.btn-custom-4, .btn-outline-custom-4, .alert-custom-4, .alert-custom-4:hover
+{
+  border-color: var(--background--4);
+  color: var(--color-text);
+}
+
+.text-custom-4
+{
+  color: var(--background--4);
+}
+
+.btn-custom-4, .btn-outline-custom-4:hover, .alert-custom-4, .bg-custom-4
+{
+  background-color: var(--background--4);
+}
+
+.btn-custom-5, .btn-outline-custom-5, .alert-custom-5, .alert-custom-5:hover
+{
+  border-color: var(--background--5);
+  color: var(--color-text);
+}
+
+.text-custom-5
+{
+  color: var(--background--5);
+}
+
+.btn-custom-5, .btn-outline-custom-5:hover, .alert-custom-5, .bg-custom-5
+{
+  background-color: var(--background--5);
+}
+
+.btn-custom-6, .btn-outline-custom-6, .alert-custom-6, .alert-custom-6:hover
+{
+  border-color: var(--background--6);
+  color: var(--color-text);
+}
+
+.text-custom-6
+{
+  color: var(--background--6);
+}
+
+.btn-custom-6, .btn-outline-custom-6:hover, .alert-custom-6, .bg-custom-6
+{
+  background-color: var(--background--6);
 }
