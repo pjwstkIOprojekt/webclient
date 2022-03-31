@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Form, FormGroup, Row, Container, Alert, Badge, Button, Dropdown, ProgressBar, Spinner } from "react-bootstrap";
+import { Container, Row, Card, Modal, Alert, Badge, Button, Dropdown, ProgressBar, Spinner } from "react-bootstrap";
 
 export default function Hello(props: { variant: boolean }) {
   const { style, style2, style3, style4, style5, style6 } = useParams();
@@ -7,31 +7,84 @@ export default function Hello(props: { variant: boolean }) {
   if (props.variant) {
     return (
       <Container className="mt-5">
-        <Form>
-          <FormGroup className="mb-3">
-            <Form.Label>Imię</Form.Label>
-            <Form.Control type="text" />
-          </FormGroup>
-          <FormGroup className="mb-3">
-            <Form.Label>Nazwisko</Form.Label>
-            <Form.Control type="text" />
-          </FormGroup>
-          <FormGroup className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" />
-          </FormGroup>
-          <FormGroup className="mb-3">
-            <Form.Label>Hasło</Form.Label>
-            <Form.Control type="password" />
-          </FormGroup>
-          <FormGroup className="mb-3">
-            <Form.Label>Data urodzenia</Form.Label>
-            <Form.Control type="date" />
-          </FormGroup>
-          <Row className="justify-content-center">
-            <Button className="mt-3 w-25" type="submit" variant={style2}>Zarejestruj się</Button>
-          </Row>
-        </Form>
+        <Row className="justify-content-center">
+          <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="https://vincentdnl.com/static/d39b503cebf83760d389b29b8c66d03b/6a068/semicolon2.jpg" />
+            <Card.Body>
+              <Card.Title>Card Title</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up the bulk of
+                the card's content.
+              </Card.Text>
+              <Button variant={style}>Go somewhere</Button>
+            </Card.Body>
+          </Card>
+          <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="https://miro.medium.com/max/1400/0*z1mm6izqSeDiKukb" />
+            <Card.Body>
+              <Card.Title>Card Title</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up the bulk of
+                the card's content.
+              </Card.Text>
+              <Button variant={style2}>Go somewhere</Button>
+            </Card.Body>
+          </Card>
+          <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="https://miro.medium.com/max/1000/0*pN-_lwZ-nOOsrGQk.jpg" />
+            <Card.Body>
+              <Card.Title>Card Title</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up the bulk of
+                the card's content.
+              </Card.Text>
+              <Button variant={style3}>Go somewhere</Button>
+            </Card.Body>
+          </Card>
+          <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7pfaC86DLiWPlJFB8gK_6CwSDZ_tOpj0tgQ&usqp=CAU" />
+            <Card.Body>
+              <Card.Title>Card Title</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up the bulk of
+                the card's content.
+              </Card.Text>
+              <Button variant={style4}>Go somewhere</Button>
+            </Card.Body>
+          </Card>
+        </Row>
+        <Alert variant={style2} className="mt-3">
+          <Alert.Heading>Komunikat</Alert.Heading>
+          To jest przykładowy komunikat!
+          <br />
+          <Alert.Link className={`alert-${style2}`}>Przykładowy link</Alert.Link>
+        </Alert>
+        <Row className="justify-content-center">
+          <Modal.Dialog>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal title</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>Przykładowy tekst bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant={style5}>Close</Button>
+              <Button variant={style6}>Save changes</Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+          <Modal.Dialog>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal title</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>Przykładowy tekst bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant={style3}>Close</Button>
+              <Button variant={style4}>Save changes</Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Row>
       </Container>
     );
   }
