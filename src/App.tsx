@@ -1,5 +1,5 @@
 import { useDarkModeManager } from "./hooks/useDarkMode";
-import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Link, Routes, Route, Navigate } from "react-router-dom";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import Hello from "./components/Hello";
 import Login from "./components/content/auth/Login";
@@ -16,28 +16,23 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Navbar bg={darkMode.isDark ? "warning" : "dark"} variant={darkMode.isDark ? "light" : "dark"} expand="lg">
+      <Navbar bg={darkMode.isDark ? "dark-first" : "dark-third"} variant={darkMode.isDark ? "light" : "dark"} expand="lg">
         <Container>
           <Navbar.Brand>GARY</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/hello/primary/primary/primary/primary/primary/primary">Primary</Nav.Link>
-            <Nav.Link as={Link} to="/hello/secondary/secondary/secondary/secondary/secondary/secondary">Secondary</Nav.Link>
-            <Nav.Link as={Link} to="/hello/success/success/success/success/success/success">Success</Nav.Link>
-            <Nav.Link as={Link} to="/hello/danger/danger/danger/danger/danger/danger">Danger</Nav.Link>
-            <Nav.Link as={Link} to="/hello/warning/warning/warning/warning/warning/warning">Warning</Nav.Link>
-            <Nav.Link as={Link} to="/hello/info/info/info/info/info/info">Info</Nav.Link>
-            <Nav.Link as={Link} to="/hello/light/light/light/light/light/light">Light</Nav.Link>
-            <Nav.Link as={Link} to="/hello/dark/dark/dark/dark/dark/dark">Dark</Nav.Link>
-            <Nav.Link as={Link} to="/hello/custom-1/custom-2/custom-3/custom-4/custom-5/custom-6">Custom</Nav.Link>
+            <Nav.Link as={Link} to="/hello/first/second/third">Custom</Nav.Link>
+            <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            <Nav.Link as={Link} to="/register">Register</Nav.Link>
           </Nav>
-          <Button variant={darkMode.isDark ? "dark" : "primary"} onClick={darkMode.toggle}>Zmień motyw</Button>
-          <Button variant={darkMode.isDark ? "dark" : "primary"} onClick={() => setTemp(!temp)}>Zmień szablon</Button>
+          <Button variant={darkMode.isDark ? "dark-third" : "light-first"} onClick={darkMode.toggle}>Zmień motyw</Button>
+          <Button variant={darkMode.isDark ? "dark-third" : "light-first"} onClick={() => setTemp(!temp)}>Zmień szablon</Button>
         </Container>
       </Navbar>
       <Routes>
-        <Route path="/hello/:style/:style2/:style3/:style4/:style5/:style6" element={<Hello variant={temp} />} />
+        <Route path="/" element={<Navigate to="/hello/first/second/third" />}/>
+        <Route path="/hello/:style/:style2/:style3" element={<Hello variant={temp} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/users" element={<UsersList />} />

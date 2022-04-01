@@ -30,7 +30,7 @@ interface DarkModeState {
 
 type DarkModeHookResult = [value: DarkModeState, setter: Dispatch<SetStateAction<DarkModeState>>];
 
-// Loads selected theme
+// Loads initial theme
 const useEffectDarkMode = (): DarkModeHookResult => {
   const [darkMode, setDarkMode] = useState({
     isDark: false,
@@ -38,10 +38,11 @@ const useEffectDarkMode = (): DarkModeHookResult => {
   });
 
   useEffect(() => {
-    toggleBodyClasses(darkMode.isDark);
+    const localIsDark = localStorage.getItem("useDarkMode") === "true";
+    toggleBodyClasses(localIsDark);
 
     setDarkMode({
-      isDark: darkMode.isDark,
+      isDark: localIsDark,
       hasDarkModeMounted: true
     });
   }, []);
@@ -59,6 +60,7 @@ export const DarkModeProvider = (props: JSX.ElementChildrenAttribute) => {
 
   const toggle = () => {
     const dark = !darkMode.isDark;
+    localStorage.setItem("useDarkMode", JSON.stringify(dark));
     toggleBodyClasses(dark);
 
     setDarkMode({
