@@ -1,4 +1,5 @@
 import { createContext, useContext, Dispatch, SetStateAction, useState, useEffect } from "react";
+import { getCookieValue, setCookieValue } from "../helpers/cookieHelper";
 
 // Handles theme changes for document body
 const toggleBodyClasses = (isDark: boolean) => {
@@ -38,7 +39,7 @@ const useEffectDarkMode = (): DarkModeHookResult => {
   });
 
   useEffect(() => {
-    const localIsDark = localStorage.getItem("useDarkMode") === "true";
+    const localIsDark = getCookieValue("useDarkMode") === "true";
     toggleBodyClasses(localIsDark);
 
     setDarkMode({
@@ -60,7 +61,7 @@ export const DarkModeProvider = (props: JSX.ElementChildrenAttribute) => {
 
   const toggle = () => {
     const dark = !darkMode.isDark;
-    localStorage.setItem("useDarkMode", JSON.stringify(dark));
+    setCookieValue("useDarkMode", JSON.stringify(dark));
     toggleBodyClasses(dark);
 
     setDarkMode({

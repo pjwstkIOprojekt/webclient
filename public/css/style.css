@@ -7,10 +7,10 @@
     --col-dark-bg-third: #292929;
     --col-dark-bg-third-hover: #3a3a3a;
     --col-dark-text: #ffffff;
-    --col-light-bg-primary: #4caf50;
-    --col-light-bg-primary-hover: #3b9e40;
-    --col-light-bg-secondary: #078f23;
-    --col-light-bg-secondary-hover: #067e12;
+    --col-light-bg-primary: #078f23;
+    --col-light-bg-primary-hover: #067e12;
+    --col-light-bg-secondary: #4caf50;
+    --col-light-bg-secondary-hover: #3b9e40;
     --col-light-bg-third: #80e27e;
     --col-light-bg-third-hover: #70d16d;
     --col-light-text: #000000;
@@ -159,6 +159,26 @@
 .btn-light-first:focus, .btn-outline-light-first:focus, .btn-light-second:focus, .btn-outline-light-second:focus, .btn-light-third:focus, .btn-outline-light-third:focus
 {
     box-shadow: none;
+}
+
+/* Custom styles */
+.consent
+{
+    display: flex;
+    align-content: baseline;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+    max-width: 3000px;
+}
+
+.consent-content
+{
+    flex: 1 0 300px;
+    margin: 15px;
+    text-align: center;
 }
 
 /* Fixes */

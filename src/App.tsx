@@ -7,6 +7,7 @@ import Register from "./components/content/auth/Register";
 import UsersList from "./components/content/users/UsersList";
 import UserForm from "./components/content/users/UserForm";
 import DeleteUser from "./components/content/users/DeleteUser";
+import { CookieConsent } from "./components/fragments/CookieConsent";
 
 import { useState } from "react";
 
@@ -31,7 +32,7 @@ export default function App() {
         </Container>
       </Navbar>
       <Routes>
-        <Route path="/" element={<Navigate to="/hello/first/second/third" />}/>
+        <Route path="/" element={<Navigate to="/hello/first/second/third" />} />
         <Route path="/hello/:style/:style2/:style3" element={<Hello variant={temp} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/editUser/:userId" element={<UserForm isNew={false} />} />
         <Route path="/deleteUser/:userId" element={<DeleteUser />} />
       </Routes>
+      <CookieConsent debug />
     </BrowserRouter>
   );
 }
