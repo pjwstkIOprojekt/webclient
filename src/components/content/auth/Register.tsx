@@ -28,7 +28,7 @@ export default function Register() {
           <Form.Control type="date" />
         </FormGroup>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit" variant={dark ? "warning" : "primary"}>Zarejestruj się</Button>
+          <Button className="mt-3 w-25" type="submit" variant={dark ? "dark-first" : "light-second"}>Zarejestruj się</Button>
         </Row>
       </Form>
     </Container>
