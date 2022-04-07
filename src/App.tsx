@@ -4,6 +4,7 @@ import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import Hello from "./components/Hello";
 import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
+import ForgotPassword from "./components/content/auth/ForgotPassword";
 import UsersList from "./components/content/users/UsersList";
 import UserForm from "./components/content/users/UserForm";
 import DeleteUser from "./components/content/users/DeleteUser";
@@ -27,8 +28,8 @@ export default function App() {
             <Nav.Link as={Link} to="/login">Login</Nav.Link>
             <Nav.Link as={Link} to="/register">Register</Nav.Link>
           </Nav>
-          <Button variant={darkMode.isDark ? "dark-third" : "light-first"} onClick={darkMode.toggle}>Zmień motyw</Button>
-          <Button variant={darkMode.isDark ? "dark-third" : "light-first"} onClick={() => setTemp(!temp)}>Zmień szablon</Button>
+          <Button variant={darkMode.isDark ? "dark-third" : "light-second"} onClick={darkMode.toggle}>Zmień motyw</Button>
+          <Button variant={darkMode.isDark ? "dark-third" : "light-second"} onClick={() => setTemp(!temp)}>Zmień szablon</Button>
         </Container>
       </Navbar>
       <Routes>
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/hello/:style/:style2/:style3" element={<Hello variant={temp} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/iforgor" element={<ForgotPassword />} />
         <Route path="/users" element={<UsersList />} />
         <Route path="/addUser" element={<UserForm isNew={true} />} />
         <Route path="/editUser/:userId" element={<UserForm isNew={false} />} />

@@ -10,3 +10,7 @@ export const setCookieValue = (key: string, value: string) => {
     localStorage.setItem(key, value);
   }
 };
+
+export const removeCookieValue = (key: string) => {
+  localStorage.removeItem(key);
+};

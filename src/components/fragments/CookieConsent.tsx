@@ -33,10 +33,10 @@ export const CookieConsent = (props: ConsentParams) => {
           Ta strona używa plików cookies. Podejmij jedyną słuszną decyzję.
         </Col>
         <Col md="auto">
-          <Button variant={darkMode ? "dark-third" : "light-first"} onClick={accept}>Zgadzam się</Button>
+          <Button variant={darkMode ? "dark-third" : "light-second"} onClick={accept}>Zgadzam się</Button>
         </Col>
         <Col md="auto">
-          <Button variant={darkMode ? "dark-third" : "light-first"} onClick={accept}>Zgadzam się</Button>
+          <Button variant={darkMode ? "dark-third" : "light-second"} onClick={accept}>Zgadzam się</Button>
         </Col>
       </Row>
     </Container>
