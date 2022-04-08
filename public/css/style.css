@@ -1,162 +1,95 @@
 :root
 {
-    --col-dark-bg-primary: #d6a923;
-    --col-dark-bg-primary-hover: #e7b934;
-    --col-dark-bg-secondary: #4c4c4c;
-    --col-dark-bg-secondary-hover: #5d5d5d;
-    --col-dark-bg-third: #292929;
-    --col-dark-bg-third-hover: #3a3a3a;
-    --col-dark-text: #ffffff;
-    --col-light-bg-primary: #078f23;
-    --col-light-bg-primary-hover: #067e12;
-    --col-light-bg-secondary: #4caf50;
-    --col-light-bg-secondary-hover: #3b9e40;
-    --col-light-bg-third: #80e27e;
-    --col-light-bg-third-hover: #70d16d;
-    --col-light-text: #000000;
+    --dark-text: #ffffff;
+    --light-text: #000000;
+    --dark-button: #4b4b4b;
+    --dark-button-hover: #d6a923;
+    --light-button: #4caf50;
+    --light-button-hover: #3b9e40;
+    --dark-alert: #4c4c4c;
+    --light-alert: #4caf50;
+    --dark-bg: #292929;
+    --light-bg: #c9eec9;
 }
 
 /* Dark themes */
-.btn-dark-first, .btn-outline-dark-first, .alert-dark-first, .alert-dark-first:hover
+.btn-custom-dark
 {
-    border-color: var(--col-dark-bg-primary);
-    color: var(--col-dark-text);
+    border-color: var(--dark-button);
+    background-color: var(--dark-button);
+    color: var(--dark-text);
 }
 
-.text-dark-first
+.btn-outline-custom-dark
 {
-    color: var(--col-dark-bg-primary);
+    border-color: var(--dark-button-hover);
+    color: var(--dark-text);
 }
 
-.btn-dark-first, .btn-outline-dark-first:hover, .alert-dark-first, .bg-dark-first
+.btn-custom-dark:hover
 {
-    background-color: var(--col-dark-bg-primary);
+    background-color: var(--dark-button-hover);
+    color: var(--dark-text);
 }
 
-.btn-dark-first:hover, .btn-outline-dark-first:hover
+.btn-outline-custom-dark:hover
 {
-    background-color: var(--col-dark-bg-primary-hover);
+    background-color: var(--dark-button-hover);
+    color: var(--dark-text);
 }
 
-.btn-dark-second, .btn-outline-dark-second, .alert-dark-second, .alert-dark-second:hover
+.alert-custom-dark, .alert-custom-dark:hover
 {
-    border-color: var(--col-dark-bg-secondary);
-    color: var(--col-dark-text);
+    border-color: var(--dark-alert);
+    background-color: var(--dark-alert);
+    color: var(--dark-text);
 }
 
-.text-dark-second
+.bg-custom-dark
 {
-    color: var(--col-dark-bg-secondary);
-}
-
-.btn-dark-second, .btn-outline-dark-second:hover, .alert-dark-second, .bg-dark-second
-{
-    background-color: var(--col-dark-bg-secondary);
-}
-
-.btn-dark-second:hover, .btn-outline-dark-second:hover
-{
-    background-color: var(--col-dark-bg-secondary-hover);
-}
-
-.btn-dark-third, .btn-outline-dark-third, .alert-dark-third, .alert-dark-third:hover
-{
-    border-color: var(--col-dark-bg-third);
-    color: var(--col-dark-text);
-}
-
-.text-dark-third
-{
-    color: var(--col-dark-bg-third);
-}
-
-.btn-dark-third, .btn-outline-dark-third:hover, .alert-dark-third, .bg-dark-third
-{
-    background-color: var(--col-dark-bg-third);
-}
-
-.btn-dark-third:hover, .btn-outline-dark-third:hover
-{
-    background-color: var(--col-dark-bg-third-hover);
-}
-
-.btn-dark-first:hover, .btn-outline-dark-first:hover, .btn-dark-second:hover, .btn-outline-dark-second:hover, .btn-dark-third:hover, .btn-outline-dark-third:hover
-{
-    color: var(--col-dark-text);
+    background-color: var(--dark-bg);
 }
 
 /* Light themes */
-.btn-light-first, .btn-outline-light-first, .alert-light-first, .alert-light-first:hover
+.btn-custom-light
 {
-    border-color: var(--col-light-bg-primary);
-    color: var(--col-light-text);
+    border-color: var(--light-button);
+    background-color: var(--light-button);
+    color: var(--light-text);
 }
 
-.text-light-first
+.btn-outline-custom-light
 {
-    color: var(--col-light-bg-primary);
+    border-color: var(--light-button-hover);
+    color: var(--light-text);
 }
 
-.btn-light-first, .btn-outline-light-first:hover, .alert-light-first, .bg-light-first
+.btn-custom-light:hover
 {
-    background-color: var(--col-light-bg-primary);
+    background-color: var(--light-button-hover);
+    color: var(--light-text);
 }
 
-.btn-light-first:hover, .btn-outline-light-first:hover
+.btn-outline-custom-light:hover
 {
-    background-color: var(--col-light-bg-primary-hover);
+    background-color: var(--light-button-hover);
+    color: var(--light-text);
 }
 
-.btn-light-second, .btn-outline-light-second, .alert-light-second, .alert-light-second:hover
+.alert-custom-light, .alert-custom-light:hover
 {
-    border-color: var(--col-light-bg-secondary);
-    color: var(--col-light-text);
+    border-color: var(--light-alert);
+    background-color: var(--light-alert);
+    color: var(--light-text);
 }
 
-.text-light-second
+.bg-custom-light
 {
-    color: var(--col-light-bg-secondary);
-}
-
-.btn-light-second, .btn-outline-light-second:hover, .alert-light-second, .bg-light-second
-{
-    background-color: var(--col-light-bg-secondary);
-}
-
-.btn-light-second:hover, .btn-outline-light-second:hover
-{
-    background-color: var(--col-light-bg-secondary-hover);
-}
-
-.btn-light-third, .btn-outline-light-third, .alert-light-third, .alert-light-third:hover
-{
-    border-color: var(--col-light-bg-third);
-    color: var(--col-light-text);
-}
-
-.text-light-third
-{
-    color: var(--col-light-bg-third);
-}
-
-.btn-light-third, .btn-outline-light-third:hover, .alert-light-third, .bg-light-third
-{
-    background-color: var(--col-light-bg-third);
-}
-
-.btn-light-third:hover, .btn-outline-light-third:hover
-{
-    background-color: var(--col-light-bg-third-hover);
-}
-
-.btn-light-first:hover, .btn-outline-light-first:hover, .btn-light-second:hover, .btn-outline-light-second:hover, .btn-light-third:hover, .btn-outline-light-third:hover
-{
-    color: var(--col-dark-light);
+    background-color: var(--light-bg);
 }
 
 /* Shared */
-.btn-dark-first:focus, .btn-outline-dark-first:focus, .btn-dark-second:focus, .btn-outline-dark-second:focus, .btn-dark-third:focus, .btn-outline-dark-third:focus,
-.btn-light-first:focus, .btn-outline-light-first:focus, .btn-light-second:focus, .btn-outline-light-second:focus, .btn-light-third:focus, .btn-outline-light-third:focus
+.btn-custom-dark:focus, .btn-outline-custom-dark:focus
 {
     box-shadow: none;
 }
@@ -184,5 +117,5 @@
 /* Fixes */
 .card, .modal-content
 {
-    color: var(--col-light-text);
+    color: var(--light-text);
 }

@@ -1,5 +1,5 @@
 // Helper for improved cookie handling
-import { getCookieConsentValue } from "../components/fragments/CookieConsent";
+import { getCookieConsentValue } from "../components/CookieConsent";
 
 export const getCookieValue = (key: string) => {
   return localStorage.getItem(key);

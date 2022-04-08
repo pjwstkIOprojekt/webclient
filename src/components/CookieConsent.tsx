@@ -1,13 +1,14 @@
 // Custom cookie consent component
 import { useState, useEffect } from "react";
-import { useDarkMode } from "../../hooks/useDarkMode";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { useDarkMode } from "../hooks/useDarkMode";
+import { Container, Row, Col } from "react-bootstrap";
+import Button from "./fragments/Button";
 
 interface ConsentParams {
   debug?: boolean
 }
 
-export const CookieConsent = (props: ConsentParams) => {
+export const CookieConsent = (props: Readonly<ConsentParams>) => {
   const [isVisible, setIsVisible] = useState(false);
   const darkMode = useDarkMode();
 
@@ -27,16 +28,16 @@ export const CookieConsent = (props: ConsentParams) => {
   };
 
   return (
-    <Container className={`consent bg-dark-${darkMode ? "first" : "third"}`}>
+    <Container className={`consent bg-custom-${darkMode ? "dark" : "light"}`}>
       <Row className="consent-content">
-        <Col className="text-light pt-2">
+        <Col className="pt-2">
           Ta strona używa plików cookies. Podejmij jedyną słuszną decyzję.
         </Col>
         <Col md="auto">
-          <Button variant={darkMode ? "dark-third" : "light-second"} onClick={accept}>Zgadzam się</Button>
+          <Button onClick={accept} text="Zgadzam się" />
         </Col>
         <Col md="auto">
-          <Button variant={darkMode ? "dark-third" : "light-second"} onClick={accept}>Zgadzam się</Button>
+          <Button onClick={accept} text="Zgadzam się" />
         </Col>
       </Row>
     </Container>
