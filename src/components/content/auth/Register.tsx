@@ -1,34 +1,18 @@
-import { useDarkMode } from "../../../hooks/useDarkMode";
-import { Container, Form, FormGroup, Row, Button } from "react-bootstrap";
+import { Container, Form, Row } from "react-bootstrap";
+import FormControl from "../../fragments/FormControl";
+import Button from "../../fragments/Button";
 
 export default function Register() {
-  const dark = useDarkMode();
-
   return (
     <Container className="mt-5">
       <Form>
-        <FormGroup className="mb-3">
-          <Form.Label>Imię</Form.Label>
-          <Form.Control type="text" />
-        </FormGroup>
-        <FormGroup className="mb-3">
-          <Form.Label>Nazwisko</Form.Label>
-          <Form.Control type="text" />
-        </FormGroup>
-        <FormGroup className="mb-3">
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" />
-        </FormGroup>
-        <FormGroup className="mb-3">
-          <Form.Label>Hasło</Form.Label>
-          <Form.Control type="password" />
-        </FormGroup>
-        <FormGroup className="mb-3">
-          <Form.Label>Data urodzenia</Form.Label>
-          <Form.Control type="date" />
-        </FormGroup>
+        <FormControl className="mb-3" label="Imię" type="text" />
+        <FormControl className="mb-3" label="Nazwisko" type="text" />
+        <FormControl className="mb-3" label="Email" type="email" />
+        <FormControl className="mb-3" label="Hasło" type="password" />
+        <FormControl className="mb-3" label="Data urodzenia" type="date" />
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit" variant={dark ? "dark-first" : "light-second"}>Zarejestruj się</Button>
+          <Button className="mt-3 w-25" type="submit" text="Zarejestruj się" />
         </Row>
       </Form>
     </Container>
