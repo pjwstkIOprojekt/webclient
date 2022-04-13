@@ -1,13 +1,8 @@
 import { baseUrl, User, NewUser } from "../helpers/apiTypes";
 
-// Get current session role
-export function getRole() {
-  return fetch(`${baseUrl}/session/role`);
-}
-
 // Login request
 export function login(user: Readonly<User>) {
-  return fetch(`${baseUrl}/session/login`, {
+  return fetch(`${baseUrl}/login`, {
     method: "POST",
     headers: {
       "Content-type": "application/json; charset=UTF-8"
@@ -18,7 +13,7 @@ export function login(user: Readonly<User>) {
 
 // Registers new user
 export function registerUser(user: Readonly<NewUser>) {
-  return fetch(`${baseUrl}/register`, {
+  return fetch(`${baseUrl}/register/normal`, {
     method: "POST",
     headers: {
       "Content-type": "application/json; charset=UTF-8"

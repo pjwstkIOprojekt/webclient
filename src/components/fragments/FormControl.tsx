@@ -7,7 +7,7 @@ interface FormControlParams {
   label?: string,
   required?: boolean,
   type?: string,
-  onChange?: React.ChangeEventHandler,
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
   value?: string | string[] | number
 }
 
