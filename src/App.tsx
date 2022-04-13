@@ -5,8 +5,9 @@ import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
 import ForgotPassword from "./components/content/auth/ForgotPassword";
 import { CookieConsent } from "./components/CookieConsent";
-import TutorialView from "./components/content/video/TutorialView";
-import { Tutorial } from "./components/content/video/Tutorial";
+import TutorialView from "./components/content/tutorial/TutorialView";
+import { Tutorial } from "./components/content/tutorial/Tutorial";
+import MapView from "./components/content/map/MapView";
 
 export default function App() {
   const darkMode = useDarkModeManager();
@@ -21,8 +22,8 @@ export default function App() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Custom</Nav.Link>
             <Nav.Link onClick={darkMode.toggle}>Zmień motyw</Nav.Link>
-            <Nav.Link as={Link} to="/tutorial">Filmy</Nav.Link>
-            <Nav.Link as={Link} to="/">Mapa</Nav.Link>
+            <Nav.Link as={Link} to="/tutorial">Tutoriale</Nav.Link>
+            <Nav.Link as={Link} to="/map">Mapa</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link as={Link} to="/login">Login</Nav.Link>
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/iforgor" element={<ForgotPassword />} />
         <Route path="/tutorial" element={<TutorialView />} />
         <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
+        <Route path="/map" element={<MapView />} />
       </Routes>
       <CookieConsent debug />
     </BrowserRouter>
