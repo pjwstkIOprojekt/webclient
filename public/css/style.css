@@ -119,3 +119,8 @@
 {
     color: var(--light-text);
 }
+
+.map-container {
+    width: 100%;
+    height: 90vh;
+}
