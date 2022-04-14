@@ -10,7 +10,9 @@ interface ButtonParams {
   text?: string
 }
 
-export default function Button(props: Readonly<ButtonParams>) {
+const Button = (props: Readonly<ButtonParams>) => {
   const darkMode = useDarkMode();
   return <Inner className={props.className} onClick={props.onClick} variant={`${props.outline ? "outline-" : ""}custom-${darkMode ? "dark" : "light"}`} type={props.type}>{props.text}</Inner>;
-}
+};
+
+export default Button;
