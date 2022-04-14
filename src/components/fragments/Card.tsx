@@ -5,13 +5,12 @@ import { Card as Inner } from "react-bootstrap";
 interface CardParams {
   className?: string,
   children?: ReactChild[] | ReactChildren[],
-  key?: Key | null,
   style?: CSSProperties
 }
 
 const Card = (props: Readonly<CardParams>) => {
   const darkMode = useDarkMode();
-  return <Inner className={props.className} bg={`custom-${darkMode ? "dark" : "light"}`} key={props.key} style={props.style}>{props.children}</Inner>;
+  return <Inner className={props.className} bg={`custom-${darkMode ? "dark" : "light"}`} style={props.style}>{props.children}</Inner>;
 };
 
 export default Card;
