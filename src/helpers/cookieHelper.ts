@@ -2,7 +2,8 @@
 import { getCookieConsentValue } from "../components/CookieConsent";
 
 export const getCookieValue = (key: string) => {
-  return localStorage.getItem(key);
+  const tmp = localStorage.getItem(key);
+  return tmp === null ? "" : tmp;
 };
 
 export const setCookieValue = (key: string, value: string) => {

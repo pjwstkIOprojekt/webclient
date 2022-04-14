@@ -1,16 +1,18 @@
 // Base url for requests
-export const baseUrl = "http://localhost:8080/api/v1";
+export const baseUrl = "http://localhost:8080";
 
 // API types definitions
 export interface User {
-  email: string,
+  username: string,
   password: string
 }
 
 export interface NewUser extends User {
   firstName: string,
   lastName: string,
-  birthDate: number
+  email: string,
+  birthDate: Date,
+  phoneNumber: string
 }
 
 export interface LoginResponse {
