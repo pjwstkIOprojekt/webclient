@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { registerUser } from "../../../apiCalls/authCalls";
+import { login, registerUser } from "../../../apiCalls/authCalls";
 import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
@@ -16,14 +16,16 @@ export default function Register() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const user = username;
+    const pass = password;
     let response: Response;
 
     registerUser({
       firstName: firstName,
       lastName: lastName,
       email: email,
-      username: username,
-      password: password,
+      username: user,
+      password: pass,
       birthDate: new Date(birthDate),
       phoneNumber: phoneNumber
     }).then(res => {
@@ -31,10 +33,28 @@ export default function Register() {
       return res.json();
     }).then(data => {
       if (response.status === 200 && data) {
+        let result = "";
 
+        login({
+          username: user,
+          password: pass
+        }).then(res => {
+          if (res.status === 200 && res.body) {
+            const reader = res.body.getReader();
+
+            reader.read().then(function processText(data): Promise<any> | undefined {
+              const { done, value } = data;
+
+              if (!done) {
+                result += value;
+                return reader.read().then(processText);
+              }
+            });
+
+            handleLogin(result);
+          }
+        });
       }
-
-      console.log(data);
     }).catch(err => console.log(err));
   };
 

@@ -6,7 +6,7 @@ export const getCurrentUser = () => {
 };
 
 // Handles user login
-export const handleLogin = (user: any) => {
+export const handleLogin = (user: string) => {
   setCookieValue("user", user);
 };
 

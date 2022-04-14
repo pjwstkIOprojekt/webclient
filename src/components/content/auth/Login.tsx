@@ -13,21 +13,12 @@ export default function Login() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let response: Response;
+    let result = "";
 
     login({
       username: username,
       password: password
-    }).then(res => {
-      response = res;
-      return res.json();
-    }).then(data => {
-      if (response.status === 200 && data) {
-
-      }
-
-      console.log(data);
-    }).catch(err => console.log(err));
+    }).then(res => res.text()).then(data => console.log(data)).catch(err => console.log(err));
   };
 
   return (
