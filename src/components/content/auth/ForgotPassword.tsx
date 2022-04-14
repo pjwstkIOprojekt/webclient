@@ -1,24 +1,26 @@
-import { Container, Form, FormGroup, Row, Button } from "react-bootstrap";
+import { Container, Form, Row } from "react-bootstrap";
+import FormControl from "../../fragments/FormControl";
+import Button from "../../fragments/Button";
 
-export default function ForgotPassword() {
+const ForgotPassword = () => {
   return (
     <Container className="mt-5">
       <Form>
-        <FormGroup className="mb-3">
-          <Form.Label>Podaj swój adres e-mail, który ma zostać użyty w celu weryfikacji</Form.Label>
-          <Form.Control type="email" />
-        </FormGroup>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" variant="light-second">Wyślij kod</Button>
+          <FormControl id="email" className="mb-3 w-50" label="Podaj swój adres e-mail, który ma zostać użyty w celu weryfikacji" type="email" />
         </Row>
-        <FormGroup className="mb-3">
-          <Form.Label>Tu wpisz wysłany kod</Form.Label>
-          <Form.Control type="password" />
-        </FormGroup>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit" variant="light-second">Zweryfikuj</Button>
+          <Button className="mt-3 w-25" text="Wyślij kod" />
+        </Row>
+        <Row className="justify-content-center">
+          <FormControl id="code" className="mb-3 w-50" label="Tu wpisz wysłany kod" type="password" />
+        </Row>
+        <Row className="justify-content-center">
+          <Button className="mt-3 w-25" type="submit" text="Zweryfikuj" />
         </Row>
       </Form>
     </Container>
   );
-}
+};
+
+export default ForgotPassword;

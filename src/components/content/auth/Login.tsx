@@ -1,24 +1,36 @@
 import { useNavigate } from "react-router-dom";
 import { useState, FormEvent } from "react";
 import { login } from "../../../apiCalls/authCalls";
+import { acceptCookies } from "../../CookieConsent";
 import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
 import Button from "../../fragments/Button";
 
-export default function Login() {
+const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let result = "";
+    let response: Response;
 
     login({
       username: username,
       password: password
-    }).then(res => res.text()).then(data => console.log(data)).catch(err => console.log(err));
+    }).then(res => {
+      response = res;
+      return res.text();
+    }).then(data => {
+      if (response.status === 200 && data) {
+        acceptCookies();
+        handleLogin({ token: data });
+      }
+
+      console.log(response);
+      console.log(data);
+    }).catch(err => console.log(err));
   };
 
   return (
@@ -33,10 +45,12 @@ export default function Login() {
         <Row className="justify-content-center">
           <Button className="mt-3 w-25" type="submit" text="Zaloguj się" />
         </Row>
-        <Row className="justify-content-center">
-          <Button className="mt-3 w-25" onClick={() => navigate("/iforgor")} text="Nie pamiętam hasła" />
-        </Row>
       </Form>
+      <Row className="justify-content-center">
+        <Button className="mt-3 w-25" onClick={() => navigate("/iforgor")} text="Nie pamiętam hasła" />
+      </Row>
     </Container>
   );
-}
+};
+
+export default Login;

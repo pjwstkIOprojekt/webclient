@@ -23,7 +23,7 @@ export const CookieConsent = (props: Readonly<ConsentParams>) => {
   }
 
   const accept = () => {
-    localStorage.setItem("cookieConsent", "true");
+    acceptCookies();
     setIsVisible(false);
   };
 
@@ -42,6 +42,10 @@ export const CookieConsent = (props: Readonly<ConsentParams>) => {
       </Row>
     </Container>
   );
+};
+
+export const acceptCookies = () => {
+  localStorage.setItem("cookieConsent", "true");
 };
 
 export const getCookieConsentValue = () => {

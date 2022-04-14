@@ -4,14 +4,14 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
 import ForgotPassword from "./components/content/auth/ForgotPassword";
-import { CookieConsent } from "./components/CookieConsent";
 import TutorialView from "./components/content/tutorial/TutorialView";
-import { Tutorial } from "./components/content/tutorial/Tutorial";
+import Tutorial from "./components/content/tutorial/Tutorial";
 import MapView from "./components/content/map/MapView";
+import { CookieConsent } from "./components/CookieConsent";
 
 import { handleLogout } from "./helpers/authHelper";
 
-export default function App() {
+const App = () => {
   const darkMode = useDarkModeManager();
 
   return (
@@ -21,15 +21,15 @@ export default function App() {
           <Navbar.Brand>GARY</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Strona tymczasowa</Nav.Link>
-            <Nav.Link as={Link} to="/login">Zaloguj się</Nav.Link>
-            <Nav.Link as={Link} to="/register">Rejestracja</Nav.Link>
-            <Nav.Link as={Link} to="/tutorial">Tutoriale</Nav.Link>
-            <Nav.Link as={Link} to="/map">Mapa</Nav.Link>
-            <Nav.Link onClick={handleLogout}>Wyloguj</Nav.Link>
-            <Nav.Link onClick={darkMode.toggle}>Zmień motyw</Nav.Link>
-          </Nav>
+            <Nav className="me-auto">
+              <Nav.Link as={Link} to="/">Strona tymczasowa</Nav.Link>
+              <Nav.Link as={Link} to="/login">Zaloguj się</Nav.Link>
+              <Nav.Link as={Link} to="/register">Rejestracja</Nav.Link>
+              <Nav.Link as={Link} to="/tutorial">Tutoriale</Nav.Link>
+              <Nav.Link as={Link} to="/map">Mapa</Nav.Link>
+              <Nav.Link onClick={handleLogout}>Wyloguj</Nav.Link>
+              <Nav.Link onClick={darkMode.toggle}>Zmień motyw</Nav.Link>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -44,4 +44,6 @@ export default function App() {
       <CookieConsent debug />
     </BrowserRouter>
   );
-}
+};
+
+export default App;

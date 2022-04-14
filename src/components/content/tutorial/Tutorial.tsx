@@ -1,21 +1,14 @@
-import React from "react";
-import { Card, Container } from "react-bootstrap";
-import { useDarkModeManager } from "../../../hooks/useDarkMode";
+import { Container, Card } from "react-bootstrap";
+import CustomCard from "../../fragments/Card";
 
-export const Tutorial = () => {
-  const darkMode = useDarkModeManager();
-
+const Tutorial = () => {
   return (
     <Container className="mt-3">
       <h1>Tutorial</h1>
-      <Card
-        className="mt-3 mx-3"
-        bg={`custom-${darkMode.isDark ? "dark" : "light-text"}`}
-      >
-        <Card.Img variant="top" src="/images/thumbnail.jpg" height="360" />
-
+      <CustomCard className="mt-3 mx-3">
+        <Card.Img variant="top" src="/img/thumbnail.jpg" height="360" />
         <Card.Body>
-          <Card.Title className={darkMode.isDark ? "text-light" : ""}>
+          <Card.Title>
             <h3>Step 1</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -41,15 +34,11 @@ export const Tutorial = () => {
             </p>
           </Card.Title>
         </Card.Body>
-      </Card>
-      <Card
-        className="mt-3 mx-3"
-        bg={`custom-${darkMode.isDark ? "dark" : "light-text"}`}
-      >
-        <Card.Img variant="top" src="/images/thumbnail.jpg" height="360" />
-
+      </CustomCard>
+      <CustomCard className="mt-3 mx-3">
+        <Card.Img variant="top" src="/img/thumbnail.jpg" height="360" />
         <Card.Body>
-          <Card.Title className={darkMode.isDark ? "text-light" : ""}>
+          <Card.Title>
             <h3>Step 2</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -75,7 +64,9 @@ export const Tutorial = () => {
             </p>
           </Card.Title>
         </Card.Body>
-      </Card>
+      </CustomCard>
     </Container>
   );
 };
+
+export default Tutorial;

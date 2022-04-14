@@ -1,8 +1,12 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Card, Container } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Container, Card } from "react-bootstrap";
+import CustomCard from "../../fragments/Card";
 import { Link } from "react-router-dom";
-import { useDarkModeManager } from "../../../hooks/useDarkMode";
+
+interface TutorialType {
+  id: number,
+  name: string
+}
 
 const tutorials = [
   { id: 1, name: "Tutorial" },
@@ -25,8 +29,7 @@ const tutorials = [
 ];
 
 const TutorialView = () => {
-  const darkMode = useDarkModeManager();
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<TutorialType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -41,24 +44,23 @@ const TutorialView = () => {
     fetchItems();
   }, []);
 
+  if (isLoading) {
+    return <></>;
+  }
+
   return (
     <Container className="d-flex flex-wrap">
       {items.map((item) => (
-        <Card
-          style={{ width: "18rem" }}
-          className="mt-3 mx-3"
-          bg={`custom-${darkMode.isDark ? "dark" : "light-text"}`}
-          key={item.id} 
-        >
+        <CustomCard style={{ width: "18rem" }} className="mt-3 mx-3" key={item.id}>
           <Link to={`/tutorial/${item.id}`} className="mt-0">
-            <Card.Img variant="top" src="images/thumbnail.jpg" width="270" />
+            <Card.Img variant="top" src="img/thumbnail.jpg" width="270" />
           </Link>
           <Card.Body>
-            <Card.Title className={darkMode.isDark ? "text-light" : ""}>
+            <Card.Title>
               {item.name}
             </Card.Title>
           </Card.Body>
-        </Card>
+        </CustomCard>
       ))}
     </Container>
   );

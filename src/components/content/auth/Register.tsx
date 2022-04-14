@@ -1,11 +1,12 @@
 import { useState, FormEvent } from "react";
-import { login, registerUser } from "../../../apiCalls/authCalls";
+import { registerUser, login } from "../../../apiCalls/authCalls";
+import { acceptCookies } from "../../CookieConsent";
 import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
 import Button from "../../fragments/Button";
 
-export default function Register() {
+const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,28 +34,22 @@ export default function Register() {
       return res.json();
     }).then(data => {
       if (response.status === 200 && data) {
-        let result = "";
-
         login({
           username: user,
           password: pass
         }).then(res => {
-          if (res.status === 200 && res.body) {
-            const reader = res.body.getReader();
-
-            reader.read().then(function processText(data): Promise<any> | undefined {
-              const { done, value } = data;
-
-              if (!done) {
-                result += value;
-                return reader.read().then(processText);
-              }
-            });
-
-            handleLogin(result);
+          response = res;
+          return res.text();
+        }).then(token => {
+          if (response.status === 200 && token) {
+            acceptCookies();
+            handleLogin({ token: token });
           }
         });
       }
+
+      console.log(response);
+      console.log(data);
     }).catch(err => console.log(err));
   };
 
@@ -88,4 +83,6 @@ export default function Register() {
       </Form>
     </Container>
   );
-}
+};
+
+export default Register;
