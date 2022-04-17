@@ -118,3 +118,44 @@
     min-height: 80vh;
     width: 100%;
 }
+
+.tutorial-grid {
+    display: grid;
+    gap: 16px;
+    padding: 32px;
+}
+
+.tutorial-element {
+    padding: 1rem;
+    max-width: 500px;
+}
+
+.img {
+    display: block;
+    width: 100%;
+    max-width: 100%
+}
+
+@media (min-width: 768px) {
+    .tutorial-grid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+}
+
+@media (min-width: 960px) {
+    .tutorial-grid {
+        grid-template-columns: repeat(3, 1fr)
+    }
+}
+
+@media (min-width: 1200px) {
+    .tutorial-grid {
+        grid-template-columns: repeat(4, 1fr)
+    }
+}
+
+@media (min-width: 1600px) {
+    .tutorial-grid {
+        grid-template-columns: repeat(5, 1fr)
+    }
+}
