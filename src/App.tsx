@@ -16,7 +16,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Navbar bg={`custom-${darkMode.isDark ? "dark" : "light"}`} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
+      <Navbar bg={`navbar-${darkMode.isDark ? "dark" : "light"}`} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
         <Container fluid className="mx-3">
           <Navbar.Brand>GARY</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

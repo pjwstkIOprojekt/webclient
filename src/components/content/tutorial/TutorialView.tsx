@@ -54,7 +54,7 @@ const TutorialView = () => {
         {items.map((item) => (
           <Link to={`/tutorial/${item.id}`} className="mt-0 text-decoration-none text-reset" key={item.id}>
             <CustomCard className="col">
-              <Card.Img variant="top" src="img/thumbnail.jpg" className="img" />
+              <Card.Img variant="top" src="/img/thumbnail.jpg" className="img" />
               <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
               </Card.Body>

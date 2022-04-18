@@ -2,14 +2,16 @@
 {
     --dark-text: #ffffff;
     --light-text: #000000;
-    --dark-button: #4b4b4b;
+    --dark-button: #c59812;
     --dark-button-hover: #d6a923;
     --light-button: #4caf50;
     --light-button-hover: #3b9e40;
     --dark-alert: #4c4c4c;
     --light-alert: #4caf50;
-    --dark-bg: #3a3a3a;
+    --dark-bg: #4a4a4a;
     --light-bg: #c9eec9;
+    --dark-nav: #a37600;
+    --light-nav: #c9eec9;
 }
 
 /* Dark themes */
@@ -50,6 +52,11 @@
     background-color: var(--dark-bg);
 }
 
+.bg-navbar-dark
+{
+    background-color: var(--dark-nav);
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -86,6 +93,11 @@
 .bg-custom-light
 {
     background-color: var(--light-bg);
+}
+
+.bg-navbar-light
+{
+    background-color: var(--light-nav);
 }
 
 /* Shared */
