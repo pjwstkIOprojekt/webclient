@@ -1,6 +1,5 @@
 import { useState, FormEvent } from "react";
-import { registerUser, login } from "../../../apiCalls/authCalls";
-import { acceptCookies } from "../../CookieConsent";
+import { registerUser } from "../../../apiCalls/authCalls";
 import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
@@ -34,22 +33,11 @@ const Register = () => {
       return res.json();
     }).then(data => {
       if (response.status === 200 && data) {
-        login({
+        handleLogin({
           username: user,
           password: pass
-        }).then(res => {
-          response = res;
-          return res.text();
-        }).then(token => {
-          if (response.status === 200 && token) {
-            acceptCookies();
-            handleLogin({ token: token });
-          }
         });
       }
-
-      console.log(response);
-      console.log(data);
     }).catch(err => console.log(err));
   };
 
