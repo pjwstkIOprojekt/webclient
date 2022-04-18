@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import Map from "../map/Map";
+import Map from "./Map";
 
 const MapView = () => {
   return (

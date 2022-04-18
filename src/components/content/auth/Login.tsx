@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useState, FormEvent } from "react";
-import { login } from "../../../apiCalls/authCalls";
-import { acceptCookies } from "../../CookieConsent";
 import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
@@ -14,23 +12,11 @@ const Login = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let response: Response;
 
-    login({
+    handleLogin({
       username: username,
       password: password
-    }).then(res => {
-      response = res;
-      return res.text();
-    }).then(data => {
-      if (response.status === 200 && data) {
-        acceptCookies();
-        handleLogin({ token: data });
-      }
-
-      console.log(response);
-      console.log(data);
-    }).catch(err => console.log(err));
+    });
   };
 
   return (
