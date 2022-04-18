@@ -4,8 +4,8 @@ import CustomCard from "../../fragments/Card";
 import { Link } from "react-router-dom";
 
 interface TutorialType {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 
 const tutorials = [
@@ -49,20 +49,24 @@ const TutorialView = () => {
   }
 
   return (
-    <Container className="d-flex flex-wrap">
+    <>
+    <div className="tutorial-grid">
       {items.map((item) => (
-        <CustomCard style={{ width: "18rem" }} className="mt-3 mx-3" key={item.id}>
-          <Link to={`/tutorial/${item.id}`} className="mt-0">
-            <Card.Img variant="top" src="img/thumbnail.jpg" width="270" />
-          </Link>
-          <Card.Body>
-            <Card.Title>
-              {item.name}
-            </Card.Title>
-          </Card.Body>
-        </CustomCard>
+        <Link to={`/tutorial/${item.id}`} className="mt-0 text-decoration-none text-reset" key={item.id}>
+          <CustomCard className="col" >
+            <Card.Img
+              variant="top"
+              src="img/thumbnail.jpg"
+              className="img"
+              />
+            <Card.Body>
+              <Card.Title>{item.name}</Card.Title>
+            </Card.Body>
+          </CustomCard>
+        </Link>
       ))}
-    </Container>
+    </div>
+      </>
   );
 };
 
