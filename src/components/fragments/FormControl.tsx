@@ -1,7 +1,7 @@
 import React from "react";
 import { FormGroup, Form } from "react-bootstrap";
 
-interface FormControlParams {
+export interface FormControlParams {
   id?: string,
   className?: string,
   label?: string,
