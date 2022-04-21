@@ -1,5 +1,5 @@
 import React from "react";
-import { FormGroup, Form, Row } from "react-bootstrap";
+import { FormGroup, Form } from "react-bootstrap";
 
 interface FormCheckParams {
   id?: string,
@@ -7,26 +7,16 @@ interface FormCheckParams {
   label?: string,
   value?: string | number | boolean,
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
-  disabled?: boolean,
-  rowClass?: string
+  disabled?: boolean
 }
 
 const FormCheck = (props: Readonly<FormCheckParams>) => {
-  const content = (
+  return (
     <FormGroup controlId={props.id} className={props.className}>
-      <Form.Check label={props.label} type="checkbox" checked={props.value ? true : false} onChange={props.onChange} disabled={props.disabled} />
+      {props.label ? <Form.Label>{props.label}</Form.Label> : ""}
+      <input id={props.id} type="checkbox" onChange={props.onChange} checked={props.value ? true : false} disabled={props.disabled} />
     </FormGroup>
   );
-
-  if (props.rowClass) {
-    return (
-      <Row className={props.rowClass}>
-        {content}
-      </Row>
-    );
-  }
-
-  return content;
 };
 
 export default FormCheck;
