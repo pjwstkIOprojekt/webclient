@@ -46,7 +46,7 @@ const App = () => {
         <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
         <Route path="/map" element={<MapView />} />
         <Route path="/reports" element={<ReportsList />} />
-        <Route path="/report/:reportId" element={<AccidentReport />} />
+        <Route path="/report/:reportId" element={<CreateReport disabled />} />
         <Route path="/newreport" element={<CreateReport />} />
       </Routes>
       <CookieConsent debug />

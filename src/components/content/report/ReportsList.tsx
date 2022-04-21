@@ -9,13 +9,13 @@ interface Report {
 
 const reports = [
   { id: 1, rating: 2 },
-  { id: 1, rating: 7 },
-  { id: 1, rating: 5 },
-  { id: 1, rating: 3 },
-  { id: 1, rating: 4 },
-  { id: 1, rating: 9 },
-  { id: 1, rating: 8 },
-  { id: 1, rating: 6 }
+  { id: 2, rating: 7 },
+  { id: 3, rating: 5 },
+  { id: 4, rating: 3 },
+  { id: 5, rating: 4 },
+  { id: 6, rating: 9 },
+  { id: 7, rating: 8 },
+  { id: 8, rating: 6 }
 ];
 
 const getColor = (num: number) => {

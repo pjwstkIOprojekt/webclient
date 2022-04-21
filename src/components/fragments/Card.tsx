@@ -2,7 +2,7 @@ import { ReactChild, ReactChildren, CSSProperties } from "react";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { Card as Inner } from "react-bootstrap";
 
-export interface CardParams {
+interface CardParams {
   className?: string,
   children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[],
   style?: CSSProperties

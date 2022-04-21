@@ -1,24 +1,28 @@
 import React from "react";
 import { FormGroup, Form, Row } from "react-bootstrap";
 
-interface FormControlParams {
+interface FormSelectParams {
   id?: string,
   className?: string,
   label?: string,
-  required?: boolean,
-  type?: string,
-  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+  options?: string[],
   value?: string | number,
-  placeholder?: string,
+  onChange?: React.ChangeEventHandler<HTMLSelectElement>,
   disabled?: boolean,
   rowClass?: string
 }
 
-const FormControl = (props: Readonly<FormControlParams>) => {
+const FormSelect = (props: Readonly<FormSelectParams>) => {
+  let count = 0;
+
   const content = (
     <FormGroup controlId={props.id} className={props.className}>
       {props.label ? <Form.Label>{props.label}</Form.Label> : ""}
-      <Form.Control required={props.required} type={props.type ? props.type : "text"} onChange={props.onChange} value={props.value} placeholder={props.placeholder} disabled={props.disabled} />
+      <Form.Select value={props.value} onChange={props.onChange} disabled={props.disabled}>
+        {props.options ? props.options.map(opt => (
+          <option value={count++}>{opt}</option>
+        )) : ""}
+      </Form.Select>
     </FormGroup>
   );
 
@@ -33,4 +37,4 @@ const FormControl = (props: Readonly<FormControlParams>) => {
   return content;
 };
 
-export default FormControl;
+export default FormSelect;

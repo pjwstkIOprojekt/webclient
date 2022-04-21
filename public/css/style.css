@@ -4,14 +4,14 @@
     --light-text: #000000;
     --dark-button: #c59812;
     --dark-button-hover: #d6a923;
-    --light-button: #4caf50;
-    --light-button-hover: #3b9e40;
+    --light-button: #98dd98;
+    --light-button-hover: #5dbf62;
     --dark-alert: #4c4c4c;
     --light-alert: #4caf50;
     --dark-bg: #4a4a4a;
-    --light-bg: #c9eec9;
+    --light-bg: #4caf50;
     --dark-nav: #a37600;
-    --light-nav: #c9eec9;
+    --light-nav: #4caf50;
 }
 
 /* Dark themes */

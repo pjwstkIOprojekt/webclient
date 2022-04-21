@@ -1,24 +1,23 @@
 import React from "react";
 import { FormGroup, Form, Row } from "react-bootstrap";
 
-interface FormControlParams {
+interface FormTextAreaParams {
   id?: string,
   className?: string,
   label?: string,
-  required?: boolean,
-  type?: string,
-  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+  rows?: number,
+  cols?: number,
   value?: string | number,
-  placeholder?: string,
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>,
   disabled?: boolean,
   rowClass?: string
 }
 
-const FormControl = (props: Readonly<FormControlParams>) => {
+const FormTextArea = (props: Readonly<FormTextAreaParams>) => {
   const content = (
     <FormGroup controlId={props.id} className={props.className}>
       {props.label ? <Form.Label>{props.label}</Form.Label> : ""}
-      <Form.Control required={props.required} type={props.type ? props.type : "text"} onChange={props.onChange} value={props.value} placeholder={props.placeholder} disabled={props.disabled} />
+      <textarea id={props.id} className="form-control" rows={props.rows} cols={props.cols} value={props.value} onChange={props.onChange} disabled={props.disabled} />
     </FormGroup>
   );
 
@@ -33,4 +32,4 @@ const FormControl = (props: Readonly<FormControlParams>) => {
   return content;
 };
 
-export default FormControl;
+export default FormTextArea;

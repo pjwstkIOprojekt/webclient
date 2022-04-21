@@ -2,7 +2,7 @@ import React from "react";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { Button as Inner } from "react-bootstrap";
 
-export interface ButtonParams {
+interface ButtonParams {
   className?: string,
   onClick?: React.MouseEventHandler<HTMLButtonElement>,
   outline?: boolean,
