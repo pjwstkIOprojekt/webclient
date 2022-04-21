@@ -7,6 +7,9 @@ import ForgotPassword from "./components/content/auth/ForgotPassword";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
 import MapView from "./components/content/map/MapView";
+import ReportsList from "./components/content/report/ReportsList";
+import AccidentReport from "./components/content/report/AccidentReport";
+import CreateReport from "./components/content/report/CreateReport";
 import { CookieConsent } from "./components/CookieConsent";
 
 import { handleLogout } from "./helpers/authHelper";
@@ -27,6 +30,8 @@ const App = () => {
               <Nav.Link as={Link} to="/register">Rejestracja</Nav.Link>
               <Nav.Link as={Link} to="/tutorial">Tutoriale</Nav.Link>
               <Nav.Link as={Link} to="/map">Mapa</Nav.Link>
+              <Nav.Link as={Link} to="/reports">Zgłoszenia</Nav.Link>
+              <Nav.Link as={Link} to="/newreport">Stwórz zgłoszenie</Nav.Link>
               <Nav.Link onClick={handleLogout}>Wyloguj</Nav.Link>
               <Nav.Link onClick={darkMode.toggle}>Zmień motyw</Nav.Link>
             </Nav>
@@ -40,6 +45,9 @@ const App = () => {
         <Route path="/tutorial" element={<TutorialView />} />
         <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
         <Route path="/map" element={<MapView />} />
+        <Route path="/reports" element={<ReportsList />} />
+        <Route path="/report/:reportId" element={<CreateReport disabled />} />
+        <Route path="/newreport" element={<CreateReport />} />
       </Routes>
       <CookieConsent debug />
     </BrowserRouter>
