@@ -1,5 +1,5 @@
-// Base url for requests
-export const baseUrl = "http://localhost:8080";
+// Base url for requests, change to 'localhost:8080' if you want to test with local backend
+export const baseUrl = "http://172.21.40.111:8080";
 
 // API types definitions
 export interface User {
