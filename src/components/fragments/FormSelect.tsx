@@ -5,6 +5,7 @@ interface FormSelectParams {
   id?: string,
   className?: string,
   label?: string,
+  required?: boolean,
   options?: string[],
   value?: string | number,
   onChange?: React.ChangeEventHandler<HTMLSelectElement>,
@@ -17,9 +18,9 @@ const FormSelect = (props: Readonly<FormSelectParams>) => {
   return (
     <FormGroup controlId={props.id} className={props.className}>
       {props.label ? <Form.Label>{props.label}</Form.Label> : ""}
-      <Form.Select value={props.value} onChange={props.onChange} disabled={props.disabled}>
+      <Form.Select required={props.required} value={props.value} onChange={props.onChange} disabled={props.disabled}>
         {props.options ? props.options.map(opt => (
-          <option value={count++}>{opt}</option>
+          <option key={count} value={count++}>{opt}</option>
         )) : ""}
       </Form.Select>
     </FormGroup>
