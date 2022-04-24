@@ -12,6 +12,7 @@
     --light-bg: #4caf50;
     --dark-nav: #a37600;
     --light-nav: #4caf50;
+    --required: #ff0000;
 }
 
 /* Dark themes */
@@ -124,6 +125,11 @@
     flex: 1 0 300px;
     margin: 15px;
     text-align: center;
+}
+
+.req
+{
+    color: var(--required);
 }
 
 .leaflet-container

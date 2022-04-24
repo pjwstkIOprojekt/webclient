@@ -17,7 +17,7 @@ const FormSelect = (props: Readonly<FormSelectParams>) => {
 
   return (
     <FormGroup controlId={props.id} className={props.className}>
-      {props.label ? <Form.Label>{props.label}</Form.Label> : ""}
+      {props.label ? <Form.Label>{props.label}{props.required ? <span className="req">*</span> : ""}</Form.Label> : ""}
       <Form.Select required={props.required} value={props.value} onChange={props.onChange} disabled={props.disabled}>
         {props.options ? props.options.map(opt => <option key={count} value={count++}>{opt}</option>) : ""}
       </Form.Select>

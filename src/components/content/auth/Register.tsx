@@ -42,31 +42,32 @@ const Register = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container className="d-flex flex-column justify-content-center min-vh-100">
+      <h1 className="text-center mb-3">Rejestracja</h1>
       <Form onSubmit={handleSubmit}>
-        <Row className="justify-content-center">
-          <FormControl id="firstName" onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label="Imię" type="text" />
+        <Row className="justify-content-center mb-3">
+          <FormControl id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="w-50" label="Imię" type="text" />
         </Row>
-        <Row className="justify-content-center">
-          <FormControl id="lastName" onChange={e => setLastName(e.target.value)} value={lastName} className="mb-3 w-50" label="Nazwisko" type="text" />
+        <Row className="justify-content-center mb-3">
+          <FormControl id="lastName" required onChange={e => setLastName(e.target.value)} value={lastName} className="w-50" label="Nazwisko" type="text" />
         </Row>
-        <Row className="justify-content-center">
-          <FormControl id="email" onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" type="email" />
+        <Row className="justify-content-center mb-3">
+          <FormControl id="email" required onChange={e => setEmail(e.target.value)} value={email} className="w-50" label="Email" type="email" />
         </Row>
-        <Row className="justify-content-center">
-          <FormControl id="username" onChange={e => setUsername(e.target.value)} value={username} className="mb-3 w-50" label="Nazwa użytkownika" type="text" />
+        <Row className="justify-content-center mb-3">
+          <FormControl id="username" required onChange={e => setUsername(e.target.value)} value={username} className="w-50" label="Nazwa użytkownika" type="text" />
         </Row>
-        <Row className="justify-content-center">
-          <FormControl id="password" onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" type="password" />
+        <Row className="justify-content-center mb-3">
+          <FormControl id="password" required onChange={e => setPassword(e.target.value)} value={password} className="w-50" label="Hasło" type="password" />
         </Row>
-        <Row className="justify-content-center">
-          <FormControl id="birthDate" onChange={e => setBirthDate(e.target.value)} value={birthDate} className="mb-3 w-50" label="Data urodzenia" type="date" />
+        <Row className="justify-content-center mb-3">
+          <FormControl id="birthDate" required onChange={e => setBirthDate(e.target.value)} value={birthDate} className="w-50" label="Data urodzenia" type="date" />
         </Row>
-        <Row className="justify-content-center">
-          <FormControl id="phoneNumber" onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="mb-3 w-50" label="Numer telefonu" type="text" />
+        <Row className="justify-content-center mb-3">
+          <FormControl id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="w-50" label="Numer telefonu" type="text" />
         </Row>
-        <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit" text="Zarejestruj się" />
+        <Row className="justify-content-center mt-3">
+          <Button className="w-25" type="submit" text="Zarejestruj się" />
         </Row>
       </Form>
     </Container>
