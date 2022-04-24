@@ -1,4 +1,4 @@
-import React from "react";
+import { ChangeEventHandler } from "react";
 import { FormGroup, Form } from "react-bootstrap";
 
 interface FormControlParams {
@@ -7,8 +7,8 @@ interface FormControlParams {
   label?: string,
   required?: boolean,
   type?: string,
-  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
-  value?: string | number,
+  onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+  value?: string | number | string[],
   placeholder?: string,
   disabled?: boolean
 }
