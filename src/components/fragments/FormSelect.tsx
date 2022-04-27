@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import { FormGroup, Form } from "react-bootstrap";
 
-interface FormSelectParams {
+export interface FormSelectParams {
   id?: string,
   className?: string,
   label?: string,

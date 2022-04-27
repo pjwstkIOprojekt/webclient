@@ -6,7 +6,7 @@ import Register from "./components/content/auth/Register";
 import ForgotPassword from "./components/content/auth/ForgotPassword";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
-import MapView from "./components/content/map/MapView";
+import MapView from "./components/fragments/MapView";
 import ReportsList from "./components/content/report/ReportsList";
 import AccidentReport from "./components/content/report/AccidentReport";
 import CreateReport from "./components/content/report/CreateReport";
@@ -44,7 +44,7 @@ const App = () => {
         <Route path="/iforgor" element={<ForgotPassword />} />
         <Route path="/tutorial" element={<TutorialView />} />
         <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
-        <Route path="/map" element={<MapView />} />
+        <Route path="/map" element={<MapView center={[52.222, 21.015]} initialZoom={12} />} />
         <Route path="/reports" element={<ReportsList />} />
         <Route path="/report/:reportId" element={<CreateReport disabled />} />
         <Route path="/newreport" element={<CreateReport />} />

@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import { FormGroup, Form } from "react-bootstrap";
 
-interface FormCheckParams {
+export interface FormCheckParams {
   id?: string,
   className?: string,
   label?: string,

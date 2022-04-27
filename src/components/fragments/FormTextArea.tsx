@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import { FormGroup, Form } from "react-bootstrap";
 
-interface FormTextAreaParams {
+export interface FormTextAreaParams {
   id?: string,
   className?: string,
   label?: string,

@@ -2,7 +2,7 @@ import { Path, Link as Inner } from "react-router-dom";
 import { ReactChild, ReactChildren } from "react";
 import { useDarkMode } from "../../hooks/useDarkMode";
 
-interface LinkParams {
+export interface LinkParams {
   to: string | Partial<Path>,
   className?: string,
   children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[]

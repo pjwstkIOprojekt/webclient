@@ -1,11 +1,11 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
-interface Position {
+export interface Position {
   coords: [number, number],
   desc?: string
 }
 
-interface MapParams {
+export interface MapParams {
   center: [number, number],
   initialZoom: number,
   marks?: Position[]

@@ -4,7 +4,7 @@ import Button from "../../fragments/Button";
 
 const ForgotPassword = () => {
   return (
-    <Container className="d-flex flex-column justify-content-center min-vh-100">
+    <Container className="vertical-center">
       <h1 className="text-center mb-3">Nie pamiętam hasła</h1>
       <Form>
         <Row className="justify-content-center mb-3">

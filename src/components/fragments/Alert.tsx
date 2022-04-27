@@ -2,7 +2,7 @@ import { ReactChild, ReactChildren } from "react";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { Alert as Inner } from "react-bootstrap";
 
-interface AlertParams {
+export interface AlertParams {
   className?: string,
   children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
 }

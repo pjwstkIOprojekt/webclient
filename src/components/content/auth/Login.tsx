@@ -19,7 +19,7 @@ const Login = () => {
   };
 
   return (
-    <Container className="d-flex flex-column justify-content-center min-vh-100">
+    <Container className="vertical-center">
       <h1 className="text-center mb-3">Logowanie</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center mb-3">

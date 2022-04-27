@@ -147,10 +147,28 @@
     display: contents;
 }
 
+.vertical-center
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 94vh;
+}
+
+.navbar
+{
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+}
+
 .leaflet-container
 {
-    min-height: 80vh;
-    width: 100%;
+    position: fixed;
+    min-height: 94vh;
+    right: 0;
+    width: 65%;
 }
 
 .tutorial-grid
