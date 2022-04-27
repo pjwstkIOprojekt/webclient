@@ -8,15 +8,16 @@ interface FormControlParams {
   required?: boolean,
   type?: string,
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
-  value?: string | string[] | number,
-  placeholder?: string
+  value?: string | number,
+  placeholder?: string,
+  disabled?: boolean
 }
 
 const FormControl = (props: Readonly<FormControlParams>) => {
   return (
     <FormGroup controlId={props.id} className={props.className}>
       {props.label ? <Form.Label>{props.label}</Form.Label> : ""}
-      <Form.Control required={props.required} type={props.type ? props.type : "text"} onChange={props.onChange} value={props.value} placeholder={props.placeholder} />
+      <Form.Control required={props.required} type={props.type ? props.type : "text"} onChange={props.onChange} value={props.value} placeholder={props.placeholder} disabled={props.disabled} />
     </FormGroup>
   );
 };

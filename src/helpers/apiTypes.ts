@@ -1,5 +1,5 @@
-// Base url for requests
-export const baseUrl = "http://localhost:8080";
+// Base url for requests, change to 'localhost:8080' if you want to test with local backend
+export const baseUrl = "http://172.21.40.111:8080";
 
 // API types definitions
 export interface User {
@@ -13,46 +13,4 @@ export interface NewUser extends User {
   email: string,
   birthDate: Date,
   phoneNumber: string
-}
-
-export interface LoginResponse {
-  sessionToken?: string,
-  reason?: string
-}
-
-export interface AmbulanceOrder {
-  id: string,
-  location?: Location,
-  victimCount?: number,
-  user: string,
-  kind?: string,
-  additionalInfo?: string,
-  isUserVictim?: boolean,
-  victims: Array<Victim>
-}
-
-export enum BloodType {
-  UNKNOWN,
-  A_PLUS,
-  B_PLUS,
-  AB_PLUS,
-  O_PLUS,
-  A_MINUS,
-  B_MINUS,
-  AB_MINUS,
-  O_MINUS
-}
-
-export interface Victim {
-  bloodType?: BloodType
-  isBreathing?: boolean
-  isConcious?: boolean
-  isBleeding?: boolean
-  visibleWounds?: boolean
-  bandNumber?: string
-}
-
-export interface Location {
-  longitute: number,
-  lattitude: number
 }

@@ -7,6 +7,9 @@ import ForgotPassword from "./components/content/auth/ForgotPassword";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
 import MapView from "./components/content/map/MapView";
+import ReportsList from "./components/content/report/ReportsList";
+import AccidentReport from "./components/content/report/AccidentReport";
+import CreateReport from "./components/content/report/CreateReport";
 import { CookieConsent } from "./components/CookieConsent";
 
 import { handleLogout } from "./helpers/authHelper";
@@ -22,7 +25,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Navbar bg={`custom-${darkMode.isDark ? "dark" : "light"}`} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
+      <Navbar bg={`navbar-${darkMode.isDark ? "dark" : "light"}`} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
         <Container fluid className="mx-3">
           <Navbar.Brand>GARY</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -34,6 +37,8 @@ const App = () => {
               <Nav.Link as={Link} to="/tutorial">Tutoriale</Nav.Link>
               <Nav.Link as={Link} to="/map">Mapa</Nav.Link>
               <Nav.Link as={Link} to="/userinfo">Twoje dane</Nav.Link>
+              <Nav.Link as={Link} to="/reports">Zgłoszenia</Nav.Link>
+              <Nav.Link as={Link} to="/newreport">Stwórz zgłoszenie</Nav.Link>
               <Nav.Link onClick={handleLogout}>Wyloguj</Nav.Link>
               <Nav.Link onClick={darkMode.toggle}>Zmień motyw</Nav.Link>
             </Nav>
@@ -54,8 +59,9 @@ const App = () => {
         <Route path="/userinfo/allergy/edit/:allergyId" element={<EditAllergy />} />
         <Route path="/userinfo/medicalcondition/add" element={<AddMedicalCondition />} />
         <Route path="/userinfo/medicalcondition/edit/:allergyId" element={<EditMedicalCondition />} />
-        
-        
+        <Route path="/reports" element={<ReportsList />} />
+        <Route path="/report/:reportId" element={<CreateReport disabled />} />
+        <Route path="/newreport" element={<CreateReport />} />
       </Routes>
       <CookieConsent debug />
     </BrowserRouter>

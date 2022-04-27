@@ -2,14 +2,16 @@
 {
     --dark-text: #ffffff;
     --light-text: #000000;
-    --dark-button: #4b4b4b;
+    --dark-button: #c59812;
     --dark-button-hover: #d6a923;
-    --light-button: #4caf50;
-    --light-button-hover: #3b9e40;
+    --light-button: #98dd98;
+    --light-button-hover: #5dbf62;
     --dark-alert: #4c4c4c;
-    --light-alert: #4caf50;
-    --dark-bg: #3a3a3a;
-    --light-bg: #c9eec9;
+    --light-alert: #98dd98;
+    --dark-bg: #4a4a4a;
+    --light-bg: #4caf50;
+    --dark-nav: #a37600;
+    --light-nav: #4caf50;
 }
 
 /* Dark themes */
@@ -50,6 +52,11 @@
     background-color: var(--dark-bg);
 }
 
+.bg-navbar-dark
+{
+    background-color: var(--dark-nav);
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -88,8 +95,13 @@
     background-color: var(--light-bg);
 }
 
+.bg-navbar-light
+{
+    background-color: var(--light-nav);
+}
+
 /* Shared */
-.btn-custom-dark:focus, .btn-outline-custom-dark:focus
+.btn-custom-dark:focus, .btn-outline-custom-dark:focus, .btn-custom-light:focus, .btn-outline-custom-light:focus
 {
     box-shadow: none;
 }
@@ -114,48 +126,60 @@
     text-align: center;
 }
 
-.leaflet-container {
+.leaflet-container
+{
     min-height: 80vh;
     width: 100%;
 }
 
-.tutorial-grid {
+.tutorial-grid
+{
     display: grid;
     gap: 16px;
     padding: 32px;
 }
 
-.tutorial-element {
+.tutorial-element
+{
     padding: 1rem;
     max-width: 500px;
 }
 
-.img {
+.img
+{
     display: block;
     width: 100%;
-    max-width: 100%
+    max-width: 100%;
 }
 
-@media (min-width: 768px) {
-    .tutorial-grid {
-        grid-template-columns: repeat(2, 1fr)
+@media (min-width: 768px)
+{
+    .tutorial-grid
+    {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (min-width: 960px) {
-    .tutorial-grid {
-        grid-template-columns: repeat(3, 1fr)
+@media (min-width: 960px)
+{
+    .tutorial-grid
+    {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (min-width: 1200px) {
-    .tutorial-grid {
-        grid-template-columns: repeat(4, 1fr)
+@media (min-width: 1200px)
+{
+    .tutorial-grid
+    {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
-@media (min-width: 1600px) {
-    .tutorial-grid {
-        grid-template-columns: repeat(5, 1fr)
+@media (min-width: 1600px)
+{
+    .tutorial-grid
+    {
+        grid-template-columns: repeat(5, 1fr);
     }
 }

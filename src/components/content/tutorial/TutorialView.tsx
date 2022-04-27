@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Container, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import CustomCard from "../../fragments/Card";
 import { Link } from "react-router-dom";
 
 interface TutorialType {
-  id: number;
-  name: string;
+  id: number,
+  name: string
 }
 
 const tutorials = [
@@ -50,23 +50,19 @@ const TutorialView = () => {
 
   return (
     <>
-    <div className="tutorial-grid">
-      {items.map((item) => (
-        <Link to={`/tutorial/${item.id}`} className="mt-0 text-decoration-none text-reset" key={item.id}>
-          <CustomCard className="col" >
-            <Card.Img
-              variant="top"
-              src="img/thumbnail.jpg"
-              className="img"
-              />
-            <Card.Body>
-              <Card.Title>{item.name}</Card.Title>
-            </Card.Body>
-          </CustomCard>
-        </Link>
-      ))}
-    </div>
-      </>
+      <div className="tutorial-grid">
+        {items.map((item) => (
+          <Link to={`/tutorial/${item.id}`} className="mt-0 text-decoration-none text-reset" key={item.id}>
+            <CustomCard className="col">
+              <Card.Img variant="top" src="/img/thumbnail.jpg" className="img" />
+              <Card.Body>
+                <Card.Title>{item.name}</Card.Title>
+              </Card.Body>
+            </CustomCard>
+          </Link>
+        ))}
+      </div>
+    </>
   );
 };
 
