@@ -1,22 +1,27 @@
-import { Container, Form, Row } from "react-bootstrap";
+import { Container, Form, Row, Col } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
 import Button from "../../fragments/Button";
 
 const ForgotPassword = () => {
   return (
-    <Container className="mt-5">
+    <Container className="d-flex flex-column justify-content-center min-vh-100">
+      <h1 className="text-center mb-3">Nie pamiętam hasła</h1>
       <Form>
-        <Row className="justify-content-center">
-          <FormControl id="email" className="mb-3 w-50" label="Podaj swój adres e-mail, który ma zostać użyty w celu weryfikacji" type="email" />
+        <Row className="justify-content-center mb-3">
+          <Col xs={6}>
+            <FormControl id="email" className="" label="Podaj swój adres e-mail, który ma zostać użyty w celu weryfikacji" type="email" />
+          </Col>
+          <Col xs={3}>
+            <Button className="mt-3" text="Wyślij kod" />
+          </Col>
         </Row>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" text="Wyślij kod" />
-        </Row>
-        <Row className="justify-content-center">
-          <FormControl id="code" className="mb-3 w-50" label="Tu wpisz wysłany kod" type="password" />
-        </Row>
-        <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit" text="Zweryfikuj" />
+          <Col xs={6}>
+            <FormControl id="code" className="" label="Tu wpisz wysłany kod" type="password" />
+          </Col>
+          <Col xs={3}>
+            <Button className="mt-3" type="submit" text="Zweryfikuj" />
+          </Col>
         </Row>
       </Form>
     </Container>

@@ -3,7 +3,7 @@ import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
 import Button from "../../fragments/Button";
-import { Link } from "react-router-dom";
+import Link from "../../fragments/Link";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -32,7 +32,7 @@ const Login = () => {
           <Button className="w-25" type="submit" text="Zaloguj się" />
         </Row>
         <Row className="justify-content-center mt-3">
-          <Link to="/iforgor" className="w-25">Nie pamiętam hasła</Link>
+          <Link to="/iforgor" className="d-contents w-25 text-center">Nie pamiętam hasła</Link>
         </Row>
       </Form>
     </Container>

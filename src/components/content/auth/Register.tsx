@@ -1,9 +1,10 @@
 import { useState, FormEvent } from "react";
 import { registerUser } from "../../../apiCalls/authCalls";
 import { handleLogin } from "../../../helpers/authHelper";
-import { Container, Form, Row } from "react-bootstrap";
+import { Container, Form, Row, Alert as Al } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
 import Button from "../../fragments/Button";
+import Alert from "../../fragments/Alert";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -68,6 +69,12 @@ const Register = () => {
         </Row>
         <Row className="justify-content-center mt-3">
           <Button className="w-25" type="submit" text="Zarejestruj się" />
+        </Row>
+        <Row className="justify-content-center mt-3">
+          <Alert className="w-75">
+            <Al.Heading>Dlaczego zbieramy dane?</Al.Heading>
+            <p>Powyżej podane dane są zbierane w celu umożliwienia prawidłowego świadczenia usług</p>
+          </Alert>
         </Row>
       </Form>
     </Container>

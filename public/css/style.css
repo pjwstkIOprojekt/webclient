@@ -58,6 +58,11 @@
     background-color: var(--dark-nav);
 }
 
+.link-dark, .link-dark:hover, .link-dark:visited
+{
+    color: var(--dark-text);
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -101,6 +106,11 @@
     background-color: var(--light-nav);
 }
 
+.link-light, .link-light:hover, .link-light:visited
+{
+    color: var(--light-bg);
+}
+
 /* Shared */
 .btn-custom-dark:focus, .btn-outline-custom-dark:focus, .btn-custom-light:focus, .btn-outline-custom-light:focus
 {
@@ -130,6 +140,11 @@
 .req
 {
     color: var(--required);
+}
+
+.d-contents
+{
+    display: contents;
 }
 
 .leaflet-container
