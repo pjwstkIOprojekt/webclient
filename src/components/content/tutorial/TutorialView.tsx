@@ -49,20 +49,20 @@ const TutorialView = () => {
   }
 
   return (
-    <>
-      <div className="tutorial-grid">
-        {items.map((item) => (
-          <Link to={`/tutorial/${item.id}`} className="mt-0 text-decoration-none text-reset" key={item.id}>
-            <CustomCard className="col">
-              <Card.Img variant="top" src="/img/thumbnail.jpg" className="img" />
-              <Card.Body>
-                <Card.Title>{item.name}</Card.Title>
-              </Card.Body>
-            </CustomCard>
-          </Link>
-        ))}
-      </div>
-    </>
+    <div className="tutorial-grid">
+      {items.map((item) => (
+        <Link to={`/tutorial/${item.id}`} className="mt-0 text-decoration-none text-reset" key={item.id}>
+          <CustomCard className="col">
+            <Card.Img variant="top" src="/img/thumbnail.jpg" className="img" />
+            <Card.Body>
+              <Card.Title>{item.name}</Card.Title>
+              <p>Uratował życia milionów w kilka sekund. Dowiedz się jak...</p><br />
+              <p>{"*****".substring(0, item.id % 5 + 1)}</p>
+            </Card.Body>
+          </CustomCard>
+        </Link>
+      ))}
+    </div>
   );
 };
 
