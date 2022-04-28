@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { Container, Form, Row } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/FormSelect";
 import FormCheck from "../../fragments/FormCheck";
 import FormControl from "../../fragments/FormControl";
@@ -14,11 +14,7 @@ const accidentTypes = [
   "Wypadek samochodowy"
 ];
 
-interface Props {
-  disabled?: boolean
-}
-
-const CreateReport = (props: Readonly<Props>) => {
+const CreateReport = () => {
   const [type, setType] = useState(4);
   const [breath, setBreath] = useState(true);
   const [cons, setCons] = useState(false);
@@ -30,28 +26,27 @@ const CreateReport = (props: Readonly<Props>) => {
   };
 
   return (
-    <Container className="mt-5">
-      <Form onSubmit={handleSubmit}>
-        <Row className="justify-content-center">
-          <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} className="mb-3 w-50" label="Rodzaj zdarzenia:" options={accidentTypes} disabled={props.disabled} />
-        </Row>
-        <Row className="justify-content-center">
-          <FormCheck id="isBreathing" onChange={e => setBreath(!breath)} value={breath} className="mb-3" label="Czy ofiara oddycha?" disabled={props.disabled} />
-        </Row>
-        <Row className="justify-content-center">
-          <FormCheck id="isConscious" onChange={e => setCons(!cons)} value={cons} className="mb-3" label="Czy ofiara jest przytomna?" disabled={props.disabled} />
-        </Row>
-        <Row className="justify-content-center">
-          <FormControl id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} className="mb-3 w-50" label="Oceń skalę zagrożenia" type="number" disabled={props.disabled} />
-        </Row>
-        <Row className="justify-content-center">
-          <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} className="mb-3 w-50" label="Opis sytuacji:" disabled={props.disabled} />
-        </Row>
-        <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit" text="Zgłoś zdarzenie" />
-        </Row>
-      </Form>
-    </Container>
+    <Form onSubmit={handleSubmit}>
+      <h1 className="text-center mt-3">Nowe zgłoszenie</h1>
+      <Row className="justify-content-center mb-3">
+        <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} className="w-75" label="Rodzaj zdarzenia:" options={accidentTypes} />
+      </Row>
+      <Row className="justify-content-center mb-3 ml-2">
+        <FormCheck id="isBreathing" onChange={e => setBreath(!breath)} value={breath} className="w-75" label="Czy ofiara oddycha?" />
+      </Row>
+      <Row className="justify-content-center mb-3">
+        <FormCheck id="isConscious" onChange={e => setCons(!cons)} value={cons} className="w-75" label="Czy ofiara jest przytomna?" />
+      </Row>
+      <Row className="justify-content-center mb-3">
+        <FormControl id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} className="w-75" label="Oceń skalę zagrożenia" type="number" />
+      </Row>
+      <Row className="justify-content-center mb-3">
+        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} className="w-75" label="Opis sytuacji:" />
+      </Row>
+      <Row className="justify-content-center mb-5">
+        <Button className="mt-3 w-50" type="submit" text="Zgłoś zdarzenie" />
+      </Row>
+    </Form>
   );
 };
 

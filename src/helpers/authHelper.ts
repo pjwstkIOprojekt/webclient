@@ -18,7 +18,10 @@ export const handleLogin = (user: Readonly<User>) => {
   }).then(data => {
     if (response.status === 200 && data) {
       acceptCookies();
-      setCookieValue("user", JSON.stringify(user));
+
+      setCookieValue("user", JSON.stringify({
+        token: data
+      }));
     }
 
     console.log(response);
