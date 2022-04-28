@@ -52,7 +52,7 @@ const useEffectDarkMode = (): DarkModeHookResult => {
 };
 
 // Dark mode hook provider component
-export const DarkModeProvider = (props: JSX.ElementChildrenAttribute) => {
+export const DarkModeProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
   const [darkMode, setDarkMode] = useEffectDarkMode();
 
   if (!darkMode.hasDarkModeMounted) {
