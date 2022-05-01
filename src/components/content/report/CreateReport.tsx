@@ -1,4 +1,5 @@
 import { useState, FormEvent } from "react";
+import { createReport } from "../../../apiCalls/accidentReportCalls";
 import { Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/FormSelect";
 import FormCheck from "../../fragments/FormCheck";
@@ -23,6 +24,18 @@ const CreateReport = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    createReport({
+      dangerRating: rating,
+      date: new Date(Date.now()),
+      closed: false,
+      reportSurvey: {
+        victimBreathing: breath,
+        victimConsious: cons,
+        description: desc,
+        date: new Date(Date.now())
+      }
+    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
   };
 
   return (

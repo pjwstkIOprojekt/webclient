@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { getReports } from "../../../apiCalls/accidentReportCalls";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -41,15 +42,7 @@ const ReportsList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchItems = async () => {
-      setIsLoading(true);
-      const result = reports;
-
-      setItems(result);
-      setIsLoading(false);
-    };
-
-    fetchItems();
+    getReports().then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
   }, []);
 
   if (isLoading) {
