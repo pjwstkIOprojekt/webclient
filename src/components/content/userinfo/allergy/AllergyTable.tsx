@@ -1,46 +1,30 @@
-import { Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useDarkModeManager } from '../../../../hooks/useDarkMode';
+import { useNavigate, Link } from "react-router-dom";
+import Table from "../../../fragments/Table";
 import Button from '../../../fragments/Button';
 
 const AllergyTable = () => {
-  const darkMode = useDarkModeManager();
+  const navigate = useNavigate();
+
+  const cols = [
+    { name: "#", property: "id", func: (x: any) => <Link to={`allergy/details/${x}`}>{x}</Link> },
+    { name: "Rodzaj alergii", property: "type" },
+    { name: "Na co", property: "to" },
+    { name: "Dodatkowe informacje", property: "extra" }
+  ];
 
   const allergies = [
     { id: 1, type: "Wziewna", to: "aaa", extra: "bbb" },
     { id: 2, type: "Kontaktowa", to: "aaa", extra: "bbb" },
     { id: 3, type: "Pokarmowa", to: "aaa", extra: "bbb" },
   ];
+
   return (
     <div className="mb-3">
-        <h3>Alergie</h3>
-        <Table striped bordered hover variant={darkMode.isDark ? "dark" : ""}>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Rodzaj alergii</th>
-              <th>Na co</th>
-              <th>Dodatkowe informacje</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allergies.map((allergy) => (
-              <tr>
-                <td>
-                  <Link to={`allergy/details/${allergy.id}`}>{allergy.id}</Link>
-                </td>
-                <td>{allergy.type}</td>
-                <td>{allergy.to}</td>
-                <td>{allergy.extra}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <Link to="allergy/add">
-          <Button text="Dodaj" />
-        </Link>
-      </div>
+      <h3>Alergie</h3>
+      <Table columns={cols} data={allergies} />
+      <Button text="Dodaj" onClick={e => navigate("allergy/add")} />
+    </div>
   )
 }
 
-export default AllergyTable
+export default AllergyTable;

@@ -1,34 +1,33 @@
-import React from "react";
-import { Container, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useState, FormEvent } from "react";
+import { Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import FormTextArea from "../../../fragments/FormTextArea";
+import FormUpload from "../../../fragments/FormUpload";
 import Button from "../../../fragments/Button";
-import UploadButton from "../../../fragments/UploadButton";
 
-interface formProps {
-  buttonLabel: string;
+interface FormProps {
+  buttonLabel: string,
+  onSubmit: (ill: string, inst: string, file: string) => void
 }
 
-const MedicalConditionForm = ({ buttonLabel }: formProps) => {
+const MedicalConditionForm = (props: FormProps) => {
+  const [ill, setIll] = useState("");
+  const [inst, setInst] = useState("");
+  const [file, setFile] = useState("");
+  const navigate = useNavigate();
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    props.onSubmit(ill, inst, file);
+  };
+
   return (
-    <Form>
-      <Form.Group className="mb-3">
-        <Form.Label>Nazwa choroby</Form.Label>
-        <Form.Control as="textarea" rows={1} />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Jak udzielić pierwszej pomocy?</Form.Label>
-        <Form.Control as="textarea" rows={1} />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Skan diagnozy lekarskiej</Form.Label>
-        <UploadButton/>
-      </Form.Group>
-      <Link to="/userinfo">
-        <Button className="m-2" type="submit" text={buttonLabel} />
-      </Link>
-      <Link to="/userinfo">
-        <Button text="Wróć" />
-      </Link>
+    <Form onSubmit={onSubmit}>
+      <FormTextArea className="mb-3" label="Nazwa choroby" rows={1} value={ill} onChange={e => setIll(e.target.value)} />
+      <FormTextArea className="mb-3" label="Jak udzielić pierwszej pomocy?" rows={1} value={inst} onChange={e => setInst(e.target.value)} />
+      <FormUpload className="mb-3 d-flex flex-column" buttonClass="w-25" label="Skan diagnozy lekarskiej" value={file} onChange={e => setFile(e.target.value)} />
+      <Button className="m-2" type="submit" text={props.buttonLabel} />
+      <Button text="Wróć" onClick={e => navigate("/userinfo")} />
     </Form>
   );
 };

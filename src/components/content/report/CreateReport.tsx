@@ -42,19 +42,19 @@ const CreateReport = () => {
     <Form onSubmit={handleSubmit}>
       <h1 className="text-center mt-3">Nowe zgłoszenie</h1>
       <Row className="justify-content-center mb-3">
-        <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} className="w-75" label="Rodzaj zdarzenia:" options={accidentTypes} />
+        <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} label="Rodzaj zdarzenia:" options={accidentTypes} />
       </Row>
       <Row className="justify-content-center mb-3 ml-2">
-        <FormCheck id="isBreathing" onChange={e => setBreath(!breath)} value={breath} className="w-75" label="Czy ofiara oddycha?" />
+        <FormCheck id="isBreathing" onChange={e => setBreath(!breath)} value={breath} label="Czy ofiara oddycha?" />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormCheck id="isConscious" onChange={e => setCons(!cons)} value={cons} className="w-75" label="Czy ofiara jest przytomna?" />
+        <FormCheck id="isConscious" onChange={e => setCons(!cons)} value={cons} label="Czy ofiara jest przytomna?" />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormControl id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} className="w-75" label="Oceń skalę zagrożenia" type="number" />
+        <FormControl id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} label="Oceń skalę zagrożenia" type="number" />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} className="w-75" label="Opis sytuacji:" />
+        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis sytuacji:" />
       </Row>
       <Row className="justify-content-center mb-5">
         <Button className="mt-3 w-50" type="submit" text="Zgłoś zdarzenie" />
