@@ -1,5 +1,5 @@
 import { getCookieValue, setCookieValue, removeCookieValue } from "./cookieHelper";
-import { User } from "../helpers/apiTypes";
+import { LoginRequest } from "../helpers/apiTypes";
 import { login } from "../apiCalls/authCalls";
 import { acceptCookies } from "../components/CookieConsent";
 
@@ -9,7 +9,7 @@ export const getCurrentUser = () => {
 };
 
 // Handles user login
-export const handleLogin = (user: Readonly<User>) => {
+export const handleLogin = (user: Readonly<LoginRequest>) => {
   let response: Response;
 
   login(user).then(res => {

@@ -1,10 +1,20 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getTutorialById } from "../../../apiCalls/tutorialCalls";
 import { Container, Card } from "react-bootstrap";
 import CustomCard from "../../fragments/Card";
 
 const Tutorial = () => {
+  const [data, setData] = useState<any>({});
+  const { tutorialId } = useParams();
+
+  useEffect(() => {
+    getTutorialById(tutorialId ? parseInt(tutorialId) : 0).then(res => res.json()).then(data => setData(data)).catch(err => console.log(err));
+  }, []);
+
   return (
     <Container className="mt-3">
-      <h1>Tutorial</h1>
+      <h1>Tutorial - {data.name}</h1>
       <CustomCard className="mt-3 mx-3">
         <Card.Img variant="top" src="/img/thumbnail.jpg" height="360" />
         <Card.Body>

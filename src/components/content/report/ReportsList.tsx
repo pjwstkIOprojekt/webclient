@@ -1,73 +1,34 @@
+import Link from "../../fragments/Link";
 import { useState, useEffect } from "react";
-import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { AccidentReport } from "../../.././helpers/apiTypes";
+import { getReports } from "../../../apiCalls/accidentReportCalls";
+import { Container } from "react-bootstrap";
+import Table from "../../fragments/Table";
 
-interface Report {
-  id: number,
-  rating: number
-}
-
-const reports = [
-  { id: 1, rating: 2 },
-  { id: 2, rating: 7 },
-  { id: 3, rating: 5 },
-  { id: 4, rating: 3 },
-  { id: 5, rating: 4 },
-  { id: 6, rating: 9 },
-  { id: 7, rating: 8 },
-  { id: 8, rating: 6 }
+const cols = [
+  { name: "#", property: "id", func: (x: any) => <Link to={`/report/${x}`}>{x}</Link> },
+  { name: "Ofiara jest przytomna?", property: "victimConsious", func: (x: boolean) => x ? "Tak" : "Nie" },
+  { name: "Ofiara oddycha?", property: "victimBreathing", func: (x: boolean) => x ? "Tak" : "Nie" },
+  { name: "Data", property: "date" },
+  { name: "Skala zagrożenia", property: "dangerRating" },
+  { name: "Opis", property: "description", func: (x: string) => x.substring(0, 100) }
 ];
 
-const getColor = (num: number) => {
-  switch (num) {
-    case 1:
-    case 2:
-    case 3:
-      return "secondary";
-    case 4:
-    case 5:
-    case 6:
-      return "primary";
-    case 7:
-    case 8:
-    case 9:
-    default:
-      return "danger";
-  }
-};
-
 const ReportsList = () => {
-  const [items, setItems] = useState<Report[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [items, setItems] = useState<AccidentReport[]>([]);
 
   useEffect(() => {
-    const fetchItems = async () => {
-      setIsLoading(true);
-      const result = reports;
-
-      setItems(result);
-      setIsLoading(false);
-    };
-
-    fetchItems();
+    getReports().then(res => res.json()).then(data => {
+      console.log(data);
+      setItems(data);
+    }).catch(err => console.log(err));
   }, []);
 
-  if (isLoading) {
-    return <></>;
-  }
-
   return (
-    <div className="tutorial-grid">
-      {items.map(item => (
-        <Link to={`/report/${item.id}`} className="mt-0 text-decoration-none text-reset" key={item.id}>
-          <Card className="col" bg={getColor(item.rating)}>
-            <Card.Body>
-              <Card.Title>Zgłoszenie</Card.Title>
-            </Card.Body>
-          </Card>
-        </Link>
-      ))}
-    </div>
+    <Container className="mb-3 justify-content-center text-center">
+      <h1>Zgłoszenia</h1>
+      <Table columns={cols} data={items} />
+    </Container>
   );
 };
 

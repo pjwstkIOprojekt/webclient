@@ -1,23 +1,8 @@
-import { baseUrl, User, NewUser } from "../helpers/apiTypes";
+import { LoginRequest, CreateUserRequest } from "../helpers/apiTypes";
+import { post } from "./basicCalls";
 
 // Login request
-export function login(user: Readonly<User>) {
-  return fetch(`${baseUrl}/login`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    },
-    body: JSON.stringify(user)
-  });
-}
+export const login = (user: Readonly<LoginRequest>) => post("login", JSON.stringify(user));
 
 // Registers new user
-export function registerUser(user: Readonly<NewUser>) {
-  return fetch(`${baseUrl}/register/normal`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    },
-    body: JSON.stringify(user)
-  });
-}
+export const registerUser = (user: Readonly<CreateUserRequest>) => post("register/normal", JSON.stringify(user));
