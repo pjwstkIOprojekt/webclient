@@ -1,6 +1,7 @@
 import { useDarkModeManager } from "./hooks/useDarkMode";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
+import Test from "./components/Test";
 import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
 import ForgotPassword from "./components/content/auth/ForgotPassword";
@@ -34,11 +35,6 @@ const App = () => {
               <Nav.Link as={Link} to="/">Strona tymczasowa</Nav.Link>
               <Nav.Link as={Link} to="/login">Zaloguj się</Nav.Link>
               <Nav.Link as={Link} to="/register">Rejestracja</Nav.Link>
-              <Nav.Link as={Link} to="/tutorial">Tutoriale</Nav.Link>
-              <Nav.Link as={Link} to="/map">Mapa</Nav.Link>
-              <Nav.Link as={Link} to="/userinfo">Twoje dane</Nav.Link>
-              <Nav.Link as={Link} to="/reports">Zgłoszenia</Nav.Link>
-              <Nav.Link as={Link} to="/newreport">Stwórz zgłoszenie</Nav.Link>
               <Nav.Link onClick={handleLogout}>Wyloguj</Nav.Link>
               <Nav.Link onClick={darkMode.toggle}>Zmień motyw</Nav.Link>
             </Nav>
@@ -46,6 +42,7 @@ const App = () => {
         </Container>
       </Navbar>
       <Routes>
+        <Route path="/" element={<Test />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/iforgor" element={<ForgotPassword />} />
