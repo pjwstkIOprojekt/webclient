@@ -1,7 +1,7 @@
 import { useDarkModeManager } from "./hooks/useDarkMode";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import Test from "./components/Test";
+import Test from "./components/temp/Test";
 import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
 import ForgotPassword from "./components/content/auth/ForgotPassword";
