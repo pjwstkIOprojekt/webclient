@@ -7,23 +7,22 @@ import Register from "./components/content/auth/Register";
 import ForgotPassword from "./components/content/auth/ForgotPassword";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
-import MapTest from "./components/temp/MapTest";
-import MapView from "./components/fragments/MapView";
-import ReportsList from "./components/content/report/ReportsList";
-import AccidentReport from "./components/content/report/AccidentReport";
-import CreateReport from "./components/content/report/CreateReport";
-import { CookieConsent } from "./components/CookieConsent";
-import AmbulanceList from "./components/content/ambulance/AmbulanceList";
-import MapAmbulance from "./components/content/ambulance/MapAmbulance"
-import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
-
-import { handleLogout } from "./helpers/authHelper";
 import UserInfo from "./components/content/userinfo/UserInfo";
 import EditBloodType from "./components/content/userinfo/bloodtype/EditBloodTypeView";
 import AddAllergy from "./components/content/userinfo/allergy/AddAllergy";
 import EditAllergy from "./components/content/userinfo/allergy/EditAllergy";
 import AddMedicalCondition from "./components/content/userinfo/medicalCondition/AddMedicalCondition";
 import EditMedicalCondition from "./components/content/userinfo/medicalCondition/EditMedicalCondition";
+import MapTest from "./components/temp/MapTest";
+import ReportsList from "./components/content/report/ReportsList";
+import CreateReport from "./components/content/report/CreateReport";
+import MapView from "./components/fragments/MapView";
+import AmbulanceList from "./components/content/ambulance/AmbulanceList";
+import MapAmbulance from "./components/content/ambulance/MapAmbulance"
+import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
+import { CookieConsent } from "./components/CookieConsent";
+
+import { handleLogout } from "./helpers/authHelper";
 
 const App = () => {
   const darkMode = useDarkModeManager();
