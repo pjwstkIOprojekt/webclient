@@ -3,9 +3,13 @@ import { getTutorials } from "../../../apiCalls/tutorialCalls";
 import { Card } from "react-bootstrap";
 import CustomCard from "../../fragments/Card";
 import { Link } from "react-router-dom";
+import Rating from "react-rating";
 
 const TutorialView = () => {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<any[]>([
+    { id: 0, name: "testowy poradnik", average: 3 },
+    { id: 1, name: "Wow!, Super poradnik", average: 4.5 }
+  ]);
 
   useEffect(() => {
     getTutorials().then(res => res.json()).then(data => setItems(data)).catch(err => console.log(err));
@@ -20,7 +24,7 @@ const TutorialView = () => {
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
               <p>Uratował życia milionów w kilka sekund. Dowiedz się jak...</p><br />
-              <p>{"*****".substring(0, item.average % 5 + 1)}</p>
+              <Rating emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x" initialRating={item.average} readonly />
             </Card.Body>
           </CustomCard>
         </Link>

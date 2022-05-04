@@ -1,5 +1,5 @@
 import { Container, Row } from "react-bootstrap";
-import Link from "./fragments/Link";
+import Link from "../fragments/Link";
 
 const Test = () => {
   return (
@@ -21,6 +21,10 @@ const Test = () => {
       </Row>
       <Row>
         <Link to="/userdata">Dane użytkownika</Link>
+        <Link to="/ambulances">Lista karetek</Link>
+      </Row>
+      <Row>
+        <Link to="/mapAmbulance">Mapa karetek</Link>
       </Row>
     </Container>
   );

@@ -1,16 +1,12 @@
 import { useDarkModeManager } from "./hooks/useDarkMode";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import Test from "./components/Test";
+import Test from "./components/temp/Test";
 import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
 import ForgotPassword from "./components/content/auth/ForgotPassword";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
-import MapView from "./components/fragments/MapView";
-import ReportsList from "./components/content/report/ReportsList";
-import CreateReport from "./components/content/report/CreateReport";
-import { CookieConsent } from "./components/CookieConsent";
 
 import { handleLogout } from "./helpers/authHelper";
 import EditBloodType from "./components/content/userinfo/bloodtype/EditBloodTypeView";
@@ -26,6 +22,15 @@ import EditUsername from "./components/content/userinfo/personalinfo/EditUsernam
 import EditPassword from "./components/content/userinfo/personalinfo/EditPassword";
 import EditBirthday from "./components/content/userinfo/personalinfo/EditBirthday";
 import EditPhoneNumber from "./components/content/userinfo/personalinfo/EditPhoneNumber";
+import MapTest from "./components/temp/MapTest";
+import ReportsList from "./components/content/report/ReportsList";
+import CreateReport from "./components/content/report/CreateReport";
+import MapView from "./components/fragments/MapView";
+import AmbulanceList from "./components/content/ambulance/AmbulanceList";
+import MapAmbulance from "./components/content/ambulance/MapAmbulance"
+import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
+import { CookieConsent } from "./components/CookieConsent";
+
 
 const App = () => {
   const darkMode = useDarkModeManager();
@@ -72,6 +77,10 @@ const App = () => {
         <Route path="/reports" element={<ReportsList />} />
         <Route path="/report/:reportId" element={<CreateReport />} />
         <Route path="/newreport" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<CreateReport />} />} />
+        <Route path="/mapAmbulance" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<MapAmbulance />} />} />
+        <Route path="/ambulances" element={<AmbulanceList />} />
+        <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />
+        <Route path="/ambulance/add" element={<CreateAmbulance />} />
       </Routes>
       <CookieConsent debug />
     </BrowserRouter>
