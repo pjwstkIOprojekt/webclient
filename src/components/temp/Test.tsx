@@ -20,7 +20,10 @@ const Test = () => {
         <Link to="/newreport">Nowe zgłoszenie</Link>
       </Row>
       <Row>
+<<<<<<< HEAD
         <Link to="/userdata">Dane użytkownika</Link>
+=======
+>>>>>>> aeb7d54dfa09f22a9060476d01126818c94dcf5a
         <Link to="/ambulances">Lista karetek</Link>
       </Row>
       <Row>

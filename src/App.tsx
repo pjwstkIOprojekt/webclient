@@ -8,12 +8,12 @@ import ForgotPassword from "./components/content/auth/ForgotPassword";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
 
-import { handleLogout } from "./helpers/authHelper";
 import EditBloodType from "./components/content/userinfo/bloodtype/EditBloodTypeView";
 import AddAllergy from "./components/content/userinfo/allergy/AddAllergy";
 import EditAllergy from "./components/content/userinfo/allergy/EditAllergy";
 import AddMedicalCondition from "./components/content/userinfo/medicalCondition/AddMedicalCondition";
 import EditMedicalCondition from "./components/content/userinfo/medicalCondition/EditMedicalCondition";
+
 import UserData from "./components/content/userinfo/personalinfo/UserData";
 import MedicalData from "./components/content/userinfo/MedicalData";
 import { EditName } from "./components/content/userinfo/personalinfo/EditName";
@@ -22,6 +22,8 @@ import EditUsername from "./components/content/userinfo/personalinfo/EditUsernam
 import EditPassword from "./components/content/userinfo/personalinfo/EditPassword";
 import EditBirthday from "./components/content/userinfo/personalinfo/EditBirthday";
 import EditPhoneNumber from "./components/content/userinfo/personalinfo/EditPhoneNumber";
+
+
 import MapTest from "./components/temp/MapTest";
 import ReportsList from "./components/content/report/ReportsList";
 import CreateReport from "./components/content/report/CreateReport";
@@ -30,6 +32,9 @@ import AmbulanceList from "./components/content/ambulance/AmbulanceList";
 import MapAmbulance from "./components/content/ambulance/MapAmbulance"
 import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
 import { CookieConsent } from "./components/CookieConsent";
+
+
+import { handleLogout } from "./helpers/authHelper";
 
 
 const App = () => {
@@ -59,6 +64,7 @@ const App = () => {
         <Route path="/iforgor" element={<ForgotPassword />} />
         <Route path="/tutorial" element={<TutorialView />} />
         <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
+
         <Route path="/userdata" element={<UserData />} />
         <Route path="/userdata/name" element={<EditName />} />
         <Route path="/userdata/email" element={<EditEmail />} />
@@ -73,7 +79,7 @@ const App = () => {
         <Route path="/medicaldata/allergy/edit/:allergyId" element={<EditAllergy />} />
         <Route path="/medicaldata/medicalcondition/add" element={<AddMedicalCondition />} />
         <Route path="/medicaldata/medicalcondition/edit/:allergyId" element={<EditMedicalCondition />} />
-        <Route path="/map" element={<MapView center={[52.222, 21.015]} initialZoom={12} />} />
+        <Route path="/map" element={<MapTest />} />
         <Route path="/reports" element={<ReportsList />} />
         <Route path="/report/:reportId" element={<CreateReport />} />
         <Route path="/newreport" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<CreateReport />} />} />
