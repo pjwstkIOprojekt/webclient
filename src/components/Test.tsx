@@ -19,6 +19,12 @@ const Test = () => {
       <Row>
         <Link to="/newreport">Nowe zgłoszenie</Link>
       </Row>
+      <Row>
+        <Link to="/ambulances">Lista karetek</Link>
+      </Row>
+      <Row>
+        <Link to="/mapAmbulance">Mapa karetek</Link>
+      </Row>
     </Container>
   );
 };
