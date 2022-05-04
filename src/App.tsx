@@ -13,6 +13,9 @@ import ReportsList from "./components/content/report/ReportsList";
 import AccidentReport from "./components/content/report/AccidentReport";
 import CreateReport from "./components/content/report/CreateReport";
 import { CookieConsent } from "./components/CookieConsent";
+import AmbulanceList from "./components/content/ambulance/AmbulanceList";
+import MapAmbulance from "./components/content/ambulance/MapAmbulance"
+import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
 
 import { handleLogout } from "./helpers/authHelper";
 import UserInfo from "./components/content/userinfo/UserInfo";
@@ -60,6 +63,10 @@ const App = () => {
         <Route path="/reports" element={<ReportsList />} />
         <Route path="/report/:reportId" element={<CreateReport />} />
         <Route path="/newreport" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<CreateReport />} />} />
+        <Route path="/mapAmbulance" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<MapAmbulance />} />} />
+        <Route path="/ambulances" element={<AmbulanceList />} />
+        <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />
+        <Route path="/ambulance/add" element={<CreateAmbulance />} />
       </Routes>
       <CookieConsent debug />
     </BrowserRouter>
