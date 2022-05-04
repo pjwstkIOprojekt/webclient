@@ -6,7 +6,7 @@ import { Container } from "react-bootstrap";
 import Table from "../../fragments/Table";
 
 const cols = [
-  { name: "#", property: "id", func: (x: any) => <Link to={`/report/${x}`}>{x}</Link> },
+  { name: "#", property: "id", func: (x: number) => <Link to={`/report/${x}`}>{x}</Link> },
   { name: "Ofiara jest przytomna?", property: "victimConsious", func: (x: boolean) => x ? "Tak" : "Nie" },
   { name: "Ofiara oddycha?", property: "victimBreathing", func: (x: boolean) => x ? "Tak" : "Nie" },
   { name: "Data", property: "date" },

@@ -3,15 +3,16 @@ import { FormGroup, Form } from "react-bootstrap";
 import UploadButton from "./UploadButton";
 
 export interface FormUploadParams extends UploadButtonParams {
-  className?: string,
-  label?: string
+  buttonClass?: string,
+  label?: string,
+  labelClass?: string
 }
 
 const FormUpload = (props: Readonly<FormUploadParams>) => {
   return (
     <FormGroup className={props.className}>
-      {props.label ? <Form.Label htmlFor={props.id}>{props.label}{props.required ? <span className="req">*</span> : ""}</Form.Label> : ""}
-      <UploadButton {...props} />
+      {props.label ? <Form.Label htmlFor={props.id} className={props.labelClass}>{props.label}{props.required ? <span className="req">*</span> : ""}</Form.Label> : ""}
+      <UploadButton id={props.id} value={props.value} onChange={props.onChange} required={props.required} disabled={props.disabled} className={props.buttonClass} />
     </FormGroup>
   );
 };
