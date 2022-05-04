@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getTutorialById } from "../../../apiCalls/tutorialCalls";
 import { Container, Card } from "react-bootstrap";
 import CustomCard from "../../fragments/Card";
+import Rating from "react-rating";
 
 const Tutorial = () => {
   const [data, setData] = useState<any>({});
@@ -10,10 +11,10 @@ const Tutorial = () => {
 
   useEffect(() => {
     getTutorialById(tutorialId ? parseInt(tutorialId) : 0).then(res => res.json()).then(data => setData(data)).catch(err => console.log(err));
-  }, []);
+  }, [tutorialId]);
 
   return (
-    <Container className="mt-3">
+    <Container className="mt-3 mb-5">
       <h1>Tutorial - {data.name}</h1>
       <CustomCard className="mt-3 mx-3">
         <Card.Img variant="top" src="/img/thumbnail.jpg" height="360" />
@@ -75,6 +76,8 @@ const Tutorial = () => {
           </Card.Title>
         </Card.Body>
       </CustomCard>
+      <h2>Jak oceniasz ten poradnik?</h2>
+      <Rating emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x" />
     </Container>
   );
 };

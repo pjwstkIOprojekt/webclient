@@ -1,5 +1,5 @@
 import { Container, Row } from "react-bootstrap";
-import Link from "./fragments/Link";
+import Link from "../fragments/Link";
 
 const Test = () => {
   return (

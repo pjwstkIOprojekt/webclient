@@ -1,12 +1,13 @@
 import { useDarkModeManager } from "./hooks/useDarkMode";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import Test from "./components/Test";
+import Test from "./components/temp/Test";
 import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
 import ForgotPassword from "./components/content/auth/ForgotPassword";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
+import MapTest from "./components/temp/MapTest";
 import MapView from "./components/fragments/MapView";
 import ReportsList from "./components/content/report/ReportsList";
 import AccidentReport from "./components/content/report/AccidentReport";
@@ -55,7 +56,7 @@ const App = () => {
         <Route path="/userinfo/allergy/edit/:allergyId" element={<EditAllergy />} />
         <Route path="/userinfo/medicalcondition/add" element={<AddMedicalCondition />} />
         <Route path="/userinfo/medicalcondition/edit/:allergyId" element={<EditMedicalCondition />} />
-        <Route path="/map" element={<MapView center={[52.222, 21.015]} initialZoom={12} />} />
+        <Route path="/map" element={<MapTest />} />
         <Route path="/reports" element={<ReportsList />} />
         <Route path="/report/:reportId" element={<CreateReport />} />
         <Route path="/newreport" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<CreateReport />} />} />
