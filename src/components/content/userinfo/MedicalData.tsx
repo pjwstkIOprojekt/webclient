@@ -3,7 +3,7 @@ import BloodTypeForm from "./bloodtype/BloodTypeForm";
 import AllergyTable from "./allergy/AllergyTable";
 import MedicalConditionTable from "./medicalCondition/MedicalConditionTable";
 
-const UserInfo = () => {
+const MedicalData = () => {
   return (
     <Container>
       <h1 className="my-4">Twoje dane</h1>
@@ -14,4 +14,4 @@ const UserInfo = () => {
   );
 };
 
-export default UserInfo;
+export default MedicalData;

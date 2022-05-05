@@ -11,7 +11,7 @@ const Test = () => {
         <Link to="/map">Mapa testowa</Link>
       </Row>
       <Row>
-        <Link to="/userinfo">Dane użytkownika</Link>
+        <Link to="/medicaldata">Dane medyczne</Link>
       </Row>
       <Row>
         <Link to="/reports">Zgłoszenia</Link>
@@ -20,6 +20,7 @@ const Test = () => {
         <Link to="/newreport">Nowe zgłoszenie</Link>
       </Row>
       <Row>
+        <Link to="/userdata">Dane użytkownika</Link>
         <Link to="/ambulances">Lista karetek</Link>
       </Row>
       <Row>
