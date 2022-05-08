@@ -16,12 +16,6 @@ import EditMedicalCondition from "./components/content/userinfo/medicalCondition
 
 import UserData from "./components/content/userinfo/personalinfo/UserData";
 import MedicalData from "./components/content/userinfo/MedicalData";
-import { EditName } from "./components/content/userinfo/personalinfo/EditName";
-import EditEmail from "./components/content/userinfo/personalinfo/EditEmail";
-import EditUsername from "./components/content/userinfo/personalinfo/EditUsername";
-import EditPassword from "./components/content/userinfo/personalinfo/EditPassword";
-import EditBirthday from "./components/content/userinfo/personalinfo/EditBirthday";
-import EditPhoneNumber from "./components/content/userinfo/personalinfo/EditPhoneNumber";
 
 
 import MapTest from "./components/temp/MapTest";
@@ -35,6 +29,7 @@ import { CookieConsent } from "./components/CookieConsent";
 
 
 import { handleLogout } from "./helpers/authHelper";
+import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
 
 
 const App = () => {
@@ -66,12 +61,7 @@ const App = () => {
         <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
 
         <Route path="/userdata" element={<UserData />} />
-        <Route path="/userdata/name" element={<EditName />} />
-        <Route path="/userdata/email" element={<EditEmail />} />
-        <Route path="/userdata/username" element={<EditUsername />} />
-        <Route path="/userdata/password" element={<EditPassword />} />
-        <Route path="/userdata/birthday" element={<EditBirthday />} />
-        <Route path="/userdata/phonenumber" element={<EditPhoneNumber />} />
+        <Route path="/userdata/edit" element={<EditUserData />} />
         <Route path="/medicaldata" element={<MedicalData />} />
         <Route path="/medicaldata/editbloodtype" element={<EditBloodType />} />
         <Route path="/medicaldata/allergy/add" element={<AddAllergy />} />
