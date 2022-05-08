@@ -1,6 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
-import Map from "./Map";
-import { MapParams } from "./Map";
+import Map, { MapParams } from "./Map";
 
 export interface MapViewParams extends MapParams {
   element?: JSX.Element

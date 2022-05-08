@@ -7,7 +7,7 @@ export interface UploadButtonParams {
   onChange?: ChangeEventHandler<HTMLInputElement>,
   required?: boolean,
   disabled?: boolean,
-  buttonClass?: string
+  className?: string
 }
 
 const UploadButton = (props: Readonly<UploadButtonParams>) => {
@@ -26,7 +26,7 @@ const UploadButton = (props: Readonly<UploadButtonParams>) => {
   return (
     <>
       <input id={props.id} ref={inputRef} onChange={handleDisplayFileDetails} className="d-none" type="file" value={props.value} required={props.required} disabled={props.disabled} />
-      <Button onClick={handleUpload} type="button" outline={!uploadedFileName} text={uploadedFileName ? uploadedFileName : "Wybierz plik"} className={props.buttonClass} />
+      <Button onClick={handleUpload} type="button" outline={!uploadedFileName} text={uploadedFileName ? uploadedFileName : "Wybierz plik"} className={props.className} />
     </>
   );
 };
