@@ -7,12 +7,12 @@ import FormControl from "../../../fragments/FormControl";
 import Button from "../../../fragments/Button";
 
 const user = [
-  {name: "Imię nazwisko", value: "Jan Kowalski", link: "name"},
-  {name: "Email", value: "jankowalski@email.com", link: "email"},
-  {name: "Nazwa użytkownika", value: "jankowalski", link: "username"},
-  {name: "Hasło", value: "*********", link: "password"},
-  {name: "Data urodzenia", value: "12-12-2000", link: "birthday"},
-  {name: "Numer telefonu", value: "333333333", link: "phonenumber"},
+  {id: 0, name: "Imię nazwisko", value: "Jan Kowalski", link: "name"},
+  {id: 1, name: "Email", value: "jankowalski@email.com", link: "email"},
+  {id: 2, name: "Nazwa użytkownika", value: "jankowalski", link: "username"},
+  {id: 3, name: "Hasło", value: "*********", link: "password"},
+  {id: 4, name: "Data urodzenia", value: "12-12-2000", link: "birthday"},
+  {id: 5, name: "Numer telefonu", value: "333333333", link: "phonenumber"},
   
 ]
 
@@ -32,7 +32,7 @@ const UserData = () => {
       <h1 className="mb-5">Twoje dane</h1>
       <ListGroup className="" >
         {user.map((item) => (
-          <ListGroup.Item action variant={darkMode.isDark ? "dark" : ""}>
+          <ListGroup.Item key={item.id} action variant={darkMode.isDark ? "dark" : ""}>
             <Link className="text-decoration-none text-dark" to={item.link}>
               <Row>
                 <Col>
