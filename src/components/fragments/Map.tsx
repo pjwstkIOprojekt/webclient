@@ -7,7 +7,8 @@ import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 
 export interface Position {
   coords: [number, number],
-  desc?: string
+  desc?: string,
+  icon?: L.Icon<L.IconOptions> | L.DivIcon
 }
 
 export interface MapParams {
@@ -26,7 +27,7 @@ const Map = (props: Readonly<MapParams>) => {
       <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {props.searchable ? <GeocoderMenu onSearch={props.onSearch} /> : ""}
       {props.marks ? props.marks.map(pos => (
-        <Marker key={count++} position={pos.coords}>
+        <Marker key={count++} position={pos.coords} icon={pos.icon}>
           {pos.desc ? <Popup>{pos.desc}</Popup> : ""}
         </Marker>
       )) : ""}
@@ -49,8 +50,7 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
     });
 
     const search = (e: MarkGeocodeEvent) => {
-      L.marker(e.geocode.center, { icon }).addTo(map).bindPopup(e.geocode.name).openPopup();
-      map.fitBounds(e.geocode.bbox);
+      map.setView(e.geocode.center);
     };
 
     geocoder.on("markgeocode", props.onSearch ? props.onSearch : search);
