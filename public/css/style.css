@@ -169,7 +169,7 @@
     position: fixed;
     min-height: var(--page-height);
     right: 0;
-    width: 60%;
+    width: 65%;
 }
 
 .page-content
@@ -228,7 +228,8 @@
 
     .leaflet-container
     {
-        right: 5rem;
+        right: 1rem;
+        width: 65%;
     }
 }
 
@@ -243,5 +244,11 @@
     {
         padding-left: 3rem;
         padding-right: 3rem;
+    }
+
+    .leaflet-container
+    {
+        right: 3rem;
+        width: 60%;
     }
 }

@@ -1,22 +1,28 @@
-import { baseUrl } from "../helpers/apiTypes";
 import { getToken } from "../helpers/authHelper";
+import { baseUrl } from "../helpers/apiTypes";
 
 // Basic GET request
 export const get = (path: string) => {
+  const token = getToken();
+
   return fetch(`${baseUrl}/${path}`, {
-    headers: {
+    headers: token ? {
       "Authorization": "Bearer " + getToken()
-    }
+    } : {}
   });
 };
 
 // Basic POST request
 export const post = (path: string, body?: string) => {
+  const token = getToken();
+
   return fetch(`${baseUrl}/${path}`, {
     method: "POST",
-    headers: {
+    headers: token ? {
       "Content-type": "application/json; charset=UTF-8",
       "Authorization": "Bearer " + getToken()
+    } : {
+      "Content-type": "application/json; charset=UTF-8"
     },
     body: body
   });
@@ -24,11 +30,15 @@ export const post = (path: string, body?: string) => {
 
 // Basic PUT request
 export const put = (path: string, body?: string) => {
+  const token = getToken();
+
   return fetch(`${baseUrl}/${path}`, {
     method: "PUT",
-    headers: {
+    headers: token ? {
       "Content-type": "application/json; charset=UTF-8",
       "Authorization": "Bearer " + getToken()
+    } : {
+      "Content-type": "application/json; charset=UTF-8"
     },
     body: body
   });
@@ -36,10 +46,12 @@ export const put = (path: string, body?: string) => {
 
 // Basic DELETE request
 export const del = (path: string) => {
+  const token = getToken();
+
   return fetch(`${baseUrl}/${path}`, {
     method: "DELETE",
-    headers: {
+    headers: token ? {
       "Authorization": "Bearer " + getToken()
-    }
+    } : {}
   });
 };
