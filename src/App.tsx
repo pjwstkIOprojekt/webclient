@@ -53,33 +53,34 @@ const App = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Routes>
-        <Route path="/" element={<Test />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/iforgor" element={<ForgotPassword />} />
-        <Route path="/tutorial" element={<TutorialView />} />
-        <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
-
-        <Route path="/userdata" element={<UserData />} />
-        <Route path="/userdata/edit" element={<EditUserData />} />
-        <Route path="/medicaldata" element={<MedicalData />} />
-        <Route path="/medicaldata/editbloodtype" element={<EditBloodType />} />
-        <Route path="/medicaldata/allergy/add" element={<AddAllergy />} />
-        <Route path="/medicaldata/allergy/details/:allergyId" element={<EditAllergy />} />
-        <Route path="/medicaldata/allergy/edit/:allergyId" element={<EditAllergy />} />
-        <Route path="/medicaldata/medicalcondition/add" element={<AddMedicalCondition />} />
-        <Route path="/medicaldata/medicalcondition/edit/:allergyId" element={<EditMedicalCondition />} />
-        <Route path="/map" element={<MapTest />} />
-        <Route path="/reports" element={<ReportsList />} />
-        <Route path="/report/:reportId" element={<CreateReport />} />
-        <Route path="/newreport" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<CreateReport />} />} />
-        <Route path="/mapAmbulance" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<MapAmbulance />} />} />
-        <Route path="/ambulances" element={<AmbulanceList />} />
-        <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />
-        <Route path="/ambulance/add" element={<CreateAmbulance />} />
-        <Route path="/acceptReport/:reportId" element={<AcceptReport />} />
-      </Routes>
+      <Container fluid className="page-content">
+        <Routes>
+          <Route path="/" element={<Test />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/iforgor" element={<ForgotPassword />} />
+          <Route path="/tutorial" element={<TutorialView />} />
+          <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
+          <Route path="/userdata" element={<UserData />} />
+          <Route path="/userdata/edit" element={<EditUserData />} />
+          <Route path="/medicaldata" element={<MedicalData />} />
+          <Route path="/medicaldata/editbloodtype" element={<EditBloodType />} />
+          <Route path="/medicaldata/allergy/add" element={<AddAllergy />} />
+          <Route path="/medicaldata/allergy/details/:allergyId" element={<EditAllergy />} />
+          <Route path="/medicaldata/allergy/edit/:allergyId" element={<EditAllergy />} />
+          <Route path="/medicaldata/medicalcondition/add" element={<AddMedicalCondition />} />
+          <Route path="/medicaldata/medicalcondition/edit/:allergyId" element={<EditMedicalCondition />} />
+          <Route path="/map" element={<MapTest />} />
+          <Route path="/reports" element={<ReportsList />} />
+          <Route path="/report/:reportId" element={<CreateReport />} />
+          <Route path="/newreport" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<CreateReport />} />} />
+          <Route path="/mapAmbulance" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<MapAmbulance />} />} />
+          <Route path="/ambulances" element={<AmbulanceList />} />
+          <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />
+          <Route path="/ambulance/add" element={<CreateAmbulance />} />
+          <Route path="/acceptReport/:reportId" element={<AcceptReport />} />
+        </Routes>
+      </Container>
       <CookieConsent debug />
     </BrowserRouter>
   );

@@ -1,4 +1,5 @@
 import { useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../../apiCalls/authCalls";
 import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row, Alert as Al } from "react-bootstrap";
@@ -14,6 +15,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ const Register = () => {
         handleLogin({
           username: user,
           password: pass
-        });
+        }, () => navigate("/"));
       }
     }).catch(err => console.log(err));
   };

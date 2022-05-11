@@ -169,7 +169,12 @@
     position: fixed;
     min-height: var(--page-height);
     right: 0;
-    width: 65%;
+    width: 60%;
+}
+
+.page-content
+{
+    padding: 0;
 }
 
 .tutorial-grid
@@ -214,6 +219,17 @@
     {
         grid-template-columns: repeat(4, 1fr);
     }
+
+    .page-content
+    {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .leaflet-container
+    {
+        right: 5rem;
+    }
 }
 
 @media (min-width: 1600px)
@@ -221,5 +237,11 @@
     .tutorial-grid
     {
         grid-template-columns: repeat(5, 1fr);
+    }
+
+    .page-content
+    {
+        padding-left: 3rem;
+        padding-right: 3rem;
     }
 }

@@ -1,4 +1,5 @@
 import { useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
@@ -8,6 +9,7 @@ import Link from "../../fragments/Link";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,7 +17,7 @@ const Login = () => {
     handleLogin({
       username: username,
       password: password
-    });
+    }, () => navigate("/"));
   };
 
   return (

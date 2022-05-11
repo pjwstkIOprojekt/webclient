@@ -5,7 +5,8 @@ import { Table as Inner } from "react-bootstrap";
 export interface TableColumnParams {
   name: string,
   property: string,
-  func?: (x: any) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
+  func?: (x: any) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[],
+  headFunc?: (x: string) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
 }
 
 export interface TableParams {
@@ -36,7 +37,7 @@ const Table = (props: Readonly<TableParams>) => {
     <Inner striped bordered hover variant={darkMode ? "dark" : "light"} className={props.className}>
       <thead className={props.headClass}>
         <tr className={props.rowClass}>
-          {props.columns.map(col => <th key={colCount++} className={props.headerClass}>{col.name}</th>)}
+          {props.columns.map(col => <th key={colCount++} className={props.headerClass}>{col.headFunc ? col.headFunc(col.name) : col.name}</th>)}
         </tr>
       </thead>
       <tbody className={props.bodyClass}>

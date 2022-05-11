@@ -1,5 +1,5 @@
 import { get, post, put, del } from "./basicCalls";
-import { User } from "../helpers/apiTypes";
+import { User, MedicalInfo } from "../helpers/apiTypes";
 
 // Get all users
 export const getUsers = () => get("user");
@@ -15,3 +15,9 @@ export const updateUser = (id: number, data: Readonly<User>) => put(`user/${id}`
 
 // Delete user
 export const deleteUser = (id: number) => del(`user/${id}`);
+
+// Add medical info
+export const addMedicalInfo = (id: number, data: Readonly<MedicalInfo>) => post(`user/info/${id}`, JSON.stringify(data));
+
+// Update medical info
+export const updateMedicalInfo = (id: number, data: Readonly<MedicalInfo>) => put(`user/info/${id}`, JSON.stringify(data));
