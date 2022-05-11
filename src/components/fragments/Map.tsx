@@ -1,8 +1,8 @@
 import { MarkGeocodeEventHandlerFn, MarkGeocodeEvent } from "leaflet-control-geocoder/dist/control";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import { useEffect } from "react";
-import Geocoder from "leaflet-control-geocoder";
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
+import { useState, useEffect } from "react";
 import L from "leaflet";
+import Geocoder from "leaflet-control-geocoder";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 
 export interface Position {
@@ -16,7 +16,9 @@ export interface MapParams {
   initialZoom: number,
   marks?: Position[],
   searchable?: boolean,
-  onSearch?: MarkGeocodeEventHandlerFn
+  onSearch?: MarkGeocodeEventHandlerFn,
+  clickable?: boolean,
+  onClick?: (x: L.LatLng) => void
 }
 
 const Map = (props: Readonly<MapParams>) => {
@@ -26,6 +28,7 @@ const Map = (props: Readonly<MapParams>) => {
     <MapContainer center={props.center} zoom={props.initialZoom}>
       <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {props.searchable ? <GeocoderMenu onSearch={props.onSearch} /> : ""}
+      {props.clickable ? <ClickHandler onClick={props.onClick} /> : ""}
       {props.marks ? props.marks.map(pos => (
         <Marker key={count++} position={pos.coords} icon={pos.icon}>
           {pos.desc ? <Popup>{pos.desc}</Popup> : ""}
@@ -35,9 +38,29 @@ const Map = (props: Readonly<MapParams>) => {
   );
 };
 
+interface ClickParams {
+  onClick?: (x: L.LatLng) => void
+}
+
 interface GeocodeParams {
   onSearch?: MarkGeocodeEventHandlerFn
 }
+
+const ClickHandler = (props: Readonly<ClickParams>) => {
+  const [position, setPosition] = useState<L.LatLng | null>(null);
+
+  useMapEvents({
+    click(e) {
+      setPosition(e.latlng);
+    }
+  });
+
+  if (position && props.onClick) {
+    props.onClick(position);
+  }
+
+  return null;
+};
 
 const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
   const map = useMap();
@@ -50,7 +73,7 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
     });
 
     const search = (e: MarkGeocodeEvent) => {
-      map.setView(e.geocode.center);
+      map.flyTo(e.geocode.center, map.getZoom());
     };
 
     geocoder.on("markgeocode", props.onSearch ? props.onSearch : search);
