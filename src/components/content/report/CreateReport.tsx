@@ -2,7 +2,6 @@ import { useState, FormEvent } from "react";
 import { createReport } from "../../../apiCalls/accidentReportCalls";
 import { Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/FormSelect";
-import FormCheck from "../../fragments/FormCheck";
 import FormControl from "../../fragments/FormControl";
 import FormTextArea from "../../fragments/FormTextArea";
 import Button from "../../fragments/Button";
@@ -15,10 +14,15 @@ const accidentTypes = [
   "Wypadek samochodowy"
 ];
 
+const victimStates = [
+  "Przytomna",
+  "Nieprzytomna",
+  "Nieoddychająca"
+];
+
 const CreateReport = () => {
   const [type, setType] = useState(4);
-  const [breath, setBreath] = useState(true);
-  const [cons, setCons] = useState(false);
+  const [state, setState] = useState(0);
   const [rating, setRating] = useState(1);
   const [desc, setDesc] = useState("");
 
@@ -30,8 +34,8 @@ const CreateReport = () => {
       date: new Date(Date.now()),
       closed: false,
       reportSurvey: {
-        victimBreathing: breath,
-        victimConsious: cons,
+        victimBreathing: state < 2,
+        victimConsious: state === 0,
         description: desc,
         date: new Date(Date.now())
       }
@@ -45,10 +49,7 @@ const CreateReport = () => {
         <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} label="Rodzaj zdarzenia:" options={accidentTypes} />
       </Row>
       <Row className="justify-content-center mb-3 ml-2">
-        <FormCheck id="isBreathing" onChange={e => setBreath(!breath)} value={breath} label="Czy ofiara oddycha?" />
-      </Row>
-      <Row className="justify-content-center mb-3">
-        <FormCheck id="isConscious" onChange={e => setCons(!cons)} value={cons} label="Czy ofiara jest przytomna?" />
+        <FormSelect id="state" onChange={e => setState(parseInt(e.target.value))} value={state} label="Stan ofiary" options={victimStates} />
       </Row>
       <Row className="justify-content-center mb-3">
         <FormControl id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} label="Oceń skalę zagrożenia" type="number" />
