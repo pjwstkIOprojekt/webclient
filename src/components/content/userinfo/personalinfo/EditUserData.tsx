@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import UserDataForm from "./UserDataForm";
 
-const UserData = () => {
+const EditUserData = () => {
   const [firstName, setFirstName] = useState("Jan");
   const [lastName, setLastName] = useState("Nowak");
   const [email, setEmail] = useState("jannowak@email.com");
@@ -22,12 +22,12 @@ const UserData = () => {
         password={password}
         birthDate={birthDate}
         phoneNumber={phoneNumber}
-        buttonLabel="Edytuj"
-        link="/userdata/edit"
-        disabled={true}
+        buttonLabel="Zapisz"
+        link="/userdata"
+        disabled={false}
       />
     </Container>
   );
 };
 
-export default UserData;
+export default EditUserData;
