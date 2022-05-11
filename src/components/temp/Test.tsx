@@ -26,6 +26,9 @@ const Test = () => {
       <Row>
         <Link to="/mapAmbulance">Mapa karetek</Link>
       </Row>
+      <Row>
+        <Link to="/acceptReport/1">Przyjmowanie zgłoszeń</Link>
+      </Row>
     </Container>
   );
 };
