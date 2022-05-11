@@ -25,6 +25,7 @@ import MapView from "./components/fragments/MapView";
 import AmbulanceList from "./components/content/ambulance/AmbulanceList";
 import MapAmbulance from "./components/content/ambulance/MapAmbulance"
 import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
+import AcceptReport from "./components/content/report/AcceptReport";
 import { CookieConsent } from "./components/CookieConsent";
 
 
@@ -77,6 +78,7 @@ const App = () => {
         <Route path="/ambulances" element={<AmbulanceList />} />
         <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />
         <Route path="/ambulance/add" element={<CreateAmbulance />} />
+        <Route path="/acceptReport/:reportId" element={<AcceptReport />} />
       </Routes>
       <CookieConsent debug />
     </BrowserRouter>
