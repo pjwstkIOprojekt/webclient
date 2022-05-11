@@ -1,5 +1,11 @@
 import { get, post, put, del } from "./basicCalls";
-import { AmbulanceDto, AmbulanceType, AmbulanceKind } from "../helpers/apiTypes";
+import { AmbulanceAvailabilityDto, AmbulanceDto, AmbulanceType, AmbulanceKind } from "../helpers/apiTypes";
+
+// Change ambulance status
+export const changeAmbulanceStatus = (id: number, data: Readonly<AmbulanceAvailabilityDto>) => post(`ambulances/${id}/availability`, JSON.stringify(data));
+
+// Assign equipment to ambulance
+export const assignEquipment = (id: number, eqid: number) => post(`ambulances/${id}/equipment/${eqid}`);
 
 // Get all ambulances
 export const getAmbulances = () => get("ambulances");

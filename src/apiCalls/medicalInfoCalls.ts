@@ -15,3 +15,12 @@ export const updateInfo = (id: number, data: Readonly<MedicalInfo>) => put(`medi
 
 // Delete info
 export const deleteInfo = (id: number) => del(`medicalInfo/${id}`);
+
+// Update blood info
+export const updateBloodType = (id: number, data: string) => put(`medicalInfo/blood/${id}`, data);
+
+// Update disease info
+export const updateChronicDisease = (id: number, data: string) => put(`medicalInfo/chronic/${id}`, data);
+
+// Update allergy info
+export const updateAllergies = (id: number, data: string) => put(`medicalInfo/allergies/${id}`, data);

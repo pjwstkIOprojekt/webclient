@@ -1,7 +1,7 @@
-// Base url for requests, change to 'localhost:8080' if you want to test with local backend
+// Base url for requests, change to 'http://localhost:8080' if you want to test with local backend
 export const baseUrl = "http://172.21.40.111:8080";
 
-// API dto definitions
+// API dto types definitions
 export interface LoginRequest {
   username: string,
   password: string
@@ -15,6 +15,22 @@ export interface CreateUserRequest extends LoginRequest {
   phoneNumber: string
 }
 
+export interface CreateStaffRequest extends CreateUserRequest {
+  staffType: StaffType
+}
+
+export interface CreateEmergencyRequest {
+  description: string,
+  breathing: boolean,
+  conscious: boolean,
+  bloodType: BloodType
+}
+
+export interface ApproveEmergencyRequest {
+  ambulanceIds: number[],
+  dangerRating: number
+}
+
 export interface AmbulanceDto {
   numberOfSeats: number,
   fuelTankCapacity: number,
@@ -25,6 +41,17 @@ export interface AmbulanceDto {
 
 export interface AmbulanceResponse extends AmbulanceDto {
   availability: AmbulanceAvailability
+}
+
+export interface AmbulanceAvailabilityDto {
+  availabilityType?: AvailabilityType,
+  since?: Date,
+  to?: Date,
+  details?: string
+}
+
+export interface EquipmentDto {
+  name?: string
 }
 
 // API enums definitions
