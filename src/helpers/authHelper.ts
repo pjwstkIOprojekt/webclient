@@ -5,11 +5,12 @@ import { acceptCookies } from "../components/CookieConsent";
 
 // Returns current user
 export const getCurrentUser = () => {
-  return JSON.parse(getCookieValue("user"));
+  const data = getCookieValue("user");
+  return data ? JSON.parse(data) : null;
 };
 
 // Handles user login
-export const handleLogin = (user: Readonly<LoginRequest>) => {
+export const handleLogin = (user: Readonly<LoginRequest>, callback: () => void) => {
   let response: Response;
 
   login(user).then(res => {
@@ -22,10 +23,9 @@ export const handleLogin = (user: Readonly<LoginRequest>) => {
       setCookieValue("user", JSON.stringify({
         token: data
       }));
-    }
 
-    console.log(response);
-    console.log(data);
+      callback();
+    }
   }).catch(err => console.log(err));
 };
 
