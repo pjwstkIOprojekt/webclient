@@ -12,7 +12,7 @@ const TutorialView = () => {
   ]);
 
   useEffect(() => {
-    getTutorials().then(res => res.json()).then(data => setItems(data)).catch(err => console.log(err));
+    getTutorials().then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
   }, []);
 
   return (
