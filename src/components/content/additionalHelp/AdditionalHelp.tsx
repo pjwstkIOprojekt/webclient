@@ -45,6 +45,9 @@ const AdditionalHelp = () => {
 
   return (
     <Container className="mt-5">
+      <Row className="text-center">
+        <h1>Wezwanie dodatkowych służb</h1>
+      </Row>
       <Row className="justify-content-end mb-3">
         <Button className="w-25" text="Nowe wezwanie" onClick={addNew} />
       </Row>
