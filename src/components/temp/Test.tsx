@@ -29,6 +29,9 @@ const Test = () => {
       <Row>
         <Link to="/acceptReport/1">Przyjmowanie zgłoszeń</Link>
       </Row>
+      <Row>
+        <Link to="/additionalHelp">Wezwanie dodatkowych służb</Link>
+      </Row>
     </Container>
   );
 };

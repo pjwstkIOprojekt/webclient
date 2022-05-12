@@ -6,12 +6,12 @@ import { Container } from "react-bootstrap";
 import Table from "../../fragments/Table";
 
 const cols = [
-  { name: "#", property: "id", func: (x: number) => <Link to={`/report/${x}`}>{x}</Link> },
-  { name: "Ofiara jest przytomna?", property: "victimConsious", func: (x: boolean) => x ? "Tak" : "Nie" },
-  { name: "Ofiara oddycha?", property: "victimBreathing", func: (x: boolean) => x ? "Tak" : "Nie" },
+  { name: "#", property: (x: any) => <Link to={`/report/${x.id}`}>{x.id}</Link> },
+  { name: "Ofiara jest przytomna?", property: (x: any) => x.victimConsious ? "Tak" : "Nie" },
+  { name: "Ofiara oddycha?", property: (x: any) => x.victimBreathing ? "Tak" : "Nie" },
   { name: "Data", property: "date" },
   { name: "Skala zagrożenia", property: "dangerRating" },
-  { name: "Opis", property: "description", func: (x: string) => x.substring(0, 100) }
+  { name: "Opis", property: (x: any) => x.description.substring(0, 100) }
 ];
 
 const ReportsList = () => {
@@ -19,8 +19,7 @@ const ReportsList = () => {
 
   useEffect(() => {
     getReports().then(res => res.json()).then(data => {
-      console.log(data);
-      setItems(data);
+      //setItems(data);
     }).catch(err => console.log(err));
   }, []);
 

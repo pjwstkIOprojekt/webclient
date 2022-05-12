@@ -6,7 +6,7 @@ const AllergyTable = () => {
   const navigate = useNavigate();
 
   const cols = [
-    { name: "#", property: "id", func: (x: number) => <Link to={`allergy/details/${x}`}>{x}</Link> },
+    { name: "#", property: (x: any) => <Link to={`allergy/details/${x.id}`}>{x.id}</Link> },
     { name: "Rodzaj alergii", property: "type" },
     { name: "Na co", property: "to" },
     { name: "Dodatkowe informacje", property: "extra" }

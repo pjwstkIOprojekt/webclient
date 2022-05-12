@@ -11,7 +11,7 @@ const AmbulanceList = () => {
     { name: "Rodzaj karetki", property: "kind" },
     { name: "Lista ratowników", property: "paramedics" },
     { name: "Numer rejestracyjny", property: "registrationNumber" },
-    { name: "Czy jest dostępna?", property: "available" , func: (x: boolean) => x ? "Tak" : "Nie"  },
+    { name: "Czy jest dostępna?", property: (x: any) => x.available ? "Tak" : "Nie"  },
     
     
   ];
