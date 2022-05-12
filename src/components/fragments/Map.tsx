@@ -2,7 +2,7 @@ import { MarkGeocodeEventHandlerFn, MarkGeocodeEvent } from "leaflet-control-geo
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 import { useState, useEffect } from "react";
 import L from "leaflet";
-import Geocoder from "leaflet-control-geocoder";
+import Geocoder, { geocoders } from "leaflet-control-geocoder";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 
 export interface Position {
@@ -69,7 +69,12 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
     const geocoder = new Geocoder({
       query: "",
       placeholder: "Szukaj...",
-      defaultMarkGeocode: false
+      defaultMarkGeocode: false,
+      geocoder: new geocoders.Nominatim({
+        geocodingQueryParams: {
+          "viewbox": "14.07,49.02,24.02,54.85"
+        }
+      })
     });
 
     const search = (e: MarkGeocodeEvent) => {

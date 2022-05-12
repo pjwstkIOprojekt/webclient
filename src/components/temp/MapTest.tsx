@@ -28,7 +28,7 @@ const positions: Position[] = [
 ];
 
 const MapTest = () => {
-  return <MapView center={[52.222, 21.015]} initialZoom={12} searchable marks={positions} />;
+  return <MapView center={[52.222, 21.015]} initialZoom={12} searchable marks={positions} clickable onClick={e => console.log(e)} />;
 };
 
 export default MapTest;
