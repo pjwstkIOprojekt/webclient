@@ -1,8 +1,8 @@
 import Link from "../../fragments/Link";
 import { useState, useEffect } from "react";
-import { AccidentReport } from "../../.././helpers/apiTypes";
 import { getReports } from "../../../apiCalls/accidentReportCalls";
 import { Container } from "react-bootstrap";
+import Spinner from "../../fragments/Spinner";
 import Table from "../../fragments/Table";
 
 const cols = [
@@ -15,11 +15,14 @@ const cols = [
 ];
 
 const ReportsList = () => {
-  const [items, setItems] = useState<AccidentReport[]>([]);
+  const [items, setItems] = useState<any[]>([
+  ]);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getReports().then(res => res.json()).then(data => {
-      //setItems(data);
+      console.log(data);
     }).catch(err => console.log(err));
   }, []);
 
