@@ -17,6 +17,7 @@ import MedicalData from "./components/content/userinfo/MedicalData";
 import MapTest from "./components/temp/MapTest";
 import ReportsList from "./components/content/report/ReportsList";
 import CreateReport from "./components/content/report/CreateReport";
+import AssignAmbulance from "./components/content/report/AssignAmbulance";
 import MapView from "./components/fragments/MapView";
 import AmbulanceList from "./components/content/ambulance/AmbulanceList";
 import MapAmbulance from "./components/content/ambulance/MapAmbulance"
@@ -68,6 +69,7 @@ const App = () => {
           <Route path="/reports" element={<ReportsList />} />
           <Route path="/report/:reportId" element={<CreateReport />} />
           <Route path="/newreport" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<CreateReport />} />} />
+          <Route path="/report/assign" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<AssignAmbulance />} />} />
           <Route path="/mapAmbulance" element={<MapView center={[52.222, 21.015]} initialZoom={12} element={<MapAmbulance />} />} />
           <Route path="/ambulances" element={<AmbulanceList />} />
           <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />

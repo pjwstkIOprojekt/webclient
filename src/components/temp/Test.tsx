@@ -20,6 +20,9 @@ const Test = () => {
         <Link to="/newreport">Nowe zgłoszenie</Link>
       </Row>
       <Row>
+        <Link to="/report/assign">Przypisanie karetki</Link>
+      </Row>
+      <Row>
         <Link to="/userdata">Dane użytkownika</Link>
         <Link to="/ambulances">Lista karetek</Link>
       </Row>

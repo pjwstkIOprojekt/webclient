@@ -5,19 +5,12 @@ import { Container } from "react-bootstrap";
 import FormSelect from "../../fragments/FormSelect";
 import { useState } from "react";
 
+const AmbulanceTypes = ["A", "B", "C"];
 
-const AmbulanceTypes = [
-    "A",
-    "B",
-    "C"
-  ];
-  const AmbulanceKind = [
-    "Covid",
-    "Transportowa"
-  ];
+const AmbulanceKind = ["Covid","Transportowa"];
+
 const AcceptReport = () => {
   const navigate = useNavigate();
-
   const [type, setType] = useState(0);
   const [kind, setKind] = useState(0);
 
@@ -28,16 +21,14 @@ const AcceptReport = () => {
     { name: "Data", property: "date" },
     { name: "Skala zagrożenia", property: "dangerRating" },
     { name: "Opis", property: (x: any) => x.description.substring(0, 100) },
-    { name: "Rodzaj Karetki", property: "kindAmbulance"},
-    { name: "Typ Karetki", property: "typeAmbulance"},
-    { name: "Potwierdź", property: "accept"},
-    { name: "Odrzuć", property: "refuse"},
+    { name: "Rodzaj Karetki", property: (x: any) => <FormSelect id="kind" onChange={e => setKind(parseInt(e.target.value))} value={kind} options={AmbulanceKind} /> },
+    { name: "Typ Karetki", property: (x: any) => <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} options={AmbulanceTypes} /> },
+    { name: "Potwierdź", property: (x: any) => <Button text="---" /> },
+    { name: "Odrzuć", property: (x: any) => <Button text="---" /> },
   ];
 
   const report = [
-    { id: 1, victimConsious: true, victimBreathing: true, date: "2022-01-01", dangerRating: "5", description: "description", kindAmbulance:<FormSelect id="kind" onChange={e => setKind(parseInt(e.target.value))} value={kind} options={AmbulanceKind} /> , typeAmbulance:<FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} options={AmbulanceTypes} /> , accept: <Button text="---" />, refuse: <Button text="---" />},
-    
-
+    { id: 1, victimConsious: true, victimBreathing: true, date: "2022-01-01", dangerRating: "5", description: "description" },
   ];
 
   return (
