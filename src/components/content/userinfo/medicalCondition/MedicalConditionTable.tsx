@@ -6,7 +6,7 @@ const MedicalConditionTable = () => {
   const navigate = useNavigate();
 
   const cols = [
-    { name: "#", property: "id", fund: (x: number) => <Link to={`disease/details/${x}`}>{x}</Link> },
+    { name: "#", property: (x: any) => <Link to={`disease/details/${x.id}`}>{x.id}</Link> },
     { name: "Nazwa", property: "name" }
   ];
 

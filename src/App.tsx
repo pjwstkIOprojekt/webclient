@@ -7,17 +7,13 @@ import Register from "./components/content/auth/Register";
 import ForgotPassword from "./components/content/auth/ForgotPassword";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
-
 import EditBloodType from "./components/content/userinfo/bloodtype/EditBloodTypeView";
 import AddAllergy from "./components/content/userinfo/allergy/AddAllergy";
 import EditAllergy from "./components/content/userinfo/allergy/EditAllergy";
 import AddMedicalCondition from "./components/content/userinfo/medicalCondition/AddMedicalCondition";
 import EditMedicalCondition from "./components/content/userinfo/medicalCondition/EditMedicalCondition";
-
 import UserData from "./components/content/userinfo/personalinfo/UserData";
 import MedicalData from "./components/content/userinfo/MedicalData";
-
-
 import MapTest from "./components/temp/MapTest";
 import ReportsList from "./components/content/report/ReportsList";
 import CreateReport from "./components/content/report/CreateReport";
@@ -27,11 +23,9 @@ import MapAmbulance from "./components/content/ambulance/MapAmbulance"
 import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
 import AcceptReport from "./components/content/report/AcceptReport";
 import { CookieConsent } from "./components/CookieConsent";
-
-
 import { handleLogout } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
-
+import AdditionalHelp from "./components/content/additionalHelp/AdditionalHelp";
 
 const App = () => {
   const darkMode = useDarkModeManager();
@@ -79,6 +73,7 @@ const App = () => {
           <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />
           <Route path="/ambulance/add" element={<CreateAmbulance />} />
           <Route path="/acceptReport/:reportId" element={<AcceptReport />} />
+          <Route path="/additionalHelp" element={<AdditionalHelp />} />
         </Routes>
       </Container>
       <CookieConsent debug />

@@ -3,10 +3,8 @@ import { useDarkMode } from "../../hooks/useDarkMode";
 import { Table as Inner } from "react-bootstrap";
 
 export interface TableColumnParams {
-  name: string,
-  property: string,
-  func?: (x: any) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[],
-  headFunc?: (x: string) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
+  name: (() => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
+  property: ((x: any) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string
 }
 
 export interface TableParams {
@@ -37,13 +35,13 @@ const Table = (props: Readonly<TableParams>) => {
     <Inner striped bordered hover variant={darkMode ? "dark" : "light"} className={props.className}>
       <thead className={props.headClass}>
         <tr className={props.rowClass}>
-          {props.columns.map(col => <th key={colCount++} className={props.headerClass}>{col.headFunc ? col.headFunc(col.name) : col.name}</th>)}
+          {props.columns.map(col => <th key={colCount++} className={props.headerClass}>{typeof(col.name) === "string" ? col.name : col.name()}</th>)}
         </tr>
       </thead>
       <tbody className={props.bodyClass}>
         {props.data.map(row => (
           <tr key={rowCount++} className={props.rowClass}>
-            {props.columns.map(col => <td key={countCol()} className={props.dataClass}>{col.func ? col.func(row[col.property]) : row[col.property]}</td>)}
+            {props.columns.map(col => <td key={countCol()} className={props.dataClass}>{typeof(col.property) === "string" ? row[col.property] : col.property(row)}</td>)}
           </tr>
         ))}
       </tbody>

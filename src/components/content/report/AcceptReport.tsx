@@ -23,11 +23,11 @@ const AcceptReport = () => {
 
   const cols = [
     { name: "#", property: "id" },
-    { name: "Ofiara jest przytomna?", property: "victimConsious", func: (x: boolean) => x ? "Tak" : "Nie" },
-    { name: "Ofiara oddycha?", property: "victimBreathing", func: (x: boolean) => x ? "Tak" : "Nie" },
+    { name: "Ofiara jest przytomna?", property: (x: any) => x.victimConsious ? "Tak" : "Nie" },
+    { name: "Ofiara oddycha?", property: (x: any) => x.victimBreathing ? "Tak" : "Nie" },
     { name: "Data", property: "date" },
     { name: "Skala zagrożenia", property: "dangerRating" },
-    { name: "Opis", property: "description", func: (x: string) => x.substring(0, 100) },
+    { name: "Opis", property: (x: any) => x.description.substring(0, 100) },
     { name: "Rodzaj Karetki", property: "kindAmbulance"},
     { name: "Typ Karetki", property: "typeAmbulance"},
     { name: "Potwierdź", property: "accept"},

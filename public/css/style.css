@@ -64,6 +64,11 @@
     color: var(--dark-text);
 }
 
+.text-custom-dark
+{
+    color: var(--dark-button);
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -110,6 +115,11 @@
 .link-light, .link-light:hover, .link-light:visited
 {
     color: var(--light-bg);
+}
+
+.text-custom-light
+{
+    color: var(--light-button);
 }
 
 /* Shared */
