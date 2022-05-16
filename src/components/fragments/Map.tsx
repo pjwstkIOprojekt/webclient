@@ -67,12 +67,7 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
     const geocoder = new Geocoder({
       placeholder: "Szukaj...",
       errorMessage: "Brak wyników",
-      defaultMarkGeocode: false,
-      geocoder: new geocoders.Nominatim({
-        geocodingQueryParams: {
-          "viewbox": "14.07,49.02,24.02,54.85"
-        }
-      })
+      defaultMarkGeocode: false
     });
 
     const search = (e: MarkGeocodeEvent) => {
