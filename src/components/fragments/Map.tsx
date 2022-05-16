@@ -22,15 +22,13 @@ export interface MapParams {
 }
 
 const Map = (props: Readonly<MapParams>) => {
-  let count = 0;
-
   return (
     <MapContainer center={props.center} zoom={props.initialZoom}>
       <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {props.searchable ? <GeocoderMenu onSearch={props.onSearch} /> : ""}
       {props.clickable ? <ClickHandler onClick={props.onClick} /> : ""}
-      {props.marks ? props.marks.map(pos => (
-        <Marker key={count++} position={pos.coords} icon={pos.icon}>
+      {props.marks ? props.marks.map((pos, index) => (
+        <Marker key={index} position={pos.coords} icon={pos.icon}>
           {pos.desc ? <Popup>{pos.desc}</Popup> : ""}
         </Marker>
       )) : ""}
@@ -67,8 +65,8 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
 
   useEffect(() => {
     const geocoder = new Geocoder({
-      query: "",
       placeholder: "Szukaj...",
+      errorMessage: "Brak wyników",
       defaultMarkGeocode: false,
       geocoder: new geocoders.Nominatim({
         geocodingQueryParams: {
@@ -78,6 +76,7 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
     });
 
     const search = (e: MarkGeocodeEvent) => {
+      console.log(e.geocode.bbox);
       map.flyTo(e.geocode.center, map.getZoom());
     };
 
