@@ -51,7 +51,7 @@ const MapForm = (props: {func?: (set: any) => void}) => {
 
       return showFacilities;
     }));
-  }, [props.func, showAccidents, showAmbulances, showFacilities]);
+  }, [props, showAccidents, showAmbulances, showFacilities]);
 
   return (
     <Container>
