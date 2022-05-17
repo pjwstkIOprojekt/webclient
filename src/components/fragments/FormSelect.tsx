@@ -15,13 +15,11 @@ export interface FormSelectParams {
 }
 
 const FormSelect = (props: Readonly<FormSelectParams>) => {
-  let count = 0;
-
   return (
     <FormGroup controlId={props.id} className={props.className}>
       {props.label ? <Form.Label className={props.labelClass}>{props.label}{props.required ? <span className="req">*</span> : ""}</Form.Label> : ""}
       <Form.Select className={props.innerClass} required={props.required} value={props.value} onChange={props.onChange} disabled={props.disabled}>
-        {props.options ? props.options.map(opt => <option key={count} value={count++}>{opt}</option>) : ""}
+        {props.options ? props.options.map((opt, index) => <option key={index} value={index}>{opt}</option>) : ""}
       </Form.Select>
     </FormGroup>
   );

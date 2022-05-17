@@ -19,29 +19,19 @@ export interface TableParams {
 }
 
 const Table = (props: Readonly<TableParams>) => {
-  let rowCount = 0;
-  let colCount = 0;
   const darkMode = useDarkMode();
-
-  const countCol = () => {
-    if (props.columns.length <= colCount) {
-      colCount = 0;
-    }
-
-    return colCount++;
-  };
 
   return (
     <Inner striped bordered hover variant={darkMode ? "dark" : "light"} className={props.className}>
       <thead className={props.headClass}>
         <tr className={props.rowClass}>
-          {props.columns.map(col => <th key={colCount++} className={props.headerClass}>{typeof(col.name) === "string" ? col.name : col.name()}</th>)}
+          {props.columns.map((col, index) => <th key={index} className={props.headerClass}>{typeof(col.name) === "string" ? col.name : col.name()}</th>)}
         </tr>
       </thead>
       <tbody className={props.bodyClass}>
-        {props.data.map(row => (
-          <tr key={rowCount++} className={props.rowClass}>
-            {props.columns.map(col => <td key={countCol()} className={props.dataClass}>{typeof(col.property) === "string" ? row[col.property] : col.property(row)}</td>)}
+        {props.data.map((row, index) => (
+          <tr key={index} className={props.rowClass}>
+            {props.columns.map((col, key) => <td key={key} className={props.dataClass}>{typeof(col.property) === "string" ? row[col.property] : col.property(row)}</td>)}
           </tr>
         ))}
       </tbody>
