@@ -27,7 +27,7 @@ import { CookieConsent } from "./components/CookieConsent";
 import { handleLogout } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
 import AdditionalHelp from "./components/content/additionalHelp/AdditionalHelp";
-import {ReactKeycloakProvider, useKeycloak} from "@react-keycloak/web";
+import { ReactKeycloakProvider } from "@react-keycloak/web";
 import kc from "./config/keycloak-config";
 import KcToken from "./components/temp/keycloakTest";
 import PatientsList from "./components/content/patient/PatientsList";

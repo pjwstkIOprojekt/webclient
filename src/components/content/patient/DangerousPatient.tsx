@@ -3,7 +3,7 @@ import Table from "../../fragments/Table";
 import Button from '../../fragments/Button';
 import Textarea from '../../fragments/FormTextArea';
 import { Container } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const PatientList = () => {
   const navigate = useNavigate();

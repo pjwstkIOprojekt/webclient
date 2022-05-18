@@ -21,26 +21,38 @@ const ambulanceIcon = L.icon({
   shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
 });
 
+const facilityIcon = L.icon({
+  iconSize: [25, 41],
+  iconAnchor: [10, 41],
+  popupAnchor: [2, -40],
+  iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
+});
+
 const positions: Position[] = [
   { coords: [52.22, 21.01], desc: "Zdarzenie 1", icon: accidentIcon },
   { coords: [52.23, 21.0], desc: "Zdarzenie 2", icon: accidentIcon },
   { coords: [52.21, 21.02], desc: "Zdarzenie 3", icon: accidentIcon },
   { coords: [52.12, 21.05], desc: "Karetka 1", icon: ambulanceIcon },
   { coords: [52.02, 20.99], desc: "Karetka 2", icon: ambulanceIcon },
-  { coords: [52.32, 21.00], desc: "Karetka 3", icon: ambulanceIcon }
+  { coords: [52.32, 21.00], desc: "Karetka 3", icon: ambulanceIcon },
+  { coords: [53.32, 20.00], desc: "Placówka 1", icon: facilityIcon },
+  { coords: [51.32, 22.00], desc: "Placówka 2", icon: facilityIcon },
+  { coords: [54.32, 23.00], desc: "Placówka 3", icon: facilityIcon }
 ];
 
 const MapForm = (props: {func?: (set: any) => void}) => {
   const [showAccidents, toggleAccidents] = useState(true);
   const [showAmbulances, toggleAmbulances] = useState(true);
   const [showFacilities, toggleFacilities] = useState(true);
+  const func = props.func;
 
   useEffect(() => {
-    if (!props.func) {
+    if (!func) {
       return;
     }
 
-    props.func(positions.filter(p => {
+    func(positions.filter(p => {
       if (p.icon === accidentIcon) {
         return showAccidents;
       }
@@ -51,7 +63,7 @@ const MapForm = (props: {func?: (set: any) => void}) => {
 
       return showFacilities;
     }));
-  }, [props, showAccidents, showAmbulances, showFacilities]);
+  }, [showAccidents, showAmbulances, showFacilities, func]);
 
   return (
     <Container>
