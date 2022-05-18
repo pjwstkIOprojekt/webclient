@@ -27,6 +27,9 @@ import { CookieConsent } from "./components/CookieConsent";
 import { handleLogout } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
 import AdditionalHelp from "./components/content/additionalHelp/AdditionalHelp";
+import PatientsList from "./components/content/patient/PatientsList";
+import DangerousPatient from "./components/content/patient/DangerousPatient";
+import PatientInfo from "./components/content/patient/PatientInfo";
 
 const App = () => {
   const darkMode = useDarkModeManager();
@@ -76,6 +79,9 @@ const App = () => {
           <Route path="/ambulance/add" element={<CreateAmbulance />} />
           <Route path="/acceptReport/:reportId" element={<AcceptReport />} />
           <Route path="/additionalHelp" element={<AdditionalHelp />} />
+          <Route path="/patientsList" element={<PatientsList />} />
+          <Route path="/patient/:patientId" element={<DangerousPatient />} />
+          <Route path="/patientInfo/:patientId" element={<PatientInfo />} />
         </Routes>
       </Container>
       <CookieConsent debug />
