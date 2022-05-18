@@ -3,7 +3,6 @@ import { Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/FormSelect";
 import Button from "../../fragments/Button";
 
-
 const city = [
     "Warszawa",
     "Gdańsk"
