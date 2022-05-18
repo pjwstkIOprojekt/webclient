@@ -25,6 +25,7 @@ import { ReactKeycloakProvider } from "@react-keycloak/web";
 import PatientsList from "./components/content/patient/PatientsList";
 import DangerousPatient from "./components/content/patient/DangerousPatient";
 import PatientInfo from "./components/content/patient/PatientInfo";
+import CheckIn from "./components/content/staff/CheckIn";
 
 const App = () => {
   const darkMode = useDarkModeManager();
@@ -73,6 +74,7 @@ const App = () => {
             <Route path="/patientsList" element={<PatientsList />} />
             <Route path="/patient/:patientId" element={<DangerousPatient />} />
             <Route path="/patientInfo/:patientId" element={<PatientInfo />} />
+            <Route path="/check-in" element={<CheckIn />} />
           </Routes>
         </Container>
         <CookieConsent debug />
