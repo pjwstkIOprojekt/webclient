@@ -2,13 +2,16 @@ import { useState, FormEvent } from "react";
 import { Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/FormSelect";
 import Button from "../../fragments/Button";
+import MapView from "../../fragments/MapView";
 
 const city = [
     "Warszawa",
     "Gdańsk"
-  ];
+];
 
-const MapAmbulance = () => {
+
+
+const MapForm = () => {
   const [type, setType] = useState(4);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -28,6 +31,10 @@ const MapAmbulance = () => {
       </Row>
     </Form>
   );
+};
+
+const MapAmbulance = () => {
+  return <MapView center={[52.222, 21.015]} initialZoom={12} element={<MapForm />} />;
 };
 
 export default MapAmbulance;

@@ -3,8 +3,9 @@ import { createReport } from "../../../apiCalls/accidentReportCalls";
 import { Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/FormSelect";
 import FormTextArea from "../../fragments/FormTextArea";
-import AdditionalHelp from "../additionalHelp/AdditionalHelp";
+import AdditionalHelp from "./AdditionalHelp";
 import Button from "../../fragments/Button";
+import MapView from "../../fragments/MapView";
 
 const accidentTypes = [
   "Atak terrorystyczny",
@@ -28,7 +29,7 @@ const dangerLevels = [
   "5 - Koniec świata"
 ];
 
-const CreateReport = () => {
+const ReportForm = () => {
   const [type, setType] = useState(4);
   const [state, setState] = useState(0);
   const [rating, setRating] = useState(1);
@@ -73,6 +74,10 @@ const CreateReport = () => {
       </Row>
     </Form>
   );
+};
+
+const CreateReport = () => {
+  return <MapView center={[52.222, 21.015]} initialZoom={12} element={<ReportForm />} />;
 };
 
 export default CreateReport;
