@@ -35,6 +35,9 @@ const Test = () => {
       <Row>
         <Link to="/additionalHelp">Wezwanie dodatkowych służb</Link>
       </Row>
+      <Row>
+        <Link to="/PatientsList">Lista pacjentów</Link>
+      </Row>
     </Container>
   );
 };
