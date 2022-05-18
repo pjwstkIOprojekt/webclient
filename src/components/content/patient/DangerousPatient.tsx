@@ -13,11 +13,12 @@ const PatientList = () => {
     { name: "Imie", property: "name" },
     { name: "Nazwisko", property: "surname" },
     { name: "Adres zdarzenia", property: "address" },
+    { name: "Data zdarzenia", property: "date" },
     
   ];
   const [reason, setReason] = useState("")
   const patients = [
-    { id: 1, name:  "Jan", surname: "Nowak", address: "Warszawa, ul. Koszykowa"},
+    { id: 1, name:  "Jan", surname: "Nowak", address: "Warszawa, ul. Koszykowa", date: "2022-05-15"},
 
   ];
 

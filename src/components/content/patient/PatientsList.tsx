@@ -4,7 +4,7 @@ import Button from '../../fragments/Button';
 import { Container } from "react-bootstrap";
 import Link from "../../fragments/Link";
 
-const PatientList = () => {
+const PatientsList = () => {
   const navigate = useNavigate();
 
   const cols = [
@@ -12,14 +12,15 @@ const PatientList = () => {
     { name: "Imie", property: "name" },
     { name: "Nazwisko", property: "surname" },
     { name: "Adres zdarzenia", property: "address" },
-    { name: "Niebezpieczny?", property: (x: any) => <Link to={`/patient/${x.id}`}><Button text="---"/></Link>},
-    
+    { name: "Data zdarzenia", property: "date" },
+    { name: "Niebezpieczny?", property: (x: any) => <Link to={`/patient/${x.id}`}><Button text="Oznacz"/></Link>},
+    { name: "Dane", property: (x: any) => <Link to={`/patientInfo/${x.id}`}><Button text="Wyślij"/></Link>},
     
   ];
 
   const patients = [
-    { id: 1, name:  "Jan", surname: "Nowak", address: "Warszawa, ul. Koszykowa"},
-    { id: 2, name:  "Jan", surname: "Nowak", address: "Warszawa, ul. Koszykowa"},
+    { id: 1, name:  "Jan", surname: "Nowak", address: "Warszawa, ul. Koszykowa", date:"2022-05-15"},
+    { id: 2, name:  "Jan", surname: "Nowak", address: "Warszawa, ul. Koszykowa", date:"2022-05-16"},
   ];
 
   return (
@@ -31,4 +32,4 @@ const PatientList = () => {
   )
 }
 
-export default PatientList;
+export default PatientsList;
