@@ -10,6 +10,7 @@ const EditUserData = () => {
   const [password, setPassword] = useState("aaaaaaaa");
   const [birthDate, setBirthDate] = useState("2000-02-02");
   const [phoneNumber, setPhoneNumber] = useState("808707606");
+  const [passwordCheck, setPasswordcheck] = useState('aaaaaaa');
 
   return (
     <Container className="mt-5">
@@ -25,6 +26,8 @@ const EditUserData = () => {
         buttonLabel="Zapisz"
         link="/userdata"
         disabled={false}
+        edit={true}
+        passwordCheck={passwordCheck}
       />
     </Container>
   );
