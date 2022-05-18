@@ -2,7 +2,7 @@ import { MarkGeocodeEventHandlerFn, MarkGeocodeEvent } from "leaflet-control-geo
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 import { useState, useEffect } from "react";
 import L from "leaflet";
-import Geocoder, { geocoders } from "leaflet-control-geocoder";
+import Geocoder from "leaflet-control-geocoder";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 
 export interface Position {

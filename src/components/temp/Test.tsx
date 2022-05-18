@@ -20,9 +20,6 @@ const Test = () => {
         <Link to="/newreport">Nowe zgłoszenie</Link>
       </Row>
       <Row>
-        <Link to="/report/assign">Przypisanie karetki</Link>
-      </Row>
-      <Row>
         <Link to="/userdata">Dane użytkownika</Link>
         <Link to="/ambulances">Lista karetek</Link>
       </Row>
@@ -31,9 +28,6 @@ const Test = () => {
       </Row>
       <Row>
         <Link to="/acceptReport/1">Przyjmowanie zgłoszeń</Link>
-      </Row>
-      <Row>
-        <Link to="/additionalHelp">Wezwanie dodatkowych służb</Link>
       </Row>
       <Row>
         <Link to="/PatientsList">Lista pacjentów</Link>

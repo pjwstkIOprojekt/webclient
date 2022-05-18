@@ -11,7 +11,6 @@ const accidentTypes = [
   "Specjalistyczna"
 ];
 
-
 const CreateAmbulance = () => {
   const [type, setType] = useState(0);
   const [mileage, setMileage] = useState(0);
@@ -19,13 +18,9 @@ const CreateAmbulance = () => {
   const [maxAmount, setMaxAmount] = useState(1);
   const [registrationNumber, setRegistrationNumber] = useState("");
 
-
-
-
   return (
-    <Form >
+    <Form>
       <h1 className="text-center mt-3">Nowa karetka</h1>
-
       <Row className="justify-content-center mb-3">
         <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} label="Rodzaj zdarzenia:" options={accidentTypes} />
       </Row>
