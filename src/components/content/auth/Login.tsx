@@ -1,6 +1,5 @@
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
 import Button from "../../fragments/Button";
@@ -13,11 +12,6 @@ const Login = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    handleLogin({
-      username: username,
-      password: password
-    }, () => navigate("/"));
   };
 
   return (

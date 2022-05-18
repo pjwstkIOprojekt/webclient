@@ -1,7 +1,6 @@
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../../apiCalls/authCalls";
-import { handleLogin } from "../../../helpers/authHelper";
 import { Container, Form, Row, Alert as Al } from "react-bootstrap";
 import FormControl from "../../fragments/FormControl";
 import Button from "../../fragments/Button";
@@ -36,10 +35,6 @@ const Register = () => {
       return res.json();
     }).then(data => {
       if (response.status === 200 && data) {
-        handleLogin({
-          username: user,
-          password: pass
-        }, () => navigate("/"));
       }
     }).catch(err => console.log(err));
   };

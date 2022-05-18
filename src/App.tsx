@@ -24,12 +24,10 @@ import MapAmbulance from "./components/content/ambulance/MapAmbulance"
 import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
 import AcceptReport from "./components/content/report/AcceptReport";
 import { CookieConsent } from "./components/CookieConsent";
-import { handleLogout } from "./helpers/authHelper";
+import { keycloakClient } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
 import AdditionalHelp from "./components/content/additionalHelp/AdditionalHelp";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
-import kc from "./config/keycloak-config";
-import KcToken from "./components/temp/keycloakTest";
 import PatientsList from "./components/content/patient/PatientsList";
 import DangerousPatient from "./components/content/patient/DangerousPatient";
 import PatientInfo from "./components/content/patient/PatientInfo";
@@ -38,7 +36,7 @@ const App = () => {
   const darkMode = useDarkModeManager();
 
   return (
-    <ReactKeycloakProvider authClient={kc}>
+    <ReactKeycloakProvider authClient={keycloakClient}>
       <BrowserRouter>
         <Navbar bg={`navbar-${darkMode.isDark ? "dark" : "light"}`} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
           <Container fluid className="mx-3">
@@ -49,10 +47,8 @@ const App = () => {
                 <Nav.Link as={Link} to="/">Strona tymczasowa</Nav.Link>
                 <Nav.Link as={Link} to="/login">Zaloguj się</Nav.Link>
                 <Nav.Link as={Link} to="/register">Rejestracja</Nav.Link>
-                <Nav.Link onClick={handleLogout}>Wyloguj</Nav.Link>
                 <Nav.Link onClick={darkMode.toggle}>Zmień motyw</Nav.Link>
-
-                <Nav.Link onClick={() => kc.authenticated ? kc.logout() : kc.login()}>KC TEST LOGIN / LOGOUT</Nav.Link>
+                <Nav.Link onClick={() => keycloakClient.authenticated ? keycloakClient.logout() : keycloakClient.login()}>{keycloakClient.authenticated ? "Wyloguj" : "Zaloguj się"}</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -90,7 +86,6 @@ const App = () => {
             <Route path="/patientInfo/:patientId" element={<PatientInfo />} />
           </Routes>
         </Container>
-        <KcToken/>
         <CookieConsent debug />
       </BrowserRouter>
     </ReactKeycloakProvider>
