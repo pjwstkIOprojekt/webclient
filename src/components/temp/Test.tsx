@@ -20,9 +20,6 @@ const Test = () => {
         <Link to="/newreport">Nowe zgłoszenie</Link>
       </Row>
       <Row>
-        <Link to="/report/assign">Przypisanie karetki</Link>
-      </Row>
-      <Row>
         <Link to="/userdata">Dane użytkownika</Link>
         <Link to="/ambulances">Lista karetek</Link>
       </Row>
@@ -33,7 +30,10 @@ const Test = () => {
         <Link to="/acceptReport/1">Przyjmowanie zgłoszeń</Link>
       </Row>
       <Row>
-        <Link to="/additionalHelp">Wezwanie dodatkowych służb</Link>
+        <Link to="/PatientsList">Lista pacjentów</Link>
+      </Row>
+      <Row>
+        <Link to="/check-in">Dyżur - check in/out</Link>
       </Row>
     </Container>
   );

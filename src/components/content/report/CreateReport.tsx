@@ -2,9 +2,10 @@ import { useState, FormEvent } from "react";
 import { createReport } from "../../../apiCalls/accidentReportCalls";
 import { Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/FormSelect";
-import FormControl from "../../fragments/FormControl";
 import FormTextArea from "../../fragments/FormTextArea";
+import AdditionalHelp from "./AdditionalHelp";
 import Button from "../../fragments/Button";
+import MapView from "../../fragments/MapView";
 
 const accidentTypes = [
   "Atak terrorystyczny",
@@ -20,7 +21,15 @@ const victimStates = [
   "Nieoddychająca"
 ];
 
-const CreateReport = () => {
+const dangerLevels = [
+  "1 - Nic wielkiego",
+  "2 - Trochę groźnie",
+  "3 - Duże zagrożenie",
+  "4 - Ludzie umierają",
+  "5 - Koniec świata"
+];
+
+const ReportForm = () => {
   const [type, setType] = useState(4);
   const [state, setState] = useState(0);
   const [rating, setRating] = useState(1);
@@ -52,16 +61,23 @@ const CreateReport = () => {
         <FormSelect id="state" onChange={e => setState(parseInt(e.target.value))} value={state} label="Stan ofiary" options={victimStates} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormControl id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} label="Oceń skalę zagrożenia" type="number" />
+        <FormSelect id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} label="Skala zagrożenia" options={dangerLevels} />
       </Row>
       <Row className="justify-content-center mb-3">
         <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis sytuacji:" />
+      </Row>
+      <Row>
+        <AdditionalHelp />
       </Row>
       <Row className="justify-content-center mb-5">
         <Button className="mt-3 w-50" type="submit" text="Zgłoś zdarzenie" />
       </Row>
     </Form>
   );
+};
+
+const CreateReport = () => {
+  return <MapView center={[52.222, 21.015]} initialZoom={12} element={<ReportForm />} />;
 };
 
 export default CreateReport;

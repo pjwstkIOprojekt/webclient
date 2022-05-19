@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateBloodType } from "../../../../apiCalls/medicalInfoCalls";
 import { Form } from "react-bootstrap";
 import FormRadio from "../../../fragments/FormRadio";
 import Button from "../../../fragments/Button";
@@ -15,8 +16,14 @@ const BloodTypeForm = (props: FormProps) => {
   const [rh, setRh] = useState("Rh+");
   const navigate = useNavigate();
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    updateBloodType(1, group + " " + rh).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    navigate(props.link);
+  };
+
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <div className="mb-3">
         <h3>Grupa krwi</h3>
         <div>
@@ -25,7 +32,7 @@ const BloodTypeForm = (props: FormProps) => {
         <div>
           <FormRadio labelClass="p-3" label="Grupa Rh:" values={["Rh+", "Rh-"]} onChange={e => setRh(e.target.id)} value={rh} disabled={props.disabled} />
         </div>
-        <Button text={props.buttonLabel} onClick={e => navigate(props.link)} />
+        <Button type={props.disabled ? "button" : "submit"} text={props.buttonLabel} onClick={props.disabled ? e => navigate(props.link) : e => 3} />
       </div>
     </Form>
   );
