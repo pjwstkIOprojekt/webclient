@@ -15,6 +15,8 @@ export interface UserDataFormParams {
   disabled?: boolean;
   buttonLabel: string;
   link: string;
+  edit?: boolean;
+  passwordCheck?: string;
 }
 
 const UserDataForm = (props: Readonly<UserDataFormParams>) => {
@@ -25,94 +27,108 @@ const UserDataForm = (props: Readonly<UserDataFormParams>) => {
   const [password, setPassword] = useState(props.password);
   const [birthDate, setBirthDate] = useState(props.birthDate);
   const [phoneNumber, setPhoneNumber] = useState(props.phoneNumber);
+  const [edit, setEdit] = useState(props.edit);
+  const [passwordCheck, setPasswordCheck] = useState(props.passwordCheck);
 
   const navigate = useNavigate();
 
   return (
-      <Form>
-        <Row>
-          <Col>
-            <FormControl
-              id="firstName"
-              required
-              onChange={(e) => setFirstName(e.target.value)}
-              className="mb-3"
-              value={firstName}
-              label="Imię"
-              type="text"
-              disabled={props.disabled}
-            />
-          </Col>
-          <Col>
-            <FormControl
-              id="lastName"
-              required
-              onChange={(e) => setLastName(e.target.value)}
-              className="mb-3"
-              value={lastName}
-              label="Nazwisko"
-              type="text"
-              disabled={props.disabled}
-            />
-          </Col>
-        </Row>
-        <Row md={2}>
+    <Form>
+      <Row>
+        <Col>
           <FormControl
-            id="email"
+            id="firstName"
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setFirstName(e.target.value)}
             className="mb-3"
-            value={email}
-            label="Email"
-            type="email"
-            disabled={props.disabled}
-          />
-          <FormControl
-            id="phoneNumber"
-            required
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            className="mb-3"
-            value={phoneNumber}
-            label="Numer telefonu"
+            value={firstName}
+            label="Imię"
             type="text"
             disabled={props.disabled}
           />
-        </Row>
-        <Row md={2}>
+        </Col>
+        <Col>
           <FormControl
-            id="username"
+            id="lastName"
             required
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
             className="mb-3"
-            value={username}
-            label="Nazwa użytkownika"
+            value={lastName}
+            label="Nazwisko"
             type="text"
             disabled={props.disabled}
           />
-
-          <FormControl
-            id="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-            className="mb-3"
-            value={password}
-            label="Hasło"
-            type="password"
-            disabled={props.disabled}
-          />
-        </Row>
+        </Col>
+      </Row>
+      <Row md={2}>
         <FormControl
-            id="birthDate"
-            required
-            onChange={(e) => setBirthDate(e.target.value)}
-            className="mb-3"
-            value={birthDate}
-            label="Data urodzenia"
-            type="date"
-            disabled={props.disabled}
-          />
-        <Button text={props.buttonLabel} onClick={() => navigate(props.link)} />
-      </Form>
+          id="email"
+          required
+          onChange={(e) => setEmail(e.target.value)}
+          className="mb-3"
+          value={email}
+          label="Email"
+          type="email"
+          disabled={props.disabled}
+        />
+        <FormControl
+          id="phoneNumber"
+          required
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          className="mb-3"
+          value={phoneNumber}
+          label="Numer telefonu"
+          type="text"
+          disabled={props.disabled}
+        />
+      </Row>
+
+      <FormControl
+        id="username"
+        required
+        onChange={(e) => setUsername(e.target.value)}
+        className="mb-3"
+        value={username}
+        label="Nazwa użytkownika"
+        type="text"
+        disabled={props.disabled}
+      />
+
+      <FormControl
+        id="password"
+        required
+        onChange={(e) => setPassword(e.target.value)}
+        className="mb-3"
+        value={password}
+        label="Hasło"
+        type="password"
+        disabled={props.disabled}
+      />
+      {edit && (
+        <FormControl
+          id="passwordCheck"
+          required
+          onChange={(e) => setPasswordCheck(e.target.value)}
+          className="mb-3"
+          value={passwordCheck}
+          label="Powtórz hasło"
+          type="password"
+          disabled={props.disabled}
+        />
+      )}
+
+      <FormControl
+        id="birthDate"
+        required
+        onChange={(e) => setBirthDate(e.target.value)}
+        className="mb-3"
+        value={birthDate}
+        label="Data urodzenia"
+        type="date"
+        disabled={props.disabled}
+      />
+      <Button text={props.buttonLabel} onClick={() => navigate(props.link)} />
+    </Form>
   );
 };
 

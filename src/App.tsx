@@ -1,6 +1,6 @@
 import { useDarkModeManager } from "./hooks/useDarkMode";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Nav, Container } from "react-bootstrap";
 import Test from "./components/temp/Test";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
@@ -21,6 +21,8 @@ import AcceptReport from "./components/content/report/AcceptReport";
 import { CookieConsent } from "./components/CookieConsent";
 import { keycloakClient } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
+import AdditionalHelp from "./components/content/additionalHelp/AdditionalHelp";
+import Navbar from "./components/fragments/Navbar"
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import PatientsList from "./components/content/patient/PatientsList";
 import DangerousPatient from "./components/content/patient/DangerousPatient";
