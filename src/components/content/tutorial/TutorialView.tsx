@@ -35,7 +35,7 @@ const TutorialView = () => {
     <div className="tutorial-grid">
       {items.map(item => (
         <Link to={`/tutorial/${item.id}`} className="mt-0 text-decoration-none text-reset" key={item.id}>
-          <CustomCard className="col">
+          <CustomCard className="col tutorial-card">
             <Card.Img variant="top" src="/img/thumbnail.jpg" className="img" />
             <Card.Body>
               <Card.Title>{item.name} - {item.tutorialKind}</Card.Title>

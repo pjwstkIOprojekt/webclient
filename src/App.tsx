@@ -1,6 +1,6 @@
 import { useDarkModeManager } from "./hooks/useDarkMode";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Nav, Container } from "react-bootstrap";
 import Test from "./components/temp/Test";
 import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
@@ -27,27 +27,14 @@ import { CookieConsent } from "./components/CookieConsent";
 import { handleLogout } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
 import AdditionalHelp from "./components/content/additionalHelp/AdditionalHelp";
+import Navbar from "./components/fragments/Navbar"
 
 const App = () => {
   const darkMode = useDarkModeManager();
 
   return (
     <BrowserRouter>
-      <Navbar bg={`navbar-${darkMode.isDark ? "dark" : "light"}`} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
-        <Container fluid className="mx-3">
-          <Navbar.Brand>GARY</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">Strona tymczasowa</Nav.Link>
-              <Nav.Link as={Link} to="/login">Zaloguj się</Nav.Link>
-              <Nav.Link as={Link} to="/register">Rejestracja</Nav.Link>
-              <Nav.Link onClick={handleLogout}>Wyloguj</Nav.Link>
-              <Nav.Link onClick={darkMode.toggle}>Zmień motyw</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <Navbar/>
       <Container fluid className="page-content">
         <Routes>
           <Route path="/" element={<Test />} />
