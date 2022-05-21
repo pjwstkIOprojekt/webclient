@@ -1,6 +1,6 @@
 import { ReactChild, ReactChildren, useState, useEffect, ChangeEventHandler, ChangeEvent } from "react";
 import { useDarkMode } from "../../hooks/useDarkMode";
-import { Table as Inner, Col } from "react-bootstrap";
+import { Table as Inner, Row, Col } from "react-bootstrap";
 import Button from "./Button";
 import FormControl from "./FormControl";
 
@@ -104,9 +104,17 @@ const Table = (props: Readonly<TableParams>) => {
         <tr className={props.rowClass}>
           {props.columns.map((col, index) => (
             <th key={index} className={props.headerClass}>
-              {col.filterBy ? <BindableControl callback={e => filterData(col.filterBy ?? "", e.target.value)} /> : ""}
-              {col.sortBy ? <Button text="^" onClick={e => sortData(col.sortBy ?? "")} /> : ""}
-              {typeof (col.name) === "string" ? col.name : col.name()}
+              {col.sortBy || col.filterBy ? (
+                <>
+                  <Row className="justify-content-center">
+                    {col.filterBy ? <Col><BindableControl callback={e => filterData(col.filterBy ?? "", e.target.value)} /></Col> : ""}
+                    {col.sortBy ? <Col md="auto"><Button text="^" onClick={e => sortData(col.sortBy ?? "")} /></Col> : ""}
+                  </Row>
+                  <Row className="justify-content-center">
+                    {typeof(col.name) === "string" ? col.name : col.name()}
+                  </Row>
+                </>
+              ): (typeof(col.name) === "string" ? col.name : col.name())}
             </th>
           ))}
         </tr>

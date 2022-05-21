@@ -37,8 +37,8 @@ const AmbulanceList = () => {
     {
       name: "#", property: "id", sortBy: "id", filterBy: "id" },
     { name: "Rodzaj karetki", property: "kind", sortBy: "kind", filterBy: "kind" },
-    { name: "Lista ratowników", property: "paramedics" },
-    { name: "Numer rejestracyjny", property: "registrationNumber" },
+    { name: "Lista ratowników", property: "paramedics", sortBy: "paramedics", filterBy: "paramedics" },
+    { name: "Numer rejestracyjny", property: "registrationNumber", sortBy: "registrationNumber", filterBy: "registrationNumber" },
     { name: "Czy jest dostępna?", property: (x: any) => x.available ? "Tak" : "Nie" }
   ];
 
