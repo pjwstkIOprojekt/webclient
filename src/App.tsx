@@ -18,7 +18,7 @@ import AmbulanceList from "./components/content/ambulance/AmbulanceList";
 import MapAmbulance from "./components/content/ambulance/MapAmbulance"
 import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
 import AcceptReport from "./components/content/report/AcceptReport";
-import { CookieConsent } from "./components/CookieConsent";
+import { CookieConsent } from "./components/fragments/CookieConsent";
 import { keycloakClient } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
 // import Navbar from "./components/fragments/Navbar"
