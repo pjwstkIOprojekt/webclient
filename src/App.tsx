@@ -27,6 +27,8 @@ import VictimsList from "./components/content/victim/VictimsList";
 import DangerousVictim from "./components/content/victim/DangerousVictim";
 import VictimInfo from "./components/content/victim/VictimInfo";
 import CheckIn from "./components/content/staff/CheckIn";
+import DoctorsList from "./components/content/hospital/doctorsList";
+import Doctors from "./components/content/hospital/doctors";
 
 const App = () => {
   const darkMode = useDarkModeManager();
@@ -76,6 +78,8 @@ const App = () => {
             <Route path="/victimDangerous/:victimId" element={<DangerousVictim  />} />
             <Route path="/victimInfo/:victimId" element={<VictimInfo />} />
             <Route path="/check-in" element={<CheckIn />} />
+            <Route path="/doctors/doctorsList" element={<DoctorsList />} />
+            <Route path="/doctors" element={<Doctors />} />
           </Routes>
         </Container>
         <CookieConsent debug />
