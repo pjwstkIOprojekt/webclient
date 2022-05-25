@@ -29,6 +29,8 @@ import VictimInfo from "./components/content/victim/VictimInfo";
 import CheckIn from "./components/content/staff/CheckIn";
 import DoctorsList from "./components/content/hospital/doctorsList";
 import Doctors from "./components/content/hospital/doctors";
+import SendMessage from "./components/content/ambulance/SendMessage";
+
 
 const App = () => {
   const darkMode = useDarkModeManager();
@@ -80,6 +82,7 @@ const App = () => {
             <Route path="/check-in" element={<CheckIn />} />
             <Route path="/doctors/doctorsList" element={<DoctorsList />} />
             <Route path="/doctors" element={<Doctors />} />
+            <Route path="/driverMessage" element={<SendMessage />} />
           </Routes>
         </Container>
         <CookieConsent debug />

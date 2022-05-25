@@ -38,6 +38,9 @@ const Test = () => {
       <Row>
         <Link to="/doctors">Lista lekarzy</Link>
       </Row>
+      <Row>
+        <Link to="/driverMessage">Widomość do kierowcy</Link>
+      </Row>
     </Container>
   );
 };
