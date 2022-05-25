@@ -23,9 +23,9 @@ import { keycloakClient } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
 // import Navbar from "./components/fragments/Navbar"
 import { ReactKeycloakProvider } from "@react-keycloak/web";
-import PatientsList from "./components/content/patient/PatientsList";
-import DangerousPatient from "./components/content/patient/DangerousPatient";
-import PatientInfo from "./components/content/patient/PatientInfo";
+import VictimsList from "./components/content/victim/VictimsList";
+import DangerousVictim from "./components/content/victim/DangerousVictim";
+import VictimInfo from "./components/content/victim/VictimInfo";
 import CheckIn from "./components/content/staff/CheckIn";
 
 const App = () => {
@@ -72,9 +72,9 @@ const App = () => {
             <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />
             <Route path="/ambulance/add" element={<CreateAmbulance />} />
             <Route path="/acceptReport/:reportId" element={<AcceptReport />} />
-            <Route path="/patientsList" element={<PatientsList />} />
-            <Route path="/patient/:patientId" element={<DangerousPatient />} />
-            <Route path="/patientInfo/:patientId" element={<PatientInfo />} />
+            <Route path="/victimsList" element={<VictimsList />} />
+            <Route path="/victimDangerous/:victimId" element={<DangerousVictim  />} />
+            <Route path="/victimInfo/:victimId" element={<VictimInfo />} />
             <Route path="/check-in" element={<CheckIn />} />
           </Routes>
         </Container>

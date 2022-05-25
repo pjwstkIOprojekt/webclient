@@ -30,7 +30,7 @@ const Test = () => {
         <Link to="/acceptReport/1">Przyjmowanie zgłoszeń</Link>
       </Row>
       <Row>
-        <Link to="/PatientsList">Lista pacjentów</Link>
+        <Link to="/VictimsList">Lista poszkodowanych</Link>
       </Row>
       <Row>
         <Link to="/check-in">Dyżur - check in/out</Link>
