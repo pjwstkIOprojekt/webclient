@@ -12,8 +12,8 @@ const UserData = () => {
   const [phoneNumber, setPhoneNumber] = useState("808707606");
 
   return (
-    <Container className="mt-5">
-      <h1 className="mb-5">Twoje dane</h1>
+    <Container className="my-3">
+      <h1 className="mb-3">Ustawienia</h1>
       <UserDataForm
         firstName={firstName}
         lastName={lastName}
@@ -23,7 +23,7 @@ const UserData = () => {
         birthDate={birthDate}
         phoneNumber={phoneNumber}
         buttonLabel="Edytuj"
-        link="/userdata/edit"
+        link="edit"
         disabled={true}
       />
     </Container>

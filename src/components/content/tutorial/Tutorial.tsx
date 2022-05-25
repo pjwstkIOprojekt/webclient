@@ -22,10 +22,10 @@ const Tutorial = () => {
   };
 
   return (
-    <Container className="mt-3 mb-5">
+    <Container className="my-5">
       <h1>Tutorial - {data.name} - {data.tutorialKind}</h1>
       <Rating emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x" initialRating={calcRating(data.average)} />
-      <CustomCard className="mt-3 mx-3">
+      <CustomCard className="mt-5 mx-3">
         <Card.Img variant="top" src="/img/thumbnail.jpg" height="360" />
         <Card.Body>
           <Card.Title>

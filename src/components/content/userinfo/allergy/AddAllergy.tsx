@@ -9,7 +9,7 @@ const AddAllergy = () => {
 
   return (
     <Container>
-      <h1 className="my-4">Dodaj alergię</h1>
+      <h1 className="my-3">Dodaj alergię</h1>
       <AllergyForm buttonLabel="Dodaj" onSubmit={onSubmit} />
     </Container>
   );

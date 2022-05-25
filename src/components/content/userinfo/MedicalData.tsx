@@ -5,8 +5,8 @@ import MedicalConditionTable from "./medicalCondition/MedicalConditionTable";
 
 const MedicalData = () => {
   return (
-    <Container>
-      <h1 className="my-4">Twoje dane</h1>
+    <Container className="my-3">
+      <h1 className="mb-3">Dane medyczne</h1>
       <BloodTypeForm buttonLabel="Edytuj" link="editbloodtype" disabled={true} />
       <AllergyTable />
       <MedicalConditionTable />
