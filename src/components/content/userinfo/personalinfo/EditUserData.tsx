@@ -13,8 +13,8 @@ const EditUserData = () => {
   const [passwordCheck, setPasswordcheck] = useState('aaaaaaa');
 
   return (
-    <Container className="mt-5">
-      <h1 className="mb-5">Twoje dane</h1>
+    <Container className="my-3">
+      <h1 className="mb-3">Ustawienia</h1>
       <UserDataForm
         firstName={firstName}
         lastName={lastName}
@@ -24,7 +24,7 @@ const EditUserData = () => {
         birthDate={birthDate}
         phoneNumber={phoneNumber}
         buttonLabel="Zapisz"
-        link="/userdata"
+        link="../userdata"
         disabled={false}
         edit={true}
         passwordCheck={passwordCheck}

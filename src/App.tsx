@@ -1,6 +1,6 @@
 import { useDarkModeManager } from "./hooks/useDarkMode";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Test from "./components/temp/Test";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
@@ -21,16 +21,17 @@ import AcceptReport from "./components/content/report/AcceptReport";
 import { CookieConsent } from "./components/fragments/CookieConsent";
 import { keycloakClient } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
-// import Navbar from "./components/fragments/Navbar"
+import Navbar from "./components/fragments/Navbar"
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import VictimsList from "./components/content/victim/VictimsList";
 import DangerousVictim from "./components/content/victim/DangerousVictim";
 import VictimInfo from "./components/content/victim/VictimInfo";
 import CheckIn from "./components/content/staff/CheckIn";
+import Settings from "./components/content/userinfo/Settings";
+import Panel from "./components/content/dispatchpanel/Panel";
 import DoctorsList from "./components/content/hospital/doctorsList";
 import Doctors from "./components/content/hospital/doctors";
 import SendMessage from "./components/content/ambulance/SendMessage";
-
 
 const App = () => {
   const darkMode = useDarkModeManager();
@@ -38,24 +39,12 @@ const App = () => {
   return (
     <ReactKeycloakProvider authClient={keycloakClient}>
       <BrowserRouter>
-        <Navbar bg={`navbar-${darkMode.isDark ? "dark" : "light"}`} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
-          <Container fluid className="mx-3">
-            <Navbar.Brand>GARY</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link as={Link} to="/">Strona tymczasowa</Nav.Link>
-                <Nav.Link as={Link} to="/login">Zaloguj się</Nav.Link>
-                <Nav.Link as={Link} to="/register">Rejestracja</Nav.Link>
-                <Nav.Link onClick={darkMode.toggle}>Zmień motyw</Nav.Link>
-                <Nav.Link onClick={() => keycloakClient.authenticated ? keycloakClient.logout() : keycloakClient.login()}>{keycloakClient.authenticated ? "Wyloguj" : "Zaloguj się"}</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
+        <Navbar />
         <Container fluid className="page-content">
           <Routes>
             <Route path="/" element={<Test />} />
+            <Route path="/panel/*" element={<Panel />} />
+            <Route path="/settings/*" element={<Settings />} />
             <Route path="/tutorial" element={<TutorialView />} />
             <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
             <Route path="/userdata" element={<UserData />} />

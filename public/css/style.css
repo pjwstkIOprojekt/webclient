@@ -176,8 +176,9 @@
 
 .leaflet-container
 {
+    margin-top: 2rem;
     position: fixed;
-    min-height: var(--page-height);
+    min-height: 80%;
     right: 0;
     width: 65%;
 }

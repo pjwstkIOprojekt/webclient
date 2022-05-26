@@ -2,12 +2,14 @@ import { Container } from "react-bootstrap";
 import BloodTypeForm from "./BloodTypeForm";
 import AllergyTable from "../allergy/AllergyTable";
 import MedicalConditionTable from "../medicalCondition/MedicalConditionTable";
+import { useNavigate } from "react-router-dom";
 
 const EditBloodTypeView = () => {
+
   return (
-    <Container>
-      <h1 className="my-4">Twoje dane</h1>
-      <BloodTypeForm buttonLabel="Zapisz" link="/medicaldata" disabled={false} />
+    <Container className="my-3">
+      <h1 className="mb-3">Dane medyczne</h1>
+      <BloodTypeForm buttonLabel="Zapisz" link="../medicaldata" disabled={false} />
       <AllergyTable />
       <MedicalConditionTable />
     </Container>
