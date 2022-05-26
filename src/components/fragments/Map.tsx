@@ -72,7 +72,9 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
         geocodingQueryParams: {
           "polygon_geojson": 1,
           "limit": 10,
-          "format": "jsonv2"
+          "format": "jsonv2",
+          "viewbox": (map.getCenter().lng - 1) + "," + (map.getCenter().lat - 1) + "," + (map.getCenter().lng + 1) + "," + (map.getCenter().lat + 1),
+          "bounded": 1
         }
       })
     });
