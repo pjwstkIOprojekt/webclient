@@ -39,7 +39,7 @@ const AcceptReport = () => {
     { name: "Rodzaj Karetki", property: (x: any) => <FormSelect onChange={e => updateData({...x, kind: parseInt(e.target.value)})} value={x.kind} options={ambulanceKind} /> },
     { name: "Typ Karetki", property: (x: any) => <FormSelect onChange={e => updateData({...x, type: parseInt(e.target.value)})} value={x.type} options={ambulanceTypes} /> },
     { name: "Potwierdź", property: (x: any) => <Button text="+" onClick={e => setData(data.filter(i => i.id !== x.id))} /> },
-    { name: "Odrzuć", property: (x: any) => <Button text="X" onClick={e => setData(data.filter(i => i.id !== x.id))} /> },
+    { name: "Odrzuć", property: (x: any) => <Button text="X" onClick={e => window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?") ? setData(data.filter(i => i.id !== x.id)) : null} /> },
   ];
 
   useEffect(() => {

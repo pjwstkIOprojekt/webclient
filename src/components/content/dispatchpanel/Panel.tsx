@@ -1,6 +1,5 @@
 import { Container, Nav } from 'react-bootstrap'
-import { Link, Route, Routes, NavLink } from 'react-router-dom'
-import Test from '../../temp/Test'
+import { Route, Routes, NavLink } from 'react-router-dom'
 import AmbulanceList from '../ambulance/AmbulanceList'
 import MapAmbulance from '../ambulance/MapAmbulance'
 import PatientList from '../victim/DangerousVictim'
