@@ -1,5 +1,4 @@
-import { useDarkModeManager } from "./hooks/useDarkMode";
-import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Test from "./components/temp/Test";
 import TutorialView from "./components/content/tutorial/TutorialView";
@@ -34,8 +33,6 @@ import Doctors from "./components/content/hospital/doctors";
 import SendMessage from "./components/content/ambulance/SendMessage";
 
 const App = () => {
-  const darkMode = useDarkModeManager();
-
   return (
     <ReactKeycloakProvider authClient={keycloakClient}>
       <BrowserRouter>
