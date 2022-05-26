@@ -17,12 +17,10 @@ const AmbulanceList = () => {
   const [sort, setSort] = useState("");
 
   useEffect(() => {
-    /*getAmbulances().then(res => res.json()).then(data => {
+    getAmbulances().then(res => res.json()).then(data => {
       console.log(data);
       setIsLoading(false);
     }).catch(err => console.log(err));
-    */
-    setIsLoading(false);
   }, []);
 
   if (isLoading) {

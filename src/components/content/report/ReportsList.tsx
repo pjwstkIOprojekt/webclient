@@ -1,6 +1,6 @@
 import Link from "../../fragments/Link";
 import { useState, useEffect } from "react";
-import { getReports } from "../../../apiCalls/accidentReportCalls";
+import { getApproved } from "../../../apiCalls/emergencyCalls";
 import { Container } from "react-bootstrap";
 import Spinner from "../../fragments/Spinner";
 import Table from "../../fragments/Table";
@@ -21,7 +21,7 @@ const ReportsList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getReports().then(res => res.json()).then(data => {
+    getApproved().then(res => res.json()).then(data => {
       console.log(data);
     }).catch(err => console.log(err));
   }, []);
