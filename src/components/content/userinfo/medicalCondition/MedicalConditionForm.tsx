@@ -27,7 +27,7 @@ const MedicalConditionForm = (props: FormProps) => {
       <FormTextArea className="mb-3" label="Jak udzielić pierwszej pomocy?" rows={1} value={inst} onChange={e => setInst(e.target.value)} />
       <FormUpload className="mb-3 d-flex flex-column" buttonClass="w-25" label="Skan diagnozy lekarskiej" value={file} onChange={e => setFile(e.target.value)} />
       <Button className="m-2" type="submit" text={props.buttonLabel} />
-      <Button text="Wróć" onClick={e => navigate("/medicaldata")} />
+      <Button text="Wróć" type="button" onClick={e => navigate("/medicaldata")} />
     </Form>
   );
 };

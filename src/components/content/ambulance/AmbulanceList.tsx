@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAmbulances } from "../../../apiCalls/ambulanceCalls";
-import { Container } from "react-bootstrap";
+import { Container, Col } from "react-bootstrap";
 import Spinner from "../../fragments/Spinner";
 import Button from '../../fragments/Button';
 import Table from "../../fragments/Table";
@@ -17,12 +17,10 @@ const AmbulanceList = () => {
   const [sort, setSort] = useState("");
 
   useEffect(() => {
-    /*getAmbulances().then(res => res.json()).then(data => {
+    getAmbulances().then(res => res.json()).then(data => {
       console.log(data);
       setIsLoading(false);
     }).catch(err => console.log(err));
-    */
-    setIsLoading(false);
   }, []);
 
   if (isLoading) {
@@ -39,7 +37,7 @@ const AmbulanceList = () => {
     { name: "Rodzaj karetki", property: "kind", sortBy: "kind", filterBy: "kind" },
     { name: "Lista ratowników", property: "paramedics", sortBy: "paramedics", filterBy: "paramedics" },
     { name: "Numer rejestracyjny", property: "registrationNumber", sortBy: "registrationNumber", filterBy: "registrationNumber" },
-    { name: "Czy jest dostępna?", property: (x: any) => x.available ? "Tak" : "Nie" }
+    { name: () => <Col className="pl-1 pr-1">Czy jest dostępna?</Col>, property: (x: any) => x.available ? "Tak" : "Nie", sortBy: "available" }
   ];
 
   return (

@@ -27,7 +27,7 @@ const AllergyForm = (props: FormProps) => {
       <FormTextArea className="mb-3" label="Na co" rows={1} value={source} onChange={e => setSource(e.target.value)} />
       <FormTextArea className="mb-3" label="Dodatkowe informacje" rows={1} value={info} onChange={e => setInfo(e.target.value)} />
       <Button className="m-2" type="submit" text={props.buttonLabel} />
-      <Button text="Wróć" onClick={() => navigate("../medicaldata")} />
+      <Button text="Wróć" type="button" onClick={() => navigate("../medicaldata")} />
     </Form>
   );
 };

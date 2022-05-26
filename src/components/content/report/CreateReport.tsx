@@ -1,7 +1,8 @@
 import { useState, FormEvent } from "react";
-import { createReport } from "../../../apiCalls/accidentReportCalls";
+import { createEmergency } from "../../../apiCalls/emergencyCalls";
 import { Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/FormSelect";
+import FormCheck from "../../fragments/FormCheck";
 import FormTextArea from "../../fragments/FormTextArea";
 import AdditionalHelp from "./AdditionalHelp";
 import Button from "../../fragments/Button";
@@ -31,23 +32,19 @@ const dangerLevels = [
 
 const ReportForm = () => {
   const [type, setType] = useState(4);
-  const [state, setState] = useState(0);
+  const [breathing, setBreathing] = useState(true);
+  const [conscious, setConscious] = useState(true);
   const [rating, setRating] = useState(1);
   const [desc, setDesc] = useState("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    createReport({
-      dangerRating: rating,
-      date: new Date(Date.now()),
-      closed: false,
-      reportSurvey: {
-        victimBreathing: state < 2,
-        victimConsious: state === 0,
-        description: desc,
-        date: new Date(Date.now())
-      }
+    createEmergency({
+      description: desc,
+      breathing: breathing,
+      conscious: conscious,
+      bloodType: 0
     }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
   };
 
@@ -58,7 +55,10 @@ const ReportForm = () => {
         <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} label="Rodzaj zdarzenia:" options={accidentTypes} />
       </Row>
       <Row className="justify-content-center mb-3 ml-2">
-        <FormSelect id="state" onChange={e => setState(parseInt(e.target.value))} value={state} label="Stan ofiary" options={victimStates} />
+        <FormCheck id="breat" onChange={e => setBreathing(!breathing)} value={breathing} label="Czy ofiara oddycha?" />
+      </Row>
+      <Row className="justify-content-center mb-3 ml-2">
+        <FormCheck id="cons" onChange={e => setConscious(!conscious)} value={conscious} label="Czy ofiara jest przytomna?" />
       </Row>
       <Row className="justify-content-center mb-3">
         <FormSelect id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} label="Skala zagrożenia" options={dangerLevels} />
