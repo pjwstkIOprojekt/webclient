@@ -224,8 +224,7 @@ export interface Review {
 
 export interface Staff {
   id?: string,
-  firstName?: string,
-  lastName?: string,
+  user?: User,
   birthDate?: Date,
   phone?: string,
   staffType?: StaffType
