@@ -1,8 +1,8 @@
 // Custom cookie consent component
 import { useState, useEffect } from "react";
-import { useDarkMode } from "../hooks/useDarkMode";
+import { useDarkMode } from "../../hooks/useDarkMode";
 import { Container, Row, Col } from "react-bootstrap";
-import Button from "./fragments/Button";
+import Button from "./Button";
 
 interface ConsentParams {
   debug?: boolean

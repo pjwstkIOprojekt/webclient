@@ -18,17 +18,20 @@ import AmbulanceList from "./components/content/ambulance/AmbulanceList";
 import MapAmbulance from "./components/content/ambulance/MapAmbulance"
 import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
 import AcceptReport from "./components/content/report/AcceptReport";
-import { CookieConsent } from "./components/CookieConsent";
+import { CookieConsent } from "./components/fragments/CookieConsent";
 import { keycloakClient } from "./helpers/authHelper";
 import EditUserData from "./components/content/userinfo/personalinfo/EditUserData";
 import Navbar from "./components/fragments/Navbar"
 import { ReactKeycloakProvider } from "@react-keycloak/web";
-import PatientsList from "./components/content/patient/PatientsList";
-import DangerousPatient from "./components/content/patient/DangerousPatient";
-import PatientInfo from "./components/content/patient/PatientInfo";
+import VictimsList from "./components/content/victim/VictimsList";
+import DangerousVictim from "./components/content/victim/DangerousVictim";
+import VictimInfo from "./components/content/victim/VictimInfo";
 import CheckIn from "./components/content/staff/CheckIn";
 import Settings from "./components/content/userinfo/Settings";
 import Panel from "./components/content/dispatchpanel/Panel";
+import DoctorsList from "./components/content/hospital/doctorsList";
+import Doctors from "./components/content/hospital/doctors";
+import SendMessage from "./components/content/ambulance/SendMessage";
 
 const App = () => {
   const darkMode = useDarkModeManager();
@@ -62,10 +65,13 @@ const App = () => {
             <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />
             <Route path="/ambulance/add" element={<CreateAmbulance />} />
             <Route path="/acceptReport/:reportId" element={<AcceptReport />} />
-            <Route path="/patientsList" element={<PatientsList />} />
-            <Route path="/patient/:patientId" element={<DangerousPatient />} />
-            <Route path="/patientInfo/:patientId" element={<PatientInfo />} />
+            <Route path="/victimsList" element={<VictimsList />} />
+            <Route path="/victimDangerous/:victimId" element={<DangerousVictim  />} />
+            <Route path="/victimInfo/:victimId" element={<VictimInfo />} />
             <Route path="/check-in" element={<CheckIn />} />
+            <Route path="/doctors/doctorsList" element={<DoctorsList />} />
+            <Route path="/doctors" element={<Doctors />} />
+            <Route path="/driverMessage" element={<SendMessage />} />
           </Routes>
         </Container>
         <CookieConsent debug />
