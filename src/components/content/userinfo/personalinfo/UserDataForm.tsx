@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { updateUser } from "../../../../apiCalls/userCalls";
 import FormControl from "../../../fragments/FormControl";
 import Button from "../../../fragments/Button";
 
@@ -32,8 +33,21 @@ const UserDataForm = (props: Readonly<UserDataFormParams>) => {
 
   const navigate = useNavigate();
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    updateUser(1, {
+      firstName: firstName,
+      lastName: lastName,
+      birthDate: new Date(birthDate),
+      phone: phoneNumber
+    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+
+    navigate(props.link);
+  };
+
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <Row>
         <Col>
           <FormControl
@@ -127,7 +141,7 @@ const UserDataForm = (props: Readonly<UserDataFormParams>) => {
         type="date"
         disabled={props.disabled}
       />
-      <Button text={props.buttonLabel} onClick={() => navigate(props.link)} />
+      <Button text={props.buttonLabel} type={props.disabled ? "button" : "submit"} onClick={() => props.disabled ? navigate(props.link) : null} />
     </Form>
   );
 };
