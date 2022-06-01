@@ -2,7 +2,7 @@ import Keycloak from "keycloak-js";
 
 // Keycloak config
 export const keycloakClient = new Keycloak({
-  url: "",//"http://172.21.40.111:8081",
+  url: "http://172.21.40.111:8081",
   realm: "dev",
   clientId: "frontend"
 });
