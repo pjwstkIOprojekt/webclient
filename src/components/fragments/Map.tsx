@@ -1,8 +1,8 @@
 import { MarkGeocodeEventHandlerFn, MarkGeocodeEvent } from "leaflet-control-geocoder/dist/control";
+import Geocoder, { geocoders } from "leaflet-control-geocoder";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 import { useState, useEffect } from "react";
 import L from "leaflet";
-import Geocoder, { geocoders } from "leaflet-control-geocoder";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 
 export interface Position {
@@ -22,11 +22,21 @@ export interface MapParams {
 }
 
 const Map = (props: Readonly<MapParams>) => {
+  const [geocoder] = useState(new geocoders.Nominatim({
+    geocodingQueryParams: {
+      "polygon_geojson": 1,
+      "limit": 10,
+      "format": "jsonv2",
+      "viewbox": (props.center[1] - 1) + "," + (props.center[0] - 1) + "," + (props.center[1] + 1) + "," + (props.center[0] + 1),
+      "bounded": 1
+    }
+  }));
+
   return (
     <MapContainer center={props.center} zoom={props.initialZoom}>
       <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {props.searchable ? <GeocoderMenu onSearch={props.onSearch} /> : ""}
-      {props.clickable ? <ClickHandler onClick={props.onClick} /> : ""}
+      {props.searchable ? <GeocoderMenu geocoder={geocoder} onSearch={props.onSearch} /> : ""}
+      {props.clickable ? <ClickHandler geocoder={geocoder} onClick={props.onClick} /> : ""}
       {props.marks ? props.marks.map((pos, index) => (
         <Marker key={index} position={pos.coords} icon={pos.icon}>
           {pos.desc ? <Popup>{pos.desc}</Popup> : ""}
@@ -37,19 +47,28 @@ const Map = (props: Readonly<MapParams>) => {
 };
 
 interface ClickParams {
+  geocoder: geocoders.Nominatim,
   onClick?: (x: L.LatLng) => void
 }
 
 interface GeocodeParams {
+  geocoder: geocoders.Nominatim,
   onSearch?: MarkGeocodeEventHandlerFn
 }
 
 const ClickHandler = (props: Readonly<ClickParams>) => {
   const [position, setPosition] = useState<L.LatLng | null>(null);
+  const map = useMap();
 
   useMapEvents({
     click(e) {
       setPosition(e.latlng);
+    },
+    moveend(e) {
+      props.geocoder.options.geocodingQueryParams = {
+        ...props.geocoder.options.geocodingQueryParams,
+        "viewbox": map.getBounds().toBBoxString()
+      };
     }
   });
 
@@ -68,15 +87,7 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
       placeholder: "Szukaj...",
       errorMessage: "Brak wyników",
       defaultMarkGeocode: false,
-      geocoder: new geocoders.Nominatim({
-        geocodingQueryParams: {
-          "polygon_geojson": 1,
-          "limit": 10,
-          "format": "jsonv2",
-          "viewbox": (map.getCenter().lng - 1) + "," + (map.getCenter().lat - 1) + "," + (map.getCenter().lng + 1) + "," + (map.getCenter().lat + 1),
-          "bounded": 1
-        }
-      })
+      geocoder: props.geocoder
     });
 
     const search = (e: MarkGeocodeEvent) => {
@@ -90,7 +101,7 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
     return () => {
       geocoder.remove();
     };
-  }, [map, props.onSearch]);
+  }, [map, props.onSearch, props.geocoder]);
 
   return null;
 };
