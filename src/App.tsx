@@ -15,7 +15,7 @@ import ReportsList from "./components/content/report/ReportsList";
 import CreateReport from "./components/content/report/CreateReport";
 import AmbulanceList from "./components/content/ambulance/AmbulanceList";
 import MapAmbulance from "./components/content/ambulance/MapAmbulance"
-import CreateAmbulance from "./components/content/ambulance/CreateAmbulance";
+import CreateAmbulance from "./components/content/manager/CreateAmbulance";
 import AcceptReport from "./components/content/report/AcceptReport";
 import { CookieConsent } from "./components/fragments/CookieConsent";
 import { keycloakClient } from "./helpers/authHelper";
@@ -32,6 +32,9 @@ import DoctorsList from "./components/content/hospital/doctorsList";
 import Doctors from "./components/content/hospital/doctors";
 import SendMessage from "./components/content/ambulance/SendMessage";
 import NotificationArea from "./components/fragments/Notifications/NotificationArea";
+import ListAmbulance from "./components/content/manager/ListAmbulance"
+import EditAmbulance from "./components/content/manager/EditAmbulance"
+import AddParamedics from "./components/content/manager/AddParamedic"
 
 const App = () => {
   return (
@@ -60,7 +63,7 @@ const App = () => {
             <Route path="/newreport" element={<CreateReport />} />
             <Route path="/mapAmbulance" element={<MapAmbulance />} />
             <Route path="/ambulances" element={<AmbulanceList />} />
-            <Route path="/ambulance/:ambulanceId" element={<CreateAmbulance />} />
+            <Route path="/createAmbulance/:ambulanceId" element={<CreateAmbulance />} />
             <Route path="/ambulance/add" element={<CreateAmbulance />} />
             <Route path="/acceptReport/:reportId" element={<AcceptReport />} />
             <Route path="/victimsList" element={<VictimsList />} />
@@ -70,6 +73,9 @@ const App = () => {
             <Route path="/doctors/doctorsList" element={<DoctorsList />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/driverMessage" element={<SendMessage />} />
+            <Route path="/listAmbulances" element={<ListAmbulance />} />
+            <Route path="/editAmbulance/:ambulanceId" element={<EditAmbulance />} />
+            <Route path="/listAmbulances/addParamedics" element={<AddParamedics />} />
           </Routes>
         <NotificationArea />
         </Container>

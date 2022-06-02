@@ -14,7 +14,6 @@ const AmbulanceList = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const [sort, setSort] = useState("");
 
   useEffect(() => {
     getAmbulances().then(res => res.json()).then(data => {
@@ -30,6 +29,7 @@ const AmbulanceList = () => {
       </Container>
     );
   }
+  
 
   const cols = [
     {

@@ -35,7 +35,7 @@ const AdditionalHelp = () => {
 
   const cols = [
     {
-      name: "Rodzaj pomocy", property: (x: any) => <FormSelect options={serviceTypes} value={x.service} onChange={e => updateRow({ ...x, service: parseInt(e.target.value) })} />, sortBy: "service", filterBy: "service" },
+      name: "Rodzaj pomocy", property: (x: any) => <FormSelect options={serviceTypes} value={x.service} onChange={e => updateRow({ ...x, service: parseInt(e.target.value) })} />, sortBy: "service" },
     { name: "Uzasadnienie", property: (x: any) => <FormControl type="text" value={x.reason} onChange={e => updateRow({ ...x, reason: e.target.value })} />, sortBy: "reason", filterBy: "reason" },
     { name: "Ilość", property: (x: any) => <FormControl type="number" value={x.amount} onChange={e => updateRow({ ...x, amount: e.target.value })} />, sortBy: "amount", filterBy: "amount" },
     { name: () => <Button text="+" type="button" onClick={addNew} />, property: (x: any) => <Button text="X" type="button" onClick={e => setData(data.filter(i => i.id !== x.id))} /> }
