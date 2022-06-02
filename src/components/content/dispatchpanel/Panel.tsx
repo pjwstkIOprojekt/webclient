@@ -24,7 +24,7 @@ const Panel = () => {
           <Nav.Link as={NavLink} to="ambulances">Lista karetek</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link as={NavLink} to="patients">Lista pacjentów</Nav.Link>
+          <Nav.Link as={NavLink} to="patients">Lista poszkodowanych</Nav.Link>
         </Nav.Item>
       </Nav>
       <Routes>

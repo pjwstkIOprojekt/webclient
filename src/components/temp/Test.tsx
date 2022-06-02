@@ -36,10 +36,7 @@ const Test = () => {
         <Link to="/check-in">Dyżur - check in/out</Link>
       </Row>
       <Row>
-        <Link to="/doctors">Lista lekarzy</Link>
-      </Row>
-      <Row>
-        <Link to="/driverMessage">Widomość do kierowcy</Link>
+        <Link to="/listAmbulances">Lista karetek do kierownika</Link>
       </Row>
     </Container>
   );
