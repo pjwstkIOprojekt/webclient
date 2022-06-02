@@ -31,6 +31,7 @@ import Panel from "./components/content/dispatchpanel/Panel";
 import DoctorsList from "./components/content/hospital/doctorsList";
 import Doctors from "./components/content/hospital/doctors";
 import SendMessage from "./components/content/ambulance/SendMessage";
+import NotificationArea from "./components/fragments/Notifications/NotificationArea";
 
 const App = () => {
   return (
@@ -70,6 +71,7 @@ const App = () => {
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/driverMessage" element={<SendMessage />} />
           </Routes>
+        <NotificationArea />
         </Container>
         <CookieConsent debug />
       </BrowserRouter>
