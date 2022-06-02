@@ -19,4 +19,10 @@
 1. Sklonuj to repozytorium
 2. Wykonaj `npm i`, aby zainstalować zależności
 3. Wykonaj `npm start`, aby uruchomić aplikację
-4. Aplikacja powinna być dostępna pod portem `3000`
+4. Aplikacja powinna być dostępna na localhost pod portem `3000`
+
+### Dodatkowe uwagi do testowania/uruchamiania. WAŻNE!
+ - Jeśli znajdujesz się poza uczelnią, musisz podłączyć się do VPN, żeby aplikacja działała poprawnie
+ - Aplikację należy uruchomić/testować w przeglądarce z wyłączonym CORS Policy (w każdej przeglądarce robi się to trochę inaczej, ale można to sobie łatwo wyszukać w internecie)
+
+### Wszelkie problemy i błędy, które zostaną zgłoszone przy niespełnieniu powyższych wymagań będą ignorowane!
