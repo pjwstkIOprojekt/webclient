@@ -1,4 +1,4 @@
-import { Navbar as Inner, Nav, Container, NavDropdown } from "react-bootstrap";
+import { Navbar as Inner, Nav, Container, NavDropdown, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDarkModeManager } from "../../hooks/useDarkMode";
 import { FaUserCircle, FaNotesMedical, FaClinicMedical, FaBook, FaMapMarkerAlt, FaMedkit} from "react-icons/fa";
@@ -16,7 +16,7 @@ const Navbar = () => {
       variant={darkMode.isDark ? "dark" : "light"}
       expand="lg"
     >
-      <Container fluid className="">
+      <Container fluid>
         <Inner.Brand className="px-5">GARY</Inner.Brand>
         <Inner.Toggle aria-controls="basic-navbar-nav" />
         <Inner.Collapse id="basic-navbar-nav">
@@ -37,19 +37,22 @@ const Navbar = () => {
               <FaMapMarkerAlt />
               <span className="px-1">Mapa</span>
             </Nav.Link>
-            
+          </Nav>
+
+          <Nav>
             <Nav.Link onClick={darkMode.toggle} className="d-inline-flex align-items-center">
               <HiOutlineLightBulb />
               <span className="px-1">Zmień motyw</span>
             </Nav.Link>
             <NavDropdown
+              align="end"
               title={
                 <span className="d-inline-flex align-items-center">
                   <FaUserCircle />
                   <span className="px-1">Konto</span>
                 </span>
               }
-            >
+              >
               <NavDropdown.Item as={Link} to="settings/userdata" className="d-inline-flex align-items-center">
                 <IoMdSettings />
                 <span className="px-1">Ustawienia</span>
@@ -67,7 +70,7 @@ const Navbar = () => {
                 as={Link}
                 to="/register"
                 className="d-inline-flex align-items-center"
-              >
+                >
                 <IoIosPaper />
                 <span className="px-1">Zarejestruj się</span>
               </NavDropdown.Item>
