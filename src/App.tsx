@@ -31,10 +31,10 @@ import Panel from "./components/content/dispatchpanel/Panel";
 import DoctorsList from "./components/content/hospital/doctorsList";
 import Doctors from "./components/content/hospital/doctors";
 import SendMessage from "./components/content/ambulance/SendMessage";
+import NotificationArea from "./components/fragments/Notifications/NotificationArea";
 import ListAmbulance from "./components/content/manager/ListAmbulance"
 import EditAmbulance from "./components/content/manager/EditAmbulance"
 import AddParamedics from "./components/content/manager/AddParamedic"
-
 
 const App = () => {
   return (
@@ -77,6 +77,7 @@ const App = () => {
             <Route path="/editAmbulance/:ambulanceId" element={<EditAmbulance />} />
             <Route path="/listAmbulances/addParamedics" element={<AddParamedics />} />
           </Routes>
+        <NotificationArea />
         </Container>
         <CookieConsent debug />
       </BrowserRouter>
