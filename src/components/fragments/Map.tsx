@@ -27,7 +27,7 @@ const Map = (props: Readonly<MapParams>) => {
       "polygon_geojson": 1,
       "limit": 10,
       "format": "jsonv2",
-      "viewbox": (props.center[1] - 1) + "," + (props.center[0] - 1) + "," + (props.center[1] + 1) + "," + (props.center[0] + 1),
+      "viewbox": (props.center[1] - 0.5) + "," + (props.center[0] - 0.5) + "," + (props.center[1] + 0.5) + "," + (props.center[0] + 0.5),
       "bounded": 1
     }
   }));
@@ -65,10 +65,9 @@ const ClickHandler = (props: Readonly<ClickParams>) => {
       setPosition(e.latlng);
     },
     moveend(e) {
-      props.geocoder.options.geocodingQueryParams = {
-        ...props.geocoder.options.geocodingQueryParams,
-        "viewbox": map.getBounds().toBBoxString()
-      };
+      if (props.geocoder.options.geocodingQueryParams) {
+        props.geocoder.options.geocodingQueryParams["viewbox"] = map.getBounds().toBBoxString();
+      }
     }
   });
 
