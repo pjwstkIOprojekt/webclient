@@ -6,14 +6,14 @@ import FormControl from "./FormControl";
 
 export interface TableColumnParams {
   name: (() => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
-  property: ((x: any) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
+  property: ((x: Record<string, any>) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
   sortBy?: string,
   filterBy?: string
 }
 
 export interface TableParams {
   columns: TableColumnParams[],
-  data: any[],
+  data: Record<string, any>[],
   className?: string,
   headClass?: string,
   bodyClass?: string,
@@ -27,11 +27,6 @@ interface SortState {
   reversed: boolean
 }
 
-interface FilterState {
-  property: string,
-  value: string
-}
-
 const Table = (props: Readonly<TableParams>) => {
   const darkMode = useDarkMode();
   const [copy, setCopy] = useState([...props.data]);
@@ -41,10 +36,7 @@ const Table = (props: Readonly<TableParams>) => {
     reversed: false
   });
 
-  const [filter, setFilter] = useState<FilterState>({
-    property: "",
-    value: ""
-  });
+  const [filter, setFilter] = useState<Record<string, string>>({});
 
   const performSort = (prop: string, rev: boolean) => {
     if (!prop) {
@@ -64,13 +56,16 @@ const Table = (props: Readonly<TableParams>) => {
     });
   };
 
-  const performFilter = (prop: string, val: string) => {
-    if (!prop || !val) {
-      setCopy([...props.data]);
-      return;
+  const performFilter = (filters: Record<string, string>) => {
+    let tmp = [...props.data];
+
+    for (const prop in filters) {
+      if (filters[prop]) {
+        tmp = tmp.filter(e => e[prop].toString().toLowerCase().includes(filters[prop].toLowerCase()));
+      }
     }
 
-    setCopy(props.data.filter(e => e[prop].toString().toLowerCase().includes(val.toLowerCase())));
+    setCopy(tmp);
   };
 
   const sortData = (x: string) => {
@@ -85,16 +80,14 @@ const Table = (props: Readonly<TableParams>) => {
   };
 
   const filterData = (x: string, val: string) => {
-    setFilter({
-      property: x,
-      value: val
-    });
-
-    performFilter(x, val);
+    const tmp = { ...filter };
+    tmp[x] = val;
+    setFilter(tmp);
+    performFilter(tmp);
   };
 
   useEffect(() => {
-    performFilter(filter.property, filter.value);
+    performFilter(filter);
     performSort(sort.property, sort.reversed);
   }, [props.data]);
 
