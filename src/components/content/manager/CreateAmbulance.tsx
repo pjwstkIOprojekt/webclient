@@ -5,6 +5,7 @@ import FormSelect from "../../fragments/FormSelect";
 import FormControl from "../../fragments/FormControl";
 import Button from "../../fragments/Button";
 
+
 const ambulanceTypes = [
   "A",
   "B",

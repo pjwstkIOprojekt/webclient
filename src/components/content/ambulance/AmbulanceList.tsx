@@ -30,6 +30,7 @@ const AmbulanceList = () => {
       </Container>
     );
   }
+  
 
   const cols = [
     {
