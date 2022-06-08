@@ -1,5 +1,5 @@
 import { ReactChild, ReactChildren, CSSProperties } from "react";
-import { useDarkMode } from "../../hooks/useDarkMode";
+import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Card as Inner } from "react-bootstrap";
 
 export interface CardParams {

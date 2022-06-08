@@ -2,8 +2,8 @@ import { useState, FormEvent } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { updateUser } from "../../../../apiCalls/userCalls";
-import FormControl from "../../../fragments/FormControl";
-import Button from "../../../fragments/Button";
+import FormControl from "../../../fragments/forms/FormControl";
+import Button from "../../../fragments/util/Button";
 
 export interface UserDataFormParams {
   firstName: string;

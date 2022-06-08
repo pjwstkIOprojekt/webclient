@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getTutorialById } from "../../../apiCalls/tutorialCalls";
 import { Container, Card, Row, Col, Alert } from "react-bootstrap";
-import CAlert from "../../fragments/Alert";
-import Rating from "react-rating";
-import CustomCard from "../../fragments/Card";
+import CAlert from "../../fragments/util/Alert";
+import Rating from "../../fragments/util/Rating";
+import CustomCard from "../../fragments/util/Card";
 
 const Tutorial = () => {
   const [data, setData] = useState<any>({});
@@ -15,12 +15,6 @@ const Tutorial = () => {
       getTutorialById(parseInt(tutorialId)).then(res => res.json()).then(dat => setData(dat)).catch(err => console.log(err));
     }
   }, [tutorialId]);
-
-  const calcRating = (x: number) => {
-    const normalized = x * 5;
-    const floored = Math.floor(normalized);
-    return normalized % floored >= 0.5 ? floored + 0.5 : floored;
-  };
 
   return (
     <Container className="my-5">
@@ -62,7 +56,7 @@ const Tutorial = () => {
         <Card.Img variant="top" src="/img/thumbnail.jpg" height="560" alt="Główny materiał wideo/obraz" />
         <Card.Body>
           <Card.Title>
-            <h3>Kieszonkowstwo dla idiotów</h3>
+            <h3>Kieszonkowstwo dla opornych</h3>
           </Card.Title>
           <Card.Img variant="top" src="/img/thumbnail.jpg" height="560" />
           <p>Podejdź do leżącej osoby i upewnij się czy jest przytomna...</p>
@@ -85,7 +79,7 @@ const Tutorial = () => {
       </CAlert>
       <Row className="text-center">
         <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
-        <Rating emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x" initialRating={calcRating(data.average)} />
+        <Rating initialValue={data.average} />
       </Row>
     </Container>
   );

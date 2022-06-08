@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import Button from "../../fragments/Button";
+import { Nav } from "react-bootstrap";
+import { CgWorkAlt } from "react-icons/cg";
 
 const CheckIn = () => {
   const [checked, setChecked] = useState(false);
 
   return (
-    <Container fluid className="mt-3">
-        <Button onClick={(e) => setChecked(!checked)} text={checked ? "Zakończ dyżur" : "Rozpocznij dyżur"} />
-    </Container>
+    <Nav.Link onClick={(e) => setChecked(!checked)} className="d-inline-flex align-items-center">
+      <CgWorkAlt />
+      <span className="px-1">{checked ? "Skończ dyżur" : "Zacznij dyżur"}</span>
+    </Nav.Link>
   );
 };
 

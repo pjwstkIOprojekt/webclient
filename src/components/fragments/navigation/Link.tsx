@@ -1,9 +1,9 @@
-import { Path, Link as Inner } from "react-router-dom";
+import { To, Link as Inner } from "react-router-dom";
 import { ReactChild, ReactChildren } from "react";
-import { useDarkMode } from "../../hooks/useDarkMode";
+import { useDarkMode } from "../../../hooks/useDarkMode";
 
 export interface LinkParams {
-  to: string | Partial<Path>,
+  to: To,
   className?: string,
   children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
 }

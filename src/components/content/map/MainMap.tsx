@@ -1,9 +1,9 @@
 import L from "leaflet";
-import { Position } from "../fragments/Map";
+import { Position } from "../../fragments/map/Map";
 import { useState, useEffect } from "react";
 import { Container, Form, Row } from "react-bootstrap";
-import FormCheck from "../fragments/FormCheck";
-import MapView from "../fragments/MapView";
+import FormCheck from "../../fragments/forms/FormCheck";
+import MapView from "../../fragments/map/MapView";
 
 const accidentIcon = L.icon({
   iconSize: [25, 41],

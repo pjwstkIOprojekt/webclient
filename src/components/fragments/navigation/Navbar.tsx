@@ -1,11 +1,12 @@
-import { Navbar as Inner, Nav, Container, NavDropdown, Button } from "react-bootstrap";
+import { useDarkModeManager } from "../../../hooks/useDarkMode";
+import { Navbar as Inner, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useDarkModeManager } from "../../hooks/useDarkMode";
-import { FaUserCircle, FaNotesMedical, FaClinicMedical, FaBook, FaMapMarkerAlt, FaMedkit} from "react-icons/fa";
-import { BiLogIn } from "react-icons/bi";
-import { IoIosPaper, IoMdSettings } from "react-icons/io";
+import { FaClinicMedical, FaMedkit, FaBook, FaMapMarkerAlt, FaUserCircle, FaNotesMedical } from "react-icons/fa";
+import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
-import { keycloakClient } from "../../helpers/authHelper";
+import { IoMdSettings, IoIosPaper } from "react-icons/io";
+import { keycloakClient } from "../../../helpers/authHelper";
+import { BiLogIn } from "react-icons/bi";
 
 const Navbar = () => {
   const darkMode = useDarkModeManager();
@@ -21,7 +22,7 @@ const Navbar = () => {
         <Inner.Toggle aria-controls="basic-navbar-nav" />
         <Inner.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/panel/mainpanel" className="d-inline-flex align-items-center">
+            <Nav.Link as={Link} to="/" className="d-inline-flex align-items-center">
               <FaClinicMedical />
               <span className="px-1">Panel</span>
             </Nav.Link>
@@ -40,6 +41,7 @@ const Navbar = () => {
           </Nav>
 
           <Nav>
+            <CheckIn />
             <Nav.Link onClick={darkMode.toggle} className="d-inline-flex align-items-center">
               <HiOutlineLightBulb />
               <span className="px-1">Zmień motyw</span>
@@ -53,11 +55,11 @@ const Navbar = () => {
                 </span>
               }
               >
-              <NavDropdown.Item as={Link} to="settings/userdata" className="d-inline-flex align-items-center">
+              <NavDropdown.Item as={Link} to="/settings/userdata" className="d-inline-flex align-items-center">
                 <IoMdSettings />
                 <span className="px-1">Ustawienia</span>
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="settings/medicaldata" className="d-inline-flex align-items-center">
+              <NavDropdown.Item as={Link} to="/settings/medicaldata" className="d-inline-flex align-items-center">
                 <FaNotesMedical />
                 <span className="px-1">Dane medyczne</span>
               </NavDropdown.Item>

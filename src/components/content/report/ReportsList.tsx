@@ -1,9 +1,9 @@
-import Link from "../../fragments/Link";
+import Link from "../../fragments/navigation/Link";
 import { useState, useEffect } from "react";
 import { getApproved } from "../../../apiCalls/emergencyCalls";
 import { Container } from "react-bootstrap";
-import Spinner from "../../fragments/Spinner";
-import Table from "../../fragments/Table";
+import Spinner from "../../fragments/util/Spinner";
+import Table from "../../fragments/util/Table";
 
 const cols = [
   { name: "#", property: (x: any) => <Link to={`/report/${x.id}`}>{x.id}</Link> },
