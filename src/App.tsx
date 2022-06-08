@@ -35,6 +35,7 @@ import NotificationArea from "./components/fragments/Notifications/NotificationA
 import ListAmbulance from "./components/content/manager/ListAmbulance"
 import EditAmbulance from "./components/content/manager/EditAmbulance"
 import AddParamedics from "./components/content/manager/AddParamedic"
+import TrustedPerson from "./components/content/TrustedPerson/AddTrustedPerson";
 
 const App = () => {
   return (
@@ -76,6 +77,7 @@ const App = () => {
             <Route path="/listAmbulances" element={<ListAmbulance />} />
             <Route path="/editAmbulance/:ambulanceId" element={<EditAmbulance />} />
             <Route path="/listAmbulances/addParamedics" element={<AddParamedics />} />
+            <Route path="/trustedPerson/add" element={<TrustedPerson/>}/>
           </Routes>
         <NotificationArea />
         </Container>

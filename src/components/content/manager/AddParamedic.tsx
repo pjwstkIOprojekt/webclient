@@ -9,11 +9,18 @@ import Table from "../../fragments/Table";
 import FormCheck from "../../fragments/FormCheck"
 
 
+
+
+
   const AddParamedics = () => {
+    const [checked, setChecked] = useState(false);
+
+
     const [paramedics, setParamedics] = useState<any[]>([
-      { id: 1, firstName: "Jan",  lastName: "Nowak", add: <input type={"checkbox"}  checked={false} name="paramedic" /> },
-      { id: 2, firstName: "Adam",  lastName: "Kowalski", add: <input type={"checkbox"}  checked={false} name="paramedic" /> }
+      { id: 1, firstName: "Jan",  lastName: "Nowak", add: <input type={"checkbox"}  defaultChecked={onclick ? true : false } name="paramedic" /> },
+      { id: 2, firstName: "Adam",  lastName: "Kowalski", add: <input type={"checkbox"}  defaultChecked={onclick ? true : false} name="paramedic" /> }
     ]);
+
 
     const cols = [
       {
@@ -24,8 +31,9 @@ import FormCheck from "../../fragments/FormCheck"
      
     ];
   return (
-    <Container className="mb-3 justify-content-center text-center">
-    <h3>Ratownicy</h3>
+    <Container className="mb-3 justify-content-center ">
+    <h3 className="text-center">Ratownicy</h3>
+    <h4 className="text-left">Dodaj ratowników do karetki</h4>
     <Table columns={cols} data={paramedics} />
 
     <Button  text="Dodaj"  type="submit"/>

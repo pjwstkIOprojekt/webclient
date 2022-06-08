@@ -38,6 +38,9 @@ const Test = () => {
       <Row>
         <Link to="/listAmbulances">Lista karetek do kierownika</Link>
       </Row>
+      <Row>
+        <Link to="/trustedPerson/add">Dodaj osobę zaufaną</Link>
+      </Row>
     </Container>
   );
 };
