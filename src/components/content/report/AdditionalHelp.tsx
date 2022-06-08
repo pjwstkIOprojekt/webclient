@@ -1,8 +1,8 @@
 import { useState } from "react";
-import FormSelect from "../../fragments/FormSelect";
-import FormControl from "../../fragments/FormControl";
-import Button from "../../fragments/Button";
-import Table from "../../fragments/Table";
+import FormSelect from "../../fragments/forms/FormSelect";
+import FormControl from "../../fragments/forms/FormControl";
+import Button from "../../fragments/util/Button";
+import Table from "../../fragments/util/Table";
 
 const serviceTypes = ["Policja", "Straż pożarna"];
 

@@ -1,4 +1,4 @@
-import { useDarkMode } from "../../hooks/useDarkMode";
+import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Spinner as Inner } from "react-bootstrap";
 
 export interface SpinnerParams {

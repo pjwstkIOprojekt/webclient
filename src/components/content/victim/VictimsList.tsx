@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import Table from "../../fragments/Table";
-import Button from '../../fragments/Button';
+import Table from "../../fragments/util/Table";
+import Button from '../../fragments/util/Button';
 import { Container } from "react-bootstrap";
-import Link from "../../fragments/Link";
+import Link from "../../fragments/navigation/Link";
 
 const PatientsList = () => {
   const navigate = useNavigate();

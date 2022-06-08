@@ -1,8 +1,9 @@
 import { useState, FormEvent } from "react";
 import { registerUser } from "../../../apiCalls/authCalls";
-import { Container, Form, Row } from "react-bootstrap";
-import FormControl from "../../fragments/FormControl";
-import Button from "../../fragments/Button";
+import { Container, Form, Row, Alert } from "react-bootstrap";
+import FormControl from "../../fragments/forms/FormControl";
+import Button from "../../fragments/util/Button";
+import CAlert from "../../fragments/util/Alert";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -15,25 +16,16 @@ const Register = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const user = username;
-    const pass = password;
-    let response: Response;
 
     registerUser({
       firstName: firstName,
       lastName: lastName,
       email: email,
-      username: user,
-      password: pass,
+      username: username,
+      password: password,
       birthDate: new Date(birthDate),
       phoneNumber: phoneNumber
-    }).then(res => {
-      response = res;
-      return res.json();
-    }).then(data => {
-      console.log(response);
-      console.log(data);
-    }).catch(err => console.log(err));
+    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
   };
 
   return (
@@ -63,6 +55,10 @@ const Register = () => {
         <Row className="justify-content-center">
           <Button className="mt-3 w-25" type="submit" text="Zarejestruj się" />
         </Row>
+        <CAlert className="mt-5">
+          <Alert.Heading>Dlaczego zbieramy dane?</Alert.Heading>
+          <p>Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.</p>
+        </CAlert>
       </Form>
     </Container>
   );

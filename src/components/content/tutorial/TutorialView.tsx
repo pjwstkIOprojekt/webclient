@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { getTutorials } from "../../../apiCalls/tutorialCalls";
 import { Container, Card } from "react-bootstrap";
-import Spinner from "../../fragments/Spinner";
-import CustomCard from "../../fragments/Card";
+import Spinner from "../../fragments/util/Spinner";
+import CustomCard from "../../fragments/util/Card";
 import { Link } from "react-router-dom";
-import Rating from "react-rating";
+import Rating from "../../fragments/util/Rating";
 
 const TutorialView = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -40,7 +40,7 @@ const TutorialView = () => {
             <Card.Body>
               <Card.Title>{item.name} - {item.tutorialKind}</Card.Title>
               <p>Uratował życia milionów w kilka sekund. Dowiedz się jak...</p><br />
-              <Rating emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x" initialRating={calcRating(item.average)} readonly />
+              <Rating initialValue={item.average} disabled />
             </Card.Body>
           </CustomCard>
         </Link>

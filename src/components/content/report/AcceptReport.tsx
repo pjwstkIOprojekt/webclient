@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import FormSelect from "../../fragments/FormSelect";
-import Button from '../../fragments/Button';
+import FormSelect from "../../fragments/forms/FormSelect";
+import Button from '../../fragments/util/Button';
 import { getUnapproved } from "../../../apiCalls/emergencyCalls";
 import { Container } from "react-bootstrap";
-import Table from "../../fragments/Table";
+import Table from "../../fragments/util/Table";
 
 const ambulanceTypes = ["A", "B", "C"];
 

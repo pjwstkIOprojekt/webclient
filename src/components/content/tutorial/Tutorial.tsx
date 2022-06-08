@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getTutorialById } from "../../../apiCalls/tutorialCalls";
 import { Container, Card, Row, Col, Alert } from "react-bootstrap";
-import CAlert from "../../fragments/Alert";
-import Rating from "react-rating";
-import CustomCard from "../../fragments/Card";
+import CAlert from "../../fragments/util/Alert";
+import Rating from "../../fragments/util/Rating";
+import CustomCard from "../../fragments/util/Card";
 
 const Tutorial = () => {
   const [data, setData] = useState<any>({});
@@ -16,52 +16,57 @@ const Tutorial = () => {
     }
   }, [tutorialId]);
 
-  const calcRating = (x: number) => {
-    const normalized = x * 5;
-    const floored = Math.floor(normalized);
-    return normalized % floored >= 0.5 ? floored + 0.5 : floored;
-  };
-
   return (
     <Container className="my-5">
       <h1>Poradnik - {data.name} - {data.tutorialKind}</h1>
-      <Row>
-        <Col>
-          <img src="https://i.ytimg.com/vi/if-2M3K1tqk/maxresdefault.jpg" height="360" width="600" />
-        </Col>
-        <Col>
+      <Row className="justify-content-end">
+        <Col md="auto">
           <CustomCard className="mx-3">
             <Card.Body>
               <Card.Title>
-                <h3>Kieszonkowstwo dla opornych</h3>
+                <h3>Spis treści</h3>
               </Card.Title>
               <ul>
                 <li>
                   <b>Krok 1</b><br />
-                  Sprawdź, czy osoba jest nieprzytomna.
+                  Tu będzie automatyczny spis treści
                 </li>
                 <li>
                   <b>Krok 2</b><br />
-                  Zlokalizuj portfel tej osoby.
+                  Tu będzie automatyczny spis treści
                 </li>
                 <li>
                   <b>Krok 3</b><br />
-                  Zabierz portfel.
+                  Tu będzie automatyczny spis treści
                 </li>
                 <li>
                   <b>Krok 4</b><br />
-                  Po cichu ulotnij się z miejsca zdarzenia.
+                  Tu będzie automatyczny spis treści
                 </li>
                 <li>
                   <b>Krok 5</b><br />
-                  STONKS!
+                  Tu będzie automatyczny spis treści
                 </li>
               </ul>
             </Card.Body>
           </CustomCard>
         </Col>
       </Row>
-      <CAlert className="my-4">
+      <CustomCard className="mt-3 mx-3">
+        <Card.Img variant="top" src="/img/thumbnail.jpg" height="560" alt="Główny materiał wideo/obraz" />
+        <Card.Body>
+          <Card.Title>
+            <h3>Kieszonkowstwo dla opornych</h3>
+          </Card.Title>
+          <Card.Img variant="top" src="/img/thumbnail.jpg" height="560" />
+          <p>Podejdź do leżącej osoby i upewnij się czy jest przytomna...</p>
+          <p>Jakieś instrukcje....</p>
+          <p>Paawfaniaonwaocjsocjapawoapwawvawfawwafaw</p>
+          <p>Paawfaniaonwaocjsocjapawoapwawvawfawwafaw</p>
+          <p>Paawfaniaonwaocjsocjapawoapwawvawfawwafaw</p>
+        </Card.Body>
+      </CustomCard>
+      <CAlert className="my-4 mx-3">
         <Alert.Heading>Dodatkowe wskazówki:</Alert.Heading>
         <ul>
           <li>
@@ -74,7 +79,7 @@ const Tutorial = () => {
       </CAlert>
       <Row className="text-center">
         <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
-        <Rating emptySymbol="fa fa-star-o fa-2x" fullSymbol="fa fa-star fa-2x" initialRating={calcRating(data.average)} />
+        <Rating initialValue={data.average} />
       </Row>
     </Container>
   );

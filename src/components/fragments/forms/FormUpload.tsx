@@ -1,6 +1,5 @@
-import { UploadButtonParams } from "./UploadButton";
+import UploadButton, { UploadButtonParams } from "../util/UploadButton";
 import { FormGroup, Form } from "react-bootstrap";
-import UploadButton from "./UploadButton";
 
 export interface FormUploadParams extends UploadButtonParams {
   buttonClass?: string,
