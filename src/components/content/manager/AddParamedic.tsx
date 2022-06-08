@@ -43,26 +43,4 @@ const AddParamedics = () => {
 
 }
 
-
-
-
-
-
-
-
-
-
-/*
-
-  <Container className="mb-3 justify-content-center ">
-  <h3 className="text-center">Ratownicy</h3>
-  <h4 className="text-left">Dodaj ratowników do karetki</h4>
-  <Table columns={cols} data={paramedics} />
-
-  <Button  text="Dodaj"  type="submit"/>
-</Container>
-    
-);
-};
-*/
 export default AddParamedics;

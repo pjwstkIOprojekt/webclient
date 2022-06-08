@@ -35,7 +35,9 @@ import NotificationArea from "./components/fragments/Notifications/NotificationA
 import ListAmbulance from "./components/content/manager/ListAmbulance"
 import EditAmbulance from "./components/content/manager/EditAmbulance"
 import AddParamedics from "./components/content/manager/AddParamedic"
-import TrustedPerson from "./components/content/TrustedPerson/AddTrustedPerson";
+import AddTrustedPerson from "./components/content/trustedPerson/AddTrustedPerson";
+import TrustedPersonData from "./components/content/trustedPerson/TrustedPersonData";
+import EditTrustedPersonData from "./components/content/trustedPerson/EditTrustedPersonData";
 
 const App = () => {
   return (
@@ -77,7 +79,9 @@ const App = () => {
             <Route path="/listAmbulances" element={<ListAmbulance />} />
             <Route path="/editAmbulance/:ambulanceId" element={<EditAmbulance />} />
             <Route path="/listAmbulances/addParamedics/:ambulanceId" element={<AddParamedics />} />
-            <Route path="/trustedPerson/add" element={<TrustedPerson/>}/>
+            <Route path="/trustedPerson/add" element={<AddTrustedPerson/>}/>
+            <Route path="/trustedPersonData" element={<TrustedPersonData/>}/>
+            <Route path="/trustedPersonData/edit" element={<EditTrustedPersonData/>}/>
           </Routes>
         <NotificationArea />
         </Container>

@@ -6,6 +6,8 @@ import EditBloodTypeView from "./bloodtype/EditBloodTypeView";
 import MedicalData from "./MedicalData";
 import EditUserData from "./personalinfo/EditUserData";
 import UserData from "./personalinfo/UserData";
+import TrustedPersonData from "../trustedPerson/TrustedPersonData";
+import EditTrustedPersonData from "../trustedPerson/EditTrustedPersonData";
 
 
 
@@ -19,6 +21,9 @@ const Settings = () => {
         <Nav.Item>
           <Nav.Link as={NavLink} to="medicaldata" >Dane medyczne</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link as={NavLink} to="trustedPersonData" >Osoba zaufana</Nav.Link>
+        </Nav.Item>
       </Nav>
       <Routes>
         <Route path="userdata" element={<UserData />} />
@@ -26,6 +31,8 @@ const Settings = () => {
         <Route path="medicaldata" element={<MedicalData />} />
         <Route path="medicaldata/editbloodtype" element={<EditBloodTypeView />} />
         <Route path="medicaldata/allergy/add" element={<AddAllergy />} />
+        <Route path="trustedPersonData" element={<TrustedPersonData />} />
+        <Route path="trustedPersonData/edit" element={<EditTrustedPersonData />} />
       </Routes>
     </Container>
   );
