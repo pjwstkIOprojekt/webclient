@@ -8,7 +8,7 @@ import Table from "../../fragments/util/Table";
 
 const ListAmbulance = () => {
   const [ambulances, setAmbulances] = useState<any[]>([
-    { id: 1, kind: "Covid",  paramedics: "Jan Nowak  Adam Kowalski", registrationNumber: "WW 40404", mileage: "1000000", capacity: "70", add: <Button  text="Przypisz " onClick={e => navigate("/listAmbulances/addParamedics")}/>, edit: <Button  text="Edytuj" onClick={e => navigate("/editAmbulance/1")}/>,  delete: <Button  text="Usuń" />},
+    { id: 1, kind: "Covid",  paramedics: "Jan Nowak  Adam Kowalski", registrationNumber: "WW 40404", mileage: "1000000", capacity: "70", add: <Button  text="Przypisz " onClick={e => navigate("/listAmbulances/addParamedics/:ambulanceId")}/>, edit: <Button  text="Edytuj" onClick={e => navigate("/editAmbulance/1")}/>,  delete: <Button  text="Usuń" />},
     { id: 2, kind: "Transportowa",  paramedics: "Jan Nowak  Adam Kowalski", registrationNumber: "WW 50505", mileage: "500000", capacity: "80", add: <Button  text="Przypisz" onClick={e => navigate("/listAmbulances/addParamedics")}/> , edit: <Button  text="Edytuj" onClick={e => navigate("/editAmbulance/1")} />,  delete: <Button  text="Usuń" />}
   ]);
 

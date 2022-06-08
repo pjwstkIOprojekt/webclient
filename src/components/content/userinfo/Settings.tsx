@@ -2,6 +2,8 @@ import { Container } from "react-bootstrap";
 import Navtab from "../../fragments/navigation/Navtab";
 import { Routes, Route } from "react-router-dom";
 import UserData from "./personalinfo/UserData";
+import TrustedPersonData from "../trustedPerson/TrustedPersonData";
+import EditTrustedPersonData from "../trustedPerson/EditTrustedPersonData";
 import EditUserData from "./personalinfo/EditUserData";
 import MedicalData from "./MedicalData";
 import EditBloodTypeView from "./bloodtype/EditBloodTypeView";
@@ -12,7 +14,8 @@ import EditMedicalCondition from "./medicalcondition/EditMedicalCondition";
 
 const links = [
   { to: "userdata", text: "Ustawienia" },
-  { to: "medicaldata", text: "Dane medyczne" }
+  { to: "medicaldata", text: "Dane medyczne" },
+  { to: "trustedperson", text: "Osoba zaufana" }
 ];
 
 const Settings = () => {
@@ -28,6 +31,8 @@ const Settings = () => {
         <Route path="medicaldata/allergy/details/:allergyId" element={<EditAllergy />} />
         <Route path="medicaldata/medicalcondition/add" element={<AddMedicalCondition />} />
         <Route path="medicaldata/disease/details/:diseaseId" element={<EditMedicalCondition />} />
+        <Route path="trustedperson" element={<TrustedPersonData />} />
+        <Route path="trustedperson/edit" element={<EditTrustedPersonData />} />
       </Routes>
     </Container>
   );
