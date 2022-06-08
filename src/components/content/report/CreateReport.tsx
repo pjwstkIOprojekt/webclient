@@ -1,12 +1,12 @@
 import { useState, FormEvent } from "react";
 import { createEmergency } from "../../../apiCalls/emergencyCalls";
 import { Form, Row } from "react-bootstrap";
-import FormSelect from "../../fragments/FormSelect";
-import FormCheck from "../../fragments/FormCheck";
-import FormTextArea from "../../fragments/FormTextArea";
+import FormSelect from "../../fragments/forms/FormSelect";
+import FormCheck from "../../fragments/forms/FormCheck";
+import FormTextArea from "../../fragments/forms/FormTextArea";
 import AdditionalHelp from "./AdditionalHelp";
-import Button from "../../fragments/Button";
-import MapView from "../../fragments/MapView";
+import Button from "../../fragments/util/Button";
+import MapView from "../../fragments/map/MapView";
 
 const accidentTypes = [
   "Atak terrorystyczny",

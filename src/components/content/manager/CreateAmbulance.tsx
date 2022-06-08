@@ -1,9 +1,9 @@
 import { useState, FormEvent } from "react";
 import { createAmbulance } from "../../../apiCalls/ambulanceCalls";
 import { Form, Row } from "react-bootstrap";
-import FormSelect from "../../fragments/FormSelect";
-import FormControl from "../../fragments/FormControl";
-import Button from "../../fragments/Button";
+import FormSelect from "../../fragments/forms/FormSelect";
+import FormControl from "../../fragments/forms/FormControl";
+import Button from "../../fragments/util/Button";
 
 
 const ambulanceTypes = [

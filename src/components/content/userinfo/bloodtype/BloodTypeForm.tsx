@@ -2,8 +2,8 @@ import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateBloodType } from "../../../../apiCalls/medicalInfoCalls";
 import { Form } from "react-bootstrap";
-import FormRadio from "../../../fragments/FormRadio";
-import Button from "../../../fragments/Button";
+import FormRadio from "../../../fragments/forms/FormRadio";
+import Button from "../../../fragments/util/Button";
 
 interface FormProps {
   buttonLabel: string;

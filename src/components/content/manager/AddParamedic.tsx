@@ -1,12 +1,12 @@
 import { useState, FormEvent } from "react";
 import { createAmbulance } from "../../../apiCalls/ambulanceCalls";
 import { Container, Form, Row } from "react-bootstrap";
-import FormSelect from "../../fragments/FormSelect";
-import FormControl from "../../fragments/FormControl";
-import Button from "../../fragments/Button";
-import FormRadio from "../../fragments/FormRadio";
-import Table from "../../fragments/Table";
-import FormCheck from "../../fragments/FormCheck"
+import FormSelect from "../../fragments/forms/FormSelect";
+import FormControl from "../../fragments/forms/FormControl";
+import Button from "../../fragments/util/Button";
+import FormRadio from "../../fragments/forms/FormRadio";
+import Table from "../../fragments/util/Table";
+import FormCheck from "../../fragments/forms/FormCheck"
 
 
   const AddParamedics = () => {

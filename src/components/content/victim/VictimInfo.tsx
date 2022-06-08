@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import Button from '../../fragments/Button';
+import Button from '../../fragments/util/Button';
 import {  Form, Row, Col, Container } from "react-bootstrap";
-import FormSelect from "../../fragments/FormSelect";
-import FormControl from "../../fragments/FormControl";
+import FormSelect from "../../fragments/forms/FormSelect";
+import FormControl from "../../fragments/forms/FormControl";
 import { useState } from "react";
 
 const cities = [

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import Table from "../../fragments/Table";
-import Button from '../../fragments/Button';
-import Textarea from '../../fragments/FormTextArea';
+import Table from "../../fragments/util/Table";
+import Button from '../../fragments/util/Button';
+import Textarea from '../../fragments/forms/FormTextArea';
 import {  Form, Row, Col } from "react-bootstrap";
-import FormControl from "../../fragments/FormControl";
+import FormControl from "../../fragments/forms/FormControl";
 import { useState } from "react";
 
 

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import Table from "../../fragments/Table";
-import Button from '../../fragments/Button';
+import Table from "../../fragments/util/Table";
+import Button from '../../fragments/util/Button';
 
 const cols = [
     { name: "#", property: "id" },

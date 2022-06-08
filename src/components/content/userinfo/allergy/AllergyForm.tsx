@@ -1,9 +1,9 @@
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom"
 import { Form } from "react-bootstrap";
-import FormSelect from "../../../fragments/FormSelect";
-import FormTextArea from "../../../fragments/FormTextArea";
-import Button from "../../../fragments/Button";
+import FormSelect from "../../../fragments/forms/FormSelect";
+import FormTextArea from "../../../fragments/forms/FormTextArea";
+import Button from "../../../fragments/util/Button";
 
 interface FormProps {
   buttonLabel: string,

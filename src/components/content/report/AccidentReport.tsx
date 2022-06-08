@@ -1,5 +1,5 @@
 import { Container, Card } from "react-bootstrap";
-import CustomCard from "../../fragments/Card";
+import CustomCard from "../../fragments/util/Card";
 
 const AccidentReport = () => {
   return (

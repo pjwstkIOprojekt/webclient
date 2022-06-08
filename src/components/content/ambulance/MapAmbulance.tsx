@@ -1,8 +1,8 @@
 import { useState, FormEvent } from "react";
 import { Form, Row } from "react-bootstrap";
-import FormSelect from "../../fragments/FormSelect";
-import Button from "../../fragments/Button";
-import MapView from "../../fragments/MapView";
+import FormSelect from "../../fragments/forms/FormSelect";
+import Button from "../../fragments/util/Button";
+import MapView from "../../fragments/map/MapView";
 
 const city = [
     "Warszawa",

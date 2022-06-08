@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Toast, ToastContainer } from "react-bootstrap";
+import { Toast } from "react-bootstrap";
 
 const Notification = () => {
-  const [show, setShow] = useState<boolean>(true)
-  
+  const [show, setShow] = useState(true)
   const toggleShow = () => setShow(!show)
 
   return (

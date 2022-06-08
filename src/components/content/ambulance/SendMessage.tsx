@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Form, Row } from "react-bootstrap";
-import FormSelect from "../../fragments/FormSelect";
-import Button from '../../fragments/Button';
-import TextArea from '../../fragments/FormTextArea';
+import FormSelect from "../../fragments/forms/FormSelect";
+import Button from '../../fragments/util/Button';
+import TextArea from '../../fragments/forms/FormTextArea';
 
 const drivers = [
     "Jan Nowak",

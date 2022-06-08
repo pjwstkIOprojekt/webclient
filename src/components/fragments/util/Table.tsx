@@ -1,8 +1,8 @@
 import { ReactChild, ReactChildren, useState, useEffect, ChangeEventHandler, ChangeEvent } from "react";
-import { useDarkMode } from "../../hooks/useDarkMode";
+import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Table as Inner, Row, Col } from "react-bootstrap";
 import Button from "./Button";
-import FormControl from "./FormControl";
+import FormControl from "../forms/FormControl";
 
 export interface TableColumnParams {
   name: (() => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,

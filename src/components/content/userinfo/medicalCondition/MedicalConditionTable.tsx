@@ -1,6 +1,6 @@
-import Table from "../../../fragments/Table";
+import Table from "../../../fragments/util/Table";
 import { useNavigate, Link } from "react-router-dom"
-import Button from "../../../fragments/Button"
+import Button from "../../../fragments/util/Button"
 
 const MedicalConditionTable = () => {
   const navigate = useNavigate();

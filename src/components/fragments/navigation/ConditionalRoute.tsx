@@ -1,9 +1,9 @@
-import { Path, Navigate } from "react-router-dom";
+import { To, Navigate } from "react-router-dom";
 
 export interface ConditionalRouteParams {
   condition: boolean,
   element: JSX.Element,
-  alt?: string | Partial<Path>
+  alt?: To
 }
 
 const ConditionalRoute = (props: Readonly<ConditionalRouteParams>) => {
