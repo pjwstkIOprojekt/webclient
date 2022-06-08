@@ -76,7 +76,7 @@ const App = () => {
             <Route path="/driverMessage" element={<SendMessage />} />
             <Route path="/listAmbulances" element={<ListAmbulance />} />
             <Route path="/editAmbulance/:ambulanceId" element={<EditAmbulance />} />
-            <Route path="/listAmbulances/addParamedics" element={<AddParamedics />} />
+            <Route path="/listAmbulances/addParamedics/:ambulanceId" element={<AddParamedics />} />
             <Route path="/trustedPerson/add" element={<TrustedPerson/>}/>
           </Routes>
         <NotificationArea />
