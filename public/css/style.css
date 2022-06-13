@@ -69,6 +69,12 @@
     color: var(--dark-button);
 }
 
+.toast-header-custom-dark
+{
+    background-color: var(--dark-alert);
+    color: var(--dark-text);
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -120,6 +126,12 @@
 .text-custom-light
 {
     color: var(--light-button);
+}
+
+.toast-header-custom-light
+{
+    background-color: var(--light-alert);
+    color: var(--light-text);
 }
 
 /* Shared */
