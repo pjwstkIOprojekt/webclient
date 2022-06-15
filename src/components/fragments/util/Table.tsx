@@ -101,7 +101,7 @@ const Table = (props: Readonly<TableParams>) => {
                 <>
                   <Row className="justify-content-center">
                     {col.filterBy ? <Col><BindableControl callback={e => filterData(col.filterBy ?? "", e.target.value)} /></Col> : ""}
-                    {col.sortBy ? <Col md="auto"><Button text="^" type="button" onClick={e => sortData(col.sortBy ?? "")} /></Col> : ""}
+                    {col.sortBy ? <Col md="auto"><Button type="button" onClick={e => sortData(col.sortBy ?? "")}>^</Button></Col> : ""}
                   </Row>
                   <Row className="justify-content-center">
                     {typeof(col.name) === "string" ? col.name : col.name()}

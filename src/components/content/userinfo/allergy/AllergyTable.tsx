@@ -22,7 +22,7 @@ const AllergyTable = () => {
     <div className="mb-3">
       <h3>Alergie</h3>
       <Table columns={cols} data={allergies} />
-      <Button text="Dodaj" onClick={e => navigate("allergy/add")} />
+      <Button onClick={e => navigate("allergy/add")}>Dodaj</Button>
     </div>
   )
 }

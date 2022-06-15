@@ -29,7 +29,7 @@ const DoctorsList = () => {
     <Container className="mb-3 justify-content-center text-center">
       <h3>Lista lekarzy</h3>
       <Table columns={cols} data={doctor} />
-      <Button text="Wróć" onClick={e => navigate("/")} />
+      <Button onClick={e => navigate("/")}>Wróć</Button>
     </Container>
   )
   }

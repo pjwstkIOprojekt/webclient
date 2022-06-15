@@ -32,8 +32,7 @@ const AmbulanceList = () => {
   
 
   const cols = [
-    {
-      name: "#", property: "id", sortBy: "id", filterBy: "id" },
+    { name: "#", property: "id", sortBy: "id", filterBy: "id" },
     { name: "Rodzaj karetki", property: "kind", sortBy: "kind", filterBy: "kind" },
     { name: "Lista ratowników", property: "paramedics", sortBy: "paramedics", filterBy: "paramedics" },
     { name: "Numer rejestracyjny", property: "registrationNumber", sortBy: "registrationNumber", filterBy: "registrationNumber" },
@@ -44,7 +43,7 @@ const AmbulanceList = () => {
     <Container className="mb-3 justify-content-center text-center">
       <h3>Karetki</h3>
       <Table columns={cols} data={ambulances} />
-      <Button text="Wróć" onClick={e => navigate("/")} />
+      <Button onClick={e => navigate("/")}>Wróć</Button>
     </Container>
   )
 }

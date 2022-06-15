@@ -77,7 +77,7 @@ const TrustedPersonForm = (props: Readonly<TrustedPersonFormParams>) => {
           disabled={props.disabled}
         />
       </Row>
-      <Button text={props.buttonLabel} type={props.disabled ? "button" : "submit"} onClick={() => props.disabled ? navigate(props.link) : null} />
+      <Button type={props.disabled ? "button" : "submit"} onClick={() => props.disabled ? navigate(props.link) : null}>{props.buttonLabel}</Button>
     </Form>
   );
   }

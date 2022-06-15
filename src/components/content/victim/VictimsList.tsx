@@ -13,8 +13,8 @@ const PatientsList = () => {
     { name: "Nazwisko", property: "surname" },
     { name: "Adres zdarzenia", property: "address" },
     { name: "Data zdarzenia", property: "date" },
-    { name: "Niebezpieczny?", property: (x: any) => <Link to={`/victimDangerous/${x.id}`}><Button text="Oznacz"/></Link>},
-    { name: "Dane", property: (x: any) => <Link to={`/victimInfo/${x.id}`}><Button text="Wyślij"/></Link>},
+    { name: "Niebezpieczny?", property: (x: any) => <Link to={`/victimDangerous/${x.id}`}><Button>Oznacz</Button></Link>},
+    { name: "Dane", property: (x: any) => <Link to={`/victimInfo/${x.id}`}><Button>Wyślij</Button></Link>},
     
   ];
 
@@ -27,7 +27,7 @@ const PatientsList = () => {
     <Container className="mb-3 justify-content-center text-center">
       <h3>Poszkodowani</h3>
       <Table columns={cols} data={patients} />
-      <Button text="Wróć" onClick={e => navigate("/")} />
+      <Button onClick={e => navigate("/")}>Wróć</Button>
     </Container>
   )
 }

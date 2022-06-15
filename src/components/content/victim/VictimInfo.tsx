@@ -154,12 +154,12 @@ const DangerousVictim = () => {
         <FormSelect id="hospital" onChange={e => setHospital(parseInt(e.target.value))} value={hospital} label="Szpital: " options={hospitals} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <Button className=" w-50 " type="submit" text="Wyślij dane" />
+        <Button className=" w-50 " type="submit">Wyślij dane</Button>
         
       </Row>
       <Row className="justify-content-center mb-5">
         
-        <Button text="Wróć" className=" w-50" onClick={e => navigate("/")} />
+        <Button className=" w-50" onClick={e => navigate("/")}>Wróć</Button>
       </Row>
       </Form>
       

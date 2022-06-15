@@ -14,6 +14,8 @@
     --light-nav: #4caf50;
     --required: #ff0000;
     --page-height: 94vh;
+    --light-nav-hover: #3b9e40;
+    --dark-nav-hover: #b48701;
 }
 
 /* Dark themes */
@@ -69,6 +71,17 @@
     color: var(--dark-button);
 }
 
+.toast-header-custom-dark
+{
+    background-color: var(--dark-alert);
+    color: var(--dark-text);
+}
+
+.nav-link-dark:hover
+{
+    background-color: var(--dark-nav-hover);
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -120,6 +133,17 @@
 .text-custom-light
 {
     color: var(--light-button);
+}
+
+.toast-header-custom-light
+{
+    background-color: var(--light-alert);
+    color: var(--light-text);
+}
+
+.nav-link-light:hover
+{
+    background-color: var(--light-nav-hover);
 }
 
 /* Shared */

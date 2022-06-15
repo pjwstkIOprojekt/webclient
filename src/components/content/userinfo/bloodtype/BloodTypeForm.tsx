@@ -32,7 +32,7 @@ const BloodTypeForm = (props: FormProps) => {
         <div>
           <FormRadio labelClass="p-3" label="Grupa Rh:" values={["Rh+", "Rh-"]} onChange={e => setRh(e.target.id)} value={rh} disabled={props.disabled} />
         </div>
-        <Button type={props.disabled ? "button" : "submit"} text={props.buttonLabel} onClick={props.disabled ? e => navigate(props.link) : e => 3} />
+        <Button type={props.disabled ? "button" : "submit"} onClick={props.disabled ? e => navigate(props.link) : e => 3}>{props.buttonLabel}</Button>
       </div>
     </Form>
   );

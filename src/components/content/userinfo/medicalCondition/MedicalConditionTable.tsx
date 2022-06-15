@@ -20,7 +20,7 @@ const MedicalConditionTable = () => {
     <div>
       <h3>Choroby</h3>
       <Table columns={cols} data={diseases} />
-      <Button text="Dodaj" onClick={e => navigate("medicalcondition/add")} />
+      <Button onClick={e => navigate("medicalcondition/add")}>Dodaj</Button>
     </div>
   )
 }

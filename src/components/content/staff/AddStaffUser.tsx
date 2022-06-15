@@ -1,11 +1,12 @@
 import { useState, FormEvent } from "react";
-import { registerUser } from "../../../apiCalls/authCalls";
-import { Container, Form, Row, Alert } from "react-bootstrap";
+import { registerStaff } from "../../../apiCalls/authCalls";
+import { StaffType } from "../../../helpers/apiTypes";
+import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
+import FormSelect from "../../fragments/forms/FormSelect";
 import Button from "../../fragments/util/Button";
-import CAlert from "../../fragments/util/Alert";
 
-const Register = () => {
+const AddStaffUser = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,20 +18,21 @@ const Register = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    registerUser({
+    registerStaff({
       firstName: firstName,
       lastName: lastName,
       email: email,
       username: username,
       password: password,
       birthDate: new Date(birthDate),
-      phoneNumber: phoneNumber
+      phoneNumber: phoneNumber,
+      staffType: StaffType.DISPOSITOR
     }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
   };
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center">Zarejestruj się</h1>
+      <h1 className="text-center">Dodawanie pracownika</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
           <FormControl id="firstName" onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label="Imię" type="text" />
@@ -54,15 +56,14 @@ const Register = () => {
           <FormControl id="phoneNumber" onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="mb-3 w-50" label="Numer telefonu" type="text" />
         </Row>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit">Zarejestruj się</Button>
+          <FormSelect id="staffType" value={0} className="mb-3 w-50" label="Rodzaj pracownika" options={["Dyspozytor", "Menadżer", "Ratownik"]} />
         </Row>
-        <CAlert className="mt-5">
-          <Alert.Heading>Dlaczego zbieramy dane?</Alert.Heading>
-          <p>Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.</p>
-        </CAlert>
+        <Row className="justify-content-center">
+          <Button className="mt-3 w-25" type="submit">Dodaj pracownika</Button>
+        </Row>
       </Form>
     </Container>
   );
-};
+}
 
-export default Register;
+export default AddStaffUser;

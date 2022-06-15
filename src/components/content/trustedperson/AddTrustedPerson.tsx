@@ -28,7 +28,7 @@ const AddTrustedPerson = () => {
         <FormControl id="email" onChange={e => setEmail(e.target.value)} value={email} label="E-mail: "  />
       </Row>
       <Row className="justify-content-center mb-5">
-        <Button className="mt-3 w-50" type="submit" text="Dodaj osobę" />
+        <Button className="mt-3 w-50" type="submit">Dodaj osobę</Button>
       </Row>
     </Form>
   );

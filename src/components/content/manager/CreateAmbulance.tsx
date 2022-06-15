@@ -58,7 +58,7 @@ const CreateAmbulance = () => {
         <FormControl id="registrationNumber" onChange={e => setRegistrationNumber(e.target.value)} value={registrationNumber} label="Numer rejestracyjny" />
       </Row>
       <Row className="justify-content-center mb-5">
-        <Button className="mt-3 w-50" type="submit" text="Dodaj karetkę" />
+        <Button className="mt-3 w-50" type="submit">Dodaj karetkę</Button>
       </Row>
     </Form>
   );

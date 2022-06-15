@@ -71,8 +71,8 @@ const DangerousVictim = () => {
       <h4> Uzasadnienie zagrożenia: </h4>
         <Textarea  value={reason} onChange={(e) => setReason(e.target.value)}/>
         
-        <Button className="mt-5 w-50 me-1" type="submit" text="Oznacz niebezpiecznego poszkodowanego" />
-      <Button text="Wróć" className="mt-3 w-50" onClick={e => navigate("/")} />
+        <Button className="mt-5 w-50 me-1" type="submit">Oznacz niebezpiecznego poszkodowanego</Button>
+      <Button className="mt-3 w-50" onClick={e => navigate("/")}>Wróć</Button>
     </Form>
   );
 };

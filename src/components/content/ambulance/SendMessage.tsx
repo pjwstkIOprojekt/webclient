@@ -26,20 +26,20 @@ const SendMessage = () => {
     <Container className="mb-3 justify-content-center ">
       <h3 className="text-center ">Wyszukaj lekarzy</h3>
       <Form>
-      <Row className=" mb-3">
-        <FormSelect id="city" onChange={e => setDriver(parseInt(e.target.value))} value={driver} label="Kierowca:" options={drivers} />
-      </Row>
+        <Row className=" mb-3">
+          <FormSelect id="city" onChange={e => setDriver(parseInt(e.target.value))} value={driver} label="Kierowca:" options={drivers} />
+        </Row>
 
-      <Row className=" mb-3">
-      <TextArea  value={message} onChange={(e) => setMessage(e.target.value)}/>
-      </Row>
+        <Row className=" mb-3">
+          <TextArea value={message} onChange={(e) => setMessage(e.target.value)} />
+        </Row>
 
-      <Row className="justify-content-center mb-3">
-        <Button className=" w-50 " type="submit" text="Wyślij" />
-      </Row>
-      <Row className="justify-content-center mb-5">
-        <Button text="Wróć" className=" w-50" onClick={e => navigate("/")} />
-      </Row>
+        <Row className="justify-content-center mb-3">
+          <Button className=" w-50 " type="submit">Wyślij</Button>
+        </Row>
+        <Row className="justify-content-center mb-5">
+          <Button className=" w-50" onClick={e => navigate("/")}>Wróć</Button>
+        </Row>
       </Form>
     </Container>
   )
