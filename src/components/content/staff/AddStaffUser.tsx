@@ -59,7 +59,7 @@ const AddStaffUser = () => {
           <FormSelect id="staffType" value={0} className="mb-3 w-50" label="Rodzaj pracownika" options={["Dyspozytor", "Menadżer", "Ratownik"]} />
         </Row>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit" text="Dodaj pracownika" />
+          <Button className="mt-3 w-25" type="submit">Dodaj pracownika</Button>
         </Row>
       </Form>
     </Container>

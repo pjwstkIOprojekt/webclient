@@ -54,7 +54,7 @@ const Register = () => {
           <FormControl id="phoneNumber" onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="mb-3 w-50" label="Numer telefonu" type="text" />
         </Row>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit" text="Zarejestruj się" />
+          <Button className="mt-3 w-25" type="submit">Zarejestruj się</Button>
         </Row>
         <CAlert className="mt-5">
           <Alert.Heading>Dlaczego zbieramy dane?</Alert.Heading>

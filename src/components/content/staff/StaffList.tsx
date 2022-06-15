@@ -35,7 +35,7 @@ const StaffList = () => {
   const cols = [
     { name: "#", property: "id", sortBy: "id", filterBy: "id" },
     { name: "Nazwa konta", property: "username", sortBy: "username", filterBy: "username" },
-    { name: "Edytuj pracownika", property: () => <Button text="Edytuj" /> }
+    { name: "Edytuj pracownika", property: () => <Button>Edytuj</Button> }
   ];
 
   return (

@@ -38,8 +38,8 @@ const AcceptReport = () => {
     { name: "Opis", property: (x: any) => x.description.substring(0, 100) },
     { name: "Rodzaj Karetki", property: (x: any) => <FormSelect onChange={e => updateData({...x, kind: parseInt(e.target.value)})} value={x.kind} options={ambulanceKind} /> },
     { name: "Typ Karetki", property: (x: any) => <FormSelect onChange={e => updateData({...x, type: parseInt(e.target.value)})} value={x.type} options={ambulanceTypes} /> },
-    { name: "Potwierdź", property: (x: any) => <Button text="+" onClick={e => setData(data.filter(i => i.id !== x.id))} /> },
-    { name: "Odrzuć", property: (x: any) => <Button text="X" onClick={e => window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?") ? setData(data.filter(i => i.id !== x.id)) : null} /> },
+    { name: "Potwierdź", property: (x: any) => <Button onClick={e => setData(data.filter(i => i.id !== x.id))}>+</Button> },
+    { name: "Odrzuć", property: (x: any) => <Button onClick={e => window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?") ? setData(data.filter(i => i.id !== x.id)) : null}>X</Button> },
   ];
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const AcceptReport = () => {
     <Container className="mb-3 justify-content-center text-center">
       <h3>Przyjęcie zgłoszenia</h3>
       <Table columns={cols} data={data} />
-      <Button text="Wróć" onClick={e => navigate("/")} />
+      <Button onClick={e => navigate("/")}>Wróć</Button>
     </Container>
   )
 }

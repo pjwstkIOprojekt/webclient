@@ -8,8 +8,10 @@ import Table from "../../fragments/util/Table";
 
 const ListAmbulance = () => {
   const [ambulances, setAmbulances] = useState<any[]>([
-    { id: 1, kind: "Covid",  paramedics: "Jan Nowak  Adam Kowalski", registrationNumber: "WW 40404", mileage: "1000000", capacity: "70", add: <Button  text="Przypisz " onClick={e => navigate("/listAmbulances/addParamedics/:ambulanceId")}/>, edit: <Button  text="Edytuj" onClick={e => navigate("/editAmbulance/1")}/>,  delete: <Button  text="Usuń" />},
-    { id: 2, kind: "Transportowa",  paramedics: "Jan Nowak  Adam Kowalski", registrationNumber: "WW 50505", mileage: "500000", capacity: "80", add: <Button  text="Przypisz" onClick={e => navigate("/listAmbulances/addParamedics")}/> , edit: <Button  text="Edytuj" onClick={e => navigate("/editAmbulance/1")} />,  delete: <Button  text="Usuń" />}
+    {
+      id: 1, kind: "Covid", paramedics: "Jan Nowak  Adam Kowalski", registrationNumber: "WW 40404", mileage: "1000000", capacity: "70", add: <Button onClick={e => navigate("/listAmbulances/addParamedics/:ambulanceId")}>Przypisz</Button>, edit: <Button onClick={e => navigate("/editAmbulance/1")}>Edytuj</Button>,  delete: <Button>Usuń</Button>},
+    {
+      id: 2, kind: "Transportowa", paramedics: "Jan Nowak  Adam Kowalski", registrationNumber: "WW 50505", mileage: "500000", capacity: "80", add: <Button onClick={e => navigate("/listAmbulances/addParamedics")}>Przypisz</Button>, edit: <Button onClick={e => navigate("/editAmbulance/1")}>Edytuj</Button>,  delete: <Button>Usuń</Button>}
   ]);
 
   
@@ -37,7 +39,7 @@ const ListAmbulance = () => {
     <Container className="mb-3 justify-content-center text-center">
       <h3>Karetki</h3>
       <Table columns={cols} data={ambulances} />
-      <Button  text="Dodaj karetkę" onClick={e => navigate("/createAmbulance/1")} />
+      <Button onClick={e => navigate("/createAmbulance/1")}>Dodaj karetkę</Button>
     </Container>
   )
 }

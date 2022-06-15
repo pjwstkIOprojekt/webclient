@@ -45,12 +45,12 @@ const Doctors = () => {
         <FormSelect id="department" onChange={e => setDepartment(parseInt(e.target.value))} value={department} label="Oddział: " options={departments} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <Button className=" w-50 " type="submit" text="Wyszukaj" onClick={e => navigate("doctorsList")}/>
+        <Button className=" w-50 " type="submit" onClick={e => navigate("doctorsList")}>Wyszukaj</Button>
         
       </Row>
       <Row className="justify-content-center mb-5">
         
-        <Button text="Wróć" className=" w-50" onClick={e => navigate("/")} />
+          <Button className=" w-50" onClick={e => navigate("/")}>Wróć</Button>
       </Row>
       </Form>
     </Container>

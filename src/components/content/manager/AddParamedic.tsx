@@ -33,7 +33,7 @@ const AddParamedics = () => {
     <h4 className=" mt-5 text-left">Dodaj ratowników do karetki</h4>
     <Table className="text-center" columns={cols} data={paramedics} />
 
-    <Button className="mt-3 w-100" text="Dodaj"  type="submit"/>
+      <Button className="mt-3 w-100" type="submit">Dodaj</Button>
   </Container>
 );
 

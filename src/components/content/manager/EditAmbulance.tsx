@@ -77,7 +77,7 @@ const EditAmbulance = () => {
           />
         </Col>
       </Row>
-        <Button className="mt-3 w-50" type="submit" text="Edytuj karetkę" />
+        <Button className="mt-3 w-50" type="submit">Edytuj karetkę</Button>
     </Form>
   );
 };

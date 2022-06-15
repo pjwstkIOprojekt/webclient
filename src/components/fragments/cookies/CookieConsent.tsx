@@ -34,10 +34,10 @@ export const CookieConsent = (props: Readonly<ConsentParams>) => {
           Ta strona używa plików cookies. Podejmij jedyną słuszną decyzję.
         </Col>
         <Col md="auto">
-          <Button onClick={accept} text="Zgadzam się" />
+          <Button onClick={accept}>Zgadzam się</Button>
         </Col>
         <Col md="auto">
-          <Button onClick={accept} text="Zgadzam się" />
+          <Button onClick={accept}>Zgadzam się</Button>
         </Col>
       </Row>
     </Container>

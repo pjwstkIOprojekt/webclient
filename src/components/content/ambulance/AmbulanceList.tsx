@@ -43,7 +43,7 @@ const AmbulanceList = () => {
     <Container className="mb-3 justify-content-center text-center">
       <h3>Karetki</h3>
       <Table columns={cols} data={ambulances} />
-      <Button text="Wróć" onClick={e => navigate("/")} />
+      <Button onClick={e => navigate("/")}>Wróć</Button>
     </Container>
   )
 }

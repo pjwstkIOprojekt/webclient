@@ -70,7 +70,7 @@ const ReportForm = () => {
         <AdditionalHelp />
       </Row>
       <Row className="justify-content-center mb-5">
-        <Button className="mt-3 w-50" type="submit" text="Zgłoś zdarzenie" />
+        <Button className="mt-3 w-50" type="submit">Zgłoś zdarzenie</Button>
       </Row>
     </Form>
   );
