@@ -32,8 +32,7 @@ const AmbulanceList = () => {
   
 
   const cols = [
-    {
-      name: "#", property: "id", sortBy: "id", filterBy: "id" },
+    { name: "#", property: "id", sortBy: "id", filterBy: "id" },
     { name: "Rodzaj karetki", property: "kind", sortBy: "kind", filterBy: "kind" },
     { name: "Lista ratowników", property: "paramedics", sortBy: "paramedics", filterBy: "paramedics" },
     { name: "Numer rejestracyjny", property: "registrationNumber", sortBy: "registrationNumber", filterBy: "registrationNumber" },
