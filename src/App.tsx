@@ -12,6 +12,8 @@ import Tutorial from "./components/content/tutorial/Tutorial";
 import MainMap from "./components/content/map/MainMap";
 import CreateReport from "./components/content/report/CreateReport";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
+import ListAmbulance from "./components/content/manager/ListAmbulance";
+import AddParamedics from "./components/content/manager/AddParamedic";
 import { CookieConsent } from "./components/fragments/cookies/CookieConsent";
 
 const App = () => {
@@ -29,6 +31,8 @@ const App = () => {
             <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
             <Route path="/map" element={<MainMap />} />
             <Route path="/newreport" element={<CreateReport />} />
+            <Route path="/listAmbulances" element={<ListAmbulance />} />
+            <Route path="/listAmbulances/addParamedics/:ambulanceId" element={<AddParamedics />} />
           </Routes>
         <NotificationArea />
         </Container>
