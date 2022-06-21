@@ -67,9 +67,10 @@ const MapForm = (props: {func?: (set: any) => void}) => {
 
   return (
     <Container>
-      <h1 className="text-center mt-3">Przegląd mapy</h1>
+      <h1 className="text-center mt-3">Mapa</h1>
       <Form>
         <Row className="justify-content-center mb-3">
+          <h3>Filtry:</h3>
           <FormCheck label="Zdarzenia" value={showAccidents} onChange={e => toggleAccidents(!showAccidents)} />
           <FormCheck label="Karetki" value={showAmbulances} onChange={e => toggleAmbulances(!showAmbulances)} />
           <FormCheck label="Placówki" value={showFacilities} onChange={e => toggleFacilities(!showFacilities)} />
