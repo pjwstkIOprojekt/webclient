@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { createEmergency } from "../../../apiCalls/emergencyCalls";
-import { Form, Row } from "react-bootstrap";
+import { Form, FormControl, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
 import FormCheck from "../../fragments/forms/FormCheck";
 import FormTextArea from "../../fragments/forms/FormTextArea";
@@ -35,6 +35,7 @@ const ReportForm = () => {
   const [breathing, setBreathing] = useState(true);
   const [conscious, setConscious] = useState(true);
   const [rating, setRating] = useState(1);
+  const [amountVictims, setAmountVictims] = useState(0);
   const [desc, setDesc] = useState("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -64,10 +65,10 @@ const ReportForm = () => {
         <FormSelect id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} label="Skala zagrożenia" options={dangerLevels} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis sytuacji:" />
+        <FormTextArea id="amountVictims" onChange={e => setAmountVictims(parseInt(e.target.value))} value={amountVictims} label="Ilość poszkodowanych"/>
       </Row>
-      <Row>
-        <AdditionalHelp />
+      <Row className="justify-content-center mb-3">
+        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis sytuacji:" />
       </Row>
       <Row className="justify-content-center mb-5">
         <Button className="mt-3 w-50" type="submit">Zgłoś zdarzenie</Button>
