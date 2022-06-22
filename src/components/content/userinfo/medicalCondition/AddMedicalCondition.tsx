@@ -1,6 +1,6 @@
 import { updateChronicDisease } from "../../../../apiCalls/medicalInfoCalls";
 import { Container } from 'react-bootstrap'
-import MedicalConditionForm from "../medicalCondition/MedicalConditionForm";
+import MedicalConditionForm from "../medicalcondition/MedicalConditionForm";
 
 
 const AddMedicalCondition = () => {

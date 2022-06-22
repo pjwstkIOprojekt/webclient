@@ -1,11 +1,11 @@
 import { useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Navbar as Inner, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaClinicMedical, FaMedkit, FaBook, FaMapMarkerAlt, FaUserCircle, FaNotesMedical, FaUserSecret } from "react-icons/fa";
+import { FaHome, FaMedkit, FaBook, FaUserCircle, FaNotesMedical, FaUserSecret } from "react-icons/fa";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoMdSettings, IoIosPaper } from "react-icons/io";
-import { keycloakClient } from "../../../helpers/authHelper";
+import { isAuth, isDirector, isDispositor, keycloakClient, UserRole, setRole } from "../../../helpers/authHelper";
 import { BiLogIn } from "react-icons/bi";
 
 const Navbar = () => {
@@ -23,8 +23,8 @@ const Navbar = () => {
         <Inner.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
-              <FaClinicMedical />
-              <span className="px-1">Panel</span>
+              <FaHome />
+              <span className="px-1">Strona główna</span>
             </Nav.Link>
             <Nav.Link as={Link} to="/newreport" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
               <FaMedkit />
@@ -34,14 +34,10 @@ const Navbar = () => {
               <FaBook />
               <span className="px-1">Poradniki</span>
             </Nav.Link>
-            <Nav.Link as={Link} to="/map" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
-              <FaMapMarkerAlt />
-              <span className="px-1">Mapa</span>
-            </Nav.Link>
           </Nav>
 
           <Nav>
-            <CheckIn />
+            {isDispositor() ? <CheckIn /> : ""}
             <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
               <HiOutlineLightBulb />
               <span className="px-1">Zmień motyw</span>
@@ -55,32 +51,67 @@ const Navbar = () => {
                 </span>
               }
               className={`nav-link-${darkMode.isDark ? "dark" : "light"}`} >
-              <NavDropdown.Item as={Link} to="/settings/userdata" className="d-inline-flex align-items-center">
-                <IoMdSettings />
-                <span className="px-1">Ustawienia</span>
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/settings/medicaldata" className="d-inline-flex align-items-center">
-                <FaNotesMedical />
-                <span className="px-1">Dane medyczne</span>
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/settings/trustedperson" className="d-inline-flex align-items-center">
-                <FaUserSecret />
-                <span className="px-1">Osoba zaufana</span>
-              </NavDropdown.Item>
+              {isAuth() ? (
+                <>
+                  <NavDropdown.Item as={Link} to="/settings/userdata" className="d-inline-flex align-items-center">
+                    <IoMdSettings />
+                    <span className="px-1">Ustawienia</span>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/settings/medicaldata" className="d-inline-flex align-items-center">
+                    <FaNotesMedical />
+                    <span className="px-1">Dane medyczne</span>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/settings/trustedperson" className="d-inline-flex align-items-center">
+                    <FaUserSecret />
+                    <span className="px-1">Osoba zaufana</span>
+                  </NavDropdown.Item>
+                </>
+              ) : ""}
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() => keycloakClient.authenticated ? keycloakClient.logout() : keycloakClient.login()} className="d-inline-flex align-items-center">
+              <NavDropdown.Item onClick={() => isAuth() ? keycloakClient.logout() : keycloakClient.login()} className="d-inline-flex align-items-center">
                 <BiLogIn />
-                <span className="px-1">{keycloakClient.authenticated ? "Wyloguj" : "Zaloguj się"}</span>
+                <span className="px-1">{isAuth() ? "Wyloguj" : "Zaloguj się"}</span>
               </NavDropdown.Item>
-              <NavDropdown.Item
-                as={Link}
-                to="/register"
-                className="d-inline-flex align-items-center"
+              {isAuth() ? "" : (
+                <NavDropdown.Item
+                  as={Link}
+                  to="/register"
+                  className="d-inline-flex align-items-center"
                 >
-                <IoIosPaper />
-                <span className="px-1">Zarejestruj się</span>
-              </NavDropdown.Item>
-              
+                  <IoIosPaper />
+                  <span className="px-1">Zarejestruj się</span>
+                </NavDropdown.Item>
+              )}
+              {isDirector() || isDispositor() ? (
+                <NavDropdown.Item
+                  as={Link}
+                  to="/"
+                  className="d-inline-flex align-items-center"
+                  onClick={e => setRole(UserRole.USER)}
+                >
+                  <span className="px-1">Użytkownik</span>
+                </NavDropdown.Item>
+              ) : ""}
+              {isDispositor() ? "" : (
+                <NavDropdown.Item
+                  as={Link}
+                  to="/"
+                  className="d-inline-flex align-items-center"
+                  onClick={e => setRole(UserRole.DISPOSITOR)}
+                >
+                  <span className="px-1">Dyspozytor</span>
+                </NavDropdown.Item>
+              )}
+              {isDirector() ? "" : (
+                <NavDropdown.Item
+                  as={Link}
+                  to="/"
+                  className="d-inline-flex align-items-center"
+                  onClick={e => setRole(UserRole.DIRECTOR)}
+                >
+                  <span className="px-1">Kierownik</span>
+                </NavDropdown.Item>
+              )}
             </NavDropdown>
           </Nav>
         </Inner.Collapse>
