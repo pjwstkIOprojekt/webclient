@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getTutorialById } from "../../../apiCalls/tutorialCalls";
 import { Container, Card, Row, Col, Alert } from "react-bootstrap";
+import ItemLink from "../../fragments/navigation/ItemLink";
 import CAlert from "../../fragments/util/Alert";
+import { isAuth } from "../../../helpers/authHelper";
 import Rating from "../../fragments/util/Rating";
 import CustomCard from "../../fragments/util/Card";
 
@@ -35,7 +37,7 @@ const Tutorial = () => {
               <ul>
                 {chapters.map((ch, index) => (
                   <li key={index}>
-                    <a href={`#${ch.id}`}>{ch.textContent}</a>
+                    <ItemLink to={ch.id}>{ch.textContent}</ItemLink>
                   </li>
                 ))}
               </ul>
@@ -74,10 +76,12 @@ const Tutorial = () => {
           </li>
         </ul>
       </CAlert>
-      <Row className="text-center">
-        <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
-        <Rating initialValue={data.average} />
-      </Row>
+      {isAuth() ? (
+        <Row className="text-center">
+          <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
+          <Rating initialValue={data.average} />
+        </Row>
+      ) : ""}
     </Container>
   );
 };
