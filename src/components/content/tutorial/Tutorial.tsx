@@ -8,18 +8,24 @@ import CustomCard from "../../fragments/util/Card";
 
 const Tutorial = () => {
   const [data, setData] = useState<any>({});
+  const [chapters, setChapters] = useState<any[]>([]);
   const { tutorialId } = useParams();
 
   useEffect(() => {
     if (tutorialId) {
       getTutorialById(parseInt(tutorialId)).then(res => res.json()).then(dat => setData(dat)).catch(err => console.log(err));
     }
+
+    setChapters(Array.from(document.querySelectorAll("h2")));
   }, [tutorialId]);
 
   return (
     <Container className="my-5">
       <h1>Poradnik - {data.name} - {data.tutorialKind}</h1>
       <Row className="justify-content-end">
+        <Col>
+          <img src="/img/thumbnail.jpg" />
+        </Col>
         <Col md="auto">
           <CustomCard className="mx-3">
             <Card.Body>
@@ -27,43 +33,34 @@ const Tutorial = () => {
                 <h3>Spis treści</h3>
               </Card.Title>
               <ul>
-                <li>
-                  <b>Krok 1</b><br />
-                  Tu będzie automatyczny spis treści
-                </li>
-                <li>
-                  <b>Krok 2</b><br />
-                  Tu będzie automatyczny spis treści
-                </li>
-                <li>
-                  <b>Krok 3</b><br />
-                  Tu będzie automatyczny spis treści
-                </li>
-                <li>
-                  <b>Krok 4</b><br />
-                  Tu będzie automatyczny spis treści
-                </li>
-                <li>
-                  <b>Krok 5</b><br />
-                  Tu będzie automatyczny spis treści
-                </li>
+                {chapters.map((ch, index) => (
+                  <li key={index}>
+                    <a href={`#${ch.id}`}>{ch.textContent}</a>
+                  </li>
+                ))}
               </ul>
             </Card.Body>
           </CustomCard>
         </Col>
       </Row>
       <CustomCard className="mt-3 mx-3">
-        <Card.Img variant="top" src="/img/thumbnail.jpg" height="560" alt="Główny materiał wideo/obraz" />
         <Card.Body>
           <Card.Title>
-            <h3>Kieszonkowstwo dla opornych</h3>
+            <h2 id="dt">Kieszonkowstwo dla opornych</h2>
           </Card.Title>
           <Card.Img variant="top" src="/img/thumbnail.jpg" height="560" />
           <p>Podejdź do leżącej osoby i upewnij się czy jest przytomna...</p>
           <p>Jakieś instrukcje....</p>
           <p>Paawfaniaonwaocjsocjapawoapwawvawfawwafaw</p>
+          <Card.Title>
+            <h2 id="dp">Rozdział 2</h2>
+          </Card.Title>
           <p>Paawfaniaonwaocjsocjapawoapwawvawfawwafaw</p>
           <p>Paawfaniaonwaocjsocjapawoapwawvawfawwafaw</p>
+          <Card.Title>
+            <h2 id="dz">Słowa kończące</h2>
+          </Card.Title>
+          <p>Panie! A idź Pan w...</p>
         </Card.Body>
       </CustomCard>
       <CAlert className="my-4 mx-3">
