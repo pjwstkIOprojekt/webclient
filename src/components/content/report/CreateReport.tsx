@@ -6,6 +6,8 @@ import FormCheck from "../../fragments/forms/FormCheck";
 import FormControl from "../../fragments/forms/FormControl";
 import FormTextArea from "../../fragments/forms/FormTextArea";
 import Button from "../../fragments/util/Button";
+import L from "leaflet";
+import { Position } from "../../fragments/map/Map";
 import MapView from "../../fragments/map/MapView";
 
 const accidentTypes = [
@@ -86,8 +88,34 @@ const ReportForm = () => {
   );
 };
 
+const accidentIcon = L.icon({
+  iconSize: [25, 41],
+  iconAnchor: [10, 41],
+  popupAnchor: [2, -40],
+  iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Map_pin_icon.svg/1504px-Map_pin_icon.svg.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
+});
+
 const CreateReport = () => {
-  return <MapView center={[52.222, 21.015]} initialZoom={12} element={<ReportForm />} />;
+  const [mark, setMark] = useState<Position | null>(null);
+
+  const onUpdate = (e: L.LatLng) => {
+    if (!mark) {
+      setMark({
+        coords: [e.lat, e.lng],
+        desc: "Miejsce zdarzenia",
+        icon: accidentIcon
+      });
+
+      return;
+    }
+
+    const tmp = { ...mark };
+    tmp.coords = [e.lat, e.lng];
+    setMark(tmp);
+  };
+
+  return <MapView center={[52.222, 21.015]} initialZoom={12} element={<ReportForm />} searchable clickable onClick={e => onUpdate(e)} onSearch={e => onUpdate(e.geocode.center)} marks={mark ? [mark] : []} />;
 };
 
 export default CreateReport;

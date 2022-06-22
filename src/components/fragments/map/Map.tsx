@@ -57,12 +57,13 @@ interface GeocodeParams {
 }
 
 const ClickHandler = (props: Readonly<ClickParams>) => {
-  const [position, setPosition] = useState<L.LatLng | null>(null);
   const map = useMap();
 
   useMapEvents({
     click(e) {
-      setPosition(e.latlng);
+      if (props.onClick) {
+        props.onClick(e.latlng);
+      }
     },
     moveend(e) {
       if (props.geocoder.options.geocodingQueryParams) {
@@ -70,10 +71,6 @@ const ClickHandler = (props: Readonly<ClickParams>) => {
       }
     }
   });
-
-  if (position && props.onClick) {
-    props.onClick(position);
-  }
 
   return null;
 };
