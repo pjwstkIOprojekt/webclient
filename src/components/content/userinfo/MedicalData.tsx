@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import BloodTypeForm from "./bloodtype/BloodTypeForm";
 import AllergyTable from "./allergy/AllergyTable";
-import MedicalConditionTable from "./medicalcondition/MedicalConditionTable";
+import MedicalConditionTable from "./medicalCondition/MedicalConditionTable";
 
 const MedicalData = () => {
   return (

@@ -6,6 +6,7 @@ import MapAmbulance from '../ambulance/MapAmbulance'
 import PatientList from '../victim/DangerousVictim'
 import AcceptReport from '../report/AcceptReport'
 import ReportsList from '../report/ReportsList'
+import Report from '../incident/Report';
 
 const links = [
   { to: "main", text: "Panel" },
@@ -22,6 +23,7 @@ const Panel = () => {
       <Routes>
         <Route path="main" element={<AcceptReport />} />
         <Route path="reports" element={<ReportsList />} />
+        <Route path="reports/:idReport" element={<Report />} />
         <Route path="ambulanceMap" element={<MapAmbulance />} />
         <Route path="ambulances" element={<AmbulanceList />} />
         <Route path="patients" element={<PatientList />} />
