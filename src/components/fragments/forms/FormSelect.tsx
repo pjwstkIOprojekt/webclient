@@ -8,8 +8,8 @@ export interface FormSelectParams {
   labelClass?: string,
   innerClass?: string,
   required?: boolean,
-  options?: readonly string[],
-  value?: string | number | readonly string[],
+  options?: string[],
+  value?: string | number | string[],
   onChange?: ChangeEventHandler<HTMLSelectElement>,
   disabled?: boolean
 }

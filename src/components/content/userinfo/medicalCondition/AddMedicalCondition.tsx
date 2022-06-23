@@ -1,6 +1,7 @@
 import { updateChronicDisease } from "../../../../apiCalls/medicalInfoCalls";
 import { Container } from 'react-bootstrap'
-import MedicalConditionForm from './MedicalConditionForm'
+import MedicalConditionForm from "../medicalcondition/MedicalConditionForm";
+
 
 const AddMedicalCondition = () => {
   const onSubmit = (ill: string, inst: string, file: string) => {

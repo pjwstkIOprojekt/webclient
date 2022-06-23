@@ -9,8 +9,8 @@ import MedicalData from "./MedicalData";
 import EditBloodTypeView from "./bloodtype/EditBloodTypeView";
 import AddAllergy from "./allergy/AddAllergy";
 import EditAllergy from "./allergy/EditAllergy";
-import AddMedicalCondition from "./medicalCondition/AddMedicalCondition";
-import EditMedicalCondition from "./medicalCondition/EditMedicalCondition";
+import AddMedicalCondition from "../userinfo/medicalcondition/AddMedicalCondition";
+import EditMedicalCondition from "../userinfo/medicalcondition/EditMedicalCondition";
 
 const links = [
   { to: "userdata", text: "Ustawienia" },

@@ -23,13 +23,14 @@ const TrustedPersonForm = (props: Readonly<TrustedPersonFormParams>) => {
   const [edit, setEdit] = useState(props.edit);
 
   const navigate = useNavigate();
-
-
-    navigate(props.link);
+  //navigate(props.link);
   
+  const onSubmit = (e: FormEvent<HTMLElement>) => {
+    e.preventDefault();
+  };
 
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <Row>
         <Col>
           <FormControl

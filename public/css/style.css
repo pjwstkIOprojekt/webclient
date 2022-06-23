@@ -82,6 +82,19 @@
     background-color: var(--dark-nav-hover);
 }
 
+.navtab-link-dark.nav-link
+{
+    color: var(--dark-text);
+    background-color: var(--dark-alert);
+    border: 1px solid var(--dark-text);
+}
+
+.navtab-link-dark:hover, .navtab-link-dark.nav-link.active
+{
+    color: var(--dark-text);
+    background-color: var(--dark-nav);
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -144,6 +157,30 @@
 .nav-link-light:hover
 {
     background-color: var(--light-nav-hover);
+}
+
+.navtab-link-light.nav-link
+{
+    color: var(--light-text);
+    background-color: var(--light-alert);
+    border: 1px solid var(--light-text);
+}
+
+.navtab-link-light:hover, .navtab-link-light.nav-link.active
+{
+    color: var(--light-text);
+    background-color: var(--light-nav);
+    border: 1px solid var(--light-text);
+}
+
+.navtab-link-light:hover.nav-link
+{
+    border: 1px solid var(--light-text);
+}
+
+.navtab-light
+{
+    border-bottom: 1px solid var(--light-text);
 }
 
 /* Shared */

@@ -1,4 +1,5 @@
 import Keycloak from "keycloak-js";
+import { getCookieValue, setCookieValue } from "./cookieHelper";
 
 // Keycloak config
 export const keycloakClient = new Keycloak({
@@ -7,6 +8,19 @@ export const keycloakClient = new Keycloak({
   clientId: "frontend"
 });
 
+export enum UserRole {
+  USER,
+  DISPOSITOR,
+  DIRECTOR
+}
+
+let role = parseInt(getCookieValue("usr"));
+
+export const setRole = (x: UserRole) => {
+  setCookieValue("usr", x.toString());
+  role = x;
+};
+
 // Returns current session token
 export const getToken = () => {
   return keycloakClient.authenticated ? keycloakClient.token : "";
@@ -14,5 +28,16 @@ export const getToken = () => {
 
 // Returns true if user is authenticated
 export const isAuth = () => {
-  return keycloakClient.authenticated;
+  //return keycloakClient.authenticated;
+  return true;
+};
+
+// Returns true if user is a dispositor
+export const isDispositor = () => {
+  return role === UserRole.DISPOSITOR;
+};
+
+// Returns true if user is a director
+export const isDirector = () => {
+  return role === UserRole.DIRECTOR;
 };

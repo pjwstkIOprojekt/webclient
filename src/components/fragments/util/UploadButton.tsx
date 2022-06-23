@@ -3,7 +3,7 @@ import Button from "./Button";
 
 export interface UploadButtonParams {
   id?: string,
-  value?: number | string | readonly string[],
+  value?: number | string | string[],
   onChange?: ChangeEventHandler<HTMLInputElement>,
   required?: boolean,
   disabled?: boolean,
