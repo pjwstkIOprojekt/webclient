@@ -1,8 +1,7 @@
 import { Container } from "react-bootstrap";
 import BloodTypeForm from "./BloodTypeForm";
 import AllergyTable from "../allergy/AllergyTable";
-import MedicalConditionTable from "../medicalCondition/MedicalConditionTable";
-import { useNavigate } from "react-router-dom";
+import MedicalConditionTable from "../medicalcondition/MedicalConditionTable";
 
 const EditBloodTypeView = () => {
 
