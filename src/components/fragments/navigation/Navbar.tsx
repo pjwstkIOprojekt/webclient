@@ -34,6 +34,12 @@ const Navbar = () => {
               <FaBook />
               <span className="px-1">Poradniki</span>
             </Nav.Link>
+            {isDispositor() ? (
+              <Nav.Link as={Link} to="/panel/main" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
+                <FaNotesMedical />
+                <span className="px-1">Panel</span>
+              </Nav.Link>
+            ) : ""}
           </Nav>
 
           <Nav>
