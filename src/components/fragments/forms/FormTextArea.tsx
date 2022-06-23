@@ -10,7 +10,7 @@ export interface FormTextAreaParams {
   required?: boolean,
   rows?: number,
   cols?: number,
-  value?: string | number | readonly string[],
+  value?: string | number | string[],
   onChange?: ChangeEventHandler<HTMLTextAreaElement>,
   placeholder?: string,
   disabled?: boolean
