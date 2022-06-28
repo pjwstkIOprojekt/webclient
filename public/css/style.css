@@ -73,7 +73,7 @@
 
 .toast-header-custom-dark
 {
-    background-color: var(--dark-alert);
+    background-color: var(--dark-button);
     color: var(--dark-text);
 }
 
