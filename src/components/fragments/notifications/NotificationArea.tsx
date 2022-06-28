@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useNotificationsManager } from "../../../hooks/useNotify";
 import { ToastContainer } from "react-bootstrap";
 import Notification from "./Notification";
 
 const NotificationArea = () => {
-  const [notificationList, setNotificationList] = useState([{id: 1}, {id: 2}, {id: 3}]);
+  const notifManager = useNotificationsManager();
 
   return (
     <div aria-live="polite" aria-atomic="true">
       <ToastContainer className="position-fixed bottom-0 end-0 p-3">
-        {notificationList.map((notification, index) => (
-          <Notification key={index} />
+        {notifManager.notifications.map((notification, index) => (
+          <Notification notif={notification} key={index} />
         ))}
       </ToastContainer>
     </div>
