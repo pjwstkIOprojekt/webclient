@@ -1,4 +1,5 @@
 import { useDarkModeManager } from "../../../hooks/useDarkMode";
+import { useNotificationsManager } from "../../../hooks/useNotify";
 import { Navbar as Inner, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaHome, FaMedkit, FaBook, FaUserCircle, FaNotesMedical, FaUserSecret } from "react-icons/fa";
@@ -10,6 +11,12 @@ import { BiLogIn } from "react-icons/bi";
 
 const Navbar = () => {
   const darkMode = useDarkModeManager();
+  const notifications = useNotificationsManager();
+
+  const logout = () => {
+    keycloakClient.logout();
+    notifications.clear();
+  };
 
   return (
     <Inner
@@ -74,7 +81,7 @@ const Navbar = () => {
                 </>
               ) : ""}
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() => isAuth() ? keycloakClient.logout() : keycloakClient.login()} className="d-inline-flex align-items-center">
+              <NavDropdown.Item onClick={() => isAuth() ? logout() : keycloakClient.login()} className="d-inline-flex align-items-center">
                 <BiLogIn />
                 <span className="px-1">{isAuth() ? "Wyloguj" : "Zaloguj się"}</span>
               </NavDropdown.Item>
