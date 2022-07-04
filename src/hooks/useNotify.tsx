@@ -4,6 +4,7 @@ import { createContext, useContext, useState } from "react";
 const defaultContext: NotificationsContext = {
   notify: (title: string, content: string) => {},
   removeNotification: (x: Notification) => {},
+  clear: () => {},
   notifications: []
 };
 
@@ -16,6 +17,7 @@ export const useNotify = () => useNotificationsManager().notify;
 interface NotificationsContext {
   notify: (title: string, content: string) => void,
   removeNotification: (x: Notification) => void,
+  clear: () => void,
   notifications: Notification[]
 }
 
@@ -42,10 +44,15 @@ export const NotificationsProvider = (props: Readonly<JSX.ElementChildrenAttribu
     setNotifications(notifs);
   };
 
+  const clear = () => {
+    setNotifications([]);
+  };
+
   return (
     <NotificationsContext.Provider value={{
       notify: notify,
       removeNotification: unnotify,
+      clear: clear,
       notifications: notifications
     }}>
       {props.children}
