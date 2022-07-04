@@ -78,9 +78,9 @@ const Navbar = () => {
                     <FaUserSecret />
                     <span className="px-1">Osoba zaufana</span>
                   </NavDropdown.Item>
+                  <NavDropdown.Divider />
                 </>
               ) : ""}
-              <NavDropdown.Divider />
               <NavDropdown.Item onClick={() => isAuth() ? logout() : keycloakClient.login()} className="d-inline-flex align-items-center">
                 <BiLogIn />
                 <span className="px-1">{isAuth() ? "Wyloguj" : "Zaloguj się"}</span>
