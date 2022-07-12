@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { createEmergency } from "../../../apiCalls/emergencyCalls";
 import { Form, Row, Col } from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
@@ -128,7 +128,8 @@ const CreateReport = () => {
     onUpdate(x.lat, x.lng);
   };
 
-  return <MapView center={[52.222, 21.015]} initialZoom={12} element={<ReportForm update={onUpdate} lat={mark.coords[0]} lng={mark.coords[1]} />} searchable clickable onClick={e => altUpdate(e)} onSearch={e => altUpdate(e.geocode.center)} marks={[mark]} />;
+  useEffect(() => navigator.geolocation.getCurrentPosition(pos => onUpdate(pos.coords.latitude, pos.coords.longitude)), []);
+  return <MapView center={mark.coords} initialZoom={12} element={<ReportForm update={onUpdate} lat={mark.coords[0]} lng={mark.coords[1]} />} searchable clickable onClick={e => altUpdate(e)} onSearch={e => altUpdate(e.geocode.center)} marks={[mark]} />;
 };
 
 export default CreateReport;
