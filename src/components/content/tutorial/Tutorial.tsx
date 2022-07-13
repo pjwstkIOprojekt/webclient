@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getTutorialById } from "../../../apiCalls/tutorialCalls";
+import { isAuth } from "../../../helpers/authHelper";
 import { Container, Card, Row, Col, Alert } from "react-bootstrap";
+import CustomCard from "../../fragments/util/Card";
 import ItemLink from "../../fragments/navigation/ItemLink";
 import CAlert from "../../fragments/util/Alert";
-import { isAuth } from "../../../helpers/authHelper";
 import Rating from "../../fragments/util/Rating";
-import CustomCard from "../../fragments/util/Card";
 
 const Tutorial = () => {
   const [data, setData] = useState<any>({});
@@ -20,6 +20,12 @@ const Tutorial = () => {
 
     setChapters(Array.from(document.querySelectorAll("h2")));
   }, [tutorialId]);
+
+  const review = () => {
+    if (isAuth()) {
+      console.log("Bruh");
+    }
+  };
 
   return (
     <Container className="my-5">
@@ -76,12 +82,12 @@ const Tutorial = () => {
           </li>
         </ul>
       </CAlert>
-      {isAuth() ? (
-        <Row className="text-center">
-          <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
-          <Rating initialValue={data.average} />
-        </Row>
-      ) : ""}
+      <Row className="text-center">
+        <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
+        <span onClick={review}>
+          <Rating initialValue={data.average} disabled={!isAuth()} />
+        </span>
+      </Row>
     </Container>
   );
 };

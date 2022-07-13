@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { createEmergency } from "../../../apiCalls/emergencyCalls";
 import { Form, Row, Col } from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
@@ -26,7 +26,13 @@ const dangerLevels = [
   "5 - Koniec świata"
 ];
 
-const ReportForm = () => {
+interface ReportFormParams {
+  update: (lat: number, lng: number) => void,
+  lat: number,
+  lng: number
+}
+
+const ReportForm = (props: Readonly<ReportFormParams>) => {
   const [type, setType] = useState(4);
   const [breathing, setBreathing] = useState(true);
   const [conscious, setConscious] = useState(true);
@@ -66,6 +72,15 @@ const ReportForm = () => {
       <Row className="justify-content-center mb-3">
         <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis sytuacji:" />
       </Row>
+      <h4 className="text-center mt-3">Lokalizacja</h4>
+      <Row className="justify-content-center mb-3">
+        <Col>
+          <FormControl id="lat" type="number" onChange={e => props.update(parseFloat(e.target.value), props.lng)} value={props.lat} placeholder="Lat" />
+        </Col>
+        <Col>
+          <FormControl id="lng" type="number" onChange={e => props.update(props.lat, parseFloat(e.target.value))} value={props.lng} placeholder="Lng" />
+        </Col>
+      </Row>
       <h3 className="text-center mt-3">Wezwij dodatkowe służby</h3>
       <Row className="justify-content-center mb-3 ml-2">
         <Col>
@@ -97,25 +112,24 @@ const accidentIcon = L.icon({
 });
 
 const CreateReport = () => {
-  const [mark, setMark] = useState<Position | null>(null);
+  const [mark, setMark] = useState<Position>({
+    coords: [52.222, 21.015],
+    desc: "Miejsce zdarzenia",
+    icon: accidentIcon
+  });
 
-  const onUpdate = (e: L.LatLng) => {
-    if (!mark) {
-      setMark({
-        coords: [e.lat, e.lng],
-        desc: "Miejsce zdarzenia",
-        icon: accidentIcon
-      });
-
-      return;
-    }
-
+  const onUpdate = (lat: number, lng: number) => {
     const tmp = { ...mark };
-    tmp.coords = [e.lat, e.lng];
+    tmp.coords = [lat, lng];
     setMark(tmp);
   };
 
-  return <MapView center={[52.222, 21.015]} initialZoom={12} element={<ReportForm />} searchable clickable onClick={e => onUpdate(e)} onSearch={e => onUpdate(e.geocode.center)} marks={mark ? [mark] : []} />;
+  const altUpdate = (x: L.LatLng) => {
+    onUpdate(x.lat, x.lng);
+  };
+
+  useEffect(() => navigator.geolocation.getCurrentPosition(pos => onUpdate(pos.coords.latitude, pos.coords.longitude)), []);
+  return <MapView center={mark.coords} initialZoom={12} element={<ReportForm update={onUpdate} lat={mark.coords[0]} lng={mark.coords[1]} />} searchable clickable onClick={e => altUpdate(e)} onSearch={e => altUpdate(e.geocode.center)} marks={[mark]} />;
 };
 
 export default CreateReport;
