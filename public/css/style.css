@@ -16,6 +16,8 @@
     --page-height: 94vh;
     --light-nav-hover: #3b9e40;
     --dark-nav-hover: #b48701;
+    --dark-popup: #212529;
+    --light-popup: #f8f9fa;
 }
 
 /* Dark themes */
@@ -93,6 +95,12 @@
 {
     color: var(--dark-text);
     background-color: var(--dark-nav);
+}
+
+.popup-dark
+{
+    background-color: var(--dark-popup);
+    border-color: var(--dark-text);
 }
 
 /* Light themes */
@@ -181,6 +189,12 @@
 .navtab-light
 {
     border-bottom: 1px solid var(--light-text);
+}
+
+.popup-light
+{
+    background-color: var(--light-popup);
+    border-color: var(--light-text);
 }
 
 /* Shared */
@@ -277,6 +291,34 @@
     display: block;
     width: 100%;
     max-width: 100%;
+}
+
+.popup-cover
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 2;
+}
+
+.popup-container
+{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 50%;
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 10px;
+    display: block;
+    opacity: 2;
 }
 
 @media (min-width: 768px)

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { usePopup } from "../../../hooks/usePopup";
 import { getTutorialById } from "../../../apiCalls/tutorialCalls";
 import { isAuth } from "../../../helpers/authHelper";
+import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
 import { Container, Card, Row, Col, Alert } from "react-bootstrap";
 import CustomCard from "../../fragments/util/Card";
 import ItemLink from "../../fragments/navigation/ItemLink";
@@ -10,8 +12,9 @@ import Rating from "../../fragments/util/Rating";
 
 const Tutorial = () => {
   const [data, setData] = useState<any>({});
-  const [chapters, setChapters] = useState<any[]>([]);
+  const [chapters, setChapters] = useState<HTMLHeadingElement[]>([]);
   const { tutorialId } = useParams();
+  const popup = usePopup();
 
   useEffect(() => {
     if (tutorialId) {
@@ -22,8 +25,8 @@ const Tutorial = () => {
   }, [tutorialId]);
 
   const review = () => {
-    if (isAuth()) {
-      console.log("Bruh");
+    if (!isAuth()) {
+      popup(<NotLoggedPopup />);
     }
   };
 
@@ -43,7 +46,7 @@ const Tutorial = () => {
               <ul>
                 {chapters.map((ch, index) => (
                   <li key={index}>
-                    <ItemLink to={ch.id}>{ch.textContent}</ItemLink>
+                    <ItemLink to={ch.id}>{ch.textContent ? ch.textContent : ""}</ItemLink>
                   </li>
                 ))}
               </ul>
