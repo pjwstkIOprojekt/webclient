@@ -1,11 +1,11 @@
 import { createContext, useContext, useState } from "react";
 
 // Default notifications settings
-const defaultContext: NotificationsContext = {
+const defaultContext = {
   notify: (title: string, content: string) => {},
   removeNotification: (x: Notification) => {},
   clear: () => {},
-  notifications: []
+  notifications: [] as Notification[]
 };
 
 // Notifications hooks
@@ -14,13 +14,6 @@ export const useNotificationsManager = () => useContext(NotificationsContext);
 export const useNotify = () => useNotificationsManager().notify;
 
 // Helper types for notifications hooks
-interface NotificationsContext {
-  notify: (title: string, content: string) => void,
-  removeNotification: (x: Notification) => void,
-  clear: () => void,
-  notifications: Notification[]
-}
-
 export interface Notification {
   title: string
   content: string
