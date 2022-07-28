@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { updateUser } from "../../../../apiCalls/userCalls";
 import FormControl from "../../../fragments/forms/FormControl";

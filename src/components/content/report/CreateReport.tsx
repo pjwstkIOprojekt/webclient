@@ -84,16 +84,16 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
       <h3 className="text-center mt-3">Wezwij dodatkowe służby</h3>
       <Row className="justify-content-center mb-3 ml-2">
         <Col>
-          <FormCheck label="Policja" />
+          <FormCheck label="Policja" value={false} onChange={e => 3} />
         </Col>
         <Col>
-          <FormCheck label="Straż pożarna" />
+          <FormCheck label="Straż pożarna" value={false} onChange={e => 3} />
         </Col>
         <Col>
-          <FormCheck label="Straż miejska" />
+          <FormCheck label="Straż miejska" value={false} onChange={e => 3} />
         </Col>
         <Col>
-          <FormCheck label="Wojsko" />
+          <FormCheck label="Wojsko" value={false} onChange={e => 3} />
         </Col>
       </Row>
       <Row className="justify-content-center mb-5">

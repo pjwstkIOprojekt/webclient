@@ -2,15 +2,15 @@ import { Container } from "react-bootstrap";
 import Navtab from "../../fragments/navigation/Navtab";
 import { Routes, Route } from "react-router-dom";
 import UserData from "./personalinfo/UserData";
-import TrustedPersonData from "../trustedperson/TrustedPersonData";
-import EditTrustedPersonData from "../trustedperson/EditTrustedPersonData";
+import TrustedPersonData from "./trustedperson/TrustedPersonData";
+import EditTrustedPersonData from "./trustedperson/EditTrustedPersonData";
 import EditUserData from "./personalinfo/EditUserData";
 import MedicalData from "./MedicalData";
 import EditBloodTypeView from "./bloodtype/EditBloodTypeView";
 import AddAllergy from "./allergy/AddAllergy";
 import EditAllergy from "./allergy/EditAllergy";
-import AddMedicalCondition from "../userinfo/medicalcondition/AddMedicalCondition";
-import EditMedicalCondition from "../userinfo/medicalcondition/EditMedicalCondition";
+import AddMedicalCondition from "./medicalcondition/AddMedicalCondition";
+import EditMedicalCondition from "./medicalcondition/EditMedicalCondition";
 
 const links = [
   { to: "userdata", text: "Ustawienia" },
