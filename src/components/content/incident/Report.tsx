@@ -1,5 +1,4 @@
-import { Col, Container, Form, ListGroup, Row } from "react-bootstrap";
-import FormControl from "../../fragments/forms/FormControl";
+import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import ReportForm from "./ReportForm";
 
 const Report = () => {
@@ -45,7 +44,7 @@ const Report = () => {
             </ListGroup>
           </Col>
           <Col>
-            <ReportForm link={""} />
+            <ReportForm link="../reports" />
           </Col>
         </Row>
       </Container>
