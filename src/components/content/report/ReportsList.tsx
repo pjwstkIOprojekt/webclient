@@ -1,6 +1,6 @@
 import Link from "../../fragments/navigation/Link";
 import { useState, useEffect } from "react";
-import { getApproved } from "../../../apiCalls/emergencyCalls";
+import { getApproved } from "../../../api/emergencyCalls";
 import { Container } from "react-bootstrap";
 import Spinner from "../../fragments/util/Spinner";
 import Table from "../../fragments/util/Table";

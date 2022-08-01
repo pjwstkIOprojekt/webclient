@@ -1,58 +1,52 @@
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import FormSelect from "../../fragments/forms/FormSelect";
+import Link from "../../fragments/navigation/Link";
 import Button from '../../fragments/util/Button';
-import { getUnapproved } from "../../../apiCalls/emergencyCalls";
+import { getUnapproved, getApproved } from "../../../api/emergencyCalls";
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
-const ambulanceTypes = ["A", "B", "C"];
-
-const ambulanceKind = ["Covid", "Transportowa"];
-
 const AcceptReport = () => {
-  const navigate = useNavigate();
-
-  const [data, setData] = useState([
+  const [pending, setPending] = useState([
     { id: 1, victimConsious: true, victimBreathing: true, date: "2022-01-01", dangerRating: "5", description: "description" }
   ]);
 
-  const updateData = (x: any) => {
-    const index = data.findIndex(e => e.id === x.id);
+  const [approved, setApproved] = useState([
+    { id: 3, victimConsious: false, victimBreathing: true, date: "2022-03-29", dangerRating: "3", description: "wypadek" }
+  ]);
 
-    if (index < 0) {
-      return;
-    }
-
-    const copy = [...data];
-    copy[index] = x;
-    setData(copy);
-  };
-
-  const cols = [
-    { name: "#", property: "id" },
+  const basicCols = [
+    { name: "#", property: (x: any) => <Link to={`${x.id}`}>{x.id}</Link>, filterBy: "id", sortBy: "id" },
     { name: "Ofiara jest przytomna?", property: (x: any) => x.victimConsious ? "Tak" : "Nie" },
     { name: "Ofiara oddycha?", property: (x: any) => x.victimBreathing ? "Tak" : "Nie" },
-    { name: "Data", property: "date" },
-    { name: "Skala zagrożenia", property: "dangerRating" },
-    { name: "Opis", property: (x: any) => x.description.substring(0, 100) },
-    { name: "Rodzaj Karetki", property: (x: any) => <FormSelect onChange={e => updateData({...x, kind: parseInt(e.target.value)})} value={x.kind} options={ambulanceKind} /> },
-    { name: "Typ Karetki", property: (x: any) => <FormSelect onChange={e => updateData({...x, type: parseInt(e.target.value)})} value={x.type} options={ambulanceTypes} /> },
-    { name: "Potwierdź", property: (x: any) => <Button onClick={e => setData(data.filter(i => i.id !== x.id))}>+</Button> },
-    { name: "Odrzuć", property: (x: any) => <Button onClick={e => window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?") ? setData(data.filter(i => i.id !== x.id)) : null}>X</Button> },
+    { name: "Data", property: "date", filterBy: "date", sortBy: "date" },
+    { name: "Skala zagrożenia", property: "dangerRating", filterBy: "dangerRating", sortBy: "dangerRating" },
+    { name: "Opis", property: (x: any) => x.description.substring(0, 100), filterBy: "description", sortBy: "description" }
+  ];
+
+  const approve = (x: any) => {
+    setPending(pending.filter(i => i.id !== x.id));
+    setApproved([...approved, x]);
+  };
+
+  const pendingCols = [
+    ...basicCols,
+    { name: "Potwierdź", property: (x: any) => <Button onClick={e => window.confirm("Czy na pewno chcesz zaakceptować to zgłoszenie?") ? approve(x) : null}>+</Button> },
+    { name: "Odrzuć", property: (x: any) => <Button onClick={e => window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?") ? setPending(pending.filter(i => i.id !== x.id)) : null}>X</Button> },
   ];
 
   useEffect(() => {
     getUnapproved().then(res => res.json()).then(items => console.log(items)).catch(err => console.log(err));
+    getApproved().then(res => res.json()).then(items => console.log(items)).catch(err => console.log(err));
   }, []);
 
   return (
     <Container className="mb-3 justify-content-center text-center">
-      <h3>Przyjęcie zgłoszenia</h3>
-      <Table columns={cols} data={data} />
-      <Button onClick={e => navigate("/")}>Wróć</Button>
+      <h3>Oczekujące zgłoszenia</h3>
+      <Table columns={pendingCols} data={pending} />
+      <h3 className="mt-5">Przyjęte zgłoszenia</h3>
+      <Table columns={basicCols} data={approved} />
     </Container>
-  )
-}
+  );
+};
 
 export default AcceptReport;

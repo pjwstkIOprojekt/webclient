@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { registerUser } from "../../../apiCalls/authCalls";
+import { registerUser } from "../../../api/authCalls";
 import { Container, Form, Row, Alert } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
 import Button from "../../fragments/util/Button";

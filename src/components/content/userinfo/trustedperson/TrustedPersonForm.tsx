@@ -1,8 +1,8 @@
 import { useState, FormEvent } from "react";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import FormControl from "../../fragments/forms/FormControl";
-import Button from "../../fragments/util/Button";
+import FormControl from "../../../fragments/forms/FormControl";
+import Button from "../../../fragments/util/Button";
 
 export interface TrustedPersonFormParams {
   firstName: string;

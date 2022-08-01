@@ -1,5 +1,4 @@
 import { Form, Row, Col } from "react-bootstrap";
-import FormControl from "../../fragments/forms/FormControl";
 import { useNavigate } from "react-router-dom";
 import Button from "../../fragments/util/Button";
 import FormSelect from "../../fragments/forms/FormSelect";
@@ -29,7 +28,7 @@ const ReportForm = (props: Readonly<IncidentFormParams>) => {
       </Row>
       <Button
         type={props.disabled ? "button" : "submit"}
-        onClick={() => (props.disabled ? navigate(props.link) : null)}
+        onClick={() => (props.disabled ? null : navigate(props.link))}
       >
         Potwierdź
       </Button>

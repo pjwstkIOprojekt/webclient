@@ -1,7 +1,7 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
-import Button from "../../fragments/util/Button";
-import FormControl from "../../fragments/forms/FormControl";
+import Button from "../../../fragments/util/Button";
+import FormControl from "../../../fragments/forms/FormControl";
 
 
 const AddTrustedPerson = () => {

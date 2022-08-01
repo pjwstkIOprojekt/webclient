@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Rating from "../../fragments/util/Rating";
 import { useState } from "react";
 import ViewLoader from "../../fragments/util/ViewLoader";
-import { getTutorials } from "../../../apiCalls/tutorialCalls";
+import { getTutorials } from "../../../api/tutorialCalls";
 
 interface TutorialCardParams {
   items: any[]

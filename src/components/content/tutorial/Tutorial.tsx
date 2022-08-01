@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePopup } from "../../../hooks/usePopup";
-import { getTutorialById } from "../../../apiCalls/tutorialCalls";
+import { getTutorialById } from "../../../api/tutorialCalls";
 import { isAuth } from "../../../helpers/authHelper";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
 import { Container, Card, Row, Col, Alert } from "react-bootstrap";

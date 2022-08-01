@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateBloodType } from "../../../../apiCalls/medicalInfoCalls";
+import { updateBloodType } from "../../../../api/medicalInfoCalls";
 import { Form } from "react-bootstrap";
 import FormRadio from "../../../fragments/forms/FormRadio";
 import Button from "../../../fragments/util/Button";

@@ -1,19 +1,15 @@
-import { Container } from 'react-bootstrap'
-import { Route, Routes } from 'react-router-dom'
+import { Container } from 'react-bootstrap';
+import { Route, Routes } from 'react-router-dom';
 import Navtab from "../../fragments/navigation/Navtab";
-import AmbulanceList from '../ambulance/AmbulanceList'
-import MapAmbulance from '../ambulance/MapAmbulance'
-import PatientList from '../victim/DangerousVictim'
-import AcceptReport from '../report/AcceptReport'
-import ReportsList from '../report/ReportsList'
+import AcceptReport from "../report/AcceptReport";
+import AmbulanceList from '../ambulance/AmbulanceList';
+import PatientList from '../victim/DangerousVictim';
 import Report from '../incident/Report';
 
 const links = [
-  { to: "main", text: "Panel" },
   { to: "reports", text: "Zgłoszenia" },
-  { to: "ambulanceMap", text: "Mapa karetek" },
   { to: "ambulances", text: "Lista karetek" },
-  { to: "patients", text: "Lista poszkodowanych" }
+  { to: "patients", text: "Zgłoś niebezpiecznego pacjenta" }
 ];
 
 const Panel = () => {
@@ -21,15 +17,13 @@ const Panel = () => {
     <Container fluid className='my-3'>
       <Navtab links={links} />
       <Routes>
-        <Route path="main" element={<AcceptReport />} />
-        <Route path="reports" element={<ReportsList />} />
+        <Route path="reports" element={<AcceptReport />} />
         <Route path="reports/:idReport" element={<Report />} />
-        <Route path="ambulanceMap" element={<MapAmbulance />} />
         <Route path="ambulances" element={<AmbulanceList />} />
         <Route path="patients" element={<PatientList />} />
       </Routes>
     </Container>
-  )
-}
+  );
+};
 
-export default Panel
+export default Panel;
