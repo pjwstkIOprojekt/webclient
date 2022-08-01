@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAmbulances } from "../../../apiCalls/ambulanceCalls";
-import { Container, Col } from "react-bootstrap";
-import Spinner from "../../fragments/util/Spinner";
+import { Container } from "react-bootstrap";
 import Button from '../../fragments/util/Button';
 import Table from "../../fragments/util/Table";
 

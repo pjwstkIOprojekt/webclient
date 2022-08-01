@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "../../fragments/navigation/Link";
 import Button from '../../fragments/util/Button';
-import { getUnapproved, getApproved } from "../../../apiCalls/emergencyCalls";
+import { getUnapproved, getApproved } from "../../../api/emergencyCalls";
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 

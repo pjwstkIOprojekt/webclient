@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getStaff } from "../../../apiCalls/staffCalls";
+import { getStaff } from "../../../api/staffCalls";
 import { Container } from "react-bootstrap";
 import Spinner from "../../fragments/util/Spinner";
 import Button from "../../fragments/util/Button";

@@ -1,4 +1,4 @@
-import { updateAllergies } from "../../../../apiCalls/medicalInfoCalls";
+import { updateAllergies } from "../../../../api/medicalInfoCalls";
 import { Container } from "react-bootstrap";
 import AllergyForm from "./AllergyForm";
 

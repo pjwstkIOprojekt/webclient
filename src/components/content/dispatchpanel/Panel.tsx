@@ -9,7 +9,7 @@ import Report from '../incident/Report';
 const links = [
   { to: "reports", text: "Zgłoszenia" },
   { to: "ambulances", text: "Lista karetek" },
-  { to: "patients", text: "Niebezpieczni pacjenci" }
+  { to: "patients", text: "Zgłoś niebezpiecznego pacjenta" }
 ];
 
 const Panel = () => {

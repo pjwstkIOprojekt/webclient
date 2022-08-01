@@ -1,7 +1,7 @@
 import { useState, FormEvent } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { updateUser } from "../../../../apiCalls/userCalls";
+import { updateUser } from "../../../../api/userCalls";
 import FormControl from "../../../fragments/forms/FormControl";
 import Button from "../../../fragments/util/Button";
 

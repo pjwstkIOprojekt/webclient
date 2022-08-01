@@ -1,5 +1,5 @@
 import { useState, FormEvent, useEffect } from "react";
-import { createEmergency } from "../../../apiCalls/emergencyCalls";
+import { createEmergency } from "../../../api/emergencyCalls";
 import { Form, Row, Col } from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
 import FormCheck from "../../fragments/forms/FormCheck";

@@ -1,4 +1,4 @@
-import { updateChronicDisease } from "../../../../apiCalls/medicalInfoCalls";
+import { updateChronicDisease } from "../../../../api/medicalInfoCalls";
 import { Container } from 'react-bootstrap'
 import MedicalConditionForm from "../medicalcondition/MedicalConditionForm";
 

@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { registerStaff } from "../../../apiCalls/authCalls";
+import { registerStaff } from "../../../api/authCalls";
 import { StaffType } from "../../../helpers/apiTypes";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
