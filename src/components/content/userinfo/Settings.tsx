@@ -12,13 +12,13 @@ import EditAllergy from "./allergy/EditAllergy";
 import AddMedicalCondition from "./medicalcondition/AddMedicalCondition";
 import EditMedicalCondition from "./medicalcondition/EditMedicalCondition";
 
-const links = [
-  { to: "userdata", text: "Ustawienia" },
-  { to: "medicaldata", text: "Dane medyczne" },
-  { to: "trustedperson", text: "Osoba zaufana" }
-];
-
 const Settings = () => {
+  const links = [
+    { to: "userdata", text: "Ustawienia" },
+    { to: "medicaldata", text: "Dane medyczne" },
+    { to: "trustedperson", text: "Osoba zaufana" }
+  ];
+
   return (
     <Container className="my-3">
       <Navtab links={links}/>

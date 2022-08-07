@@ -1,9 +1,9 @@
-import { Form, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Button from "../../fragments/util/Button";
+import { Form, Row, Col } from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
+import Button from "../../fragments/util/Button";
 
-export interface IncidentFormParams {
+interface IncidentFormParams {
   disabled?: boolean;
   link: string;
 }
@@ -26,12 +26,7 @@ const ReportForm = (props: Readonly<IncidentFormParams>) => {
           <FormSelect className="mb-3" label="Straż pożarna" options={["wybierz", "tak", "nie"]} />
         </Col>
       </Row>
-      <Button
-        type={props.disabled ? "button" : "submit"}
-        onClick={() => (props.disabled ? null : navigate(props.link))}
-      >
-        Potwierdź
-      </Button>
+      <Button type={props.disabled ? "button" : "submit"} onClick={() => (props.disabled ? null : navigate(props.link))}>Potwierdź</Button>
     </Form>
   );
 };
