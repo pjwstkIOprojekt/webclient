@@ -24,11 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <Inner
-      bg={`navbar-${darkMode.isDark ? "dark" : "light"}`}
-      variant={darkMode.isDark ? "dark" : "light"}
-      expand="lg"
-    >
+    <Inner bg={`navbar-${darkMode.isDark ? "dark" : "light"}`} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
       <Container fluid>
         <Inner.Brand className="px-5">GARY</Inner.Brand>
         <Inner.Toggle aria-controls="basic-navbar-nav" />
@@ -47,9 +43,15 @@ const Navbar = () => {
               <span className="px-1">Poradniki</span>
             </Nav.Link>
             {isDispositor() ? (
-              <Nav.Link as={Link} to="/panel/main" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
+              <Nav.Link as={Link} to="/dispanel/reports" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
                 <FaNotesMedical />
-                <span className="px-1">Panel</span>
+                <span className="px-1">Panel dyspozytora</span>
+              </Nav.Link>
+            ) : ""}
+            {isDirector() ? (
+              <Nav.Link as={Link} to="/admpanel/reports" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
+                <FaNotesMedical />
+                <span className="px-1">Panel administratora</span>
               </Nav.Link>
             ) : ""}
           </Nav>

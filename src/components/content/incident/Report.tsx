@@ -1,4 +1,4 @@
-import { Col, Container, ListGroup, Row } from "react-bootstrap";
+import { Container, Row, Col, ListGroup } from "react-bootstrap";
 import ReportForm from "./ReportForm";
 
 const Report = () => {

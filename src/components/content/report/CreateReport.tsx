@@ -10,22 +10,6 @@ import L from "leaflet";
 import { Position } from "../../fragments/map/Map";
 import MapView from "../../fragments/map/MapView";
 
-const accidentTypes = [
-  "Atak terrorystyczny",
-  "Protest",
-  "Powódź",
-  "Pożar",
-  "Wypadek samochodowy"
-];
-
-const dangerLevels = [
-  "1 - Nic wielkiego",
-  "2 - Trochę groźnie",
-  "3 - Duże zagrożenie",
-  "4 - Ludzie umierają",
-  "5 - Koniec świata"
-];
-
 interface ReportFormParams {
   update: (lat: number, lng: number) => void,
   lat: number,
@@ -39,6 +23,22 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
   const [rating, setRating] = useState(1);
   const [amountVictims, setAmountVictims] = useState(0);
   const [desc, setDesc] = useState("");
+
+  const accidentTypes = [
+    "Atak terrorystyczny",
+    "Protest",
+    "Powódź",
+    "Pożar",
+    "Wypadek samochodowy"
+  ];
+
+  const dangerLevels = [
+    "1 - Nic wielkiego",
+    "2 - Trochę groźnie",
+    "3 - Duże zagrożenie",
+    "4 - Ludzie umierają",
+    "5 - Koniec świata"
+  ];
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,15 +103,15 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
   );
 };
 
-const accidentIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Map_pin_icon.svg/1504px-Map_pin_icon.svg.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
 const CreateReport = () => {
+  const accidentIcon = L.icon({
+    iconSize: [25, 41],
+    iconAnchor: [10, 41],
+    popupAnchor: [2, -40],
+    iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Map_pin_icon.svg/1504px-Map_pin_icon.svg.png",
+    shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
+  });
+
   const [mark, setMark] = useState<Position>({
     coords: [52.222, 21.015],
     desc: "Miejsce zdarzenia",

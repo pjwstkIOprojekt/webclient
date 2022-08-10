@@ -1,35 +1,14 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { getAmbulances } from "../../../api/ambulanceCalls";
-import { Container, Col } from "react-bootstrap";
-import Spinner from "../../fragments/util/Spinner";
+import { Col, Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
+import { useState } from "react";
+import { getAmbulances } from "../../../api/ambulanceCalls";
+import ViewLoader from "../../fragments/util/ViewLoader";
 
-const AmbulanceList = () => {
-  const [ambulances, setAmbulances] = useState<any[]>([
-    { id: 1, kind: "Covid", registrationNumber: "WW 40404", available: true, paramedics: "Jan Nowak  Adam Kowalski" },
-    { id: 2, kind: "Transportowa", registrationNumber: "WW 50505", available: false, paramedics: "Jan Nowak  Adam Kowalski" }
-  ]);
+interface AmbulancesListProps {
+  data: Record<string, any>[]
+}
 
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    getAmbulances().then(res => res.json()).then(data => {
-      console.log(data);
-      //setIsLoading(false);
-    }).catch(err => console.log(err));
-  }, []);
-
-  if (isLoading) {
-    return (
-      <Container className="text-center mt-5">
-        <Spinner />
-      </Container>
-    );
-  }
-  
-
+const AmbulancesDisplay = (props: Readonly<AmbulancesListProps>) => {
   const cols = [
     { name: "#", property: "id", sortBy: "id", filterBy: "id" },
     { name: "Rodzaj karetki", property: "kind", sortBy: "kind", filterBy: "kind" },
@@ -41,9 +20,23 @@ const AmbulanceList = () => {
   return (
     <Container className="mb-3 justify-content-center text-center">
       <h3>Karetki</h3>
-      <Table columns={cols} data={ambulances} />
+      <Table columns={cols} data={props.data} />
     </Container>
-  )
-}
+  );
+};
+
+const AmbulanceList = () => {
+  const [ambulances] = useState<any[]>([
+    { id: 1, kind: "Covid", registrationNumber: "WW 40404", available: true, paramedics: "Jan Nowak  Adam Kowalski" },
+    { id: 2, kind: "Transportowa", registrationNumber: "WW 50505", available: false, paramedics: "Jan Nowak  Adam Kowalski" }
+  ]);
+
+  const onLoad = (loaded: () => void) => {
+    loaded();
+    getAmbulances().then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+  };
+
+  return <ViewLoader onLoad={onLoad} element={<AmbulancesDisplay data={ambulances} />} />;
+};
 
 export default AmbulanceList;
