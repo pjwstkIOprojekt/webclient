@@ -7,6 +7,8 @@ import AmbulanceList from "../ambulance/AmbulanceList";
 import PatientList from "../victim/DangerousVictim";
 import SendMessage from "../ambulance/SendMessage";
 import StaffList from "../staff/StaffList";
+import AddStaffUser from "../staff/AddStaffUser";
+import EditStaffUser from "../staff/EditStaffUser";
 
 const AdminPanel = () => {
   const links = [
@@ -27,6 +29,8 @@ const AdminPanel = () => {
         <Route path="patients" element={<PatientList />} />
         <Route path="message" element={<SendMessage />} />
         <Route path="staff" element={<StaffList />} />
+        <Route path="staff/new" element={<AddStaffUser />} />
+        <Route path="staff/edit/:userId" element={<EditStaffUser />} />
       </Routes>
     </Container>
   );
