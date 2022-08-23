@@ -1,5 +1,5 @@
-import Button from "../../fragments/util/Button";
-import { Container } from "react-bootstrap";
+import NavButton from "../../fragments/navigation/NavButton";
+import { Container, Row, Col } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 import { useState } from "react";
 import { getStaff } from "../../../api/staffCalls";
@@ -13,12 +13,18 @@ const StaffListDisplay = (props: Readonly<StaffListParams>) => {
   const cols = [
     { name: "#", property: "id", sortBy: "id", filterBy: "id" },
     { name: "Nazwa konta", property: "username", sortBy: "username", filterBy: "username" },
-    { name: "Edytuj pracownika", property: () => <Button>Edytuj</Button> }
+    { name: "Edytuj pracownika", property: (x: any) => <NavButton to={`edit/${x.id}`}>Edytuj</NavButton> }
   ];
 
   return (
     <Container className="mb-3 justify-content-center text-center">
       <h3>Lista pracowników</h3>
+      <Row className="my-2 justify-content-end">
+        <Col />
+        <Col md="auto">
+          <NavButton to="new">+</NavButton>
+        </Col>
+      </Row>
       <Table columns={cols} data={props.data} />
     </Container>
   );

@@ -9,6 +9,8 @@ import SendMessage from "../ambulance/SendMessage";
 import StaffList from "../staff/StaffList";
 import UserList from "../admin/UserList";
 import AddUser from "../admin/AddUser";
+import AddStaffUser from "../staff/AddStaffUser";
+import EditStaffUser from "../staff/EditStaffUser";
 
 const AdminPanel = () => {
   const links = [
@@ -33,6 +35,8 @@ const AdminPanel = () => {
         <Route path="staff" element={<StaffList />} />
         <Route path="users" element={<UserList />} />
         <Route path="users/add" element={<AddUser />} />
+        <Route path="staff/new" element={<AddStaffUser />} />
+        <Route path="staff/edit/:userId" element={<EditStaffUser />} />
       </Routes>
     </Container>
   );

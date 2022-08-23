@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import FormSelect from "../../fragments/forms/FormSelect";
 import Link from "../../fragments/navigation/Link";
 import Button from '../../fragments/util/Button';
 import { getUnapproved, getApproved } from "../../../api/emergencyCalls";
@@ -14,7 +15,7 @@ const AcceptReport = () => {
     { id: 3, victimConsious: false, victimBreathing: true, date: "2022-03-29", dangerRating: "3", description: "wypadek" }
   ]);
 
-  const basicCols = [
+  const sharedCols = [
     { name: "#", property: (x: any) => <Link to={`${x.id}`}>{x.id}</Link>, filterBy: "id", sortBy: "id" },
     { name: "Ofiara jest przytomna?", property: (x: any) => x.victimConsious ? "Tak" : "Nie" },
     { name: "Ofiara oddycha?", property: (x: any) => x.victimBreathing ? "Tak" : "Nie" },
@@ -29,9 +30,15 @@ const AcceptReport = () => {
   };
 
   const pendingCols = [
-    ...basicCols,
+    ...sharedCols,
+    { name: "Przypisana karetka", property: () => <FormSelect options={["-- Wybierz karetkę --"]} />},
     { name: "Potwierdź", property: (x: any) => <Button onClick={e => window.confirm("Czy na pewno chcesz zaakceptować to zgłoszenie?") ? approve(x) : null}>+</Button> },
     { name: "Odrzuć", property: (x: any) => <Button onClick={e => window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?") ? setPending(pending.filter(i => i.id !== x.id)) : null}>X</Button> },
+  ];
+
+  const approvedCols = [
+    ...sharedCols,
+    { name: "Przypisana karetka", property: "ambulance" }
   ];
 
   useEffect(() => {
@@ -44,7 +51,7 @@ const AcceptReport = () => {
       <h3>Oczekujące zgłoszenia</h3>
       <Table columns={pendingCols} data={pending} />
       <h3 className="mt-5">Przyjęte zgłoszenia</h3>
-      <Table columns={basicCols} data={approved} />
+      <Table columns={approvedCols} data={approved} />
     </Container>
   );
 };

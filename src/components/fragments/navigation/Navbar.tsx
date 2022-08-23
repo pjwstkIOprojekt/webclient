@@ -3,7 +3,7 @@ import { useNotificationsManager } from "../../../hooks/useNotify";
 import { isAuth, isDirector, isDispositor, keycloakClient, UserRole, setRole } from "../../../helpers/authHelper";
 import { Navbar as Inner, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaHome, FaMedkit, FaBook, FaUserCircle, FaNotesMedical, FaUserSecret } from "react-icons/fa";
+import { FaHome, FaMedkit, FaBook, FaUserCircle, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoMdSettings, IoIosPaper } from "react-icons/io";
@@ -50,7 +50,7 @@ const Navbar = () => {
             ) : ""}
             {isDirector() ? (
               <Nav.Link as={Link} to="/admpanel/reports" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
-                <FaNotesMedical />
+                <FaToolbox />
                 <span className="px-1">Panel administratora</span>
               </Nav.Link>
             ) : ""}
