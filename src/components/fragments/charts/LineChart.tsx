@@ -1,3 +1,4 @@
+import { CurveType } from "recharts/types/shape/Curve";
 import { Margin } from "recharts/types/util/types";
 import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
 import { useDarkMode } from "../../../hooks/useDarkMode";
@@ -11,7 +12,7 @@ export interface LineChartData {
 export interface LineChartSetting {
   key: string
   stroke?: string,
-  type?: string
+  type?: CurveType
 }
 
 export interface LineChartParams {
