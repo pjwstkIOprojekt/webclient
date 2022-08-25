@@ -1,7 +1,7 @@
 import NavButton from "../../fragments/navigation/NavButton";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import PieChart from "../../fragments/charts/PieChart";
 import CustomCard from "../../fragments/util/Card";
+import PieChart from "../../fragments/charts/PieChart";
 import LineChart from "../../fragments/charts/LineChart";
 import Table from "../../fragments/util/Table";
 
@@ -144,7 +144,14 @@ const AdminHome = () => {
       <h1 className="mb-3">Panel główny</h1>
       <Row>
         <Col>
-          <PieChart width={500} height={600} data={pieDat} label legend tooltip />
+          <CustomCard>
+            <Card.Header>
+              <Card.Title>Aktualny stan personelu</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <PieChart width={500} height={600} data={pieDat} label legend tooltip />
+            </Card.Body>
+          </CustomCard>
         </Col>
         <Col>
           <CustomCard>
@@ -152,7 +159,7 @@ const AdminHome = () => {
               <Card.Title>Raport z ostatnich 24 godzin</Card.Title>
             </Card.Header>
             <Card.Body>
-              <LineChart width={400} height={500} data={lineDat} settings={lineSet} legend tooltip />
+              <LineChart width={500} height={600} data={lineDat} settings={lineSet} legend tooltip />
             </Card.Body>
           </CustomCard>
         </Col>
