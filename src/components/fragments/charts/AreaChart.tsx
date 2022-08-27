@@ -1,3 +1,4 @@
+import { CurveType } from "recharts/types/shape/Curve";
 import { Margin } from "recharts/types/util/types";
 import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
 import { useDarkMode } from "../../../hooks/useDarkMode";
@@ -13,7 +14,7 @@ export interface AreaChartSetting {
   stroke?: string,
   fill?: string,
   opacity?: string | number,
-  type?: string
+  type?: CurveType
 }
 
 export interface AreaChartParams {

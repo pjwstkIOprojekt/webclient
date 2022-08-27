@@ -12,6 +12,3 @@ export const getUnapproved = () => get("emergency/unapproved");
 
 // Get approved emergencies
 export const getApproved = () => get("emergency/approved");
-
-// Get closed emergencies
-export const getClosed = () => get("emergency/closed");

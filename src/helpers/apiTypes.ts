@@ -23,7 +23,9 @@ export interface CreateEmergencyRequest {
   description: string,
   breathing: boolean,
   conscious: boolean,
-  bloodType: BloodType
+  bloodType?: BloodType,
+  medicalBandId?: string,
+  location?: LocationDto
 }
 
 export interface ApproveEmergencyRequest {
@@ -44,14 +46,19 @@ export interface AmbulanceResponse extends AmbulanceDto {
 }
 
 export interface AmbulanceAvailabilityDto {
-  availabilityType?: AvailabilityType,
+  availabilityType: AvailabilityType,
   since?: Date,
   to?: Date,
-  details?: string
+  details: string
 }
 
 export interface EquipmentDto {
-  name?: string
+  name: string
+}
+
+export interface LocationDto {
+  longitude?: string,
+  latitude?: string
 }
 
 // API enums definitions
@@ -125,12 +132,14 @@ export enum TutorialKind {
 
 // API types definitions
 export interface AccidentReport {
-  id?: number,
+  accidentReportId?: number,
   dangerRating?: number,
   date?: Date,
+  approved?: boolean,
   closed?: boolean,
   staff?: Staff,
   user?: User,
+  location?: Location,
   ambulances?: Ambulance[],
   reportSurvey?: ReportSurvey
 }
@@ -143,16 +152,19 @@ export interface AdditionalServices {
 }
 
 export interface Ambulance {
-  id?: number,
+  ambulanceId?: number,
   ambulanceKind?: AmbulanceKind,
   ambulanceType?: AmbulanceType,
   fuelCapacity?: number,
   peopleCapacity?: number,
-  plates?: string
+  plates?: string,
+  equipmentLogs?: EquipmentLog[],
+  accidentReports?: AccidentReport[],
+  ambulanceAvailabilities?: AmbulanceAvailability[]
 }
 
 export interface AmbulanceAvailability {
-  id?: number,
+  availableId?: number,
   ambulance?: Ambulance,
   availabilityType?: AvailabilityType,
   dateStart?: Date,
@@ -170,11 +182,12 @@ export interface DispositorDutyEntry {
 
 export interface Equipment {
   id?: number,
-  name?: string
+  name?: string,
+  equipmentLog?: EquipmentLog[]
 }
 
 export interface EquipmentLog {
-  id?: number,
+  equipmentLogId?: number,
   equipment?: Equipment,
   ambulance?: Ambulance,
   dateStart?: Date,
@@ -195,15 +208,16 @@ export interface Facility {
 
 export interface Location {
   id?: number,
-  longitude?: number,
-  latitude?: number
+  longitude?: string,
+  latitude?: string
 }
 
 export interface MedicalInfo {
-  id?: number,
+  id: number,
   bloodType?: BloodType,
   chronicDiseases?: string,
-  allergies?: string
+  allergies?: string,
+  user?: User
 }
 
 export interface ReportSurvey {
@@ -227,7 +241,9 @@ export interface Staff {
   user?: User,
   birthDate?: Date,
   phone?: string,
-  staffType?: StaffType
+  staffType?: StaffType,
+  dispositorDutyEntries?: DispositorDutyEntry[],
+  accidentReports?: AccidentReport[]
 }
 
 export interface Tutorial {
@@ -241,10 +257,12 @@ export interface User {
   id?: string,
   firstName?: string,
   lastName?: string,
+  username?: string,
   birthDate?: Date,
   phone?: string,
   bandCode?: string,
-  medicalInfo?: MedicalInfo
+  medicalInfo?: MedicalInfo,
+  accidentReports?: AccidentReport[]
 }
 
 export interface Victim {
