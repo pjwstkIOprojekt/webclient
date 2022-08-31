@@ -7,8 +7,6 @@ import AmbulanceList from "../ambulance/AmbulanceList";
 import PatientList from "../victim/DangerousVictim";
 import SendMessage from "../ambulance/SendMessage";
 import StaffList from "../staff/StaffList";
-import UserList from "../admin/UserList";
-import AddUser from "../admin/AddUser";
 import AddStaffUser from "../staff/AddStaffUser";
 import EditStaffUser from "../staff/EditStaffUser";
 
@@ -18,9 +16,7 @@ const AdminPanel = () => {
     { to: "ambulances", text: "Lista karetek" },
     { to: "patients", text: "Zgłoś niebezpiecznego pacjenta" },
     { to: "message", text: "Wyślij wiadomość do kierowcy" },
-    { to: "staff", text: "Pracownicy" },
-    { to: "users", text: "Uzytkownicy" }
-
+    { to: "staff", text: "Pracownicy" }
   ];
 
   return (
@@ -33,8 +29,6 @@ const AdminPanel = () => {
         <Route path="patients" element={<PatientList />} />
         <Route path="message" element={<SendMessage />} />
         <Route path="staff" element={<StaffList />} />
-        <Route path="users" element={<UserList />} />
-        <Route path="users/add" element={<AddUser />} />
         <Route path="staff/new" element={<AddStaffUser />} />
         <Route path="staff/edit/:userId" element={<EditStaffUser />} />
       </Routes>

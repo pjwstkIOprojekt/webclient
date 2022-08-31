@@ -75,7 +75,7 @@ const StaffUserForm = (props: Readonly<StaffUserFormParams>) => {
           <FormSelect id="staffType" value={0} className="mb-3 w-50" label="Rodzaj pracownika" options={["Dyspozytor", "Menadżer", "Ratownik"]} />
         </Row>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit">{props.userId === undefined ? "Dodaj pracownika" : "Zapisz zmiany"}</Button>
+          <Button className="my-3 w-25" type="submit">{props.userId === undefined ? "Dodaj pracownika" : "Zapisz zmiany"}</Button>
         </Row>
       </Form>
     </Container>
