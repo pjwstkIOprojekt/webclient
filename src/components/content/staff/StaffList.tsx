@@ -11,9 +11,10 @@ interface StaffListParams {
 
 const StaffListDisplay = (props: Readonly<StaffListParams>) => {
   const cols = [
-    { name: "#", property: "id", sortBy: "id", filterBy: "id" },
-    { name: "Nazwa konta", property: "username", sortBy: "username", filterBy: "username" },
-    { name: "Edytuj pracownika", property: (x: any) => <NavButton to={`edit/${x.id}`}>Edytuj</NavButton> }
+    { name: "Imię", property: "firstName", sortBy: "firstName", filterBy: "firstName" },
+    { name: "Nazwisko", property: "lastName", sortBy: "lastName", filterBy: "lastName" },
+    { name: "Rola", property: "role", sortBy: "role", filterBy: "role" },
+    { name: "Akcje", property: (x: any) => <NavButton to={`edit/${x.id}`}>Edytuj</NavButton> }
   ];
 
   return (
@@ -32,8 +33,8 @@ const StaffListDisplay = (props: Readonly<StaffListParams>) => {
 
 const StaffList = () => {
   const [data, setData] = useState<any[]>([
-    { id: 1, username: "Janek303" },
-    { id: 2, username: "Stefan" }
+    { id: 1, firstName: "Jan", lastName: "Nowak", role: "Użytkownik" },
+    { id: 2, firstName: "Stefan", lastName: "Kowalski", role: "Ratownik" }
   ]);
 
   const onLoad = (loaded: () => void) => {
