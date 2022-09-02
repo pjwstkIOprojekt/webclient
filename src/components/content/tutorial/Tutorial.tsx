@@ -6,13 +6,13 @@ import { isAuth } from "../../../helpers/authHelper";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
 import { Container, Card, Row, Col, Alert } from "react-bootstrap";
 import CustomCard from "../../fragments/util/Card";
+import ContentsGenerator from "../../fragments/util/ContentsGenerator";
 import ItemLink from "../../fragments/navigation/ItemLink";
 import CAlert from "../../fragments/util/Alert";
 import Rating from "../../fragments/util/Rating";
 
 const Tutorial = () => {
   const [data, setData] = useState<any>({});
-  const [chapters, setChapters] = useState<HTMLHeadingElement[]>([]);
   const { tutorialId } = useParams();
   const popup = usePopup();
 
@@ -20,8 +20,6 @@ const Tutorial = () => {
     if (tutorialId) {
       getTutorialById(parseInt(tutorialId)).then(res => res.json()).then(dat => setData(dat)).catch(err => console.log(err));
     }
-
-    setChapters(Array.from(document.querySelectorAll("h2")));
   }, [tutorialId]);
 
   const review = () => {
@@ -44,11 +42,7 @@ const Tutorial = () => {
                 <h3>Spis treści</h3>
               </Card.Title>
               <ul>
-                {chapters.map((ch, index) => (
-                  <li key={index}>
-                    <ItemLink to={ch.id}>{ch.textContent ? ch.textContent : ""}</ItemLink>
-                  </li>
-                ))}
+                <ContentsGenerator selector="h2" result={(ch, index) => <li key={index}><ItemLink to={ch.id}>{ch.textContent ? ch.textContent : ""}</ItemLink></li>} />
               </ul>
             </Card.Body>
           </CustomCard>
