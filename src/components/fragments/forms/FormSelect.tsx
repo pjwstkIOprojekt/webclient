@@ -11,7 +11,8 @@ export interface FormSelectParams {
   options?: string[],
   value?: string | number | string[],
   onChange?: ChangeEventHandler<HTMLSelectElement>,
-  disabled?: boolean
+  disabled?: boolean,
+  error?: string
 }
 
 const FormSelect = (props: Readonly<FormSelectParams>) => {
@@ -21,6 +22,7 @@ const FormSelect = (props: Readonly<FormSelectParams>) => {
       <Form.Select className={props.innerClass} required={props.required} value={props.value} onChange={props.onChange} disabled={props.disabled}>
         {props.options ? props.options.map((opt, index) => <option key={index} value={index}>{opt}</option>) : ""}
       </Form.Select>
+      {props.error ? <span className="req">{props.error}</span> : ""}
     </FormGroup>
   );
 };
