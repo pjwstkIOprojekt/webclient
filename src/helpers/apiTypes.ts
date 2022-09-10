@@ -1,5 +1,5 @@
 // Base url for requests, change to 'http://localhost:8080' if you want to test with local backend
-export const baseUrl = "http://172.21.40.111:8080";
+export const baseUrl = "http://localhost:8080";
 
 // API dto types definitions
 export interface LoginRequest {

@@ -1,24 +1,35 @@
-import { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect, FormEvent } from "react";
+import { getInfoById, updateAllergies } from "../../../../api/medicalInfoCalls";
 import { Form } from "react-bootstrap";
 import FormSelect from "../../../fragments/forms/FormSelect";
 import FormTextArea from "../../../fragments/forms/FormTextArea";
 import Button from "../../../fragments/util/Button";
+import NavButton from "../../../fragments/navigation/NavButton";
 
 interface FormProps {
-  buttonLabel: string,
-  onSubmit: (all: number, src: string, info: string) => void
+  allergyId?: number
 }
 
-const AllergyForm = (props: FormProps) => {
+const AllergyForm = (props: Readonly<FormProps>) => {
   const [allergy, setAllergy] = useState(0);
   const [source, setSource] = useState("");
   const [info, setInfo] = useState("");
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.allergyId !== undefined) {
+      getInfoById(props.allergyId).then(res => res.json()).then(data => {
+      }).catch(err => console.log(err));
+    }
+  }, []);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.onSubmit(allergy, source, info);
+
+    if (props.allergyId === undefined) {
+
+    } else {
+      updateAllergies(props.allergyId, source + " - " + info).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    }
   };
 
   return (
@@ -26,8 +37,8 @@ const AllergyForm = (props: FormProps) => {
       <FormSelect className="mb-3" label="Rodzaj alergii" value={allergy} onChange={e => setAllergy(parseInt(e.target.value))} options={["-- Wybierz rodzaj alergii --", "Wziewna", "Kontaktowa", "Pokarmowa", "Na jad"]} />
       <FormTextArea className="mb-3" label="Na co" rows={1} value={source} onChange={e => setSource(e.target.value)} />
       <FormTextArea className="mb-3" label="Dodatkowe informacje" rows={1} value={info} onChange={e => setInfo(e.target.value)} />
-      <Button className="m-2" type="submit">{props.buttonLabel}</Button>
-      <Button type="button" onClick={() => navigate("../medicaldata")}>Wróć</Button>
+      <Button className="m-2" type="submit">{props.allergyId !== undefined ? "Potwierdź" : "Dodaj"}</Button>
+      <NavButton to="../medicaldata">Wróć</NavButton>
     </Form>
   );
 };
