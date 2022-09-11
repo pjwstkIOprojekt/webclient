@@ -1,86 +1,55 @@
-import { useState, FormEvent } from "react";
-import { Col, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, FormEvent } from "react";
+import { Container, Form, Row } from "react-bootstrap";
+import { getUserById, updateUser } from "../../../../api/userCalls";
 import FormControl from "../../../fragments/forms/FormControl";
+import FormPhoneNumber from "../../../fragments/forms/FormPhoneNumber";
 import Button from "../../../fragments/util/Button";
 
-export interface TrustedPersonFormParams {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  disabled?: boolean;
-  buttonLabel: string;
-  link: string;
-  edit?: boolean;
-}
+const TrustedPersonForm = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [readOnly, setReadOnly] = useState(true);
 
-const TrustedPersonForm = (props: Readonly<TrustedPersonFormParams>) => {
-  const [firstName, setFirstName] = useState(props.firstName);
-  const [lastName, setLastName] = useState(props.lastName);
-  const [email, setEmail] = useState(props.email);
-  const [phoneNumber, setPhoneNumber] = useState(props.phoneNumber);
-  const [edit, setEdit] = useState(props.edit);
+  useEffect(() => {
+    getUserById(0).then(res => res.json()).then(data => {
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setPhoneNumber(data.phone);
+    }).catch(err => console.log(err));
+  }, []);
 
-  const navigate = useNavigate();
-  //navigate(props.link);
-  
-  const onSubmit = (e: FormEvent<HTMLElement>) => {
+  const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
+
+    if (!readOnly) {
+      updateUser(0, {
+        firstName: firstName,
+        lastName: lastName,
+        phone: phoneNumber
+      });
+    }
+
+    setReadOnly(!readOnly);
   };
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Row>
-        <Col>
-          <FormControl
-            id="firstName"
-            required
-            onChange={(e) => setFirstName(e.target.value)}
-            className="mb-3"
-            value={firstName}
-            label="Imię"
-            type="text"
-            disabled={props.disabled}
-          />
-        </Col>
-        <Col>
-          <FormControl
-            id="lastName"
-            required
-            onChange={(e) => setLastName(e.target.value)}
-            className="mb-3"
-            value={lastName}
-            label="Nazwisko"
-            type="text"
-            disabled={props.disabled}
-          />
-        </Col>
-      </Row>
-      <Row md={2}>
-        <FormControl
-          id="email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="mb-3"
-          value={email}
-          label="Email"
-          type="email"
-          disabled={props.disabled}
-        />
-        <FormControl
-          id="phoneNumber"
-          required
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          className="mb-3"
-          value={phoneNumber}
-          label="Numer telefonu"
-          type="text"
-          disabled={props.disabled}
-        />
-      </Row>
-      <Button type={props.disabled ? "button" : "submit"} onClick={() => props.disabled ? navigate(props.link) : null}>{props.buttonLabel}</Button>
-    </Form>
+    <Container className="my-3">
+      <h1 className="mb-3">Osoba zaufana</h1>
+      <Form onSubmit={onSubmit}>
+        <Row md={2}>
+          <FormControl id="firstName" required onChange={e => setFirstName(e.target.value)} className="mb-3" value={firstName} label="Imię" disabled={readOnly} />
+          <FormControl id="lastName" required onChange={e => setLastName(e.target.value)} className="mb-3" value={lastName} label="Nazwisko" disabled={readOnly} />
+        </Row>
+        <Row md={2}>
+          <FormControl id="email" onChange={e => setEmail(e.target.value)} className="mb-3" value={email} label="Email" type="email" disabled={readOnly} />
+          <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label="Numer telefonu" disabled={readOnly} />
+        </Row>
+        <Button type="submit">{readOnly ? "Edytuj" : "Zapisz"}</Button>
+      </Form>
+    </Container>
   );
-  }
+};
 
 export default TrustedPersonForm;

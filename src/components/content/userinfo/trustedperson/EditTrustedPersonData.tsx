@@ -11,16 +11,7 @@ const EditTrustedPersonData = () => {
   return (
     <Container className="my-3">
       <h1 className="mb-3">Osoba zaufana</h1>
-      <TrustedPersonForm
-        firstName={firstName}
-        lastName={lastName}
-        email={email}
-        phoneNumber={phoneNumber}
-        buttonLabel="Zapisz"
-        link="../trustedPersonData"
-        disabled={false}
-        edit={true}
-      />
+      <TrustedPersonForm />
     </Container>
   );
 };
