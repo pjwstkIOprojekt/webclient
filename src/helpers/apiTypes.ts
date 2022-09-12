@@ -213,7 +213,7 @@ export interface Location {
 }
 
 export interface MedicalInfo {
-  id: number,
+  id?: number,
   bloodType?: BloodType,
   chronicDiseases?: string,
   allergies?: string,

@@ -4,17 +4,15 @@ import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../../fragments/forms/FormControl";
 import FormPhoneNumber from "../../../fragments/forms/FormPhoneNumber";
 import Button from "../../../fragments/util/Button";
+import NavButton from "../../../fragments/navigation/NavButton";
 
 const UserDataForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [passwordError, setPasswordError] = useState("");
   const [readOnly, setReadOnly] = useState(true);
 
   useEffect(() => {
@@ -31,13 +29,6 @@ const UserDataForm = () => {
     e.preventDefault();
 
     if (!readOnly) {
-      const isPasswordValid = password === passwordCheck;
-      setPasswordError(isPasswordValid ? "" : "Powtórzone hasło różni się od oryginalnego");
-
-      if (!isPasswordValid) {
-        return;
-      }
-
       updateUser(0, {
         firstName: firstName,
         lastName: lastName,
@@ -48,7 +39,6 @@ const UserDataForm = () => {
     }
 
     setReadOnly(!readOnly);
-    setPasswordCheck("");
   };
 
   return (
@@ -64,10 +54,9 @@ const UserDataForm = () => {
           <FormPhoneNumber id="phoneNumber" required onChange={(e) => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label="Numer telefonu" disabled={readOnly} />
         </Row>
         <FormControl id="username" required onChange={(e) => setUsername(e.target.value)} className="mb-3" value={username} label="Nazwa użytkownika" disabled={readOnly} />
-        <FormControl id="password" required onChange={(e) => setPassword(e.target.value)} className="mb-3" value={password} label="Hasło" type="password" disabled={readOnly} />
-        {readOnly ? "" : <FormControl id="passwordCheck" required onChange={(e) => setPasswordCheck(e.target.value)} className="mb-3" value={passwordCheck} label="Powtórz hasło" type="password" error={passwordError} />}
         <FormControl id="birthDate" required onChange={(e) => setBirthDate(e.target.value)} className="mb-3" value={birthDate} label="Data urodzenia" type="date" disabled={readOnly} />
         <Button type="submit">{readOnly ? "Edytuj" : "Zapisz"}</Button>
+        <NavButton to="password" className="mx-3">Zmiana hasła</NavButton>
       </Form>
     </Container>
   );

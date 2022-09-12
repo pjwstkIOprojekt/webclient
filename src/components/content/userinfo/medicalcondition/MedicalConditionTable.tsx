@@ -1,28 +1,25 @@
+import { MedicalInfo } from "../../../../helpers/apiTypes";
 import Table from "../../../fragments/util/Table";
-import { useNavigate, Link } from "react-router-dom"
-import Button from "../../../fragments/util/Button"
+import Link from "../../../fragments/navigation/Link";
+import NavButton from "../../../fragments/navigation/NavButton";
 
-const MedicalConditionTable = () => {
-  const navigate = useNavigate();
+interface MedicalConditionTableParams {
+  data: Record<string, any>[]
+}
 
+const MedicalConditionTable = (props: Readonly<MedicalConditionTableParams>) => {
   const cols = [
-    { name: "#", property: (x: any) => <Link to={`disease/details/${x.id}`}>{x.id}</Link> },
-    { name: "Nazwa", property: "name" }
-  ];
-
-  const diseases = [
-    { id: 1, name: "abc", description: "aaaaa" },
-    { id: 2, name: "abc", description: "bbbbb" },
-    { id: 3, name: "abc", description: "ccccc" },
+    { name: "#", property: (x: MedicalInfo) => <Link to={`disease/${x.id}`}>{x.id}</Link>, filterBy: "id", sortBy: "id" },
+    { name: "Nazwa", property: "chronicDiseases", filterBy: "chronicDiseases", sortBy: "chronicDiseases" }
   ];
 
   return (
     <div>
       <h3>Choroby</h3>
-      <Table columns={cols} data={diseases} />
-      <Button onClick={e => navigate("medicalcondition/add")}>Dodaj</Button>
+      <Table columns={cols} data={props.data} />
+      <NavButton to="disease">Dodaj</NavButton>
     </div>
-  )
-}
+  );
+};
 
 export default MedicalConditionTable;
