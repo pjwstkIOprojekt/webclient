@@ -7,9 +7,9 @@ const EditBloodTypeView = () => {
   return (
     <Container className="my-3">
       <h1 className="mb-3">Dane medyczne</h1>
-      <BloodTypeForm buttonLabel="Zapisz" link="../medicaldata" disabled={false} />
-      <AllergyTable />
-      <MedicalConditionTable />
+      <BloodTypeForm data={{}} />
+      <AllergyTable data={[]} />
+      <MedicalConditionTable data={[]} />
     </Container>
   );
 };

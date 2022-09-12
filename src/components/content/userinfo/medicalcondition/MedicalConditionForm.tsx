@@ -1,34 +1,45 @@
-import { useState, FormEvent } from "react";
-import { Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useState, FormEvent, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getInfoById, updateChronicDisease } from "../../../../api/medicalInfoCalls";
+import { Container, Form } from "react-bootstrap";
 import FormTextArea from "../../../fragments/forms/FormTextArea";
 import FormUpload from "../../../fragments/forms/FormUpload";
 import Button from "../../../fragments/util/Button";
+import NavButton from "../../../fragments/navigation/NavButton";
 
-interface FormProps {
-  buttonLabel: string,
-  onSubmit: (ill: string, inst: string, file: string) => void
-}
-
-const MedicalConditionForm = (props: FormProps) => {
-  const [ill, setIll] = useState("");
+const MedicalConditionForm = () => {
+  const [name, setName] = useState("");
   const [inst, setInst] = useState("");
   const [file, setFile] = useState("");
+  const { diseaseId } = useParams();
   const navigate = useNavigate();
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (diseaseId) {
+      getInfoById(parseInt(diseaseId)).then(res => res.json()).then(data => {
+        setName(data.name);
+        setInst(data.inst);
+      }).catch(err => console.log(err));
+    }
+  }, []);
+
+  const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
-    props.onSubmit(ill, inst, file);
+    updateChronicDisease(diseaseId ? parseInt(diseaseId) : 0, name + " - " + inst).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    navigate("../medicaldata");
   };
 
   return (
-    <Form onSubmit={onSubmit}>
-      <FormTextArea className="mb-3" label="Nazwa choroby" rows={1} value={ill} onChange={e => setIll(e.target.value)} />
-      <FormTextArea className="mb-3" label="Jak udzielić pierwszej pomocy?" rows={1} value={inst} onChange={e => setInst(e.target.value)} />
-      <FormUpload className="mb-3 d-flex flex-column" buttonClass="w-25" label="Skan diagnozy lekarskiej" value={file} onChange={e => setFile(e.target.value)} />
-      <Button className="m-2" type="submit">{props.buttonLabel}</Button>
-      <Button type="button" onClick={e => navigate("../medicaldata")}>Wróć</Button>
-    </Form>
+    <Container className="my-3">
+      <h1 className="mb-3">{diseaseId ? "Edycja choroby" : "Dodawanie choroby"}</h1>
+      <Form onSubmit={onSubmit}>
+        <FormTextArea className="mb-3" label="Nazwa choroby" required rows={1} value={name} onChange={e => setName(e.target.value)} />
+        <FormTextArea className="mb-3" label="Jak udzielić pierwszej pomocy?" required rows={1} value={inst} onChange={e => setInst(e.target.value)} />
+        <FormUpload className="mb-3 d-flex flex-column" buttonClass="w-25" label="Skan diagnozy lekarskiej" value={file} onChange={e => setFile(e.target.value)} />
+        <Button className="m-2" type="submit">Zapisz</Button>
+        <NavButton to="../medicaldata">Anuluj</NavButton>
+      </Form>
+    </Container>
   );
 };
 

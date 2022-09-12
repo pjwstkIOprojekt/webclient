@@ -10,7 +10,7 @@ const EditMedicalCondition = () => {
   return (
     <Container>
       <h1 className="my-4">Edytuj chorobę</h1>
-      <MedicalConditionForm buttonLabel="Dodaj" onSubmit={onSubmit} />
+      <MedicalConditionForm />
     </Container>
   )
 }

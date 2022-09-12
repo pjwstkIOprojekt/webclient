@@ -1,31 +1,28 @@
 import { ChangeEventHandler } from "react";
 import { FormGroup, Form } from "react-bootstrap";
 
-export interface FormSelectParams {
+export interface FormPhoneParams {
   id?: string,
   className?: string,
   label?: string,
   labelClass?: string,
   innerClass?: string,
   required?: boolean,
-  options?: string[],
-  allValid?: boolean,
+  onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
   value?: string | number | string[],
-  onChange?: ChangeEventHandler<HTMLSelectElement>,
+  placeholder?: string,
   disabled?: boolean,
   error?: string
 }
 
-const FormSelect = (props: Readonly<FormSelectParams>) => {
+const FormPhoneNumber = (props: Readonly<FormPhoneParams>) => {
   return (
     <FormGroup controlId={props.id} className={props.className}>
       {props.label ? <Form.Label className={props.labelClass}>{props.label}{props.required ? <span className="req">*</span> : ""}</Form.Label> : ""}
-      <Form.Select className={props.innerClass} required={props.required} value={props.value} onChange={props.onChange} disabled={props.disabled}>
-        {props.options ? props.options.map((opt, index) => <option key={index} value={index === 0 && !props.allValid ? "" : index}>{opt}</option>) : ""}
-      </Form.Select>
+      <Form.Control required={props.required} className={props.innerClass} type="text" pattern="(\+[0-9]{2})?[0-9]{9}" onChange={props.onChange} value={props.value} placeholder={props.placeholder} disabled={props.disabled} />
       {props.error ? <span className="req">{props.error}</span> : ""}
     </FormGroup>
   );
 };
 
-export default FormSelect;
+export default FormPhoneNumber;

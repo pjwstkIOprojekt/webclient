@@ -11,15 +11,7 @@ const TrustedPersonData = () => {
   return (
     <Container className="my-3">
       <h1 className="mb-3">Osoba zaufana</h1>
-      <TrustedPersonForm
-        firstName={firstName}
-        lastName={lastName}
-        email={email}
-        phoneNumber={phoneNumber}
-        buttonLabel="Edytuj"
-        link="edit"
-        disabled={true}
-      />
+      <TrustedPersonForm />
     </Container>
   );
 };

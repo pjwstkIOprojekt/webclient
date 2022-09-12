@@ -1,5 +1,8 @@
+import { AmbulanceAvailability, AvailabilityType, Ambulance } from "../../../helpers/apiTypes";
 import { Col, Container } from "react-bootstrap";
-import Table from "../../fragments/util/Table";
+import { isDirector } from "../../../helpers/authHelper";
+import NavButton from "../../fragments/navigation/NavButton";
+import Table, { TableColumnParams } from "../../fragments/util/Table";
 import { useState } from "react";
 import { getAmbulances } from "../../../api/ambulanceCalls";
 import ViewLoader from "../../fragments/util/ViewLoader";
@@ -9,13 +12,27 @@ interface AmbulancesListProps {
 }
 
 const AmbulancesDisplay = (props: Readonly<AmbulancesListProps>) => {
-  const cols = [
-    { name: "#", property: "id", sortBy: "id", filterBy: "id" },
-    { name: "Rodzaj karetki", property: "kind", sortBy: "kind", filterBy: "kind" },
-    { name: "Lista ratowników", property: "paramedics", sortBy: "paramedics", filterBy: "paramedics" },
-    { name: "Numer rejestracyjny", property: "registrationNumber", sortBy: "registrationNumber", filterBy: "registrationNumber" },
-    { name: () => <Col className="pl-1 pr-1">Czy jest dostępna?</Col>, property: (x: any) => x.available ? "Tak" : "Nie", sortBy: "available" }
+  const checkAvailability = (x?: AmbulanceAvailability[]) => {
+    if (!x) {
+      return false;
+    }
+
+    const now = new Date(Date.now());
+    return x.filter(a => a.dateStart && a.dateEnd ? (a.dateStart <= now && now <= a.dateEnd) : a.dateStart).map(a => a.availabilityType).includes(AvailabilityType.AVAILABLE);
+  };
+
+  const cols: TableColumnParams[] = [
+    { name: "#", property: "ambulanceId", sortBy: "ambulanceId", filterBy: "ambulanceId" },
+    { name: "Rodzaj karetki", property: "ambulanceKind", sortBy: "ambulanceKind", filterBy: "ambulanceKind" },
+    { name: "Typ karetki", property: "ambulanceType", sortBy: "ambulanceType", filterBy: "ambulanceType" },
+    { name: "Liczba miejsc", property: "peopleCapacity", sortBy: "peopleCapacity", filterBy: "peopleCapacity" },
+    { name: "Numer rejestracyjny", property: "plates", sortBy: "plates", filterBy: "plates" },
+    { name: () => <Col className="pl-1 pr-1">Czy jest dostępna?</Col>, property: (x: Ambulance) => checkAvailability(x.ambulanceAvailabilities) ? "Tak" : "Nie", sortBy: "available" }
   ];
+
+  if (isDirector()) {
+    cols.push({ name: "Edycja", property: (x: Ambulance) => <NavButton to={`equipment/${x.ambulanceId}`}>Sprzęt</NavButton> });
+  }
 
   return (
     <Container className="mb-3 justify-content-center text-center">
@@ -26,14 +43,15 @@ const AmbulancesDisplay = (props: Readonly<AmbulancesListProps>) => {
 };
 
 const AmbulanceList = () => {
-  const [ambulances] = useState<any[]>([
-    { id: 1, kind: "Covid", registrationNumber: "WW 40404", available: true, paramedics: "Jan Nowak  Adam Kowalski" },
-    { id: 2, kind: "Transportowa", registrationNumber: "WW 50505", available: false, paramedics: "Jan Nowak  Adam Kowalski" }
-  ]);
+  const [ambulances, setAmbulances] = useState([]);
 
   const onLoad = (loaded: () => void) => {
-    loaded();
-    getAmbulances().then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    getAmbulances().then(res => res.json()).then(data => {
+      // TODO Remove logging
+      console.log(data);
+      setAmbulances(data);
+      loaded();
+    }).catch(err => console.log(err));
   };
 
   return <ViewLoader onLoad={onLoad} element={<AmbulancesDisplay data={ambulances} />} />;

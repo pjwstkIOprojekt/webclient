@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import AcceptReport from "../report/AcceptReport";
 import Report from "../incident/Report";
 import AmbulanceList from "../ambulance/AmbulanceList";
+import AmbulanceEquipment from "../ambulance/AmbulanceEquipment";
 import PatientList from "../victim/DangerousVictim";
 import SendMessage from "../ambulance/SendMessage";
 import StaffList from "../staff/StaffList";
@@ -26,6 +27,7 @@ const AdminPanel = () => {
         <Route path="reports" element={<AcceptReport />} />
         <Route path="reports/:idReport" element={<Report />} />
         <Route path="ambulances" element={<AmbulanceList />} />
+        <Route path="ambulances/equipment/:ambulanceId" element={<AmbulanceEquipment />} />
         <Route path="patients" element={<PatientList />} />
         <Route path="message" element={<SendMessage />} />
         <Route path="staff" element={<StaffList />} />

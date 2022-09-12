@@ -1,25 +1,26 @@
 import { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import { updateBloodType } from "../../../../api/medicalInfoCalls";
 import { Form } from "react-bootstrap";
 import FormRadio from "../../../fragments/forms/FormRadio";
 import Button from "../../../fragments/util/Button";
 
-interface FormProps {
-  buttonLabel: string;
-  link: string,
-  disabled: boolean
+interface BloodTypeFormParams {
+  data: Record<string, any>
 }
 
-const BloodTypeForm = (props: FormProps) => {
-  const [group, setGroup] = useState("A");
-  const [rh, setRh] = useState("Rh+");
-  const navigate = useNavigate();
+const BloodTypeForm = (props: Readonly<BloodTypeFormParams>) => {
+  const [group, setGroup] = useState(props.data.group);
+  const [rh, setRh] = useState(props.data.rh);
+  const [readOnly, setReadOnly] = useState(true);
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
-    updateBloodType(1, group + " " + rh).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
-    navigate(props.link);
+
+    if (!readOnly) {
+      updateBloodType(1, group + " " + rh).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    }
+
+    setReadOnly(!readOnly);
   };
 
   return (
@@ -27,12 +28,12 @@ const BloodTypeForm = (props: FormProps) => {
       <div className="mb-3">
         <h3>Grupa krwi</h3>
         <div>
-          <FormRadio labelClass="p-3" label="Grupa krwi:" values={["A", "B", "AB", "O"]} onChange={e => setGroup(e.target.id)} value={group} disabled={props.disabled} />
+          <FormRadio labelClass="p-3" label="Grupa krwi:" values={["A", "B", "AB", "O"]} onChange={e => setGroup(e.target.id)} value={group} disabled={readOnly} />
         </div>
         <div>
-          <FormRadio labelClass="p-3" label="Grupa Rh:" values={["Rh+", "Rh-"]} onChange={e => setRh(e.target.id)} value={rh} disabled={props.disabled} />
+          <FormRadio labelClass="p-3" label="Grupa Rh:" values={["Rh+", "Rh-"]} onChange={e => setRh(e.target.id)} value={rh} disabled={readOnly} />
         </div>
-        <Button type={props.disabled ? "button" : "submit"} onClick={props.disabled ? e => navigate(props.link) : e => 3}>{props.buttonLabel}</Button>
+        <Button type="submit">{readOnly ? "Edytuj" : "Zapisz"}</Button>
       </div>
     </Form>
   );

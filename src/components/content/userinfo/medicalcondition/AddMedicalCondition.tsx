@@ -11,7 +11,7 @@ const AddMedicalCondition = () => {
   return (
     <Container>
       <h1 className="my-4">Dodaj chorobę</h1>
-      <MedicalConditionForm buttonLabel="Dodaj" onSubmit={onSubmit} />
+      <MedicalConditionForm />
     </Container>
   )
 }
