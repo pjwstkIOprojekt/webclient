@@ -16,7 +16,7 @@ const MedicalConditionTable = (props: Readonly<MedicalConditionTableParams>) => 
   return (
     <div>
       <h3>Choroby</h3>
-      <Table columns={cols} data={props.data} />
+      <Table columns={cols} data={props.data} isLoading={props.data.length === 0} />
       <NavButton to="disease">Dodaj</NavButton>
     </div>
   );

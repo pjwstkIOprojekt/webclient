@@ -18,7 +18,7 @@ const AllergyTable = (props: Readonly<AllergyTableParams>) => {
   return (
     <div className="mb-3">
       <h3>Alergie</h3>
-      <Table columns={cols} data={props.data} />
+      <Table columns={cols} data={props.data} isLoading={props.data.length === 0} />
       <NavButton to="allergy">Dodaj</NavButton>
     </div>
   )
