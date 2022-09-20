@@ -4,7 +4,8 @@ import Table from "../../../fragments/util/Table";
 import NavButton from '../../../fragments/navigation/NavButton';
 
 interface AllergyTableParams {
-  data: Record<string, any>[]
+  data: Record<string, any>[],
+  loading: boolean
 }
 
 const AllergyTable = (props: Readonly<AllergyTableParams>) => {
@@ -18,7 +19,7 @@ const AllergyTable = (props: Readonly<AllergyTableParams>) => {
   return (
     <div className="mb-3">
       <h3>Alergie</h3>
-      <Table columns={cols} data={props.data} isLoading={props.data.length === 0} />
+      <Table columns={cols} data={props.data} isLoading={props.loading} />
       <NavButton to="allergy">Dodaj</NavButton>
     </div>
   )

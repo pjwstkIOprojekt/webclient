@@ -1,17 +1,24 @@
+import { useState, useEffect } from "react";
+import { getAmbulances } from "../../../api/ambulanceCalls";
 import { AmbulanceAvailability, AvailabilityType, Ambulance } from "../../../helpers/apiTypes";
+import Table, { TableColumnParams } from "../../fragments/util/Table";
 import { Col, Container } from "react-bootstrap";
 import { isDirector } from "../../../helpers/authHelper";
 import NavButton from "../../fragments/navigation/NavButton";
-import Table, { TableColumnParams } from "../../fragments/util/Table";
-import { useState } from "react";
-import { getAmbulances } from "../../../api/ambulanceCalls";
-import ViewLoader from "../../fragments/util/ViewLoader";
 
-interface AmbulancesListProps {
-  data: Record<string, any>[]
-}
 
-const AmbulancesDisplay = (props: Readonly<AmbulancesListProps>) => {
+const AmbulanceList = () => {
+  const [ambulances, setAmbulances] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getAmbulances().then(res => res.json()).then(data => {
+      console.log(data);
+      setAmbulances(data);
+      setIsLoading(false);
+    }).catch(err => console.log(err));
+  }, []);
+
   const checkAvailability = (x?: AmbulanceAvailability[]) => {
     if (!x) {
       return false;
@@ -37,24 +44,9 @@ const AmbulancesDisplay = (props: Readonly<AmbulancesListProps>) => {
   return (
     <Container className="mb-3 justify-content-center text-center">
       <h3>Karetki</h3>
-      <Table columns={cols} data={props.data} />
+      <Table columns={cols} data={ambulances} isLoading={isLoading} />
     </Container>
   );
-};
-
-const AmbulanceList = () => {
-  const [ambulances, setAmbulances] = useState([]);
-
-  const onLoad = (loaded: () => void) => {
-    getAmbulances().then(res => res.json()).then(data => {
-      // TODO Remove logging
-      console.log(data);
-      setAmbulances(data);
-      loaded();
-    }).catch(err => console.log(err));
-  };
-
-  return <ViewLoader onLoad={onLoad} element={<AmbulancesDisplay data={ambulances} />} />;
 };
 
 export default AmbulanceList;

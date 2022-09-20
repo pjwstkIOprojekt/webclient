@@ -9,6 +9,7 @@ const MedicalData = () => {
   const [blood, setBlood] = useState({});
   const [allergies, setAllergies] = useState([]);
   const [conditions, setConditions] = useState([]);
+  const [isloading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getInfo().then(res => res.json()).then(data => {
@@ -16,6 +17,7 @@ const MedicalData = () => {
       setBlood(data);
       setAllergies(data);
       setConditions(data);
+      setIsLoading(false);
     }).catch(err => console.log(err));
   }, []);
 
@@ -23,8 +25,8 @@ const MedicalData = () => {
     <Container className="my-3">
       <h1 className="mb-3">Dane medyczne</h1>
       <BloodTypeForm data={blood} />
-      <AllergyTable data={allergies} />
-      <MedicalConditionTable data={conditions} />
+      <AllergyTable data={allergies} loading={isloading} />
+      <MedicalConditionTable data={conditions} loading={isloading} />
     </Container>
   );
 };
