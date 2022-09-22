@@ -1,6 +1,5 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { createEquipment, updateEquipment } from "../../../api/equipmentCalls";
 import { getAmbulanceById } from "../../../api/ambulanceCalls";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
@@ -19,10 +18,24 @@ const AmbulanceEquipment = () => {
     amount: undefined
   });
 
+  useEffect(() => {
+    if (ambulanceId !== undefined) {
+      getAmbulanceById(parseInt(ambulanceId)).then(res => res.json()).then(data => {
+        console.log(data);
+        setName(data.equipmentLogs[0].equipment.name);
+        setMetric(data.equipmentLogs[0].measurement);
+
+        setStats({
+          start: data.equipmentLogs[0].dateStart,
+          end: data.equipmentLogs[0].dateEnd,
+          amount: data.equipmentLogs[0].currentAmount
+        });
+      }).catch(err => console.log(err));
+    }
+  }, []);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // TODO Improve submit handler
     /*
     (ambulanceId === undefined ? createEquipment({
       name: name
@@ -31,22 +44,6 @@ const AmbulanceEquipment = () => {
     })).then(res => navigate("../ambulances")).catch(err => console.log(err));*/
     navigate("../ambulances");
   };
-
-  if (ambulanceId !== undefined) {
-    getAmbulanceById(parseInt(ambulanceId)).then(res => res.json()).then(data => {
-      // TODO Remove logging
-      console.log(data);
-      setName(data.equipmentLogs[0].equipment.name);
-      // TODO Bind min amount
-      setMetric(data.equipmentLogs[0].measurement);
-
-      setStats({
-        start: data.equipmentLogs[0].dateStart,
-        end: data.equipmentLogs[0].dateEnd,
-        amount: data.equipmentLogs[0].currentAmount
-      });
-    }).catch(err => console.log(err));
-  }
 
   return (
     <Container className="mt-5">

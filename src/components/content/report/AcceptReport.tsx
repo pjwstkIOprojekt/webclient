@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
-import FormSelect from "../../fragments/forms/FormSelect";
-import Link from "../../fragments/navigation/Link";
-import Button from '../../fragments/util/Button';
+import { ReportSurvey } from "../../../helpers/apiTypes";
 import { getUnapproved, getApproved } from "../../../api/emergencyCalls";
+import Link from "../../fragments/navigation/Link";
+import FormSelect from "../../fragments/forms/FormSelect";
+import Button from '../../fragments/util/Button';
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
 const AcceptReport = () => {
-  const [pending, setPending] = useState([
-    { id: 1, victimConsious: true, victimBreathing: true, date: "2022-01-01", dangerRating: "5", description: "description" }
-  ]);
+  const [pending, setPending] = useState<ReportSurvey[]>([]);
+  const [approved, setApproved] = useState<ReportSurvey[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [approved, setApproved] = useState([
-    { id: 3, victimConsious: false, victimBreathing: true, date: "2022-03-29", dangerRating: "3", description: "wypadek" }
-  ]);
+  useEffect(() => {
+    getUnapproved().then(res => res.json()).then(items => setPending(items)).then(getApproved).then(res => res.json()).then(items => {
+      setApproved(items);
+      setIsLoading(false);
+    }).catch(err => console.log(err));
+  }, []);
 
   const sharedCols = [
     { name: "#", property: (x: any) => <Link to={`${x.id}`}>{x.id}</Link>, filterBy: "id", sortBy: "id" },
@@ -41,17 +45,12 @@ const AcceptReport = () => {
     { name: "Przypisana karetka", property: "ambulance" }
   ];
 
-  useEffect(() => {
-    getUnapproved().then(res => res.json()).then(items => console.log(items)).catch(err => console.log(err));
-    getApproved().then(res => res.json()).then(items => console.log(items)).catch(err => console.log(err));
-  }, []);
-
   return (
     <Container className="mb-3 justify-content-center text-center">
       <h3>Oczekujące zgłoszenia</h3>
-      <Table columns={pendingCols} data={pending} />
+      <Table columns={pendingCols} data={pending} isLoading={isLoading} />
       <h3 className="mt-5">Przyjęte zgłoszenia</h3>
-      <Table columns={approvedCols} data={approved} />
+      <Table columns={approvedCols} data={approved} isLoading={isLoading} />
     </Container>
   );
 };

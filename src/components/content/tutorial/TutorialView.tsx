@@ -1,3 +1,4 @@
+import { Tutorial } from "../../../helpers/apiTypes";
 import { Card } from "react-bootstrap";
 import CustomCard from "../../fragments/util/Card";
 import { Link } from "react-router-dom";
@@ -7,7 +8,7 @@ import ViewLoader from "../../fragments/util/ViewLoader";
 import { getTutorials } from "../../../api/tutorialCalls";
 
 interface TutorialCardParams {
-  items: any[]
+  items: Tutorial[]
 }
 
 const TutorialCard = (props: Readonly<TutorialCardParams>) => {
@@ -30,14 +31,24 @@ const TutorialCard = (props: Readonly<TutorialCardParams>) => {
 };
 
 const TutorialView = () => {
-  const [items, setItems] = useState<any[]>([]);
-  
-  return <ViewLoader onLoad={loaded => {
+  const [items, setItems] = useState([]);
+
+  const onLoad = (loaded: () => void) => {
     getTutorials().then(res => res.json()).then(data => {
       setItems(data);
       loaded();
-    }).catch(err => console.log(err));
-  }} element={<TutorialCard items={items} />} />;
+    }).catch(err => {
+      console.log(err);
+      loaded();
+    });
+  };
+  
+  return (
+    <>
+      <h1 className="my-3 text-center">Poradniki</h1>
+      <ViewLoader onLoad={onLoad} element={<TutorialCard items={items} />} />
+    </>
+  );
 };
 
 export default TutorialView;

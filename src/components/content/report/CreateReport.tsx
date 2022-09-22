@@ -1,4 +1,5 @@
 import { useState, FormEvent, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { createEmergency } from "../../../api/emergencyCalls";
 import { Form, Row, Col } from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
@@ -23,6 +24,7 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
   const [rating, setRating] = useState(1);
   const [amountVictims, setAmountVictims] = useState(0);
   const [desc, setDesc] = useState("");
+  const navigate = useNavigate();
 
   const accidentTypes = [
     "Atak terrorystyczny",
@@ -49,6 +51,8 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
       conscious: conscious,
       bloodType: 0
     }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+
+    navigate("/");
   };
 
   return (

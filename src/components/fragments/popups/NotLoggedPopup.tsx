@@ -1,12 +1,11 @@
 import { useNotificationsManager } from "../../../hooks/useNotify";
-import { useNavigate } from "react-router-dom";
 import { keycloakClient } from "../../../helpers/authHelper";
 import { Container, Row } from "react-bootstrap";
 import Button from "../util/Button";
+import NavButton from "../navigation/NavButton";
 
 const NotLoggedPopup = () => {
   const notifications = useNotificationsManager();
-  const navigate = useNavigate();
 
   const handleLogin = () => {
     notifications.clear();
@@ -22,7 +21,7 @@ const NotLoggedPopup = () => {
         <Button type="button" className="w-50" onClick={handleLogin}>Zaloguj się</Button>
       </Row>
       <Row className="my-3 justify-content-center">
-        <Button type="button" className="w-50" onClick={() => navigate("/register")}>Zarejestruj się</Button>
+        <NavButton className="w-50" to="/register">Zarejestruj się</NavButton>
       </Row>
     </Container>
   );

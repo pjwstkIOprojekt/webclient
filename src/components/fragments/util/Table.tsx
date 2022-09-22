@@ -1,7 +1,8 @@
 import { ReactChild, ReactChildren, useState, useEffect, ChangeEventHandler, ChangeEvent } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
-import { Table as Inner, Row, Col } from "react-bootstrap";
+import { Table as Inner, Row, Col, Container } from "react-bootstrap";
 import Button from "./Button";
+import Spinner from "./Spinner";
 import FormControl from "../forms/FormControl";
 
 export interface TableColumnParams {
@@ -19,7 +20,8 @@ export interface TableParams {
   bodyClass?: string,
   rowClass?: string,
   headerClass?: string,
-  dataClass?: string
+  dataClass?: string,
+  isLoading?: boolean
 }
 
 interface SortState {
@@ -113,7 +115,17 @@ const Table = (props: Readonly<TableParams>) => {
         </tr>
       </thead>
       <tbody className={props.bodyClass}>
-        {copy.map((row, index) => (
+        {props.isLoading ? (
+          <tr className={props.rowClass}>
+            {props.columns.map((col, key) => (
+              <td key={key} className={props.dataClass}>
+                <Container className="text-center">
+                  <Spinner grow />
+                </Container>
+              </td>
+            ))}
+          </tr>
+        ) : copy.map((row, index) => (
           <tr key={index} className={props.rowClass}>
             {props.columns.map((col, key) => <td key={key} className={props.dataClass}>{typeof(col.property) === "string" ? row[col.property] : col.property(row)}</td>)}
           </tr>

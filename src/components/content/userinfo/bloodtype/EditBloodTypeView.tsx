@@ -8,8 +8,8 @@ const EditBloodTypeView = () => {
     <Container className="my-3">
       <h1 className="mb-3">Dane medyczne</h1>
       <BloodTypeForm data={{}} />
-      <AllergyTable data={[]} />
-      <MedicalConditionTable data={[]} />
+      <AllergyTable data={[]} loading />
+      <MedicalConditionTable data={[]} loading />
     </Container>
   );
 };

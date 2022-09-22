@@ -4,7 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import AcceptReport from "../report/AcceptReport";
 import Report from "../incident/Report";
 import AmbulanceList from "../ambulance/AmbulanceList";
-import PatientList from "../victim/DangerousVictim";
+import AmbulanceEquipment from "../ambulance/AmbulanceEquipment";
+import DangerousVictim from "../victim/DangerousVictim";
 
 const DispositorPanel = () => {
   const links = [
@@ -20,7 +21,8 @@ const DispositorPanel = () => {
         <Route path="reports" element={<AcceptReport />} />
         <Route path="reports/:idReport" element={<Report />} />
         <Route path="ambulances" element={<AmbulanceList />} />
-        <Route path="patients" element={<PatientList />} />
+        <Route path="ambulances/equipment/:ambulanceId" element={<AmbulanceEquipment />} />
+        <Route path="patients" element={<DangerousVictim />} />
       </Routes>
     </Container>
   );
