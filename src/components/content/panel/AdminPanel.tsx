@@ -5,11 +5,10 @@ import AcceptReport from "../report/AcceptReport";
 import Report from "../incident/Report";
 import AmbulanceList from "../ambulance/AmbulanceList";
 import AmbulanceEquipment from "../ambulance/AmbulanceEquipment";
-import PatientList from "../victim/DangerousVictim";
+import DangerousVictim from "../victim/DangerousVictim";
 import SendMessage from "../ambulance/SendMessage";
 import StaffList from "../staff/StaffList";
-import AddStaffUser from "../staff/AddStaffUser";
-import EditStaffUser from "../staff/EditStaffUser";
+import StaffUserForm from "../staff/StaffUserForm";
 
 const AdminPanel = () => {
   const links = [
@@ -28,11 +27,11 @@ const AdminPanel = () => {
         <Route path="reports/:idReport" element={<Report />} />
         <Route path="ambulances" element={<AmbulanceList />} />
         <Route path="ambulances/equipment/:ambulanceId" element={<AmbulanceEquipment />} />
-        <Route path="patients" element={<PatientList />} />
+        <Route path="patients" element={<DangerousVictim />} />
         <Route path="message" element={<SendMessage />} />
         <Route path="staff" element={<StaffList />} />
-        <Route path="staff/new" element={<AddStaffUser />} />
-        <Route path="staff/edit/:userId" element={<EditStaffUser />} />
+        <Route path="staff/new" element={<StaffUserForm />} />
+        <Route path="staff/edit/:userId" element={<StaffUserForm />} />
       </Routes>
     </Container>
   );

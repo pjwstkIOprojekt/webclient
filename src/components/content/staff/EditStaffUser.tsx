@@ -8,7 +8,7 @@ const EditStaffUser = () => {
     return <Navigate to="../staff" replace />;
   }
 
-  return <StaffUserForm userId={parseInt(userId)} />;
+  return <StaffUserForm />;
 };
 
 export default EditStaffUser;
