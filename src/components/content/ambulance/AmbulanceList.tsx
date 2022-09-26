@@ -19,13 +19,21 @@ const AmbulanceList = () => {
     }).catch(err => console.log(err));
   }, []);
 
-  const checkAvailability = (x?: AmbulanceAvailability[]) => {
+  const checkAvailability = (x?: Set<AmbulanceAvailability>) => {
     if (!x) {
       return false;
     }
 
     const now = new Date(Date.now());
-    return x.filter(a => a.dateStart && a.dateEnd ? (a.dateStart <= now && now <= a.dateEnd) : a.dateStart).map(a => a.availabilityType).includes(AvailabilityType.AVAILABLE);
+    const availabilities: AvailabilityType[] = [];
+
+    x.forEach(a => {
+      if (a.dateStart && (!a.dateEnd || (a.dateStart <= now && now <= a.dateEnd)) && a.availabilityType) {
+        availabilities.push(a.availabilityType);
+      }
+    });
+
+    return availabilities.includes(AvailabilityType.AVAILABLE);
   };
 
   const cols: TableColumnParams[] = [
