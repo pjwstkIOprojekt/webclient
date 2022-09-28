@@ -2,7 +2,7 @@ import NavButton from "../../fragments/navigation/NavButton";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import CustomCard from "../../fragments/util/Card";
 import PieChart from "../../fragments/charts/PieChart";
-import LineChart from "../../fragments/charts/LineChart";
+import LineChart, { LineChartSetting } from "../../fragments/charts/LineChart";
 import Table from "../../fragments/util/Table";
 
 const AdminHome = () => {
@@ -133,7 +133,7 @@ const AdminHome = () => {
     },
   ];
 
-  const lineSet = [
+  const lineSet: LineChartSetting[] = [
     { key: "Wypadki", stroke: "#898934", type: "monotone" },
     { key: "Ataki terrorystyczne", stroke: "#893434", type: "monotone" },
     { key: "Ogniska Covid", stroke: "#343489", type: "monotone" }

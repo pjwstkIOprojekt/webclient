@@ -1,3 +1,4 @@
+import { CurveType } from "recharts/types/shape/Curve";
 import { Margin } from "recharts/types/util/types";
 import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
 import { useDarkMode } from "../../../hooks/useDarkMode";
@@ -15,7 +16,7 @@ export interface ComposedChartSetting {
   stroke?: string,
   fill?: string,
   opacity?: string | number,
-  type?: string
+  type?: CurveType
 }
 
 export interface ComposedChartParams {
@@ -42,7 +43,7 @@ const ComposedChart = (props: Readonly<ComposedChartParams>) => {
       case "line":
         return <Line dataKey={`values.${x.key}`} type={x.type} stroke={x.stroke} key={index} name={x.key} />;
       default:
-        return <Bar dataKey={`values.${x.key}`} type={x.type} barSize={x.size && x.size > 0 ? x.size : 25} fill={x.fill} fillOpacity={x.opacity} key={index} name={x.key} />;
+        return <Bar dataKey={`values.${x.key}`} type={x.type ? x.type.toString() : undefined} barSize={x.size && x.size > 0 ? x.size : 25} fill={x.fill} fillOpacity={x.opacity} key={index} name={x.key} />;
     }
   };
 
