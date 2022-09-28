@@ -57,8 +57,8 @@ export interface EquipmentDto {
 }
 
 export interface LocationDto {
-  longitude?: string,
-  latitude?: string
+  longitude?: number,
+  latitude?: number
 }
 
 // API enums definitions
@@ -140,7 +140,7 @@ export interface AccidentReport {
   staff?: Staff,
   user?: User,
   location?: Location,
-  ambulances?: Ambulance[],
+  ambulances?: Set<Ambulance>,
   reportSurvey?: ReportSurvey
 }
 
@@ -158,9 +158,9 @@ export interface Ambulance {
   fuelCapacity?: number,
   peopleCapacity?: number,
   plates?: string,
-  equipmentLogs?: EquipmentLog[],
-  accidentReports?: AccidentReport[],
-  ambulanceAvailabilities?: AmbulanceAvailability[]
+  equipmentLogs?: Set<EquipmentLog>,
+  accidentReports?: Set<AccidentReport>,
+  ambulanceAvailabilities?: Set<AmbulanceAvailability>
 }
 
 export interface AmbulanceAvailability {
@@ -183,7 +183,7 @@ export interface DispositorDutyEntry {
 export interface Equipment {
   id?: number,
   name?: string,
-  equipmentLog?: EquipmentLog[]
+  equipmentLog?: Set<EquipmentLog>
 }
 
 export interface EquipmentLog {
@@ -202,14 +202,14 @@ export interface Facility {
   name?: string,
   hospitalType?: HospitalType,
   facilityType?: FacilityType,
-  set?: string[],
+  set?: Set<string>,
   maximumBeds?: number
 }
 
 export interface Location {
   id?: number,
-  longitude?: string,
-  latitude?: string
+  longitude?: number,
+  latitude?: number
 }
 
 export interface MedicalInfo {
@@ -217,7 +217,8 @@ export interface MedicalInfo {
   bloodType?: BloodType,
   chronicDiseases?: string,
   allergies?: string,
-  user?: User
+  user?: User,
+  victim?: Victim
 }
 
 export interface ReportSurvey {
@@ -227,7 +228,8 @@ export interface ReportSurvey {
   description?: string,
   date?: Date,
   fileUrl?: string[],
-  bloodType?: BloodType
+  bloodType?: BloodType,
+  victims?: Set<Victim>
 }
 
 export interface Review {
@@ -242,8 +244,8 @@ export interface Staff {
   birthDate?: Date,
   phone?: string,
   staffType?: StaffType,
-  dispositorDutyEntries?: DispositorDutyEntry[],
-  accidentReports?: AccidentReport[]
+  dispositorDutyEntries?: Set<DispositorDutyEntry>,
+  accidentReports?: Set<AccidentReport>
 }
 
 export interface Tutorial {
@@ -262,14 +264,13 @@ export interface User {
   phone?: string,
   bandCode?: string,
   medicalInfo?: MedicalInfo,
-  accidentReports?: AccidentReport[]
+  accidentReports?: Set<AccidentReport>
 }
 
 export interface Victim {
   id?: number,
   firstName?: string,
   lastName?: string,
-  documentName?: string,
-  documentId?: string,
-  medicalInfo?: MedicalInfo
+  medicalInfo?: MedicalInfo,
+  reportSurveys?: Set<ReportSurvey>
 }
