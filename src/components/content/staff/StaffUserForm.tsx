@@ -26,7 +26,7 @@ const StaffUserForm = () => {
         // Update data here
       }).catch(err => console.log(err));
     }
-  }, []);
+  }, [userId]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

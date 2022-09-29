@@ -22,7 +22,7 @@ const AllergyForm = () => {
         setInfo(data.inst);
       }).catch(err => console.log(err));
     }
-  }, []);
+  }, [allergyId]);
 
   const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();

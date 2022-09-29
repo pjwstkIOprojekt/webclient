@@ -32,7 +32,7 @@ const AmbulanceEquipment = () => {
         });
       }).catch(err => console.log(err));
     }
-  }, []);
+  }, [ambulanceId]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

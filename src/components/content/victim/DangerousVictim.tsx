@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
 import FormTextArea from '../../fragments/forms/FormTextArea';
 import Button from '../../fragments/util/Button';

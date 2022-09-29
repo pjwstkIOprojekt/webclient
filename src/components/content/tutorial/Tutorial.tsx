@@ -34,7 +34,7 @@ const Tutorial = () => {
       <h1>Poradnik - {data.name} - {data.tutorialKind}</h1>
       <Row className="justify-content-end">
         <Col>
-          <img src="/img/thumbnail.jpg" />
+          <img src="/img/thumbnail.jpg" alt="Miniaturka" />
         </Col>
         <Col md="auto">
           <CustomCard className="mx-3">
