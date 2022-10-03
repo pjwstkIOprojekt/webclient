@@ -8,6 +8,7 @@ import FormControl from "../../fragments/forms/FormControl";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
 import FormSelect from "../../fragments/forms/FormSelect";
 import Button from "../../fragments/util/Button";
+import NavButton from "../../fragments/navigation/NavButton";
 
 const StaffUserForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -82,6 +83,9 @@ const StaffUserForm = () => {
         </Row>
         <Row className="justify-content-center">
           <Button className="my-3 w-25" type="submit">{userId === undefined ? "Dodaj pracownika" : "Zapisz zmiany"}</Button>
+        </Row>
+        <Row className="justify-content-center">
+          <NavButton className="mb-3 w-25" to="../staff">Anuluj</NavButton>
         </Row>
       </Form>
     </Container>
