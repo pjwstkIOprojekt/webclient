@@ -14,7 +14,7 @@ const GuestHome = () => {
       <Button onClick={isAuth() ? () => navigate("/newreport") : () => navigate("/register")}>Zgłoś zdarzenie</Button>
       <Row className="mt-5">
         <Col>
-          <img src="/img/thumbnail.jpg" />
+          <img src="/img/thumbnail.jpg" alt="Obraz 1" />
         </Col>
         <Col>
           <h3 className="my-5">GARY to Twój nowy najlepszy przyjaciel</h3>
@@ -23,7 +23,7 @@ const GuestHome = () => {
       </Row>
       <Row className="mt-3">
         <Col>
-          <img src="/img/thumbnail.jpg" />
+          <img src="/img/thumbnail.jpg" alt="Obraz 2" />
         </Col>
         <Col>
           <h3 className="my-5">Zgłoś zdarzenie z dowolnego miejsca</h3>
@@ -32,7 +32,7 @@ const GuestHome = () => {
       </Row>
       <Row className="my-3">
         <Col>
-          <img src="/img/thumbnail.jpg" />
+          <img src="/img/thumbnail.jpg" alt="Obraz 3" />
         </Col>
         <Col>
           <h3 className="my-5">Udziel pierwszej pomocy</h3>

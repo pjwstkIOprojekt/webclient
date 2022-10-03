@@ -21,7 +21,7 @@ const MedicalConditionForm = () => {
         setInst(data.inst);
       }).catch(err => console.log(err));
     }
-  }, []);
+  }, [diseaseId]);
 
   const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();

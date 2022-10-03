@@ -6,7 +6,7 @@ import Button from "../../fragments/util/Button";
 
 const SendMessage = () => {
   const [driver, setDriver] = useState(0);
-  const [drivers, setDrivers] = useState([]);
+  const [drivers] = useState([]);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
