@@ -79,7 +79,7 @@ const StaffUserForm = () => {
           <FormPhoneNumber id="phoneNumber" onChange={e => setPhoneNumber(e.target.value)} required value={phoneNumber} className="mb-3 w-50" label="Numer telefonu" />
         </Row>
         <Row className="justify-content-center">
-          <FormSelect id="staffType" value={0} className="mb-3 w-50" label="Rodzaj pracownika" allValid options={["Dyspozytor", "Menadżer", "Ratownik"]} />
+          <FormSelect id="staffType" onChange={e => null} value={0} className="mb-3 w-50" label="Rodzaj pracownika" allValid options={["Dyspozytor", "Menadżer", "Ratownik"]} />
         </Row>
         <Row className="justify-content-center">
           <Button className="my-3 w-25" type="submit">{userId === undefined ? "Dodaj pracownika" : "Zapisz zmiany"}</Button>

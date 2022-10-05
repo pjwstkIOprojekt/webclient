@@ -8,7 +8,6 @@ import FormControl from "../../fragments/forms/FormControl";
 import FormTextArea from "../../fragments/forms/FormTextArea";
 import Button from "../../fragments/util/Button";
 import L from "leaflet";
-import { Position } from "../../fragments/map/Map";
 import MapView from "../../fragments/map/MapView";
 
 interface ReportFormParams {
@@ -108,6 +107,11 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
 };
 
 const CreateReport = () => {
+  const [coords, setCoords] = useState<[number, number]>([52.222, 21.015]);
+  useEffect(() => navigator.geolocation.getCurrentPosition(pos => setCoords([pos.coords.latitude, pos.coords.longitude])), []);
+  const onUpdate = (lat: number, lng: number) => setCoords([lat, lng]);
+  const altUpdate = (x: L.LatLng) => onUpdate(x.lat, x.lng);
+
   const accidentIcon = L.icon({
     iconSize: [25, 41],
     iconAnchor: [10, 41],
@@ -116,24 +120,13 @@ const CreateReport = () => {
     shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
   });
 
-  const [mark, setMark] = useState<Position>({
-    coords: [52.222, 21.015],
+  const mark = {
+    coords: coords,
     desc: "Miejsce zdarzenia",
     icon: accidentIcon
-  });
-
-  const onUpdate = (lat: number, lng: number) => {
-    const tmp = { ...mark };
-    tmp.coords = [lat, lng];
-    setMark(tmp);
   };
 
-  const altUpdate = (x: L.LatLng) => {
-    onUpdate(x.lat, x.lng);
-  };
-
-  useEffect(() => navigator.geolocation.getCurrentPosition(pos => onUpdate(pos.coords.latitude, pos.coords.longitude)), []);
-  return <MapView center={mark.coords} initialZoom={12} element={<ReportForm update={onUpdate} lat={mark.coords[0]} lng={mark.coords[1]} />} searchable clickable onClick={e => altUpdate(e)} onSearch={e => altUpdate(e.geocode.center)} marks={[mark]} />;
+  return <MapView center={coords} initialZoom={12} element={<ReportForm update={onUpdate} lat={coords[0]} lng={coords[1]} />} searchable clickable onClick={e => altUpdate(e)} onSearch={e => altUpdate(e.geocode.center)} marks={[mark]} />;
 };
 
 export default CreateReport;
