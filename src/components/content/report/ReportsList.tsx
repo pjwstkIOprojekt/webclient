@@ -1,7 +1,7 @@
 import Link from "../../fragments/navigation/Link";
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ViewLoader from "../../fragments/util/ViewLoader";
 import { getApproved } from "../../../api/emergencyCalls";
 
@@ -30,14 +30,13 @@ const ReportsListDisplay = (props: Readonly<ReportsListParams>) => {
 const ReportsList = () => {
   const [items] = useState<any[]>([]);
 
-  const onLoad = (loaded: () => void) => {
-    loaded();
+  useEffect(() => {
     getApproved().then(res => res.json()).then(data => {
       console.log(data);
     }).catch(err => console.log(err));
-  };
+  }, []);
 
-  return <ViewLoader onLoad={onLoad} element={<ReportsListDisplay data={items} />} />;
+  return <ViewLoader isLoaded={items.length > 0} element={<ReportsListDisplay data={items} />} />;
 };
 
 export default ReportsList;

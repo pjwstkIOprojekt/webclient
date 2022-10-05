@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import CustomCard from "../../fragments/util/Card";
 import { Link } from "react-router-dom";
 import Rating from "../../fragments/util/Rating";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ViewLoader from "../../fragments/util/ViewLoader";
 import { getTutorials } from "../../../api/tutorialCalls";
 
@@ -33,20 +33,18 @@ const TutorialCard = (props: Readonly<TutorialCardParams>) => {
 const TutorialView = () => {
   const [items, setItems] = useState([]);
 
-  const onLoad = (loaded: () => void) => {
+  useEffect(() => {
     getTutorials().then(res => res.json()).then(data => {
       setItems(data);
-      loaded();
     }).catch(err => {
       console.log(err);
-      loaded();
     });
-  };
+  }, []);
   
   return (
     <>
       <h1 className="my-3 text-center">Poradniki</h1>
-      <ViewLoader onLoad={onLoad} element={<TutorialCard items={items} />} />
+      <ViewLoader isLoaded={items.length > 0} element={<TutorialCard items={items} />} />
     </>
   );
 };

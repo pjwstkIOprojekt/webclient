@@ -1,17 +1,13 @@
-import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Spinner from "./Spinner";
 
 export interface ViewLoaderParams {
-  onLoad: (loaded: () => void) => void,
+  isLoaded: boolean,
   element: JSX.Element
 }
 
 const ViewLoader = (props: Readonly<ViewLoaderParams>) => {
-  const [isLoaded, setLoaded] = useState(false);
-  useEffect(() => props.onLoad(() => setLoaded(true)), []);
-
-  if (!isLoaded) {
+  if (!props.isLoaded) {
     return (
       <Container className="text-center mt-5">
         <Spinner />
