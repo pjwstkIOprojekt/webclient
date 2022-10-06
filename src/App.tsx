@@ -11,6 +11,7 @@ import Home from "./components/content/home/Home";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
 import CreateReport from "./components/content/report/CreateReport";
+import MainMap from "./components/content/map/MainMap";
 import DispositorPanel from "./components/content/panel/DispositorPanel";
 import AdminPanel from "./components/content/panel/AdminPanel";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/tutorial" element={<TutorialView />} />
           <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
           <Route path="/newreport" element={<CreateReport />} />
+          <Route path="/map" element={<ConditionalRoute condition={isDispositor() || isDirector()} element={<MainMap />} />} />
           <Route path="/dispanel/*" element={<ConditionalRoute condition={isDispositor()} element={<DispositorPanel />} />} />
           <Route path="/admpanel/*" element={<ConditionalRoute condition={isDirector()} element={<AdminPanel />} />} />
         </Routes>

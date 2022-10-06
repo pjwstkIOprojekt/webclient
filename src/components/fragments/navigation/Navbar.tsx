@@ -3,7 +3,7 @@ import { useNotificationsManager } from "../../../hooks/useNotify";
 import { isAuth, isDirector, isDispositor, keycloakClient, UserRole, setRole } from "../../../helpers/authHelper";
 import { Navbar as Inner, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaHome, FaMedkit, FaBook, FaUserCircle, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
+import { FaHome, FaMedkit, FaBook, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoMdSettings, IoIosPaper } from "react-icons/io";
@@ -42,6 +42,12 @@ const Navbar = () => {
               <FaBook />
               <span className="px-1">Poradniki</span>
             </Nav.Link>
+            {isDispositor() || isDirector() ? (
+              <Nav.Link as={Link} to="/map" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
+                <FaMap />
+                <span className="px-1">Mapa</span>
+              </Nav.Link>
+            ) : ""}
             {isDispositor() ? (
               <Nav.Link as={Link} to="/dispanel/reports" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
                 <FaNotesMedical />
@@ -93,42 +99,28 @@ const Navbar = () => {
                 <span className="px-1">{isAuth() ? "Wyloguj" : "Zaloguj się"}</span>
               </NavDropdown.Item>
               {isAuth() ? "" : (
-                <NavDropdown.Item
-                  as={Link}
-                  to="/register"
-                  className="d-inline-flex align-items-center"
-                >
+                <NavDropdown.Item as={Link} to="/register" className="d-inline-flex align-items-center">
                   <IoIosPaper />
                   <span className="px-1">Zarejestruj się</span>
                 </NavDropdown.Item>
               )}
+              {!isAuth() ? "" : (
+                <NavDropdown.Item as={Link} to="/" className="d-inline-flex align-items-center" onClick={e => setRole(UserRole.NONE)}>
+                  <span className="px-1">Gość</span>
+                </NavDropdown.Item>
+              )}
               {isDirector() || isDispositor() ? (
-                <NavDropdown.Item
-                  as={Link}
-                  to="/"
-                  className="d-inline-flex align-items-center"
-                  onClick={e => setRole(UserRole.USER)}
-                >
+                <NavDropdown.Item as={Link} to="/" className="d-inline-flex align-items-center" onClick={e => setRole(UserRole.USER)}>
                   <span className="px-1">Użytkownik</span>
                 </NavDropdown.Item>
               ) : ""}
               {isDispositor() ? "" : (
-                <NavDropdown.Item
-                  as={Link}
-                  to="/"
-                  className="d-inline-flex align-items-center"
-                  onClick={e => setRole(UserRole.DISPOSITOR)}
-                >
+                <NavDropdown.Item as={Link} to="/" className="d-inline-flex align-items-center" onClick={e => setRole(UserRole.DISPOSITOR)}>
                   <span className="px-1">Dyspozytor</span>
                 </NavDropdown.Item>
               )}
               {isDirector() ? "" : (
-                <NavDropdown.Item
-                  as={Link}
-                  to="/"
-                  className="d-inline-flex align-items-center"
-                  onClick={e => setRole(UserRole.DIRECTOR)}
-                >
+                <NavDropdown.Item as={Link} to="/" className="d-inline-flex align-items-center" onClick={e => setRole(UserRole.DIRECTOR)}>
                   <span className="px-1">Kierownik</span>
                 </NavDropdown.Item>
               )}

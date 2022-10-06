@@ -9,6 +9,7 @@ export const keycloakClient = new Keycloak({
 });
 
 export enum UserRole {
+  NONE,
   USER,
   DISPOSITOR,
   DIRECTOR
@@ -29,7 +30,7 @@ export const getToken = () => {
 // Returns true if user is authenticated
 export const isAuth = () => {
   //return keycloakClient.authenticated;
-  return true;
+  return role !== UserRole.NONE;
 };
 
 // Returns true if user is a dispositor
