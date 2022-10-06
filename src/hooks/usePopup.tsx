@@ -18,9 +18,7 @@ export const PopupProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => 
   const location = useLocation();
 
   useEffect(() => {
-    if (popup) {
-      setPopup(null);
-    }
+    setPopup(null);
   }, [location]);
 
   return (

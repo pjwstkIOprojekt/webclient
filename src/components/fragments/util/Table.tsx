@@ -40,35 +40,31 @@ const Table = (props: Readonly<TableParams>) => {
 
   const [filter, setFilter] = useState<Record<string, string>>({});
 
-  const performSort = (prop: string, rev: boolean) => {
-    if (!prop) {
-      return;
-    }
-
-    copy.sort((a, b) => {
-      if (a[prop] < b[prop]) {
-        return rev ? 1 : -1;
-      }
-
-      if (a[prop] > b[prop]) {
-        return rev ? -1 : 1;
-      }
-
-      return 0;
-    });
-  };
-
-  const performFilter = (filters: Record<string, string>) => {
+  useEffect(() => {
     let tmp = [...props.data];
 
-    for (const prop in filters) {
-      if (filters[prop]) {
-        tmp = tmp.filter(e => e[prop].toString().toLowerCase().includes(filters[prop].toLowerCase()));
+    for (const prop in filter) {
+      if (filter[prop]) {
+        tmp = tmp.filter(e => e[prop].toString().toLowerCase().includes(filter[prop].toLowerCase()));
       }
+    }
+
+    if (sort.property) {
+      tmp.sort((a, b) => {
+        if (a[sort.property] < b[sort.property]) {
+          return sort.reversed ? 1 : -1;
+        }
+
+        if (a[sort.property] > b[sort.property]) {
+          return sort.reversed ? -1 : 1;
+        }
+
+        return 0;
+      });
     }
 
     setCopy(tmp);
-  };
+  }, [props.data, filter, sort.property, sort.reversed]);
 
   const sortData = (x: string) => {
     const rev = sort.property === x ? !sort.reversed : false;
@@ -77,21 +73,13 @@ const Table = (props: Readonly<TableParams>) => {
       property: x,
       reversed: rev
     });
-
-    performSort(x, rev);
   };
 
   const filterData = (x: string, val: string) => {
     const tmp = { ...filter };
     tmp[x] = val;
     setFilter(tmp);
-    performFilter(tmp);
   };
-
-  useEffect(() => {
-    performFilter(filter);
-    performSort(sort.property, sort.reversed);
-  }, [props.data]);
 
   return (
     <Inner striped bordered hover variant={darkMode ? "dark" : "light"} className={props.className}>

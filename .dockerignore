@@ -2,5 +2,10 @@
 **/npm-debug.log
 build
 .dockerignore
+.gitattributes
+.gitignore
 Dockerfile.cleanBuild
 Dockerfile.devBuild
+docker-compose.cleanBuild.yml
+docker-compose.devBuild.yml
+README.md
