@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { Location } from "../helpers/apiTypes";
+
+export interface Location {
+
+}
 
 // Get all locations
 export const getLocations = () => get("location");

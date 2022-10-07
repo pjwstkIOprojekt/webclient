@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { Review } from "../helpers/apiTypes";
+
+export interface Review {
+
+}
 
 // Get all reviews
 export const getReviews = () => get("review");

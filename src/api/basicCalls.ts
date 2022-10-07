@@ -1,5 +1,7 @@
 import { getToken } from "../helpers/authHelper";
-import { baseUrl } from "../helpers/apiTypes";
+
+// Base url for requests, change to 'http://localhost:8080' if you want to test with local backend
+const baseUrl = "http://172.21.40.111:8080";
 
 // Basic GET request
 export const get = (path: string) => {

@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { Tutorial } from "../helpers/apiTypes";
+
+export interface Tutorial {
+
+}
 
 // Get all tutorials
 export const getTutorials = () => get("tutorial");

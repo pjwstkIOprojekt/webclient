@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { Facility } from "../helpers/apiTypes";
+
+export interface Facility {
+
+}
 
 // Get all facilities
 export const getFacilities = () => get("facility");

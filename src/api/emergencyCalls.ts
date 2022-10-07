@@ -1,5 +1,12 @@
 import { get, post } from "./basicCalls";
-import { CreateEmergencyRequest, ApproveEmergencyRequest } from "../helpers/apiTypes";
+
+export interface CreateEmergencyRequest {
+
+}
+
+export interface ApproveEmergencyRequest {
+
+}
 
 // Creates new emergency
 export const createEmergency = (data: Readonly<CreateEmergencyRequest>) => post("emergency/new", JSON.stringify(data));

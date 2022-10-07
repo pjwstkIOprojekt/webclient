@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { ReportSurvey } from "../../../helpers/apiTypes";
 import { getUnapproved, getApproved } from "../../../api/emergencyCalls";
 import Link from "../../fragments/navigation/Link";
 import FormSelect from "../../fragments/forms/FormSelect";
@@ -8,8 +7,8 @@ import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
 const AcceptReport = () => {
-  const [pending, setPending] = useState<ReportSurvey[]>([]);
-  const [approved, setApproved] = useState<ReportSurvey[]>([]);
+  const [pending, setPending] = useState<any[]>([]);
+  const [approved, setApproved] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

@@ -1,5 +1,9 @@
 import { get, post, put, del } from "./basicCalls";
-import { User, MedicalInfo } from "../helpers/apiTypes";
+import { MedicalInfo } from "./medicalInfoCalls";
+
+export interface User {
+
+}
 
 // Get all users
 export const getUsers = () => get("user");

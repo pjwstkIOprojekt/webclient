@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { AdditionalServices } from "../helpers/apiTypes";
+
+export interface AdditionalServices {
+
+}
 
 // Get all services
 export const getServices = () => get("additionalServices");

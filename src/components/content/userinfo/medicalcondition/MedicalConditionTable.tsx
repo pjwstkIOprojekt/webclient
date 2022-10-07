@@ -1,4 +1,3 @@
-import { MedicalInfo } from "../../../../helpers/apiTypes";
 import Table from "../../../fragments/util/Table";
 import Link from "../../../fragments/navigation/Link";
 import NavButton from "../../../fragments/navigation/NavButton";
@@ -10,7 +9,7 @@ interface MedicalConditionTableParams {
 
 const MedicalConditionTable = (props: Readonly<MedicalConditionTableParams>) => {
   const cols = [
-    { name: "#", property: (x: MedicalInfo) => <Link to={`disease/${x.id}`}>{x.id}</Link>, filterBy: "id", sortBy: "id" },
+    { name: "#", property: (x: any) => <Link to={`disease/${x.id}`}>{x.id}</Link>, filterBy: "id", sortBy: "id" },
     { name: "Nazwa", property: "chronicDiseases", filterBy: "chronicDiseases", sortBy: "chronicDiseases" }
   ];
 

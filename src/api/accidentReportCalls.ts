@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { AccidentReport } from "../helpers/apiTypes";
+
+export interface AccidentReport {
+
+}
 
 // Get all reports
 export const getReports = () => get("accidentReport");

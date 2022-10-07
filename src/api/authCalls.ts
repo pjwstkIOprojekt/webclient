@@ -1,5 +1,16 @@
-import { LoginRequest, CreateUserRequest, CreateStaffRequest } from "../helpers/apiTypes";
 import { post } from "./basicCalls";
+
+export interface LoginRequest {
+
+}
+
+export interface CreateUserRequest {
+
+}
+
+export interface CreateStaffRequest {
+
+}
 
 // Login request
 export const login = (user: Readonly<LoginRequest>) => post("login", JSON.stringify(user));

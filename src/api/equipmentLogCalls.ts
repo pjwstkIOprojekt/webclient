@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { EquipmentLog } from "../helpers/apiTypes";
+
+export interface EquipmentLog {
+
+}
 
 // Get all logs
 export const getLogs = () => get("equipmentLog");
