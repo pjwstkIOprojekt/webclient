@@ -16,13 +16,12 @@ export const PopupProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => 
   const [popup, setPopup] = useState<JSX.Element | null>(null);
   const darkMode = useDarkMode();
   const location = useLocation();
-
-  useEffect(() => {
-    setPopup(null);
-  }, [location]);
+  useEffect(() => setPopup(null), [location]);
 
   return (
-    <PopupContext.Provider value={{update: el => setPopup(el)}}>
+    <PopupContext.Provider value={{
+      update: el => setPopup(el)
+    }}>
       {popup ? (
         <>
           <div className={`popup-container popup-${darkMode ? "dark" : "light"}`}>{popup}</div>

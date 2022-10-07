@@ -28,18 +28,14 @@ export const NotificationsProvider = (props: Readonly<JSX.ElementChildrenAttribu
       return;
     }
 
-    const notifs = [...notifications, { title: title, content: content }];
-    setNotifications(notifs);
+    setNotifications([...notifications, {
+      title: title,
+      content: content
+    }]);
   };
 
-  const unnotify = (x: Notification) => {
-    const notifs = notifications.filter(n => n !== x);
-    setNotifications(notifs);
-  };
-
-  const clear = () => {
-    setNotifications([]);
-  };
+  const unnotify = (x: Notification) => setNotifications(notifications.filter(n => n !== x));
+  const clear = () => setNotifications([]);
 
   return (
     <NotificationsContext.Provider value={{
