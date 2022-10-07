@@ -7,7 +7,7 @@ export const get = (path: string) => {
 
   return fetch(`${baseUrl}/${path}`, {
     headers: token ? {
-      "Authorization": "Bearer " + getToken()
+      "Authorization": "Bearer " + token
     } : {}
   });
 };
@@ -20,7 +20,7 @@ export const post = (path: string, body?: string) => {
     method: "POST",
     headers: token ? {
       "Content-type": "application/json; charset=UTF-8",
-      "Authorization": "Bearer " + getToken()
+      "Authorization": "Bearer " + token
     } : {
       "Content-type": "application/json; charset=UTF-8"
     },
@@ -36,7 +36,7 @@ export const put = (path: string, body?: string) => {
     method: "PUT",
     headers: token ? {
       "Content-type": "application/json; charset=UTF-8",
-      "Authorization": "Bearer " + getToken()
+      "Authorization": "Bearer " + token
     } : {
       "Content-type": "application/json; charset=UTF-8"
     },
@@ -51,7 +51,7 @@ export const del = (path: string) => {
   return fetch(`${baseUrl}/${path}`, {
     method: "DELETE",
     headers: token ? {
-      "Authorization": "Bearer " + getToken()
+      "Authorization": "Bearer " + token
     } : {}
   });
 };
