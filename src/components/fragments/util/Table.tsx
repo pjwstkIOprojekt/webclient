@@ -32,13 +32,12 @@ interface SortState {
 const Table = (props: Readonly<TableParams>) => {
   const darkMode = useDarkMode();
   const [copy, setCopy] = useState([...props.data]);
+  const [filter, setFilter] = useState<Record<string, string>>({});
 
   const [sort, setSort] = useState<SortState>({
     property: "",
     reversed: false
   });
-
-  const [filter, setFilter] = useState<Record<string, string>>({});
 
   useEffect(() => {
     let tmp = [...props.data];
@@ -66,14 +65,10 @@ const Table = (props: Readonly<TableParams>) => {
     setCopy(tmp);
   }, [props.data, filter, sort.property, sort.reversed]);
 
-  const sortData = (x: string) => {
-    const rev = sort.property === x ? !sort.reversed : false;
-
-    setSort({
-      property: x,
-      reversed: rev
-    });
-  };
+  const sortData = (x: string) => setSort({
+    property: x,
+    reversed: sort.property === x ? !sort.reversed : false
+  });
 
   const filterData = (x: string, val: string) => {
     const tmp = { ...filter };

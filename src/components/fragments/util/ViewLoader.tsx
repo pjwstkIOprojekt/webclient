@@ -7,15 +7,15 @@ export interface ViewLoaderParams {
 }
 
 const ViewLoader = (props: Readonly<ViewLoaderParams>) => {
-  if (!props.isLoaded) {
-    return (
-      <Container className="text-center mt-5">
-        <Spinner />
-      </Container>
-    );
+  if (props.isLoaded) {
+    return props.element;
   }
 
-  return props.element;
+  return (
+    <Container className="text-center mt-5">
+      <Spinner />
+    </Container>
+  );
 };
 
 export default ViewLoader;
