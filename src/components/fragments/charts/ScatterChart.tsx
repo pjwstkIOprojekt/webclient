@@ -12,7 +12,8 @@ export interface ScatterPointData {
 export interface ScatterChartData {
   name: string,
   values: ScatterPointData[],
-  fill: string
+  fill: string,
+  fillDark: string
 }
 
 export interface ScatterChartParams {
@@ -43,8 +44,12 @@ const ScatterChart = (props: Readonly<ScatterChartParams>) => {
       <XAxis dataKey="x" name={props.xAxisName} unit={props.xAxisUnit} stroke={stroke} />
       <YAxis dataKey="y" name={props.yAxisName} unit={props.yAxisUnit} stroke={stroke} />
       <ZAxis dataKey="z" name={props.zAxisName} unit={props.zAxisUnit} />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} itemStyle={{ color: stroke }} cursor={{ stroke: stroke }} /> : ""}
-      {props.data.map((x, index) => <Scatter name={x.name} data={x.values} fill={x.fill} key={index} />)}
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} itemStyle={{
+        color: stroke
+      }} cursor={{
+        stroke: stroke
+        }} /> : ""}
+      {props.data.map((x, index) => <Scatter name={x.name} data={x.values} fill={darkMode ? x.fillDark : x.fill} key={index} />)}
       {props.legend ? <Legend /> : ""}
     </Inner>
   );

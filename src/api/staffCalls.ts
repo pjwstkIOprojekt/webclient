@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { Staff } from "../helpers/apiTypes";
+
+export interface Staff {
+
+}
 
 // Get all staff
 export const getStaff = () => get("staff");

@@ -13,6 +13,7 @@ export interface AreaChartSetting {
   key: string
   stroke?: string,
   fill?: string,
+  fillDark?: string,
   opacity?: string | number,
   type?: CurveType
 }
@@ -39,8 +40,10 @@ const AreaChart = (props: Readonly<AreaChartParams>) => {
       {props.grid ? <CartesianGrid strokeDasharray="3 3" stroke={stroke} /> : ""}
       <XAxis dataKey="key" stroke={stroke} />
       <YAxis stroke={stroke} />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{stroke: stroke}} /> : ""}
-      {props.settings.map((set, index) => <Area dataKey={`values.${set.key}`} type={set.type} stroke={set.stroke} fill={set.fill} fillOpacity={set.opacity} key={index} name={set.key} />)}
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{
+        stroke: stroke
+      }} /> : ""}
+      {props.settings.map((set, index) => <Area dataKey={`values.${set.key}`} type={set.type} stroke={set.stroke} fill={darkMode ? set.fillDark : set.fill} fillOpacity={set.opacity} key={index} name={set.key} />)}
       {props.legend ? <Legend /> : ""}
     </Inner>
   );

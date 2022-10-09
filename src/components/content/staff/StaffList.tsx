@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getStaff } from "../../../api/staffCalls";
-import { Staff } from "../../../helpers/apiTypes";
 import NavButton from "../../fragments/navigation/NavButton";
 import { Container, Row, Col } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
@@ -21,7 +20,7 @@ const StaffList = () => {
     { name: "Imię", property: "firstName", sortBy: "firstName", filterBy: "firstName" },
     { name: "Nazwisko", property: "lastName", sortBy: "lastName", filterBy: "lastName" },
     { name: "Rola", property: "role", sortBy: "role", filterBy: "role" },
-    { name: "Akcje", property: (x: Staff) => <NavButton to={`edit/${x.id}`}>Edytuj</NavButton> }
+    { name: "Akcje", property: (x: any) => <NavButton to={`edit/${x.id}`}>Edytuj</NavButton> }
   ];
 
   return (

@@ -1,4 +1,3 @@
-import { Tutorial } from "../../../helpers/apiTypes";
 import { Card } from "react-bootstrap";
 import CustomCard from "../../fragments/util/Card";
 import { Link } from "react-router-dom";
@@ -8,7 +7,7 @@ import ViewLoader from "../../fragments/util/ViewLoader";
 import { getTutorials } from "../../../api/tutorialCalls";
 
 interface TutorialCardParams {
-  items: Tutorial[]
+  items: any[]
 }
 
 const TutorialCard = (props: Readonly<TutorialCardParams>) => {

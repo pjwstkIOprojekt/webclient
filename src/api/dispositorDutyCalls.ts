@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { DispositorDutyEntry } from "../helpers/apiTypes";
+
+export interface DispositorDutyEntry {
+
+}
 
 // Get all entries
 export const getEntries = () => get("dispositorDutyEntry");

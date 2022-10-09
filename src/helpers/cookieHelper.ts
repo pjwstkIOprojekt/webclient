@@ -1,6 +1,4 @@
 // Helper for improved cookie handling
-import { getCookieConsentValue } from "../components/fragments/cookies/CookieConsent";
-
 export const getCookieValue = (key: string) => {
   const tmp = localStorage.getItem(key);
   return tmp === null ? "" : tmp;
@@ -12,6 +10,6 @@ export const setCookieValue = (key: string, value: string) => {
   }
 };
 
-export const removeCookieValue = (key: string) => {
-  localStorage.removeItem(key);
-};
+export const removeCookieValue = (key: string) => localStorage.removeItem(key);
+export const acceptCookies = () => localStorage.setItem("cookieConsent", "true");
+export const getCookieConsentValue = () => localStorage.getItem("cookieConsent") === "true";

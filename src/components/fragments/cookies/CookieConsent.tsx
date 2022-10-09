@@ -1,6 +1,7 @@
 // Custom cookie consent component
 import { useState, useEffect } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
+import { getCookieConsentValue, acceptCookies } from "../../../helpers/cookieHelper";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "../util/Button";
 
@@ -8,7 +9,7 @@ interface ConsentParams {
   debug?: boolean
 }
 
-export const CookieConsent = (props: Readonly<ConsentParams>) => {
+const CookieConsent = (props: Readonly<ConsentParams>) => {
   const [isVisible, setIsVisible] = useState(false);
   const darkMode = useDarkMode();
 
@@ -44,10 +45,4 @@ export const CookieConsent = (props: Readonly<ConsentParams>) => {
   );
 };
 
-export const acceptCookies = () => {
-  localStorage.setItem("cookieConsent", "true");
-};
-
-export const getCookieConsentValue = () => {
-  return localStorage.getItem("cookieConsent") === "true";
-};
+export default CookieConsent;

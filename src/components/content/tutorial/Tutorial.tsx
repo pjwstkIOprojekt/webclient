@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Tutorial as DataType } from "../../../helpers/apiTypes";
 import { useParams } from "react-router-dom";
 import { usePopup } from "../../../hooks/usePopup";
 import { getTutorialById } from "../../../api/tutorialCalls";
@@ -13,7 +12,7 @@ import CAlert from "../../fragments/util/Alert";
 import Rating from "../../fragments/util/Rating";
 
 const Tutorial = () => {
-  const [data, setData] = useState<DataType>({});
+  const [data, setData] = useState<any>({});
   const { tutorialId } = useParams();
   const popup = usePopup();
 

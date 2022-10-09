@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { ReportSurvey } from "../helpers/apiTypes";
+
+export interface ReportSurvey {
+
+}
 
 // Get all surveys
 export const getSurveys = () => get("reportSurvey");

@@ -12,6 +12,7 @@ export interface BarChartSetting {
   key: string
   size?: number,
   fill?: string,
+  fillDark?: string,
   opacity?: string | number,
   type?: string
 }
@@ -38,8 +39,10 @@ const BarChart = (props: Readonly<BarChartParams>) => {
       {props.grid ? <CartesianGrid strokeDasharray="3 3" stroke={stroke} /> : ""}
       <XAxis dataKey="key" stroke={stroke} />
       <YAxis stroke={stroke} />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{stroke: stroke}} /> : ""}
-      {props.settings.map((set, index) => <Bar dataKey={`values.${set.key}`} type={set.type} barSize={set.size && set.size > 0 ? set.size : 25} fill={set.fill} fillOpacity={set.opacity} key={index} name={set.key} />)}
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{
+        stroke: stroke
+      }} /> : ""}
+      {props.settings.map((set, index) => <Bar dataKey={`values.${set.key}`} type={set.type} barSize={set.size && set.size > 0 ? set.size : 25} fill={darkMode ? set.fillDark : set.fill} fillOpacity={set.opacity} key={index} name={set.key} />)}
       {props.legend ? <Legend /> : ""}
     </Inner>
   );

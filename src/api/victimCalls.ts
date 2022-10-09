@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { Victim } from "../helpers/apiTypes";
+
+export interface Victim {
+
+}
 
 // Get all victims
 export const getVictims = () => get("victim");

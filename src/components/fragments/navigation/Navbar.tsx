@@ -1,16 +1,69 @@
-import { useDarkModeManager } from "../../../hooks/useDarkMode";
-import { useNotificationsManager } from "../../../hooks/useNotify";
-import { isAuth, isDirector, isDispositor, keycloakClient, UserRole, setRole } from "../../../helpers/authHelper";
-import { Navbar as Inner, Container, Nav, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { FaHome, FaMedkit, FaBook, FaUserCircle, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
+import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
+import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
+import NavLink from "./NavLink";
+import { FaHome, FaMedkit, FaBook, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
+import { isDispositor, isDirector, isAuth, keycloakClient, UserRole, setRole } from "../../../helpers/authHelper";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
+import { useNotificationsManager } from "../../../hooks/useNotify";
+import NavDrop from "./NavDrop";
 import { IoMdSettings, IoIosPaper } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
 
-const Navbar = () => {
+const MenuBar = () => {
+  return (
+    <Nav className="me-auto">
+      <NavLink to="/">
+        <FaHome />
+        <span className="px-1">Strona główna</span>
+      </NavLink>
+      <NavLink to="/newreport">
+        <FaMedkit />
+        <span className="px-1">Zgłoszenie</span>
+      </NavLink>
+      <NavLink to="/tutorial">
+        <FaBook />
+        <span className="px-1">Poradniki</span>
+      </NavLink>
+      {isDispositor() || isDirector() ? (
+        <NavLink to="/map">
+          <FaMap />
+          <span className="px-1">Mapa</span>
+        </NavLink>
+      ) : ""}
+      {isDispositor() ? (
+        <NavLink to="/dispanel/reports">
+          <FaNotesMedical />
+          <span className="px-1">Panel dyspozytora</span>
+        </NavLink>
+      ) : ""}
+      {isDirector() ? (
+        <NavLink to="/admpanel/reports">
+          <FaToolbox />
+          <span className="px-1">Panel kierownika</span>
+        </NavLink>
+      ) : ""}
+    </Nav>
+  );
+};
+
+const SideMenu = () => {
   const darkMode = useDarkModeManager();
+
+  return (
+    <Nav>
+      {isDispositor() ? <CheckIn /> : ""}
+      <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
+        <HiOutlineLightBulb />
+        <span className="px-1">Zmień motyw</span>
+      </Nav.Link>
+      <UserDropdown />
+    </Nav>
+  );
+};
+
+const UserDropdown = () => {
+  const darkMode = useDarkMode();
   const notifications = useNotificationsManager();
 
   const handleLogin = () => {
@@ -24,116 +77,74 @@ const Navbar = () => {
   };
 
   return (
-    <Inner bg={`navbar-${darkMode.isDark ? "dark" : "light"}`} variant={darkMode.isDark ? "dark" : "light"} expand="lg">
+    <NavDropdown align="end" title={
+        <span className="d-inline-flex align-items-center">
+          <FaUserCircle />
+          <span className="px-1">Konto</span>
+        </span>
+      } className={`nav-link-${darkMode ? "dark" : "light"}`}>
+      {isAuth() ? (
+        <>
+          <NavDrop to="/settings/userdata">
+            <IoMdSettings />
+            <span className="px-1">Ustawienia</span>
+          </NavDrop>
+          <NavDrop to="/settings/medicaldata">
+            <FaNotesMedical />
+            <span className="px-1">Dane medyczne</span>
+          </NavDrop>
+          <NavDrop to="/settings/trustedperson">
+            <FaUserSecret />
+            <span className="px-1">Osoba zaufana</span>
+          </NavDrop>
+          <NavDropdown.Divider />
+        </>
+      ) : ""}
+      <NavDropdown.Item onClick={handleLogin} className="d-inline-flex align-items-center">
+        <BiLogIn />
+        <span className="px-1">{isAuth() ? "Wyloguj" : "Zaloguj się"}</span>
+      </NavDropdown.Item>
+      {isAuth() ? "" : (
+        <NavDrop to="/register">
+          <IoIosPaper />
+          <span className="px-1">Zarejestruj się</span>
+        </NavDrop>
+      )}
+      {!isAuth() ? "" : (
+        <NavDrop to="/" onClick={e => setRole(UserRole.NONE)}>
+          <span className="px-1">Gość</span>
+        </NavDrop>
+      )}
+      {isDirector() || isDispositor() || !isAuth() ? (
+        <NavDrop to="/" onClick={e => setRole(UserRole.USER)}>
+          <span className="px-1">Użytkownik</span>
+        </NavDrop>
+      ) : ""}
+      {isDispositor() ? "" : (
+        <NavDrop to="/" onClick={e => setRole(UserRole.DISPOSITOR)}>
+          <span className="px-1">Dyspozytor</span>
+        </NavDrop>
+      )}
+      {isDirector() ? "" : (
+        <NavDrop to="/" onClick={e => setRole(UserRole.DIRECTOR)}>
+          <span className="px-1">Kierownik</span>
+        </NavDrop>
+      )}
+    </NavDropdown>
+  );
+};
+
+const Navbar = () => {
+  const darkMode = useDarkMode();
+
+  return (
+    <Inner bg={`navbar-${darkMode ? "dark" : "light"}`} variant={darkMode ? "dark" : "light"} expand="lg">
       <Container fluid>
         <Inner.Brand className="px-5">GARY</Inner.Brand>
         <Inner.Toggle aria-controls="basic-navbar-nav" />
         <Inner.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
-              <FaHome />
-              <span className="px-1">Strona główna</span>
-            </Nav.Link>
-            <Nav.Link as={Link} to="/newreport" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
-              <FaMedkit />
-              <span className="px-1">Zgłoszenie</span>
-            </Nav.Link>
-            <Nav.Link as={Link} to="/tutorial" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
-              <FaBook />
-              <span className="px-1">Poradniki</span>
-            </Nav.Link>
-            {isDispositor() ? (
-              <Nav.Link as={Link} to="/dispanel/reports" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
-                <FaNotesMedical />
-                <span className="px-1">Panel dyspozytora</span>
-              </Nav.Link>
-            ) : ""}
-            {isDirector() ? (
-              <Nav.Link as={Link} to="/admpanel/reports" className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
-                <FaToolbox />
-                <span className="px-1">Panel administratora</span>
-              </Nav.Link>
-            ) : ""}
-          </Nav>
-
-          <Nav>
-            {isDispositor() ? <CheckIn /> : ""}
-            <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
-              <HiOutlineLightBulb />
-              <span className="px-1">Zmień motyw</span>
-            </Nav.Link>
-            <NavDropdown
-              align="end"
-              title={
-                <span className="d-inline-flex align-items-center">
-                  <FaUserCircle />
-                  <span className="px-1">Konto</span>
-                </span>
-              }
-              className={`nav-link-${darkMode.isDark ? "dark" : "light"}`} >
-              {isAuth() ? (
-                <>
-                  <NavDropdown.Item as={Link} to="/settings/userdata" className="d-inline-flex align-items-center">
-                    <IoMdSettings />
-                    <span className="px-1">Ustawienia</span>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/settings/medicaldata" className="d-inline-flex align-items-center">
-                    <FaNotesMedical />
-                    <span className="px-1">Dane medyczne</span>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/settings/trustedperson" className="d-inline-flex align-items-center">
-                    <FaUserSecret />
-                    <span className="px-1">Osoba zaufana</span>
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                </>
-              ) : ""}
-              <NavDropdown.Item onClick={handleLogin} className="d-inline-flex align-items-center">
-                <BiLogIn />
-                <span className="px-1">{isAuth() ? "Wyloguj" : "Zaloguj się"}</span>
-              </NavDropdown.Item>
-              {isAuth() ? "" : (
-                <NavDropdown.Item
-                  as={Link}
-                  to="/register"
-                  className="d-inline-flex align-items-center"
-                >
-                  <IoIosPaper />
-                  <span className="px-1">Zarejestruj się</span>
-                </NavDropdown.Item>
-              )}
-              {isDirector() || isDispositor() ? (
-                <NavDropdown.Item
-                  as={Link}
-                  to="/"
-                  className="d-inline-flex align-items-center"
-                  onClick={e => setRole(UserRole.USER)}
-                >
-                  <span className="px-1">Użytkownik</span>
-                </NavDropdown.Item>
-              ) : ""}
-              {isDispositor() ? "" : (
-                <NavDropdown.Item
-                  as={Link}
-                  to="/"
-                  className="d-inline-flex align-items-center"
-                  onClick={e => setRole(UserRole.DISPOSITOR)}
-                >
-                  <span className="px-1">Dyspozytor</span>
-                </NavDropdown.Item>
-              )}
-              {isDirector() ? "" : (
-                <NavDropdown.Item
-                  as={Link}
-                  to="/"
-                  className="d-inline-flex align-items-center"
-                  onClick={e => setRole(UserRole.DIRECTOR)}
-                >
-                  <span className="px-1">Kierownik</span>
-                </NavDropdown.Item>
-              )}
-            </NavDropdown>
-          </Nav>
+          <MenuBar />
+          <SideMenu />
         </Inner.Collapse>
       </Container>
     </Inner>

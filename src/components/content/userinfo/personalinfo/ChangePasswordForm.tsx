@@ -6,6 +6,7 @@ import Button from "../../../fragments/util/Button";
 import NavButton from "../../../fragments/navigation/NavButton";
 
 const ChangePasswordForm = () => {
+  const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [error, setError] = useState("");
@@ -26,8 +27,9 @@ const ChangePasswordForm = () => {
     <Container className="my-3">
       <h1 className="mb-3">Zmiana hasła</h1>
       <Form onSubmit={onSubmit}>
-        <FormControl id="password" required onChange={(e) => setPassword(e.target.value)} className="mb-3" value={password} label="Nowe hasło" type="password" />
-        <FormControl id="passwordCheck" required onChange={(e) => setPasswordCheck(e.target.value)} className="mb-3" value={passwordCheck} label="Powtórz nowe hasło" type="password" />
+        <FormControl id="oldPassword" required onChange={e => setOldPassword(e.target.value)} className="mb-3" value={oldPassword} label="Stare hasło" type="password" />
+        <FormControl id="password" required onChange={e => setPassword(e.target.value)} className="mb-3" value={password} label="Nowe hasło" type="password" />
+        <FormControl id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} className="mb-3" value={passwordCheck} label="Powtórz nowe hasło" type="password" />
         <Button type="submit">Zmień hasło</Button>
         <NavButton to="../userdata" className="mx-3">Anuluj</NavButton>
         {error ? (

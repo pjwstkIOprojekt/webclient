@@ -1,5 +1,8 @@
 import { get, post, put, del } from "./basicCalls";
-import { MedicalInfo } from "../helpers/apiTypes";
+
+export interface MedicalInfo {
+
+}
 
 // Get all info
 export const getInfo = () => get("medicalInfo");

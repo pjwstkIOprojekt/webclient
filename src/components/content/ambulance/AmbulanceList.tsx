@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getAmbulances } from "../../../api/ambulanceCalls";
-import { AmbulanceAvailability, AvailabilityType, Ambulance } from "../../../helpers/apiTypes";
 import Table, { TableColumnParams } from "../../fragments/util/Table";
 import { Col, Container } from "react-bootstrap";
 import { isDirector } from "../../../helpers/authHelper";
@@ -19,13 +18,13 @@ const AmbulanceList = () => {
     }).catch(err => console.log(err));
   }, []);
 
-  const checkAvailability = (x?: Set<AmbulanceAvailability>) => {
+  const checkAvailability = (x?: Set<any>) => {
     if (!x) {
       return false;
     }
 
     const now = new Date(Date.now());
-    const availabilities: AvailabilityType[] = [];
+    const availabilities: string[] = [];
 
     x.forEach(a => {
       if (a.dateStart && (!a.dateEnd || (a.dateStart <= now && now <= a.dateEnd)) && a.availabilityType) {
@@ -33,7 +32,7 @@ const AmbulanceList = () => {
       }
     });
 
-    return availabilities.includes(AvailabilityType.AVAILABLE);
+    return availabilities.includes("");
   };
 
   const cols: TableColumnParams[] = [
@@ -42,11 +41,11 @@ const AmbulanceList = () => {
     { name: "Typ karetki", property: "ambulanceType", sortBy: "ambulanceType", filterBy: "ambulanceType" },
     { name: "Liczba miejsc", property: "peopleCapacity", sortBy: "peopleCapacity", filterBy: "peopleCapacity" },
     { name: "Numer rejestracyjny", property: "plates", sortBy: "plates", filterBy: "plates" },
-    { name: () => <Col className="pl-1 pr-1">Czy jest dostępna?</Col>, property: (x: Ambulance) => checkAvailability(x.ambulanceAvailabilities) ? "Tak" : "Nie", sortBy: "available" }
+    { name: () => <Col className="pl-1 pr-1">Czy jest dostępna?</Col>, property: (x: any) => checkAvailability(x.ambulanceAvailabilities) ? "Tak" : "Nie", sortBy: "available" }
   ];
 
   if (isDirector()) {
-    cols.push({ name: "Edycja", property: (x: Ambulance) => <NavButton to={`equipment/${x.ambulanceId}`}>Sprzęt</NavButton> });
+    cols.push({ name: "Edycja", property: (x: any) => <NavButton to={`equipment/${x.ambulanceId}`}>Sprzęt</NavButton> });
   }
 
   return (

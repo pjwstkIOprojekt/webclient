@@ -2,7 +2,6 @@ import { useState, useEffect, FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserById, updateUser } from "../../../api/userCalls";
 import { registerStaff } from "../../../api/authCalls";
-import { StaffType } from "../../../helpers/apiTypes";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
@@ -41,7 +40,7 @@ const StaffUserForm = () => {
         password: password,
         birthDate: new Date(birthDate),
         phoneNumber: phoneNumber,
-        staffType: StaffType.DISPOSITOR
+        staffType: ""
       }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
     } else {
       updateUser(parseInt(userId), {

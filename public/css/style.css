@@ -251,11 +251,10 @@
 
 .leaflet-container
 {
-    margin-top: 2rem;
     position: fixed;
-    min-height: 80%;
+    height: 100%;
     right: 0;
-    width: 65%;
+    width: 75%;
 }
 
 .page-content
@@ -352,8 +351,7 @@
 
     .leaflet-container
     {
-        right: 1rem;
-        width: 65%;
+        width: 73%;
     }
 }
 
@@ -372,7 +370,6 @@
 
     .leaflet-container
     {
-        right: 3rem;
-        width: 60%;
+        width: 72%;
     }
 }
