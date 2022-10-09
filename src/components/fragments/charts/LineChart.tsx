@@ -12,6 +12,7 @@ export interface LineChartData {
 export interface LineChartSetting {
   key: string
   stroke?: string,
+  strokeDark?: string,
   type?: CurveType
 }
 
@@ -37,8 +38,10 @@ const LineChart = (props: Readonly<LineChartParams>) => {
       {props.grid ? <CartesianGrid strokeDasharray="3 3" stroke={stroke} /> : ""}
       <XAxis dataKey="key" stroke={stroke} />
       <YAxis stroke={stroke} />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{stroke: stroke}} /> : ""}
-      {props.settings.map((set, index) => <Line dataKey={`values.${set.key}`} type={set.type} stroke={set.stroke} key={index} name={set.key} />)}
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{
+        stroke: stroke
+      }} /> : ""}
+      {props.settings.map((set, index) => <Line dataKey={`values.${set.key}`} type={set.type} stroke={darkMode ? set.strokeDark : set.stroke} key={index} name={set.key} />)}
       {props.legend ? <Legend /> : ""}
     </Inner>
   );

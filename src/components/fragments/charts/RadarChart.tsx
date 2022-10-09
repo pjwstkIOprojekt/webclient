@@ -12,6 +12,7 @@ export interface RadarChartSetting {
   key: string,
   stroke?: string,
   fill?: string,
+  fillDark?: string,
   opacity?: string | number
 }
 
@@ -41,8 +42,10 @@ const RadarChart = (props: Readonly<RadarChartParams>) => {
       {props.grid ? <PolarGrid stroke={stroke} /> : ""}
       <PolarAngleAxis dataKey="key" stroke={stroke} />
       <PolarRadiusAxis angle={props.angle} domain={props.domain} stroke={stroke} />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{stroke: stroke}} /> : ""}
-      {props.settings.map((set, index) => <Radar dataKey={`values.${set.key}`} stroke={set.stroke} fill={set.fill} fillOpacity={set.opacity} key={index} name={set.key} />)}
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{
+        stroke: stroke
+      }} /> : ""}
+      {props.settings.map((set, index) => <Radar dataKey={`values.${set.key}`} stroke={set.stroke} fill={darkMode ? set.fillDark : set.fill} fillOpacity={set.opacity} key={index} name={set.key} />)}
       {props.legend ? <Legend /> : ""}
     </Inner>
   );

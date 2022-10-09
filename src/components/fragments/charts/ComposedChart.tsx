@@ -15,6 +15,7 @@ export interface ComposedChartSetting {
   size?: number,
   stroke?: string,
   fill?: string,
+  fillDark?: string,
   opacity?: string | number,
   type?: CurveType
 }
@@ -37,13 +38,15 @@ const ComposedChart = (props: Readonly<ComposedChartParams>) => {
   const stroke = darkMode ? "var(--dark-text)" : "var(--light-text)";
 
   const display = (x: ComposedChartSetting, index: number) => {
+    const fill = darkMode ? x.fillDark : x.fill;
+
     switch (x.kind) {
       case "area":
-        return <Area dataKey={`values.${x.key}`} type={x.type} stroke={x.stroke} fill={x.fill} fillOpacity={x.opacity} key={index} name={x.key} />;
+        return <Area dataKey={`values.${x.key}`} type={x.type} stroke={x.stroke} fill={fill} fillOpacity={x.opacity} key={index} name={x.key} />;
       case "line":
         return <Line dataKey={`values.${x.key}`} type={x.type} stroke={x.stroke} key={index} name={x.key} />;
       default:
-        return <Bar dataKey={`values.${x.key}`} type={x.type ? x.type.toString() : undefined} barSize={x.size && x.size > 0 ? x.size : 25} fill={x.fill} fillOpacity={x.opacity} key={index} name={x.key} />;
+        return <Bar dataKey={`values.${x.key}`} type={x.type ? x.type.toString() : undefined} barSize={x.size && x.size > 0 ? x.size : 25} fill={fill} fillOpacity={x.opacity} key={index} name={x.key} />;
     }
   };
 
@@ -52,7 +55,9 @@ const ComposedChart = (props: Readonly<ComposedChartParams>) => {
       {props.grid ? <CartesianGrid strokeDasharray="3 3" stroke={stroke} /> : ""}
       <XAxis dataKey="key" stroke={stroke} />
       <YAxis stroke={stroke} />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{stroke: stroke}} /> : ""}
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{
+        stroke: stroke
+      }} /> : ""}
       {props.settings.map((set, index) => display(set, index))}
       {props.legend ? <Legend /> : ""}
     </Inner>

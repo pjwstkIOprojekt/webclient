@@ -21,9 +21,9 @@ const AdminHome = () => {
   ];
 
   const pieDat = [
-    { name: "Ratownicy w akcji", value: 4, fill: "#898934" },
-    { name: "Ratownicy w gotowości", value: 24, fill: "#893434" },
-    { name: "Ratownicy nieaktywni", value: 11, fill: "#343489" }
+    { name: "Ratownicy w akcji", value: 4, fill: "#898934", fillDark: "#898934" },
+    { name: "Ratownicy w gotowości", value: 24, fill: "#893434", fillDark: "#898934" },
+    { name: "Ratownicy nieaktywni", value: 11, fill: "#343489", fillDark: "#898934" }
   ];
 
   const lineDat = [
