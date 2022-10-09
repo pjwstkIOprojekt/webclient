@@ -9,7 +9,7 @@ interface ConsentParams {
   debug?: boolean
 }
 
-export const CookieConsent = (props: Readonly<ConsentParams>) => {
+const CookieConsent = (props: Readonly<ConsentParams>) => {
   const [isVisible, setIsVisible] = useState(false);
   const darkMode = useDarkMode();
 
@@ -44,3 +44,5 @@ export const CookieConsent = (props: Readonly<ConsentParams>) => {
     </Container>
   );
 };
+
+export default CookieConsent;

@@ -15,7 +15,7 @@ import MainMap from "./components/content/map/MainMap";
 import DispositorPanel from "./components/content/panel/DispositorPanel";
 import AdminPanel from "./components/content/panel/AdminPanel";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
-import { CookieConsent } from "./components/fragments/cookies/CookieConsent";
+import CookieConsent from "./components/fragments/cookies/CookieConsent";
 
 const App = () => {
   return (
