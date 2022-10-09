@@ -9,7 +9,7 @@ const MapView = (props: Readonly<MapViewParams>) => {
   return (
     <Container fluid>
       <Row>
-        <Col xs={4}>
+        <Col xs={3}>
           {props.element}
         </Col>
         <Col>

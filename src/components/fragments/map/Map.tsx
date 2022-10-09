@@ -86,11 +86,7 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
       geocoder: props.geocoder
     });
 
-    const search = (e: MarkGeocodeEvent) => {
-      console.log(e.geocode.bbox);
-      map.flyTo(e.geocode.center, map.getZoom());
-    };
-
+    const search = (e: MarkGeocodeEvent) => map.flyTo(e.geocode.center, map.getZoom());
     geocoder.on("markgeocode", props.onSearch ? props.onSearch : search);
     geocoder.addTo(map);
 
