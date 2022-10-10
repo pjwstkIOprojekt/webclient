@@ -5,8 +5,7 @@ import AcceptReport from "../report/AcceptReport";
 import Report from "../incident/Report";
 import AmbulanceList from "../ambulance/AmbulanceList";
 import AmbulanceEquipment from "../ambulance/AmbulanceEquipment";
-import DangerousVictim from "../victim/DangerousVictim";
-import SendMessage from "../ambulance/SendMessage";
+import VictimsList from "../victim/VictimsList";
 import StaffList from "../staff/StaffList";
 import StaffUserForm from "../staff/StaffUserForm";
 
@@ -15,7 +14,6 @@ const AdminPanel = () => {
     { to: "reports", text: "Zgłoszenia" },
     { to: "ambulances", text: "Lista karetek" },
     { to: "patients", text: "Zgłoś niebezpiecznego pacjenta" },
-    { to: "message", text: "Wyślij wiadomość do kierowcy" },
     { to: "staff", text: "Pracownicy" }
   ];
 
@@ -27,8 +25,7 @@ const AdminPanel = () => {
         <Route path="reports/:idReport" element={<Report />} />
         <Route path="ambulances" element={<AmbulanceList />} />
         <Route path="ambulances/equipment/:ambulanceId" element={<AmbulanceEquipment />} />
-        <Route path="patients" element={<DangerousVictim />} />
-        <Route path="message" element={<SendMessage />} />
+        <Route path="patients" element={<VictimsList />} />
         <Route path="staff" element={<StaffList />} />
         <Route path="staff/new" element={<StaffUserForm />} />
         <Route path="staff/edit/:userId" element={<StaffUserForm />} />
