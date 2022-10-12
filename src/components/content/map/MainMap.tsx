@@ -1,5 +1,4 @@
-import { Container, Form } from "react-bootstrap";
-import FormRow from "../../fragments/forms/FormRow";
+import { Container, Form, Row } from "react-bootstrap";
 import FormCheck from "../../fragments/forms/FormCheck";
 import { useState, useEffect } from "react";
 import L from "leaflet";
@@ -28,11 +27,11 @@ const MapForm = (props: Readonly<MapFormParams>) => {
       <h1 className="text-center mt-3">Mapa</h1>
       <h3>Filtry (pokaż):</h3>
       <Form>
-        <FormRow xs={3}>
+        <Row xs={3} className="justify-content-center my-3">
           <FormCheck label="Zdarzenia" value={props.filters & 1} onChange={e => props.setFilters(props.filters ^ 1)} />
           <FormCheck label="Karetki" value={props.filters & 2} onChange={e => props.setFilters(props.filters ^ 2)} />
           <FormCheck label="Placówki" value={props.filters & 4} onChange={e => props.setFilters(props.filters ^ 4)} />
-        </FormRow>
+        </Row>
       </Form>
     </Container>
   );

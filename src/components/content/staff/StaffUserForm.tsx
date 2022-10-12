@@ -1,7 +1,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserById, updateUser } from "../../../api/userCalls";
-import { registerStaff } from "../../../api/authCalls";
+import { registerUser } from "../../../api/authCalls";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
@@ -13,7 +13,6 @@ const StaffUserForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -32,15 +31,13 @@ const StaffUserForm = () => {
     e.preventDefault();
 
     if (userId === undefined) {
-      registerStaff({
+      registerUser({
         firstName: firstName,
         lastName: lastName,
         email: email,
-        username: username,
         password: password,
         birthDate: new Date(birthDate),
-        phoneNumber: phoneNumber,
-        staffType: ""
+        phoneNumber: phoneNumber
       }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
     } else {
       updateUser(parseInt(userId), {
@@ -64,9 +61,6 @@ const StaffUserForm = () => {
         </Row>
         <Row className="justify-content-center">
           <FormControl id="email" onChange={e => setEmail(e.target.value)} value={email} required className="mb-3 w-50" label="Email" type="email" />
-        </Row>
-        <Row className="justify-content-center">
-          <FormControl id="username" onChange={e => setUsername(e.target.value)} value={username} required className="mb-3 w-50" label="Nazwa użytkownika" />
         </Row>
         <Row className="justify-content-center">
           <FormControl id="password" onChange={e => setPassword(e.target.value)} value={password} required className="mb-3 w-50" label="Hasło" type="password" />
