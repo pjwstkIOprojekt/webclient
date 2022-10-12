@@ -47,7 +47,11 @@ const MainMap = () => {
   useEffect(() => {
     console.log("Ambulances update");
     console.log("Emergencies update");
-    setTimeout(() => setUpdate(!update), 15000);
+    const timeout = setTimeout(() => setUpdate(!update), 15000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [update]);
 
   useEffect(() => {
