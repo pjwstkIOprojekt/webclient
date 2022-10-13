@@ -1,12 +1,10 @@
-version: '3'
+version: '3.1'
 
 services:
-  frontend:
+  front:
     build:
       context: .
-      dockerfile: Dockerfile.devBuild
-    command: npm run start
-    container_name: frontend_dev
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
     volumes:
