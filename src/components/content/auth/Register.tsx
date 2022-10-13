@@ -10,7 +10,6 @@ const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +29,6 @@ const Register = () => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      username: username,
       password: password,
       birthDate: new Date(birthDate),
       phoneNumber: phoneNumber
@@ -49,9 +47,6 @@ const Register = () => {
         </Row>
         <Row className="justify-content-center">
           <FormControl id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" type="email" />
-        </Row>
-        <Row className="justify-content-center">
-          <FormControl id="username" required onChange={e => setUsername(e.target.value)} value={username} className="mb-3 w-50" label="Nazwa użytkownika" />
         </Row>
         <Row className="justify-content-center">
           <FormControl id="birthDate" required onChange={e => setBirthDate(e.target.value)} value={birthDate} className="mb-3 w-50" label="Data urodzenia" type="date" />

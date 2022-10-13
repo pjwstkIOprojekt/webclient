@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import { Container, Form, Row } from "react-bootstrap";
 import FormCheck from "../../fragments/forms/FormCheck";
+import { useState, useEffect } from "react";
 import L from "leaflet";
 import MapView from "../../fragments/map/MapView";
 
@@ -16,39 +16,21 @@ const positions = [
   { coords: [52.22, 20.87], desc: "Placówka 3", type: false }
 ];
 
-const MapForm = (props: {func?: (set: any) => void}) => {
-  const [showAccidents, toggleAccidents] = useState(true);
-  const [showAmbulances, toggleAmbulances] = useState(true);
-  const [showFacilities, toggleFacilities] = useState(true);
-  const func = props.func;
-  /*
-  useEffect(() => {
-    if (!func) {
-      return;
-    }
+interface MapFormParams {
+  filters: number,
+  setFilters: (x: number) => void
+}
 
-    func(positions.filter(p => {
-      if (p.icon === accidentIcon) {
-        return showAccidents;
-      }
-
-      if (p.icon === ambulanceIcon) {
-        return showAmbulances;
-      }
-
-      return showFacilities;
-    }));
-  }, [showAccidents, showAmbulances, showFacilities, func]);*/
-
+const MapForm = (props: Readonly<MapFormParams>) => {
   return (
     <Container>
       <h1 className="text-center mt-3">Mapa</h1>
+      <h3>Filtry (pokaż):</h3>
       <Form>
-        <Row className="justify-content-center mb-3">
-          <h3>Filtry:</h3>
-          <FormCheck label="Zdarzenia" value={showAccidents} onChange={e => toggleAccidents(!showAccidents)} />
-          <FormCheck label="Karetki" value={showAmbulances} onChange={e => toggleAmbulances(!showAmbulances)} />
-          <FormCheck label="Placówki" value={showFacilities} onChange={e => toggleFacilities(!showFacilities)} />
+        <Row xs={3} className="justify-content-center my-3">
+          <FormCheck label="Zdarzenia" value={props.filters & 1} onChange={e => props.setFilters(props.filters ^ 1)} />
+          <FormCheck label="Karetki" value={props.filters & 2} onChange={e => props.setFilters(props.filters ^ 2)} />
+          <FormCheck label="Placówki" value={props.filters & 4} onChange={e => props.setFilters(props.filters ^ 4)} />
         </Row>
       </Form>
     </Container>
@@ -56,9 +38,25 @@ const MapForm = (props: {func?: (set: any) => void}) => {
 };
 
 const MainMap = () => {
-  const [accidents, setAccidents] = useState([]);
-  const [ambulances, setAmbulances] = useState([]);
-  const [facilities, setFacilities] = useState([]);
+  //const [accidents, setAccidents] = useState([]);
+  //const [ambulances, setAmbulances] = useState([]);
+  //const [facilities, setFacilities] = useState([]);
+  const [filters, setFilters] = useState(7);
+  const [update, setUpdate] = useState(false);
+
+  useEffect(() => {
+    console.log("Ambulances update");
+    console.log("Emergencies update");
+    const timeout = setTimeout(() => setUpdate(!update), 15000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [update]);
+
+  useEffect(() => {
+    console.log("Facilities update");
+  }, []);
 
   const accidentIcon = L.icon({
     iconSize: [25, 41],
@@ -84,7 +82,19 @@ const MainMap = () => {
     shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
   });
 
-  const marks = [...positions].map((e: any) => {
+  const marks = [...positions].filter(p => {
+    switch (p.type)
+    {
+      case null:
+        return filters & 1;
+      case true:
+        return filters & 2;
+      case false:
+        return filters & 4;
+      default:
+        return false;
+    }
+  }).map((e: any) => {
     return {
       coords: e.coords,
       desc: e.desc,
@@ -92,7 +102,7 @@ const MainMap = () => {
     };
   });
 
-  return <MapView center={[52.222, 21.015]} initialZoom={10} element={<MapForm func={e => null} />} marks={marks} />;
+  return <MapView center={[52.222, 21.015]} initialZoom={10} element={<MapForm filters={filters} setFilters={setFilters} />} marks={marks} />;
 };
 
 export default MainMap;

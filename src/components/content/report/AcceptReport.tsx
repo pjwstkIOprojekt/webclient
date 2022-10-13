@@ -7,8 +7,8 @@ import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
 const AcceptReport = () => {
-  const [pending, setPending] = useState<any[]>([]);
-  const [approved, setApproved] = useState<any[]>([]);
+  const [pending, setPending] = useState<Record<string, any>[]>([]);
+  const [approved, setApproved] = useState<Record<string, any>[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -19,15 +19,15 @@ const AcceptReport = () => {
   }, []);
 
   const sharedCols = [
-    { name: "#", property: (x: any) => <Link to={`${x.id}`}>{x.id}</Link>, filterBy: "id", sortBy: "id" },
-    { name: "Ofiara jest przytomna?", property: (x: any) => x.victimConsious ? "Tak" : "Nie" },
-    { name: "Ofiara oddycha?", property: (x: any) => x.victimBreathing ? "Tak" : "Nie" },
+    { name: "#", property: (x: Record<string, any>) => <Link to={`${x.id}`}>{x.id}</Link>, filterBy: "id", sortBy: "id" },
+    { name: "Ofiara jest przytomna?", property: (x: Record<string, any>) => x.victimConsious ? "Tak" : "Nie" },
+    { name: "Ofiara oddycha?", property: (x: Record<string, any>) => x.victimBreathing ? "Tak" : "Nie" },
     { name: "Data", property: "date", filterBy: "date", sortBy: "date" },
     { name: "Skala zagrożenia", property: "dangerRating", filterBy: "dangerRating", sortBy: "dangerRating" },
-    { name: "Opis", property: (x: any) => x.description.substring(0, 100), filterBy: "description", sortBy: "description" }
+    { name: "Opis", property: (x: Record<string, any>) => x.description.substring(0, 100), filterBy: "description", sortBy: "description" }
   ];
 
-  const approve = (x: any) => {
+  const approve = (x: Record<string, any>) => {
     setPending(pending.filter(i => i.id !== x.id));
     setApproved([...approved, x]);
   };
@@ -35,8 +35,8 @@ const AcceptReport = () => {
   const pendingCols = [
     ...sharedCols,
     { name: "Przypisana karetka", property: () => <FormSelect options={["-- Wybierz karetkę --"]} />},
-    { name: "Potwierdź", property: (x: any) => <Button onClick={e => window.confirm("Czy na pewno chcesz zaakceptować to zgłoszenie?") ? approve(x) : null}>+</Button> },
-    { name: "Odrzuć", property: (x: any) => <Button onClick={e => window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?") ? setPending(pending.filter(i => i.id !== x.id)) : null}>X</Button> },
+    { name: "Potwierdź", property: (x: Record<string, any>) => <Button onClick={e => window.confirm("Czy na pewno chcesz zaakceptować to zgłoszenie?") ? approve(x) : null}>+</Button> },
+    { name: "Odrzuć", property: (x: Record<string, any>) => <Button onClick={e => window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?") ? setPending(pending.filter(i => i.id !== x.id)) : null}>X</Button> },
   ];
 
   const approvedCols = [

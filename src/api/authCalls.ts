@@ -1,22 +1,29 @@
-import { post } from "./basicCalls";
+import { post, get } from "./basicCalls";
 
+// Defines login request structure
 export interface LoginRequest {
-
+  email?: string,
+  password?: string
 }
 
-export interface CreateUserRequest {
-
+// Defines signup request structure
+export interface SignupRequest extends LoginRequest {
+  firstName?: string,
+  lastName?: string,
+  phoneNumber?: string,
+  birthDate?: Date
 }
 
-export interface CreateStaffRequest {
-
-}
+// Contains base auth controller path
+const authBase = "auth";
 
 // Login request
-export const login = (user: Readonly<LoginRequest>) => post("login", JSON.stringify(user));
+export const authenticateUser = (req: Readonly<LoginRequest>) => post(`${authBase}/login`, JSON.stringify(req));
 
 // Registers new user
-export const registerUser = (user: Readonly<CreateUserRequest>) => post("register/normal", JSON.stringify(user));
+export const registerUser = (req: Readonly<SignupRequest>) => post(`${authBase}/signup`, JSON.stringify(req));
 
-// Registers staff user
-export const registerStaff = (user: Readonly<CreateStaffRequest>) => post("register/staff", JSON.stringify(user));
+// Temporary test calls, remove it later
+export const adminTest = () => get("hello/admin");
+export const userTest = () => get("hello/user");
+export const enumTest = () => get("enum/allergy_type");

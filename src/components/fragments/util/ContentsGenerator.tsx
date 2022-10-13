@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export interface GeneratorParams<T> {
   selector: string,
   result: ((el: T, index: number) => JSX.Element) | ((el: T) => JSX.Element),
-  update?: any
+  update?: boolean
 }
 
 const ContentsGenerator = <T extends Element>(props: Readonly<GeneratorParams<T>>) => {

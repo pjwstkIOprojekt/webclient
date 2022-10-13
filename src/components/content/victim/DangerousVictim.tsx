@@ -5,9 +5,6 @@ import FormTextArea from '../../fragments/forms/FormTextArea';
 import Button from '../../fragments/util/Button';
 
 const DangerousVictim = () => {
-  const [firstName, setFirstName] = useState("Jan");
-  const [lastName, setLastName] = useState("Nowak");
-  const [address, setAddress] = useState("Warszawa, ul. Koszykowa");
   const [reason, setReason] = useState("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -18,13 +15,10 @@ const DangerousVictim = () => {
     <Form className="mt-5 w-50" onSubmit={handleSubmit}>
       <h3>Niebezpieczny pacjent</h3>
       <Row>
-          <FormControl id="firstName" className="mb-3" value={firstName} label="Imię" onChange={e => setFirstName(e.target.value)} />
+          <FormControl id="firstName" className="mb-3" value="Jan" label="Imię" disabled />
       </Row>
       <Row>
-          <FormControl id="lastName" className="mb-3 " value={lastName} label="Nazwisko" onChange={e => setLastName(e.target.value)} />
-      </Row>
-      <Row>
-          <FormControl id="Address" className="mb-3 " value={address} label="Adres" onChange={e => setAddress(e.target.value)} />
+          <FormControl id="lastName" className="mb-3 " value="Nowak" label="Nazwisko" disabled />
       </Row>
       <h4>Uzasadnienie zagrożenia:</h4>
       <FormTextArea value={reason} onChange={e => setReason(e.target.value)} />
