@@ -103,6 +103,12 @@
     border-color: var(--dark-text);
 }
 
+.circle-dark
+{
+    background-color: var(--dark-button);
+    color: var(--dark-text);
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -195,6 +201,12 @@
 {
     background-color: var(--light-popup);
     border-color: var(--light-text);
+}
+
+.circle-light
+{
+    background-color: var(--light-button);
+    color: var(--light-text);
 }
 
 /* Shared */
@@ -318,6 +330,21 @@
     border-radius: 10px;
     display: block;
     opacity: 2;
+}
+
+.circle
+{
+    width: 250px;
+    height: 250px;
+    line-height: 40px;
+    border-radius: 50%;
+    font-size: 80px;
+    text-align: center;
+}
+
+.circle-title
+{
+    font-size: 20px;
 }
 
 @media (min-width: 768px)
