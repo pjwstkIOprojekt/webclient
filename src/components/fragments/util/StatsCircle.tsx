@@ -12,10 +12,10 @@ const StatsCircle = (props: Readonly<CircleParams>) => {
   const darkMode = useDarkMode();
   return (
     <div className={`circle circle-${darkMode ? "dark" : "light"} ${props.className}`}>
-      <span className="circle-title">{props.name}</span>
+      <span className={`circle-title ${props.nameClass}`}>{props.name}</span>
       <br />
       <br />
-      {props.value}
+      <span className={props.valueClass}>{props.value}</span>
     </div>
   );
 };
