@@ -5,11 +5,14 @@ import Button from "./Button";
 import Spinner from "./Spinner";
 import FormControl from "../forms/FormControl";
 
+type ColumnSize = 25 | 50 | 75 | 100;
+
 export interface TableColumnParams {
   name: (() => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
   property: ((x: Record<string, any>) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
   sortBy?: string,
-  filterBy?: string
+  filterBy?: string,
+  size?: ColumnSize
 }
 
 export interface TableParams {
@@ -85,14 +88,14 @@ const Table = (props: Readonly<TableParams>) => {
               {col.sortBy || col.filterBy ? (
                 <>
                   <Row className="justify-content-center">
-                    {col.filterBy ? <Col><BindableControl callback={e => filterData(col.filterBy ?? "", e.target.value)} /></Col> : ""}
+                    {col.filterBy ? <Col><BindableControl callback={e => filterData(col.filterBy ?? "", e.target.value)} size={col.size ?? 100} /></Col> : ""}
                     {col.sortBy ? <Col md="auto"><Button type="button" onClick={e => sortData(col.sortBy ?? "")}>^</Button></Col> : ""}
                   </Row>
                   <Row className="justify-content-center">
                     {typeof(col.name) === "string" ? col.name : col.name()}
                   </Row>
                 </>
-              ): (typeof(col.name) === "string" ? col.name : col.name())}
+              ) : (typeof(col.name) === "string" ? col.name : col.name())}
             </th>
           ))}
         </tr>
@@ -119,7 +122,8 @@ const Table = (props: Readonly<TableParams>) => {
 };
 
 interface Bind {
-  callback: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
+  callback: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+  size: ColumnSize
 }
 
 const BindableControl = (props: Readonly<Bind>) => {
@@ -130,7 +134,7 @@ const BindableControl = (props: Readonly<Bind>) => {
     props.callback(e);
   };
 
-  return <FormControl placeholder="Szukaj..." value={value} onChange={e => change(e)} />;
+  return <FormControl placeholder="Szukaj..." value={value} onChange={e => change(e)} className={`w-${props.size}`} />;
 };
 
 export default Table;
