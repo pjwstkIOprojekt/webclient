@@ -1,5 +1,4 @@
 import { useState, FormEvent } from "react";
-import { createAmbulance } from "../../../api/ambulanceCalls";
 import { Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
 import FormControl from "../../fragments/forms/FormControl";
@@ -30,13 +29,13 @@ const CreateAmbulance = () => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    createAmbulance({
+    /*createAmbulance({
       numberOfSeats: maxAmount,
       fuelTankCapacity: capacity,
       licensePlates: registrationNumber,
       type: type,
       kind: kind
-    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));*/
   };
 
   return (

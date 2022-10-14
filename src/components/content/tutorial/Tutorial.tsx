@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePopup } from "../../../hooks/usePopup";
-import { getTutorialById } from "../../../api/tutorialCalls";
 import { isAuth } from "../../../helpers/authHelper";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
 import { Container, Card, Row, Col, Alert } from "react-bootstrap";
@@ -18,7 +17,7 @@ const Tutorial = () => {
 
   useEffect(() => {
     if (tutorialId) {
-      getTutorialById(parseInt(tutorialId)).then(res => res.json()).then(dat => setData(dat)).catch(err => console.log(err));
+      //getTutorialById(parseInt(tutorialId)).then(res => res.json()).then(dat => setData(dat)).catch(err => console.log(err));
     }
   }, [tutorialId]);
 

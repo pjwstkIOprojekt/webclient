@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Rating from "../../fragments/util/Rating";
 import { useState, useEffect } from "react";
 import ViewLoader from "../../fragments/util/ViewLoader";
-import { getTutorials } from "../../../api/tutorialCalls";
 
 interface TutorialCardParams {
   items: any[]
@@ -33,11 +32,11 @@ const TutorialView = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    getTutorials().then(res => res.json()).then(data => {
+    /*getTutorials().then(res => res.json()).then(data => {
       setItems(data);
     }).catch(err => {
       console.log(err);
-    });
+    });*/
   }, []);
   
   return (

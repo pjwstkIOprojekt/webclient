@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getUnapproved, getApproved } from "../../../api/emergencyCalls";
 import Link from "../../fragments/navigation/Link";
 import FormSelect from "../../fragments/forms/FormSelect";
 import Button from '../../fragments/util/Button';
@@ -12,10 +11,10 @@ const AcceptReport = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getUnapproved().then(res => res.json()).then(items => setPending(items)).then(getApproved).then(res => res.json()).then(items => {
+    /*getUnapproved().then(res => res.json()).then(items => setPending(items)).then(getApproved).then(res => res.json()).then(items => {
       setApproved(items);
       setIsLoading(false);
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err));*/
   }, []);
 
   const sharedCols = [

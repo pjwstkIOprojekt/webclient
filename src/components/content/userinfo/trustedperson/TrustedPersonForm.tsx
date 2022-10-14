@@ -1,6 +1,5 @@
 import { useState, useEffect, FormEvent } from "react";
 import { Container, Form, Row } from "react-bootstrap";
-import { getUserById, updateUser } from "../../../../api/userCalls";
 import FormControl from "../../../fragments/forms/FormControl";
 import FormPhoneNumber from "../../../fragments/forms/FormPhoneNumber";
 import Button from "../../../fragments/util/Button";
@@ -13,22 +12,22 @@ const TrustedPersonForm = () => {
   const [readOnly, setReadOnly] = useState(true);
 
   useEffect(() => {
-    getUserById(0).then(res => res.json()).then(data => {
+    /*getUserById(0).then(res => res.json()).then(data => {
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setPhoneNumber(data.phone);
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err));*/
   }, []);
 
   const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
 
     if (!readOnly) {
-      updateUser(0, {
+      /*updateUser(0, {
         firstName: firstName,
         lastName: lastName,
         phone: phoneNumber
-      });
+      });*/
     }
 
     setReadOnly(!readOnly);

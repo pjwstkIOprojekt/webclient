@@ -1,6 +1,5 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getInfoById, updateAllergies } from "../../../../api/medicalInfoCalls";
 import { Container, Form } from "react-bootstrap";
 import FormSelect from "../../../fragments/forms/FormSelect";
 import FormTextArea from "../../../fragments/forms/FormTextArea";
@@ -17,10 +16,10 @@ const AllergyForm = () => {
 
   useEffect(() => {
     if (allergyId) {
-      getInfoById(parseInt(allergyId)).then(res => res.json()).then(data => {
+      /*getInfoById(parseInt(allergyId)).then(res => res.json()).then(data => {
         setSource(data.name);
         setInfo(data.inst);
-      }).catch(err => console.log(err));
+      }).catch(err => console.log(err));*/
     }
   }, [allergyId]);
 
@@ -34,7 +33,7 @@ const AllergyForm = () => {
     }
 
     e.preventDefault();
-    updateAllergies(allergyId ? parseInt(allergyId) : 0, source + " - " + info).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    //updateAllergies(allergyId ? parseInt(allergyId) : 0, source + " - " + info).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
     navigate("../medicaldata");
   };
 

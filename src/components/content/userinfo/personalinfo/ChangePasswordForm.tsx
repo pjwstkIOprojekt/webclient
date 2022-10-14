@@ -1,5 +1,4 @@
 import { useState, FormEvent } from "react";
-import { updateUser } from "../../../../api/userCalls";
 import { Container, Form, Alert } from "react-bootstrap";
 import FormControl from "../../../fragments/forms/FormControl";
 import Button from "../../../fragments/util/Button";
@@ -20,7 +19,7 @@ const ChangePasswordForm = () => {
       return;
     }
 
-    updateUser(0, {}).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    //updateUser(0, {}).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
   };
 
   return (

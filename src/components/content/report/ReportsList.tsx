@@ -3,7 +3,6 @@ import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 import { useState, useEffect } from "react";
 import ViewLoader from "../../fragments/util/ViewLoader";
-import { getApproved } from "../../../api/emergencyCalls";
 
 interface ReportsListParams {
   data: Record<string, any>[]
@@ -31,9 +30,9 @@ const ReportsList = () => {
   const [items] = useState<any[]>([]);
 
   useEffect(() => {
-    getApproved().then(res => res.json()).then(data => {
+    /*getApproved().then(res => res.json()).then(data => {
       console.log(data);
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err));*/
   }, []);
 
   return <ViewLoader isLoaded={items.length > 0} element={<ReportsListDisplay data={items} />} />;

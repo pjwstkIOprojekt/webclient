@@ -3,7 +3,6 @@ import BloodTypeForm from "./bloodtype/BloodTypeForm";
 import AllergyTable from "./allergy/AllergyTable";
 import MedicalConditionTable from "./medicalcondition/MedicalConditionTable";
 import { useState, useEffect } from "react";
-import { getInfo } from "../../../api/medicalInfoCalls";
 
 const MedicalData = () => {
   const [blood, setBlood] = useState({});
@@ -12,13 +11,13 @@ const MedicalData = () => {
   const [isloading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getInfo().then(res => res.json()).then(data => {
+    /*getInfo().then(res => res.json()).then(data => {
       console.log(data);
       setBlood(data);
       setAllergies(data);
       setConditions(data);
       setIsLoading(false);
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err));*/
   }, []);
 
   return (

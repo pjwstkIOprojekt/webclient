@@ -1,5 +1,4 @@
 import { useState, useEffect, FormEvent } from "react";
-import { getUserById, updateUser } from "../../../../api/userCalls";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../../fragments/forms/FormControl";
 import FormPhoneNumber from "../../../fragments/forms/FormPhoneNumber";
@@ -16,26 +15,26 @@ const UserDataForm = () => {
   const [readOnly, setReadOnly] = useState(true);
 
   useEffect(() => {
-    getUserById(0).then(res => res.json()).then(data => {
+    /*getUserById(0).then(res => res.json()).then(data => {
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setUsername(data.username);
       setBirthDate(data.birthDate);
       setPhoneNumber(data.phone);
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err));*/
   }, []);
 
   const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
 
     if (!readOnly) {
-      updateUser(0, {
+      /*updateUser(0, {
         firstName: firstName,
         lastName: lastName,
         username: username,
         birthDate: new Date(birthDate),
         phone: phoneNumber
-      }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+      }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));*/
     }
 
     setReadOnly(!readOnly);

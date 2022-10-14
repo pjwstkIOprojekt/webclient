@@ -1,5 +1,4 @@
 import { useState, FormEvent } from "react";
-import { createAmbulance } from "../../../api/ambulanceCalls";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
 import FormControl from "../../fragments/forms/FormControl";
