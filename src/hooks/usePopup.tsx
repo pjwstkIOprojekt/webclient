@@ -20,7 +20,7 @@ export const PopupProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => 
 
   return (
     <PopupContext.Provider value={{
-      update: el => setPopup(el)
+      update: setPopup
     }}>
       {popup ? (
         <>

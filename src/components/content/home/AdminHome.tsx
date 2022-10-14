@@ -13,7 +13,7 @@ const AdminHome = () => {
   ];
 
   const cols = [
-    { name: "#", property: "id", sortBy: "id", filterBy: "id" },
+    { name: "#", property: "id", sortBy: "id", filterBy: "id", size: 15 },
     { name: "Karetka", property: "name", sortBy: "name", filterBy: "name" },
     { name: "Wyposażenie", property: (x: Record<string, any>) => <NavButton to={`/admpanel/ambulances/equipment/${x.id}`}>Zobacz</NavButton> },
     { name: "Zgłoszenie", property: (x: Record<string, any>) => <NavButton to={`/admpanel/reports/${x.accident}`}>Zobacz</NavButton>, sortBy: "accident", filterBy: "accident" }
