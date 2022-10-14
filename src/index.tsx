@@ -1,22 +1,22 @@
 import ReactDOM from "react-dom";
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { DarkModeProvider } from "./hooks/useDarkMode";
 import { NotificationsProvider } from "./hooks/useNotify";
 import { PopupProvider } from "./hooks/usePopup";
-import React from "react";
 import App from "./App";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <DarkModeProvider>
-      <NotificationsProvider>
-        <PopupProvider>
-          <React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
+      <DarkModeProvider>
+        <NotificationsProvider>
+          <PopupProvider>
             <App />
-          </React.StrictMode>
-        </PopupProvider>
-      </NotificationsProvider>
-    </DarkModeProvider>
-  </BrowserRouter>,
+          </PopupProvider>
+        </NotificationsProvider>
+      </DarkModeProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById("root")
 );
