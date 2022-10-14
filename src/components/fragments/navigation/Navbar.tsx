@@ -2,7 +2,7 @@ import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
 import { FaHome, FaMedkit, FaBook, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
-import { isDispositor, isDirector, isAuth, keycloakClient, UserRole, setRole } from "../../../helpers/authHelper";
+import { isDispositor, isDirector, isAuth, UserRole, setRole } from "../../../helpers/authHelper";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { useNotificationsManager } from "../../../hooks/useNotify";
@@ -68,12 +68,6 @@ const UserDropdown = () => {
 
   const handleLogin = () => {
     notifications.clear();
-
-    if (isAuth()) {
-      keycloakClient.logout();
-    } else {
-      keycloakClient.login();
-    }
   };
 
   return (

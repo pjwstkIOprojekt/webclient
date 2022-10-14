@@ -1,12 +1,4 @@
-import Keycloak from "keycloak-js";
 import { getCookieValue, setCookieValue } from "./cookieHelper";
-
-// Keycloak config
-export const keycloakClient = new Keycloak({
-  url: "", //"http://172.21.40.111:8081",
-  realm: "dev",
-  clientId: "frontend"
-});
 
 export enum UserRole {
   NONE,
@@ -23,7 +15,7 @@ export const setRole = (x: UserRole) => {
 };
 
 // Returns current session token
-export const getToken = () => keycloakClient.authenticated ? keycloakClient.token : "";
+export const getToken = () => "";
 
 // Returns true if user is authenticated
 export const isAuth = () => {

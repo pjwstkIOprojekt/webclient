@@ -1,5 +1,4 @@
-import { ReactKeycloakProvider } from "@react-keycloak/web";
-import { keycloakClient, isAuth, isDispositor, isDirector } from "./helpers/authHelper";
+import { isAuth, isDispositor, isDirector } from "./helpers/authHelper";
 import Navbar from "./components/fragments/navigation/Navbar"
 import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
@@ -19,7 +18,7 @@ import CookieConsent from "./components/fragments/cookies/CookieConsent";
 
 const App = () => {
   return (
-    <ReactKeycloakProvider authClient={keycloakClient}>
+    <>
       <Navbar />
       <Container fluid className="page-content">
         <Routes>
@@ -36,8 +35,8 @@ const App = () => {
         </Routes>
         <NotificationArea />
       </Container>
-      <CookieConsent debug />
-    </ReactKeycloakProvider>
+      <CookieConsent />
+    </>
   );
 };
 

@@ -5,19 +5,15 @@ import { getCookieConsentValue, acceptCookies } from "../../../helpers/cookieHel
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "../util/Button";
 
-interface ConsentParams {
-  debug?: boolean
-}
-
-const CookieConsent = (props: Readonly<ConsentParams>) => {
+const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const darkMode = useDarkMode();
 
   useEffect(() => {
-    if (!getCookieConsentValue() || props.debug) {
+    if (!getCookieConsentValue()) {
       setIsVisible(true);
     }
-  }, [props.debug]);
+  }, []);
 
   if (!isVisible) {
     return <></>;

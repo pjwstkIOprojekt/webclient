@@ -1,5 +1,4 @@
 import { useNotificationsManager } from "../../../hooks/useNotify";
-import { keycloakClient } from "../../../helpers/authHelper";
 import { Container, Row } from "react-bootstrap";
 import Button from "../util/Button";
 import NavButton from "../navigation/NavButton";
@@ -9,7 +8,6 @@ const NotLoggedPopup = () => {
 
   const handleLogin = () => {
     notifications.clear();
-    keycloakClient.login();
   };
 
   return (
