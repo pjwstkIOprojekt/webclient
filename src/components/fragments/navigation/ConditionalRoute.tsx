@@ -7,7 +7,7 @@ export interface ConditionalRouteParams {
 }
 
 const ConditionalRoute = (props: Readonly<ConditionalRouteParams>) => {
-  return props.condition ? props.element : <Navigate replace to={props.alt ? props.alt : "/"} />;
+  return props.condition ? props.element : <Navigate replace to={props.alt ?? "/"} />;
 };
 
 export default ConditionalRoute;

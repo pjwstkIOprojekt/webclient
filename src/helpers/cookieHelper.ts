@@ -1,8 +1,5 @@
 // Helper for improved cookie handling
-export const getCookieValue = (key: string) => {
-  const tmp = localStorage.getItem(key);
-  return tmp === null ? "" : tmp;
-};
+export const getCookieValue = (key: string) => localStorage.getItem(key) ?? "";
 
 export const setCookieValue = (key: string, value: string) => {
   if (getCookieConsentValue()) {
