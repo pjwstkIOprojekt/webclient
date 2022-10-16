@@ -1,30 +1,22 @@
-import { getCookieValue, setCookieValue } from "./cookieHelper";
-
-export enum UserRole {
-  NONE,
-  USER,
-  DISPOSITOR,
-  DIRECTOR
-}
-
-let role = parseInt(getCookieValue("usr"));
-
-export const setRole = (x: UserRole) => {
-  setCookieValue("usr", x.toString());
-  role = x;
+export const login = (token: string, roles: Set<string>) => {
+  sessionStorage.setItem("token", token);
+  sessionStorage.setItem("roles", JSON.stringify(roles));
 };
 
-// Returns current session token
-export const getToken = () => "";
+export const logout = () => sessionStorage.clear();
+export const getToken = () => sessionStorage.getItem("token");
 
-// Returns true if user is authenticated
-export const isAuth = () => {
-  //return keycloakClient.authenticated;
-  return role !== UserRole.NONE;
+const checkRole = (role: string) => {
+  const roles = sessionStorage.getItem("roles");
+
+  if (roles) {
+    const arr = JSON.parse(roles) as string[];
+    return arr.includes(role);
+  }
+
+  return false;
 };
 
-// Returns true if user is a dispositor
-export const isDispositor = () => role === UserRole.DISPOSITOR;
-
-// Returns true if user is a director
-export const isDirector = () => role === UserRole.DIRECTOR;
+export const isAuth = () => checkRole("USER");
+export const isDispositor = () => false;
+export const isDirector = () => false;

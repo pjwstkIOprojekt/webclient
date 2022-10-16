@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import ConditionalRoute from "./components/fragments/navigation/ConditionalRoute";
+import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
 import Settings from "./components/content/userinfo/Settings";
 import Home from "./components/content/home/Home";
@@ -23,6 +24,7 @@ const App = () => {
       <Container fluid className="page-content">
         <Routes>
           <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route path="/login" element={<ConditionalRoute condition={!isAuth()} element={<Login />} />} />
           <Route path="/register" element={<ConditionalRoute condition={!isAuth()} element={<Register />} />} />
           <Route path="/settings/*" element={<ConditionalRoute condition={isAuth()} element={<Settings />} />} />
           <Route path="/home" element={<Home />} />

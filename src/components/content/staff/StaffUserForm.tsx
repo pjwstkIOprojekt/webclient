@@ -35,7 +35,7 @@ const StaffUserForm = () => {
         lastName: lastName,
         email: email,
         password: password,
-        birthDate: new Date(birthDate),
+        birthDate: birthDate,
         phoneNumber: phoneNumber
       }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
     } else {

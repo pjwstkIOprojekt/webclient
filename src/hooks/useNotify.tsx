@@ -5,6 +5,7 @@ const defaultContext = {
   notify: (title: string, content: string) => {},
   removeNotification: (x: Notification) => {},
   clear: () => {},
+  renotify: (title: string, content: string) => {},
   notifications: [] as Notification[]
 };
 
@@ -34,6 +35,17 @@ export const NotificationsProvider = (props: Readonly<JSX.ElementChildrenAttribu
     }]);
   };
 
+  const renotify = (title: string, content: string) => {
+    if (!title || !content) {
+      return;
+    }
+
+    setNotifications([{
+      title: title,
+      content: content
+    }]);
+  };
+
   const unnotify = (x: Notification) => setNotifications(notifications.filter(n => n !== x));
   const clear = () => setNotifications([]);
 
@@ -42,6 +54,7 @@ export const NotificationsProvider = (props: Readonly<JSX.ElementChildrenAttribu
       notify: notify,
       removeNotification: unnotify,
       clear: clear,
+      renotify: renotify,
       notifications: notifications
     }}>
       {props.children}

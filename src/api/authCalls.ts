@@ -10,7 +10,7 @@ export interface SignupRequest extends LoginRequest {
   firstName: string,
   lastName: string,
   phoneNumber: string,
-  birthDate: Date
+  birthDate: string
 }
 
 export interface User extends SignupRequest {
