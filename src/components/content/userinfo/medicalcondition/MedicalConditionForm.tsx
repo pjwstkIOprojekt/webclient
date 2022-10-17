@@ -1,6 +1,5 @@
 import { useState, FormEvent, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getInfoById, updateChronicDisease } from "../../../../api/medicalInfoCalls";
 import { Container, Form } from "react-bootstrap";
 import FormTextArea from "../../../fragments/forms/FormTextArea";
 import FormUpload from "../../../fragments/forms/FormUpload";
@@ -16,16 +15,16 @@ const MedicalConditionForm = () => {
 
   useEffect(() => {
     if (diseaseId) {
-      getInfoById(parseInt(diseaseId)).then(res => res.json()).then(data => {
+      /*getInfoById(parseInt(diseaseId)).then(res => res.json()).then(data => {
         setName(data.name);
         setInst(data.inst);
-      }).catch(err => console.log(err));
+      }).catch(err => console.log(err));*/
     }
   }, [diseaseId]);
 
   const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
-    updateChronicDisease(diseaseId ? parseInt(diseaseId) : 0, name + " - " + inst).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    //updateChronicDisease(diseaseId ? parseInt(diseaseId) : 0, name + " - " + inst).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
     navigate("../medicaldata");
   };
 

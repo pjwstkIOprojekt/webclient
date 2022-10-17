@@ -2,10 +2,10 @@ import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
 import { FaHome, FaMedkit, FaBook, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
-import { isDispositor, isDirector, isAuth, keycloakClient, UserRole, setRole } from "../../../helpers/authHelper";
+import { isDispositor, isDirector, isAuth } from "../../../helpers/authHelper";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
-import { useNotificationsManager } from "../../../hooks/useNotify";
+import { useLogout } from "../../../hooks/useAuth";
 import NavDrop from "./NavDrop";
 import { IoMdSettings, IoIosPaper } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
@@ -64,17 +64,7 @@ const SideMenu = () => {
 
 const UserDropdown = () => {
   const darkMode = useDarkMode();
-  const notifications = useNotificationsManager();
-
-  const handleLogin = () => {
-    notifications.clear();
-
-    if (isAuth()) {
-      keycloakClient.logout();
-    } else {
-      keycloakClient.login();
-    }
-  };
+  const logout = useLogout();
 
   return (
     <NavDropdown align="end" title={
@@ -100,34 +90,21 @@ const UserDropdown = () => {
           <NavDropdown.Divider />
         </>
       ) : ""}
-      <NavDropdown.Item onClick={handleLogin} className="d-inline-flex align-items-center">
-        <BiLogIn />
-        <span className="px-1">{isAuth() ? "Wyloguj" : "Zaloguj się"}</span>
-      </NavDropdown.Item>
+      {isAuth() ? (
+        <NavDropdown.Item onClick={logout} className="d-inline-flex align-items-center">
+          <BiLogIn />
+          <span className="px-1">Wyloguj</span>
+        </NavDropdown.Item>
+      ) : (
+        <NavDrop to="/login">
+          <BiLogIn />
+          <span className="px-1">Zaloguj się</span>
+        </NavDrop>
+      )}
       {isAuth() ? "" : (
         <NavDrop to="/register">
           <IoIosPaper />
           <span className="px-1">Zarejestruj się</span>
-        </NavDrop>
-      )}
-      {!isAuth() ? "" : (
-        <NavDrop to="/" onClick={e => setRole(UserRole.NONE)}>
-          <span className="px-1">Gość</span>
-        </NavDrop>
-      )}
-      {isDirector() || isDispositor() || !isAuth() ? (
-        <NavDrop to="/" onClick={e => setRole(UserRole.USER)}>
-          <span className="px-1">Użytkownik</span>
-        </NavDrop>
-      ) : ""}
-      {isDispositor() ? "" : (
-        <NavDrop to="/" onClick={e => setRole(UserRole.DISPOSITOR)}>
-          <span className="px-1">Dyspozytor</span>
-        </NavDrop>
-      )}
-      {isDirector() ? "" : (
-        <NavDrop to="/" onClick={e => setRole(UserRole.DIRECTOR)}>
-          <span className="px-1">Kierownik</span>
         </NavDrop>
       )}
     </NavDropdown>

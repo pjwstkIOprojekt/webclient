@@ -1,5 +1,4 @@
 import { useState, FormEvent } from "react";
-import { updateBloodType } from "../../../../api/medicalInfoCalls";
 import { Form } from "react-bootstrap";
 import FormRadio from "../../../fragments/forms/FormRadio";
 import Button from "../../../fragments/util/Button";
@@ -17,7 +16,7 @@ const BloodTypeForm = (props: Readonly<BloodTypeFormParams>) => {
     e.preventDefault();
 
     if (!readOnly) {
-      updateBloodType(1, group + " " + rh).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+      //updateBloodType(1, group + " " + rh).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
     }
 
     setReadOnly(!readOnly);

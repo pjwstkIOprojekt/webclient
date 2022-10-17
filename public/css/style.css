@@ -13,7 +13,6 @@
     --dark-nav: #c59812;
     --light-nav: #4caf50;
     --required: #ff0000;
-    --page-height: 94vh;
     --light-nav-hover: #3b9e40;
     --dark-nav-hover: #b48701;
     --dark-popup: #212529;
@@ -243,14 +242,6 @@
 .d-contents
 {
     display: contents;
-}
-
-.vertical-center
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: var(--page-height);
 }
 
 .navbar

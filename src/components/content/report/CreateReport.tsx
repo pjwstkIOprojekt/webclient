@@ -1,6 +1,5 @@
 import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createEmergency } from "../../../api/emergencyCalls";
 import { Form, Row, Col } from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
 import FormCheck from "../../fragments/forms/FormCheck";
@@ -44,12 +43,12 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    createEmergency({
+    /*createEmergency({
       description: desc,
       breathing: breathing,
       conscious: conscious,
       bloodType: 0
-    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));*/
 
     navigate("/");
   };

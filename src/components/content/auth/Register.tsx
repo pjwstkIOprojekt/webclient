@@ -1,5 +1,6 @@
 import { useState, FormEvent } from "react";
-import { registerUser } from "../../../api/authCalls";
+import { registerUser, loginUser } from "../../../api/authCalls";
+import { useLogin } from "../../../hooks/useAuth";
 import { Container, Form, Row, Alert } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
@@ -15,6 +16,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [error, setError] = useState("");
+  const login = useLogin();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,19 +27,50 @@ const Register = () => {
       return;
     }
 
+    const mail = email;
+    const pass = password;
+
     registerUser({
       firstName: firstName,
       lastName: lastName,
       email: email,
       password: password,
-      birthDate: new Date(birthDate),
+      birthDate: birthDate,
       phoneNumber: phoneNumber
-    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    }).then(res => {
+      if (res.status === 200) {
+        let status = -1;
+
+        loginUser({
+          email: mail,
+          password: pass
+        }).then(res => {
+          status = res.status;
+          return res.json();
+        }).then(data => {
+          if (status === 200) {
+            if (data.token && data.roles) {
+              login(data.token, data.roles);
+            } else {
+              setError("Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.");
+            }
+          } else {
+            setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+          }
+        }).catch(err => {
+          console.log(err);
+          setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+        });
+      }
+    }).catch(err => {
+      console.log(err);
+      setError("Rejestracja nieudana. Spróbuj ponownie później.");
+    });
   };
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center">Zarejestruj się</h1>
+      <h1 className="text-center">Rejestracja</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
           <FormControl id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label="Imię" />
@@ -55,18 +88,28 @@ const Register = () => {
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="mb-3 w-50" label="Numer telefonu" />
         </Row>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit">Zarejestruj się</Button>
-        </Row>
-        <Row className="justify-content-center">
           <FormControl id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" type="password" />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label="Powtórz hasło" type="password" error={error} />
+          <FormControl id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label="Powtórz hasło" type="password" />
         </Row>
-        <CAlert className="mt-5">
-          <Alert.Heading>Dlaczego zbieramy dane?</Alert.Heading>
-          <p>Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.</p>
-        </CAlert>
+        <Row className="justify-content-center">
+          <Button className="my-3 w-25" type="submit">Zarejestruj się</Button>
+        </Row>
+        {error ? (
+          <Row className="justify-content-center mt-5">
+            <Alert variant="danger" className="w-50">
+              <Alert.Heading>Błąd</Alert.Heading>
+              <p>{error}</p>
+            </Alert>
+          </Row>
+        ) : ""}
+        <Row className="justify-content-center mt-3 mb-5">
+          <CAlert className="w-50">
+            <Alert.Heading>Dlaczego zbieramy dane?</Alert.Heading>
+            <p>Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.</p>
+          </CAlert>
+        </Row>
       </Form>
     </Container>
   );

@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from "react";
 const defaultContext = {
   notify: (title: string, content: string) => {},
   removeNotification: (x: Notification) => {},
-  clear: () => {},
+  clear: (title?: string, content?: string) => {},
   notifications: [] as Notification[]
 };
 
@@ -34,13 +34,15 @@ export const NotificationsProvider = (props: Readonly<JSX.ElementChildrenAttribu
     }]);
   };
 
-  const unnotify = (x: Notification) => setNotifications(notifications.filter(n => n !== x));
-  const clear = () => setNotifications([]);
+  const clear = (title?: string, content?: string) => setNotifications(title && content ? [{
+    title: title,
+    content: content
+  }] : []);
 
   return (
     <NotificationsContext.Provider value={{
       notify: notify,
-      removeNotification: unnotify,
+      removeNotification: (x: Notification) => setNotifications(notifications.filter(n => n !== x)),
       clear: clear,
       notifications: notifications
     }}>

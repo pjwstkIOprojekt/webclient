@@ -1,4 +1,4 @@
-import { createContext, useContext, Dispatch, SetStateAction, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { getCookieValue, setCookieValue } from "../helpers/cookieHelper";
 
 // Handles theme changes for document body
@@ -23,57 +23,19 @@ const DarkModeContext = createContext(defaultContext);
 export const useDarkModeManager = () => useContext(DarkModeContext);
 export const useDarkMode = () => useDarkModeManager().isDark;
 
-// Helper types for dark mode hooks
-interface DarkModeState {
-  isDark: boolean,
-  hasDarkModeMounted: boolean
-}
-
-type DarkModeHookResult = [value: DarkModeState, setter: Dispatch<SetStateAction<DarkModeState>>];
-
-// Loads initial theme
-const useEffectDarkMode = (): DarkModeHookResult => {
-  const [darkMode, setDarkMode] = useState({
-    isDark: false,
-    hasDarkModeMounted: false
-  });
-
-  useEffect(() => {
-    const localIsDark = getCookieValue("useDarkMode") === "true";
-    toggleBodyClasses(localIsDark);
-
-    setDarkMode({
-      isDark: localIsDark,
-      hasDarkModeMounted: true
-    });
-  }, []);
-
-  return [darkMode, setDarkMode];
-};
-
 // Dark mode hook provider component
 export const DarkModeProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
-  const [darkMode, setDarkMode] = useEffectDarkMode();
+  const [darkMode, setDarkMode] = useState(getCookieValue("useDarkMode") === "true");
 
-  if (!darkMode.hasDarkModeMounted) {
-    return <></>;
-  }
-
-  const toggle = () => {
-    const dark = !darkMode.isDark;
-    setCookieValue("useDarkMode", JSON.stringify(dark));
-    toggleBodyClasses(dark);
-
-    setDarkMode({
-      isDark: dark,
-      hasDarkModeMounted: darkMode.hasDarkModeMounted
-    });
-  };
+  useEffect(() => {
+    setCookieValue("useDarkMode", JSON.stringify(darkMode));
+    toggleBodyClasses(darkMode);
+  }, [darkMode]);
 
   return (
     <DarkModeContext.Provider value={{
-      isDark: darkMode.isDark,
-      toggle: toggle
+      isDark: darkMode,
+      toggle: () => setDarkMode(!darkMode)
     }}>
       {props.children}
     </DarkModeContext.Provider>

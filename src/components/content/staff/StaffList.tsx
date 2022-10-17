@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getStaff } from "../../../api/staffCalls";
 import NavButton from "../../fragments/navigation/NavButton";
 import { Container, Row, Col } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
@@ -9,11 +8,11 @@ const StaffList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getStaff().then(res => res.json()).then(dat => {
+    /*getStaff().then(res => res.json()).then(dat => {
       console.log(dat);
       setData(dat);
       setIsLoading(false);
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err));*/
   }, []);
 
   const cols = [

@@ -25,7 +25,7 @@ const FormControl = (props: Readonly<FormControlParams>) => {
   return (
     <FormGroup controlId={props.id} className={props.className}>
       {props.label ? <Form.Label className={props.labelClass}>{props.label}{props.required ? <span className="req">*</span> : ""}</Form.Label> : ""}
-      <Form.Control required={props.required} minLength={props.minLength} maxLength={props.maxLength} min={props.minValue} max={props.maxValue} pattern={props.pattern} className={props.innerClass} type={props.type ? props.type : "text"} onChange={props.onChange} value={props.value} placeholder={props.placeholder} disabled={props.disabled} />
+      <Form.Control required={props.required} minLength={props.minLength} maxLength={props.maxLength} min={props.minValue} max={props.maxValue} pattern={props.pattern} className={props.innerClass} type={props.type ?? "text"} onChange={props.onChange} value={props.value} placeholder={props.placeholder} disabled={props.disabled} />
       {props.error ? <span className="req">{props.error}</span> : ""}
     </FormGroup>
   );

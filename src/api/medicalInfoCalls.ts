@@ -1,29 +1,24 @@
+import { User } from "./authCalls";
+import { Allergy } from "./allergyCalls";
 import { get, post, put, del } from "./basicCalls";
 
-export interface MedicalInfo {
-
+interface MedicalBase {
+  medicalInfoId: number,
+  rhType: string,
+  bloodType: string
 }
 
-// Get all info
-export const getInfo = () => get("medicalInfo");
+export interface BloodRequest extends MedicalBase {
+  userId: number
+}
 
-// Get info by id
-export const getInfoById = (id: number) => get(`medicalInfo/${id}`);
+export interface MedicalInfo extends MedicalBase {
+  user: User,
+  allergies: Set<Allergy>
+}
 
-// Creates new info
-export const createInfo = (data: Readonly<MedicalInfo>) => post("medicalInfo", JSON.stringify(data));
-
-// Modify info
-export const updateInfo = (id: number, data: Readonly<MedicalInfo>) => put(`medicalInfo/${id}`, JSON.stringify(data));
-
-// Delete info
-export const deleteInfo = (id: number) => del(`medicalInfo/${id}`);
-
-// Update blood info
-export const updateBloodType = (id: number, data: string) => put(`medicalInfo/blood/${id}`, data);
-
-// Update disease info
-export const updateChronicDisease = (id: number, data: string) => put(`medicalInfo/chronic/${id}`, data);
-
-// Update allergy info
-export const updateAllergies = (id: number, data: string) => put(`medicalInfo/allergies/${id}`, data);
+const medicalInfoBase = "medical_info";
+export const getBloodById = (id: number) => get(`${medicalInfoBase}/blood/${id}`);
+export const createBlood = (req: Readonly<BloodRequest>) => post(`${medicalInfoBase}/blood`, JSON.stringify(req));
+export const updateBlood = (id: number, req: Readonly<BloodRequest>) => put(`${medicalInfoBase}/blood/${id}`, JSON.stringify(req));
+export const deleteBlood = (id: number) => del(`${medicalInfoBase}/blood/${id}`);

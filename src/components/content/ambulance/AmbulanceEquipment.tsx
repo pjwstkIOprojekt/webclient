@@ -1,6 +1,5 @@
 import { useState, FormEvent, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getEquipmentById, createEquipment, updateEquipment } from "../../../api/equipmentCalls";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
 import Button from "../../fragments/util/Button";
@@ -20,7 +19,7 @@ const AmbulanceEquipment = () => {
 
   useEffect(() => {
     if (equipmentId !== undefined) {
-      getEquipmentById(parseInt(equipmentId)).then(res => res.json()).then(data => {
+      /*getEquipmentById(parseInt(equipmentId)).then(res => res.json()).then(data => {
         console.log(data);
         setName(data.name);
         setMetric(data.measurement);
@@ -30,18 +29,18 @@ const AmbulanceEquipment = () => {
           end: data.dateEnd,
           amount: data.currentAmount
         });
-      }).catch(err => console.log(err));
+      }).catch(err => console.log(err));*/
     }
   }, [equipmentId]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    (equipmentId === undefined ? createEquipment({
+    /*(equipmentId === undefined ? createEquipment({
       name: name
     }) : updateEquipment(parseInt(equipmentId), {
       name: name
-    })).then(res => navigate("../ambulances")).catch(err => console.log(err));
+    })).then(res => navigate("../ambulances")).catch(err => console.log(err));*/
 
     navigate("../ambulances");
   };

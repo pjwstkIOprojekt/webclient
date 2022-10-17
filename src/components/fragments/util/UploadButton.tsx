@@ -27,7 +27,7 @@ const UploadButton = (props: Readonly<UploadButtonParams>) => {
     <>
       <input id={props.id} ref={inputRef} onChange={handleDisplayFileDetails} className="d-none" type="file" value={props.value} required={props.required} disabled={props.disabled} />
       <Button onClick={handleUpload} type="button" outline={!uploadedFileName} className={props.className}>
-        {uploadedFileName ? uploadedFileName : "Wybierz plik"}
+        {uploadedFileName ?? "Wybierz plik"}
       </Button>
     </>
   );

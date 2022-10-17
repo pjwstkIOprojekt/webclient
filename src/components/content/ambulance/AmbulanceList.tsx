@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getAmbulances } from "../../../api/ambulanceCalls";
 import Table, { TableColumnParams } from "../../fragments/util/Table";
 import { Col, Container } from "react-bootstrap";
 import { isDirector } from "../../../helpers/authHelper";
@@ -11,11 +10,11 @@ const AmbulanceList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getAmbulances().then(res => res.json()).then(data => {
+    /*getAmbulances().then(res => res.json()).then(data => {
       console.log(data);
       setAmbulances(data);
       setIsLoading(false);
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err));*/
   }, []);
 
   const checkAvailability = (x?: Set<any>) => {

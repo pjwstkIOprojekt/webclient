@@ -1,6 +1,5 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserById, updateUser } from "../../../api/userCalls";
 import { registerUser } from "../../../api/authCalls";
 import { Container, Form, Row } from "react-bootstrap";
 import FormControl from "../../fragments/forms/FormControl";
@@ -21,9 +20,9 @@ const StaffUserForm = () => {
 
   useEffect(() => {
     if (userId !== undefined) {
-      getUserById(parseInt(userId)).then(res => res.json()).then(data => {
+      /*getUserById(parseInt(userId)).then(res => res.json()).then(data => {
         // Update data here
-      }).catch(err => console.log(err));
+      }).catch(err => console.log(err));*/
     }
   }, [userId]);
 
@@ -36,14 +35,14 @@ const StaffUserForm = () => {
         lastName: lastName,
         email: email,
         password: password,
-        birthDate: new Date(birthDate),
+        birthDate: birthDate,
         phoneNumber: phoneNumber
       }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
     } else {
-      updateUser(parseInt(userId), {
+      /*updateUser(parseInt(userId), {
         firstName: firstName,
         lastName: lastName
-      }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+      }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));*/
     }
 
     navigate("../staff");

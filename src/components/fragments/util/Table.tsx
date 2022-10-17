@@ -9,7 +9,8 @@ export interface TableColumnParams {
   name: (() => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
   property: ((x: Record<string, any>) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
   sortBy?: string,
-  filterBy?: string
+  filterBy?: string,
+  size?: number
 }
 
 export interface TableParams {
@@ -81,7 +82,9 @@ const Table = (props: Readonly<TableParams>) => {
       <thead className={props.headClass}>
         <tr className={props.rowClass}>
           {props.columns.map((col, index) => (
-            <th key={index} className={props.headerClass}>
+            <th key={index} className={props.headerClass} style={col.size && col.size > 0 && col.size < 100 ? {
+              width: `${Math.trunc(col.size)}%`
+            } : undefined}>
               {col.sortBy || col.filterBy ? (
                 <>
                   <Row className="justify-content-center">
@@ -92,7 +95,7 @@ const Table = (props: Readonly<TableParams>) => {
                     {typeof(col.name) === "string" ? col.name : col.name()}
                   </Row>
                 </>
-              ): (typeof(col.name) === "string" ? col.name : col.name())}
+              ) : (typeof(col.name) === "string" ? col.name : col.name())}
             </th>
           ))}
         </tr>
@@ -130,7 +133,7 @@ const BindableControl = (props: Readonly<Bind>) => {
     props.callback(e);
   };
 
-  return <FormControl placeholder="Szukaj..." value={value} onChange={e => change(e)} />;
+  return <FormControl placeholder="Szukaj..." value={value} onChange={change} />;
 };
 
 export default Table;
