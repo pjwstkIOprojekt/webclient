@@ -1,22 +1,19 @@
-export const login = (token: string, roles: Set<string>) => {
-  sessionStorage.setItem("token", token);
-  sessionStorage.setItem("roles", JSON.stringify(roles));
-};
+export interface User {
+  token: string,
+  roles: string[]
+}
 
+export const login = (usr: User) => sessionStorage.setItem("usr", JSON.stringify(usr));
 export const logout = () => sessionStorage.clear();
-export const getToken = () => sessionStorage.getItem("token");
+export const getUser = () => JSON.parse(sessionStorage.getItem("usr") ?? "null") as User | null;
+export const getToken = () => getUser()?.token;
+export const getRoles = () => getUser()?.roles;
 
-const checkRole = (role: string) => {
-  const roles = sessionStorage.getItem("roles");
-
-  if (roles) {
-    const arr = JSON.parse(roles) as string[];
-    return arr.includes(role);
-  }
-
-  return false;
+export const checkRole = (role: string) => {
+  const roles = getRoles();
+  return roles ? roles.includes(role) : false;
 };
 
 export const isAuth = () => checkRole("USER");
-export const isDispositor = () => false;
-export const isDirector = () => false;
+export const isDispositor = () => checkRole("USER");
+export const isDirector = () => checkRole("USER");

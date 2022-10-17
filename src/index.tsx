@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { DarkModeProvider } from "./hooks/useDarkMode";
 import { NotificationsProvider } from "./hooks/useNotify";
+import { AuthProvider } from "./hooks/useAuth";
 import { PopupProvider } from "./hooks/usePopup";
 import App from "./App";
 
@@ -11,9 +12,11 @@ ReactDOM.render(
     <BrowserRouter>
       <DarkModeProvider>
         <NotificationsProvider>
-          <PopupProvider>
-            <App />
-          </PopupProvider>
+          <AuthProvider>
+            <PopupProvider>
+              <App />
+            </PopupProvider>
+          </AuthProvider>
         </NotificationsProvider>
       </DarkModeProvider>
     </BrowserRouter>

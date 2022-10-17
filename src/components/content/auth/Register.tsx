@@ -48,12 +48,24 @@ const Register = () => {
           status = res.status;
           return res.json();
         }).then(data => {
-          if (status === 200 && data.token && data.roles) {
-            login(data.token, data.roles);
+          if (status === 200) {
+            if (data.token && data.roles) {
+              login(data.token, data.roles);
+            } else {
+              setError("Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.");
+            }
+          } else {
+            setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
           }
-        }).catch(console.log);
+        }).catch(err => {
+          console.log(err);
+          setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+        });
       }
-    }).catch(console.log);
+    }).catch(err => {
+      console.log(err);
+      setError("Rejestracja nieudana. Spróbuj ponownie później.");
+    });
   };
 
   return (
@@ -79,15 +91,25 @@ const Register = () => {
           <FormControl id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" type="password" />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label="Powtórz hasło" type="password" error={error} />
+          <FormControl id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label="Powtórz hasło" type="password" />
         </Row>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit">Zarejestruj się</Button>
+          <Button className="my-3 w-25" type="submit">Zarejestruj się</Button>
         </Row>
-        <CAlert className="my-5">
-          <Alert.Heading>Dlaczego zbieramy dane?</Alert.Heading>
-          <p>Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.</p>
-        </CAlert>
+        {error ? (
+          <Row className="justify-content-center mt-5">
+            <Alert variant="danger" className="w-50">
+              <Alert.Heading>Błąd</Alert.Heading>
+              <p>{error}</p>
+            </Alert>
+          </Row>
+        ) : ""}
+        <Row className="justify-content-center mt-3 mb-5">
+          <CAlert className="w-50">
+            <Alert.Heading>Dlaczego zbieramy dane?</Alert.Heading>
+            <p>Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.</p>
+          </CAlert>
+        </Row>
       </Form>
     </Container>
   );
