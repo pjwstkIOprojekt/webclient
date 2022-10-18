@@ -7,6 +7,7 @@ import FormTextArea from "../../../fragments/forms/FormTextArea";
 import Button from "../../../fragments/util/Button";
 import NavButton from "../../../fragments/navigation/NavButton";
 
+
 const AllergyForm = () => {
   const [allergy, setAllergy] = useState(0);
   const [source, setSource] = useState("");

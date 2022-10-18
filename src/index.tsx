@@ -5,6 +5,7 @@ import { NotificationsProvider } from "./hooks/useNotify";
 import { PopupProvider } from "./hooks/usePopup";
 import React from "react";
 import App from "./App";
+import './components/i18n/i18n';
 
 ReactDOM.render(
   <BrowserRouter>
