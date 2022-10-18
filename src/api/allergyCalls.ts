@@ -1,20 +1,17 @@
-import { MedicalInfo } from "./medicalInfoCalls";
 import { get, post, put, del } from "./basicCalls";
 
-interface AllergyBase {
+export interface AllergyRequest {
+  // Email
+  userEmail: string,
+
+  // Enum - AllergyType
   allergyType: string,
+
+  // Not blank
   allergyName: string,
+
+  // Not blank
   other: string
-}
-
-export interface Allergy extends AllergyBase {
-  allergyId: number,
-  medicalInfos: Set<MedicalInfo>
-}
-
-export interface AllergyRequest extends AllergyBase {
-  medicalInfoId: number,
-  userId: number
 }
 
 const allergyBase = "allergy";

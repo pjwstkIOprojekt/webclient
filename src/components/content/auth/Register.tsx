@@ -49,8 +49,8 @@ const Register = () => {
           return res.json();
         }).then(data => {
           if (status === 200) {
-            if (data.token && data.roles) {
-              login(data.token, data.roles);
+            if (data.token && data.roles && data.email) {
+              login(data.token, data.roles, data.email);
             } else {
               setError("Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.");
             }
@@ -58,12 +58,12 @@ const Register = () => {
             setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
           }
         }).catch(err => {
-          console.log(err);
+          console.error(err);
           setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
         });
       }
     }).catch(err => {
-      console.log(err);
+      console.error(err);
       setError("Rejestracja nieudana. Spróbuj ponownie później.");
     });
   };
@@ -73,13 +73,13 @@ const Register = () => {
       <h1 className="text-center">Rejestracja</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
-          <FormControl id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label="Imię" />
+          <FormControl id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label="Imię" maxLength={100} />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="lastName" required onChange={e => setLastName(e.target.value)} value={lastName} className="mb-3 w-50" label="Nazwisko" />
+          <FormControl id="lastName" required onChange={e => setLastName(e.target.value)} value={lastName} className="mb-3 w-50" label="Nazwisko" maxLength={100} />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" type="email" />
+          <FormControl id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" type="email" maxLength={100} />
         </Row>
         <Row className="justify-content-center">
           <FormControl id="birthDate" required onChange={e => setBirthDate(e.target.value)} value={birthDate} className="mb-3 w-50" label="Data urodzenia" type="date" />
@@ -88,10 +88,10 @@ const Register = () => {
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="mb-3 w-50" label="Numer telefonu" />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" type="password" />
+          <FormControl id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" type="password" maxLength={100} />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label="Powtórz hasło" type="password" />
+          <FormControl id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label="Powtórz hasło" type="password" maxLength={100} />
         </Row>
         <Row className="justify-content-center">
           <Button className="my-3 w-25" type="submit">Zarejestruj się</Button>

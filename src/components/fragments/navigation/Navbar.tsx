@@ -1,16 +1,18 @@
+import { useRoles, useAuth } from "../../../hooks/useAuth";
 import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
 import { FaHome, FaMedkit, FaBook, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
-import { isDispositor, isDirector, isAuth } from "../../../helpers/authHelper";
+import { isDispositor, isDirector, isAuth, Roles } from "../../../helpers/authHelper";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
-import { useLogout } from "../../../hooks/useAuth";
 import NavDrop from "./NavDrop";
 import { IoMdSettings, IoIosPaper } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
 
 const MenuBar = () => {
+  const roles = useRoles();
+
   return (
     <Nav className="me-auto">
       <NavLink to="/">
@@ -25,19 +27,19 @@ const MenuBar = () => {
         <FaBook />
         <span className="px-1">Poradniki</span>
       </NavLink>
-      {isDispositor() || isDirector() ? (
+      {isDispositor(roles) || isDirector(roles) ? (
         <NavLink to="/map">
           <FaMap />
           <span className="px-1">Mapa</span>
         </NavLink>
       ) : ""}
-      {isDispositor() ? (
+      {isDispositor(roles) ? (
         <NavLink to="/dispanel/reports">
           <FaNotesMedical />
           <span className="px-1">Panel dyspozytora</span>
         </NavLink>
       ) : ""}
-      {isDirector() ? (
+      {isDirector(roles) ? (
         <NavLink to="/admpanel/reports">
           <FaToolbox />
           <span className="px-1">Panel kierownika</span>
@@ -49,10 +51,11 @@ const MenuBar = () => {
 
 const SideMenu = () => {
   const darkMode = useDarkModeManager();
+  const roles = useRoles();
 
   return (
     <Nav>
-      {isDispositor() ? <CheckIn /> : ""}
+      {isDispositor(roles) ? <CheckIn /> : ""}
       <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
         <HiOutlineLightBulb />
         <span className="px-1">Zmień motyw</span>
@@ -64,7 +67,8 @@ const SideMenu = () => {
 
 const UserDropdown = () => {
   const darkMode = useDarkMode();
-  const logout = useLogout();
+  const auth = useAuth();
+  const roles = auth.user ? auth.user.roles : Roles.None;
 
   return (
     <NavDropdown align="end" title={
@@ -73,7 +77,7 @@ const UserDropdown = () => {
           <span className="px-1">Konto</span>
         </span>
       } className={`nav-link-${darkMode ? "dark" : "light"}`}>
-      {isAuth() ? (
+      {isAuth(roles) ? (
         <>
           <NavDrop to="/settings/userdata">
             <IoMdSettings />
@@ -90,8 +94,8 @@ const UserDropdown = () => {
           <NavDropdown.Divider />
         </>
       ) : ""}
-      {isAuth() ? (
-        <NavDropdown.Item onClick={logout} className="d-inline-flex align-items-center">
+      {isAuth(roles) ? (
+        <NavDropdown.Item onClick={auth.logout} className="d-inline-flex align-items-center">
           <BiLogIn />
           <span className="px-1">Wyloguj</span>
         </NavDropdown.Item>
@@ -101,7 +105,7 @@ const UserDropdown = () => {
           <span className="px-1">Zaloguj się</span>
         </NavDrop>
       )}
-      {isAuth() ? "" : (
+      {isAuth(roles) ? "" : (
         <NavDrop to="/register">
           <IoIosPaper />
           <span className="px-1">Zarejestruj się</span>

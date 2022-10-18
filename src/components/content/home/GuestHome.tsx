@@ -1,9 +1,11 @@
+import { useRoles } from "../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { isAuth } from "../../../helpers/authHelper";
 import Button from "../../fragments/util/Button";
 
 const GuestHome = () => {
+  const roles = useRoles();
   const navigate = useNavigate();
 
   return (
@@ -11,7 +13,7 @@ const GuestHome = () => {
       <h1>Pomóż nam ratować ludzkie życia już teraz!</h1>
       <h2>Witamy w GARY, w nowym najlepszym przyjacielu człowieka.</h2>
       <h3>Widzisz wypadek? Zareaguj już teraz!</h3>
-      <Button onClick={isAuth() ? () => navigate("/newreport") : () => navigate("/register")}>Zgłoś zdarzenie</Button>
+      <Button onClick={isAuth(roles) ? () => navigate("/newreport") : () => navigate("/login")}>Zgłoś zdarzenie</Button>
       <Row className="mt-5">
         <Col>
           <img src="/img/thumbnail.jpg" alt="Obraz 1" />
