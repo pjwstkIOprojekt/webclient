@@ -1,22 +1,25 @@
-import { MedicalInfo } from "./medicalInfoCalls";
 import { post } from "./basicCalls";
 
 export interface LoginRequest {
+  // Email
   email: string,
+
+  // Not blank
   password: string
 }
 
 export interface SignupRequest extends LoginRequest {
+  // Not blank
   firstName: string,
-  lastName: string,
-  phoneNumber: string,
-  birthDate: string
-}
 
-export interface User extends SignupRequest {
-  userId: number,
-  roles: Set<string>,
-  medicalInfo: MedicalInfo
+  // Not blank
+  lastName: string,
+
+  // Not blank
+  phoneNumber: string,
+
+  // Past
+  birthDate: string
 }
 
 const authBase = "auth";

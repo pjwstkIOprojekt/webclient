@@ -1,23 +1,21 @@
-import { User } from "./authCalls";
-import { Allergy } from "./allergyCalls";
 import { get, post, put, del } from "./basicCalls";
 
-interface MedicalBase {
-  medicalInfoId: number,
+export interface BloodRequest {
+  // Email
+  userEmail: string,
+
+  // Enum - RhType
   rhType: string,
+
+  // Enum - BloodType
   bloodType: string
 }
 
-export interface BloodRequest extends MedicalBase {
-  userId: number
-}
-
-export interface MedicalInfo extends MedicalBase {
-  user: User,
-  allergies: Set<Allergy>
-}
-
 const medicalInfoBase = "medical_info";
+export const getMedicalInfos = () => get(medicalInfoBase);
+export const getMedicalInfoByEmail = (email: string) => get(`${medicalInfoBase}/user/${email}`);
+export const getMedicalInfoById = (id: number) => get(`${medicalInfoBase}/${id}`);
+export const deleteMedicalInfo = (id: number) => del(`${medicalInfoBase}/${id}`);
 export const getBloodById = (id: number) => get(`${medicalInfoBase}/blood/${id}`);
 export const createBlood = (req: Readonly<BloodRequest>) => post(`${medicalInfoBase}/blood`, JSON.stringify(req));
 export const updateBlood = (id: number, req: Readonly<BloodRequest>) => put(`${medicalInfoBase}/blood/${id}`, JSON.stringify(req));

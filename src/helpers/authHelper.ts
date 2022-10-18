@@ -21,7 +21,8 @@ export const stringsToRoles = (src: string[]) => {
 
 export interface User {
   token: string,
-  roles: Roles
+  roles: Roles,
+  email: string
 }
 
 export const login = (usr: User) => sessionStorage.setItem("usr", JSON.stringify(usr));
@@ -29,6 +30,7 @@ export const logout = () => sessionStorage.clear();
 export const getUser = () => JSON.parse(sessionStorage.getItem("usr") ?? "null") as User | null;
 export const getToken = () => getUser()?.token;
 export const getRoles = () => getUser()?.roles;
+export const getEmail = () => getUser()?.email;
 export const isAuth = (roles: Roles) => (roles & Roles.User) !== Roles.None;
 export const isDispositor = (roles: Roles) => (roles & Roles.User) !== Roles.None;
 export const isDirector = (roles: Roles) => (roles & Roles.User) !== Roles.None;
