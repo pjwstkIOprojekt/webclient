@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRoles } from "../../../hooks/useAuth";
 import Table, { TableColumnParams } from "../../fragments/util/Table";
 import { Col, Container } from "react-bootstrap";
 import { isDirector } from "../../../helpers/authHelper";
@@ -8,6 +9,7 @@ import NavButton from "../../fragments/navigation/NavButton";
 const AmbulanceList = () => {
   const [ambulances, setAmbulances] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const roles = useRoles();
 
   useEffect(() => {
     /*getAmbulances().then(res => res.json()).then(data => {
@@ -43,7 +45,7 @@ const AmbulanceList = () => {
     { name: () => <Col className="pl-1 pr-1">Czy jest dostępna?</Col>, property: (x: any) => checkAvailability(x.ambulanceAvailabilities) ? "Tak" : "Nie", sortBy: "available" }
   ];
 
-  if (isDirector()) {
+  if (isDirector(roles)) {
     cols.push({ name: "Edycja", property: (x: any) => <NavButton to={`equipment/${x.ambulanceId}`}>Sprzęt</NavButton> });
   }
 

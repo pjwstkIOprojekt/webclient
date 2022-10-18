@@ -1,6 +1,27 @@
+export enum Roles {
+  None = 0,
+  User = 1
+}
+
+const rolesTable: Record<string, Roles> = {
+  "USER": Roles.User
+};
+
+export const stringsToRoles = (src: string[]) => {
+  let res = Roles.None;
+
+  for (const str in rolesTable) {
+    if (src.includes(str)) {
+      res |= rolesTable[str];
+    }
+  }
+
+  return res;
+};
+
 export interface User {
   token: string,
-  roles: string[]
+  roles: Roles
 }
 
 export const login = (usr: User) => sessionStorage.setItem("usr", JSON.stringify(usr));
@@ -8,12 +29,6 @@ export const logout = () => sessionStorage.clear();
 export const getUser = () => JSON.parse(sessionStorage.getItem("usr") ?? "null") as User | null;
 export const getToken = () => getUser()?.token;
 export const getRoles = () => getUser()?.roles;
-
-export const checkRole = (role: string) => {
-  const roles = getRoles();
-  return roles ? roles.includes(role) : false;
-};
-
-export const isAuth = () => checkRole("USER");
-export const isDispositor = () => checkRole("USER");
-export const isDirector = () => checkRole("USER");
+export const isAuth = (roles: Roles) => (roles & Roles.User) !== Roles.None;
+export const isDispositor = (roles: Roles) => (roles & Roles.User) !== Roles.None;
+export const isDirector = (roles: Roles) => (roles & Roles.User) !== Roles.None;

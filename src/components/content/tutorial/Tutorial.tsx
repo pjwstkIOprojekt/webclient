@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useRoles } from "../../../hooks/useAuth";
 import { usePopup } from "../../../hooks/usePopup";
 import { isAuth } from "../../../helpers/authHelper";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
@@ -13,6 +14,7 @@ import Rating from "../../fragments/util/Rating";
 const Tutorial = () => {
   const [data, setData] = useState<any>({});
   const { tutorialId } = useParams();
+  const roles = useRoles();
   const popup = usePopup();
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const Tutorial = () => {
   }, [tutorialId]);
 
   const review = () => {
-    if (!isAuth()) {
+    if (!isAuth(roles)) {
       popup(<NotLoggedPopup />);
     }
   };
@@ -81,7 +83,7 @@ const Tutorial = () => {
       <Row className="text-center">
         <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
         <span onClick={review}>
-          <Rating initialValue={data.average} disabled={!isAuth()} />
+          <Rating initialValue={data.average} disabled={!isAuth(roles)} />
         </span>
       </Row>
     </Container>
