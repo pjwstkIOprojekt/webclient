@@ -1,0 +1,23 @@
+{
+    "RoleName":{
+        "ADMIN":"administrator",
+        "USER":"użytkownik"
+    },
+    "RhType":{
+        "PLUS":"Plus",
+        "MINUS":"Minus"
+    },
+    "BloodType":{
+        "A":"A",
+        "B":"B",
+        "ZERO":"ZERO",
+        "AB":"AB"
+    },
+    "AllergyType":{
+        "SKIN_CONTACT":"kontaktowa",
+        "INGESTION":"pokarmowa",
+        "INJECTION":"iniekcyjna",
+        "INHALATION":"wziewna"
+    }
+}
+
