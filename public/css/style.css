@@ -344,6 +344,11 @@
     {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .leaflet-container
+    {
+        width: 78%;
+    }
 }
 
 @media (min-width: 960px)
@@ -369,7 +374,7 @@
 
     .leaflet-container
     {
-        width: 73%;
+        width: 80%;
     }
 }
 
@@ -388,6 +393,14 @@
 
     .leaflet-container
     {
-        width: 72%;
+        width: 83%;
+    }
+}
+
+@media (min-width: 1700px)
+{
+    .leaflet-container
+    {
+        width: 85%;
     }
 }

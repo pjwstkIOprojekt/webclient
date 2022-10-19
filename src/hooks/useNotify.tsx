@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 // Default notifications settings
 const defaultContext = {
   notify: (title: string, content: string) => {},
-  removeNotification: (x: Notification) => {},
+  removeNotification: (x: Readonly<Notification>) => {},
   clear: (title?: string, content?: string) => {},
   notifications: [] as Notification[]
 };
@@ -42,7 +42,7 @@ export const NotificationsProvider = (props: Readonly<JSX.ElementChildrenAttribu
   return (
     <NotificationsContext.Provider value={{
       notify: notify,
-      removeNotification: (x: Notification) => setNotifications(notifications.filter(n => n !== x)),
+      removeNotification: (x: Readonly<Notification>) => setNotifications(notifications.filter(n => n !== x)),
       clear: clear,
       notifications: notifications
     }}>

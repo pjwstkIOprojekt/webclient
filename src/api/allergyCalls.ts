@@ -1,9 +1,6 @@
 import { get, post, put, del } from "./basicCalls";
 
-export interface AllergyRequest {
-  // Email
-  userEmail: string,
-
+interface AllergyBase {
   // Enum - AllergyType
   allergyType: string,
 
@@ -12,6 +9,15 @@ export interface AllergyRequest {
 
   // Not blank
   other: string
+}
+
+export interface AllergyRequest extends AllergyBase {
+  // Email
+  userEmail: string
+}
+
+export interface AllergyResponse extends AllergyBase {
+  allergyId: number
 }
 
 const allergyBase = "allergy";

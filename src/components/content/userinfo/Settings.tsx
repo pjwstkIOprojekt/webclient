@@ -10,7 +10,7 @@ import MedicalConditionForm from "./medicalcondition/MedicalConditionForm";
 
 const Settings = () => {
   const links = [
-    { to: "userdata", text: "Ustawienia" },
+    { to: "userdata", text: "Dane osobowe" },
     { to: "medicaldata", text: "Dane medyczne" },
     { to: "trustedperson", text: "Osoba zaufana" }
   ];

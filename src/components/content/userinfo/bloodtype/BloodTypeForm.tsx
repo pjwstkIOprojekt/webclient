@@ -1,25 +1,47 @@
-import { useState, FormEvent } from "react";
-import { Form } from "react-bootstrap";
-import FormRadio from "../../../fragments/forms/FormRadio";
+import { useState } from "react";
+import { getEmail } from "../../../../helpers/authHelper";
+import { updateBlood } from "../../../../api/medicalInfoCalls";
+import Form from "../../../fragments/forms/Form";
+import EnumRadio from "../../../fragments/forms/EnumRadio";
+import { getBloodType, getRhType } from "../../../../api/enumCalls";
 import Button from "../../../fragments/util/Button";
 
 interface BloodTypeFormParams {
-  data: Record<string, any>
+  id?: number,
+  bloodType?: string,
+  rhType?: string
 }
 
 const BloodTypeForm = (props: Readonly<BloodTypeFormParams>) => {
-  const [group, setGroup] = useState(props.data.group);
-  const [rh, setRh] = useState(props.data.rh);
+  const [group, setGroup] = useState(props.bloodType);
+  const [rh, setRh] = useState(props.rhType);
   const [readOnly, setReadOnly] = useState(true);
 
-  const onSubmit = (e: FormEvent<Element>) => {
-    e.preventDefault();
-
-    if (!readOnly) {
-      //updateBloodType(1, group + " " + rh).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+  const onSubmit = () => {
+    if (readOnly || !props.id || !group || !rh) {
+      setReadOnly(!readOnly);
+      console.log(props.id);
+      return;
     }
 
-    setReadOnly(!readOnly);
+    const email = getEmail();
+
+    if (!email) {
+      console.error("User email is undefined. Check Session Storage and verify that user is actually logged in.");
+      return;
+    }
+
+    updateBlood(props.id, {
+      userEmail: email,
+      bloodType: group,
+      rhType: rh
+    }).then(res => {
+      console.log(res.status);
+      setReadOnly(true);
+    }).catch(err => {
+      console.error(err);
+      setReadOnly(true);
+    });
   };
 
   return (
@@ -27,10 +49,10 @@ const BloodTypeForm = (props: Readonly<BloodTypeFormParams>) => {
       <div className="mb-3">
         <h3>Grupa krwi</h3>
         <div>
-          <FormRadio labelClass="p-3" label="Grupa krwi:" values={["A", "B", "AB", "O"]} onChange={e => setGroup(e.target.id)} value={group} disabled={readOnly} />
+          <EnumRadio labelClass="p-3" label="Grupa krwi:" enumGetter={getBloodType} enumName="BloodType" onChange={e => setGroup(e.target.id)} value={group} disabled={readOnly} />
         </div>
         <div>
-          <FormRadio labelClass="p-3" label="Grupa Rh:" values={["Rh+", "Rh-"]} onChange={e => setRh(e.target.id)} value={rh} disabled={readOnly} />
+          <EnumRadio labelClass="p-3" label="Grupa Rh:" enumGetter={getRhType} enumName="RhType" onChange={e => setRh(e.target.id)} value={rh} disabled={readOnly} />
         </div>
         <Button type="submit">{readOnly ? "Edytuj" : "Zapisz"}</Button>
       </div>

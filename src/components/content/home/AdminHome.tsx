@@ -6,17 +6,18 @@ import Table from "../../fragments/util/Table";
 
 const AdminHome = () => {
   const data = [
-    { id: 1, name: "Karetka T", accident: 1 },
-    { id: 2, name: "Karetka R", accident: 1 },
-    { id: 3, name: "Karetka R", accident: 2 },
-    { id: 4, name: "Karetka Covid", accident: 3 }
+    { id: 1, name: "Karetka T", accident: 1, status: "Dojeżdża", color: "#ff0000" },
+    { id: 2, name: "Karetka R", accident: 1, status: "Dojeżdża", color: "#ff0000" },
+    { id: 3, name: "Karetka R", accident: 2, status: "Na miejscu", color: "#0000ff" },
+    { id: 4, name: "Karetka Covid", accident: 3, status: "Wraca", color: "#00ff00" }
   ];
 
   const cols = [
-    { name: "#", property: "id", sortBy: "id", filterBy: "id", size: 15 },
+    { name: "#", property: "id", sortBy: "id", filterBy: "id", size: 10 },
     { name: "Karetka", property: "name", sortBy: "name", filterBy: "name" },
-    { name: "Wyposażenie", property: (x: Record<string, any>) => <NavButton to={`/admpanel/ambulances/equipment/${x.id}`}>Zobacz</NavButton> },
-    { name: "Zgłoszenie", property: (x: Record<string, any>) => <NavButton to={`/admpanel/reports/${x.accident}`}>Zobacz</NavButton>, sortBy: "accident", filterBy: "accident" }
+    { name: "Wyposażenie", property: (x: Record<string, any>) => <NavButton to={`/admpanel/ambulances/equipment/${x.id}`}>Zobacz</NavButton>, size: 12 },
+    { name: "Zgłoszenie", property: (x: Record<string, any>) => <NavButton to={`/admpanel/reports/${x.accident}`}>Zobacz</NavButton>, sortBy: "accident", filterBy: "accident", size: 12 },
+    { name: "Status", property: (x: Record<string, any>) => <span style={{ color: x.color }}>{x.status}</span>, filterBy: "status", sortBy: "status", size: 20 }
   ];
 
   const pieDat = [

@@ -7,7 +7,7 @@ const rolesTable: Record<string, Roles> = {
   "USER": Roles.User
 };
 
-export const stringsToRoles = (src: string[]) => {
+export const stringsToRoles = (src: Readonly<string[]>) => {
   let res = Roles.None;
 
   for (const str in rolesTable) {
@@ -25,7 +25,7 @@ export interface User {
   email: string
 }
 
-export const login = (usr: User) => sessionStorage.setItem("usr", JSON.stringify(usr));
+export const login = (usr: Readonly<User>) => sessionStorage.setItem("usr", JSON.stringify(usr));
 export const logout = () => sessionStorage.clear();
 export const getUser = () => JSON.parse(sessionStorage.getItem("usr") ?? "null") as User | null;
 export const getToken = () => getUser()?.token;

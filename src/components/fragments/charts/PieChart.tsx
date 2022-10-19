@@ -19,7 +19,8 @@ export interface PieChartParams {
   syncId?: string | number,
   margin?: Margin,
   onClick?: CategoricalChartFunc,
-  label?: boolean
+  label?: boolean,
+  innerRadius?: string | number
 }
 
 const PieChart = (props: Readonly<PieChartParams>) => {
@@ -36,7 +37,7 @@ const PieChart = (props: Readonly<PieChartParams>) => {
 
   return (
     <Inner width={props.width} height={props.height} syncId={props.syncId} margin={props.margin} onClick={props.onClick}>
-      <Pie data={data} nameKey="name" dataKey="value" cx="50%" cy="50%" label={props.label} />
+      <Pie data={data} nameKey="name" dataKey="value" cx="50%" cy="50%" label={props.label} innerRadius={props.innerRadius} />
       {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} itemStyle={{
         color: stroke
       }} cursor={{

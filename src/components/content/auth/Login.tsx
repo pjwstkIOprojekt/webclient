@@ -1,7 +1,8 @@
-import { useState, FormEvent } from "react";
-import { loginUser } from "../../../api/authCalls";
+import { useState } from "react";
+import { loginUser, JwtResponse } from "../../../api/authCalls";
 import { useLogin } from "../../../hooks/useAuth";
-import { Container, Form, Row, Alert } from "react-bootstrap";
+import { Container, Row, Alert } from "react-bootstrap";
+import Form from "../../fragments/forms/Form";
 import FormControl from "../../fragments/forms/FormControl";
 import Button from "../../fragments/util/Button";
 
@@ -11,9 +12,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const login = useLogin();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = () => {
     let status = -1;
     
     loginUser({
@@ -22,7 +21,7 @@ const Login = () => {
     }).then(res => {
       status = res.status;
       return res.json();
-    }).then(data => {
+    }).then((data: JwtResponse) => {
       if (status === 200) {
         if (data.token && data.roles && data.email) {
           login(data.token, data.roles, data.email);

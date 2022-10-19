@@ -1,7 +1,8 @@
-import { useState, FormEvent } from "react";
-import { registerUser, loginUser } from "../../../api/authCalls";
+import { useState } from "react";
+import { registerUser, loginUser, JwtResponse } from "../../../api/authCalls";
 import { useLogin } from "../../../hooks/useAuth";
-import { Container, Form, Row, Alert } from "react-bootstrap";
+import { Container, Row, Alert } from "react-bootstrap";
+import Form from "../../fragments/forms/Form";
 import FormControl from "../../fragments/forms/FormControl";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
 import Button from "../../fragments/util/Button";
@@ -18,10 +19,7 @@ const Register = () => {
   const [error, setError] = useState("");
   const login = useLogin();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
-
+  const handleSubmit = () => {
     if (password !== passwordCheck) {
       setError("Powtórzone hasło się różni!");
       return;
@@ -38,30 +36,33 @@ const Register = () => {
       birthDate: birthDate,
       phoneNumber: phoneNumber
     }).then(res => {
-      if (res.status === 200) {
-        let status = -1;
-
-        loginUser({
-          email: mail,
-          password: pass
-        }).then(res => {
-          status = res.status;
-          return res.json();
-        }).then(data => {
-          if (status === 200) {
-            if (data.token && data.roles && data.email) {
-              login(data.token, data.roles, data.email);
-            } else {
-              setError("Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.");
-            }
-          } else {
-            setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
-          }
-        }).catch(err => {
-          console.error(err);
-          setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
-        });
+      if (res.status !== 200) {
+        setError("Rejestracja nieudana. Spróbuj ponownie później.");
+        return;
       }
+
+      let status = -1;
+
+      loginUser({
+        email: mail,
+        password: pass
+      }).then(res => {
+        status = res.status;
+        return res.json();
+      }).then((data: JwtResponse) => {
+        if (status === 200) {
+          if (data.token && data.roles && data.email) {
+            login(data.token, data.roles, data.email);
+          } else {
+            setError("Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.");
+          }
+        } else {
+          setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+        }
+      }).catch(err => {
+        console.error(err);
+        setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+      });
     }).catch(err => {
       console.error(err);
       setError("Rejestracja nieudana. Spróbuj ponownie później.");

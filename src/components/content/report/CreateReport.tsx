@@ -54,7 +54,7 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="w-50">
       <h1 className="text-center mt-3">Nowe zgłoszenie</h1>
       <Row className="justify-content-center mb-3">
         <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} label="Rodzaj zdarzenia:" options={accidentTypes} />
@@ -76,12 +76,10 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
       </Row>
       <h4 className="text-center mt-3">Lokalizacja</h4>
       <Row className="justify-content-center mb-3">
-        <Col>
-          <FormControl id="lat" type="number" onChange={e => props.update(parseFloat(e.target.value), props.lng)} value={props.lat} placeholder="Lat" />
-        </Col>
-        <Col>
-          <FormControl id="lng" type="number" onChange={e => props.update(props.lat, parseFloat(e.target.value))} value={props.lng} placeholder="Lng" />
-        </Col>
+        <FormControl id="lat" type="number" onChange={e => props.update(parseFloat(e.target.value), props.lng)} value={props.lat} placeholder="Lat" />
+      </Row>
+      <Row className="justify-content-center mb-3">
+        <FormControl id="lng" type="number" onChange={e => props.update(props.lat, parseFloat(e.target.value))} value={props.lng} placeholder="Lng" />
       </Row>
       <h3 className="text-center mt-3">Wezwij dodatkowe służby</h3>
       <Row className="justify-content-center mb-3 ml-2">

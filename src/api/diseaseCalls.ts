@@ -1,15 +1,21 @@
 import { get, post, put, del } from "./basicCalls";
 
-export interface DiseaseRequest {
-  // Email
-  userEmail: string,
-
+interface DiseaseBase {
   // Not blank
   diseaseName: string,
 
   // Not blank
   description: string
   shareWithBand: boolean
+}
+
+export interface DiseaseRequest extends DiseaseBase {
+  // Email
+  userEmail: string
+}
+
+export interface DiseaseResponse extends DiseaseBase {
+  diseaseId: number
 }
 
 const diseaseBase = "disease";
