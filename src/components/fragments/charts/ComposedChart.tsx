@@ -46,7 +46,7 @@ const ComposedChart = (props: Readonly<ComposedChartParams>) => {
       case "line":
         return <Line dataKey={`values.${x.key}`} type={x.type} stroke={x.stroke} key={index} name={x.key} />;
       default:
-        return <Bar dataKey={`values.${x.key}`} type={x.type ? x.type.toString() : undefined} barSize={x.size && x.size > 0 ? x.size : 25} fill={fill} fillOpacity={x.opacity} key={index} name={x.key} />;
+        return <Bar dataKey={`values.${x.key}`} type={x.type?.toString()} barSize={x.size && x.size > 0 ? x.size : 25} fill={fill} fillOpacity={x.opacity} key={index} name={x.key} />;
     }
   };
 
