@@ -1,23 +1,22 @@
 {
-    "RoleName":{
-        "ADMIN":"administrator",
-        "USER":"użytkownik"
+    "RoleName": {
+        "ADMIN": "Administrator",
+        "USER": "Użytkownik"
     },
-    "RhType":{
-        "PLUS":"Plus",
-        "MINUS":"Minus"
+    "RhType": {
+        "PLUS": "Plus",
+        "MINUS": "Minus"
     },
-    "BloodType":{
-        "A":"A",
-        "B":"B",
-        "ZERO":"ZERO",
-        "AB":"AB"
+    "BloodType": {
+        "A": "A",
+        "B": "B",
+        "ZERO": "ZERO",
+        "AB": "AB"
     },
-    "AllergyType":{
-        "SKIN_CONTACT":"kontaktowa",
-        "INGESTION":"pokarmowa",
-        "INJECTION":"iniekcyjna",
-        "INHALATION":"wziewna"
+    "AllergyType": {
+        "SKIN_CONTACT": "Kontaktowa",
+        "INGESTION": "Pokarmowa",
+        "INJECTION": "Iniekcyjna",
+        "INHALATION": "Wziewna"
     }
 }
-

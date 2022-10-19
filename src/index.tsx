@@ -6,7 +6,7 @@ import { NotificationsProvider } from "./hooks/useNotify";
 import { AuthProvider } from "./hooks/useAuth";
 import { PopupProvider } from "./hooks/usePopup";
 import App from "./App";
-import './i18n';
+import "./i18n";
 
 ReactDOM.render(
   <React.StrictMode>
