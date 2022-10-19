@@ -7,7 +7,7 @@ import { isDispositor, isDirector, isAuth, Roles } from "../../../helpers/authHe
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import NavDrop from "./NavDrop";
-import { IoMdSettings, IoIosPaper } from "react-icons/io";
+import { IoMdPerson, IoIosPaper } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
 
 const MenuBar = () => {
@@ -80,8 +80,8 @@ const UserDropdown = () => {
       {isAuth(roles) ? (
         <>
           <NavDrop to="/settings/userdata">
-            <IoMdSettings />
-            <span className="px-1">Ustawienia</span>
+            <IoMdPerson />
+            <span className="px-1">Dane osobowe</span>
           </NavDrop>
           <NavDrop to="/settings/medicaldata">
             <FaNotesMedical />

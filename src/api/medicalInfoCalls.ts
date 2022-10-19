@@ -1,14 +1,24 @@
+import { AllergyResponse } from "./allergyCalls";
+import { DiseaseResponse } from "./diseaseCalls";
 import { get, post, put, del } from "./basicCalls";
 
-export interface BloodRequest {
-  // Email
-  userEmail: string,
-
+interface BloodBase {
   // Enum - RhType
   rhType: string,
 
   // Enum - BloodType
   bloodType: string
+}
+
+export interface BloodRequest extends BloodBase {
+  // Email
+  userEmail: string
+}
+
+export interface MedicalInfoResponse extends BloodBase {
+  medicalInfoId: number,
+  allergies: AllergyResponse[],
+  diseases: DiseaseResponse[]
 }
 
 const medicalInfoBase = "medical_info";
