@@ -7,7 +7,7 @@ import FormControl from "../forms/FormControl";
 
 export interface TableColumnParams {
   name: (() => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
-  property: ((x: Record<string, any>) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
+  property: ((x: Readonly<Record<string, any>>) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
   sortBy?: string,
   filterBy?: string,
   size?: number

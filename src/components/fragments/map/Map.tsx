@@ -18,7 +18,7 @@ export interface MapParams {
   searchable?: boolean,
   onSearch?: MarkGeocodeEventHandlerFn,
   clickable?: boolean,
-  onClick?: (x: L.LatLng) => void
+  onClick?: (x: Readonly<L.LatLng>) => void
 }
 
 const Map = (props: Readonly<MapParams>) => {
@@ -48,7 +48,7 @@ const Map = (props: Readonly<MapParams>) => {
 
 interface ClickParams {
   geocoder: geocoders.Nominatim,
-  onClick?: (x: L.LatLng) => void
+  onClick?: (x: Readonly<L.LatLng>) => void
 }
 
 interface GeocodeParams {

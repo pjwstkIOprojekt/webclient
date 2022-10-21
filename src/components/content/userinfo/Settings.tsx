@@ -17,6 +17,7 @@ const Settings = () => {
 
   return (
     <Container className="my-3">
+      <h1>Moje dane</h1>
       <Navtab links={links}/>
       <Routes>
         <Route path="userdata" element={<UserDataForm />} />

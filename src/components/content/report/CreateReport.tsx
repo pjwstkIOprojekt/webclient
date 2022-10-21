@@ -43,6 +43,8 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    window.confirm("Czy na pewno?");
+
     /*createEmergency({
       description: desc,
       breathing: breathing,
