@@ -4,7 +4,7 @@ export interface LoginRequest {
   // Email
   email: string,
 
-  // Not blank
+  // Password
   password: string
 }
 
@@ -15,7 +15,7 @@ export interface SignupRequest extends LoginRequest {
   // Not blank
   lastName: string,
 
-  // Not blank
+  // Phone
   phoneNumber: string,
 
   // Past

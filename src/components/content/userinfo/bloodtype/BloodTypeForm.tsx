@@ -2,8 +2,8 @@ import { useState } from "react";
 import { getEmail } from "../../../../helpers/authHelper";
 import { updateBlood } from "../../../../api/medicalInfoCalls";
 import Form from "../../../fragments/forms/Form";
-import EnumRadio from "../../../fragments/forms/EnumRadio";
-import { getBloodType, getRhType } from "../../../../api/enumCalls";
+import EnumRadio from "../../../fragments/forms/api/EnumRadio";
+import { BloodType, RhType } from "../../../../api/enumCalls";
 import Button from "../../../fragments/util/Button";
 
 interface BloodTypeFormParams {
@@ -49,10 +49,10 @@ const BloodTypeForm = (props: Readonly<BloodTypeFormParams>) => {
       <div className="mb-3">
         <h3>Grupa krwi</h3>
         <div>
-          <EnumRadio labelClass="p-3" label="Grupa krwi:" enumGetter={getBloodType} enumName="BloodType" onChange={e => setGroup(e.target.value)} value={group} disabled={readOnly} />
+          <EnumRadio labelClass="p-3" label="Grupa krwi:" enum={BloodType} onChange={e => setGroup(e.target.value)} value={group} disabled={readOnly} />
         </div>
         <div>
-          <EnumRadio labelClass="p-3" label="Grupa Rh:" enumGetter={getRhType} enumName="RhType" onChange={e => setRh(e.target.value)} value={rh} disabled={readOnly} />
+          <EnumRadio labelClass="p-3" label="Grupa Rh:" enum={RhType} onChange={e => setRh(e.target.value)} value={rh} disabled={readOnly} />
         </div>
         <Button type="submit">{readOnly ? "Edytuj" : "Zapisz"}</Button>
       </div>

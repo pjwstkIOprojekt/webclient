@@ -95,7 +95,7 @@ const Register = () => {
           <FormControl id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label="Powtórz hasło" type="password" maxLength={100} />
         </Row>
         <Row className="justify-content-center">
-          <Button className="my-3 w-25" type="submit">Zarejestruj się</Button>
+          <Button className="mt-3 w-25" type="submit">Zarejestruj się</Button>
         </Row>
         {error ? (
           <Row className="justify-content-center mt-5">
