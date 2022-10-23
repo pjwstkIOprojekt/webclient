@@ -1,4 +1,5 @@
-import { ReactChild, ReactChildren, useState, useEffect, ChangeEventHandler, ChangeEvent } from "react";
+import { ChildrenType, ClassNameParam } from "../sharedParams";
+import { useState, useEffect, ChangeEventHandler, ChangeEvent } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Table as Inner, Row, Col, Container } from "react-bootstrap";
 import Button from "./Button";
@@ -6,17 +7,16 @@ import Spinner from "./Spinner";
 import FormControl from "../forms/FormControl";
 
 export interface TableColumnParams {
-  name: (() => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
-  property: ((x: Readonly<Record<string, any>>) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
+  name: (() => ChildrenType) | string,
+  property: ((x: Readonly<Record<string, any>>) => ChildrenType) | string,
   sortBy?: string,
   filterBy?: string,
   size?: number
 }
 
-export interface TableParams {
+export interface TableParams extends ClassNameParam {
   columns: TableColumnParams[],
   data: Record<string, any>[],
-  className?: string,
   headClass?: string,
   bodyClass?: string,
   rowClass?: string,

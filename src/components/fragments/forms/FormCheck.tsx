@@ -1,16 +1,8 @@
-import { ChangeEventHandler } from "react";
+import { IdControlParams } from "./sharedFormsParams";
 import { FormGroup, Form } from "react-bootstrap";
 
-export interface FormCheckParams {
-  id?: string,
-  className?: string,
-  label?: string,
-  innerClass?: string,
-  required?: boolean,
-  value?: string | number | boolean,
-  onChange?: ChangeEventHandler<HTMLInputElement>,
-  disabled?: boolean,
-  error?: string
+export interface FormCheckParams extends IdControlParams<HTMLInputElement> {
+  value?: string | number | boolean
 }
 
 const FormCheck = (props: Readonly<FormCheckParams>) => {

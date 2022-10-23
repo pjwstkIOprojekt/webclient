@@ -1,21 +1,8 @@
-import { ChangeEventHandler, useState, ChangeEvent } from "react";
+import { RawTextControlParams } from "../sharedFormsParams";
+import { useState, ChangeEvent } from "react";
 import FormControl from "../FormControl";
 
-export interface PastParams {
-  id?: string,
-  className?: string,
-  label?: string,
-  labelClass?: string,
-  innerClass?: string,
-  required?: boolean,
-  onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
-  value?: string | number | string[],
-  placeholder?: string,
-  disabled?: boolean,
-  error?: string
-}
-
-const Past = (props: Readonly<PastParams>) => {
+const Past = (props: Readonly<RawTextControlParams>) => {
   const [error, setError] = useState(props.error);
 
   const onUpdate = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

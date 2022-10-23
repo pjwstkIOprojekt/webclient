@@ -1,13 +1,8 @@
-import { ReactChild, ReactChildren } from "react";
+import { ParentComponentParams } from "../sharedParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Alert as Inner } from "react-bootstrap";
 
-export interface AlertParams {
-  className?: string,
-  children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
-}
-
-const Alert = (props: Readonly<AlertParams>) => {
+const Alert = (props: Readonly<ParentComponentParams>) => {
   const darkMode = useDarkMode();
   return <Inner className={props.className} variant={`custom-${darkMode ? "dark" : "light"}`}>{props.children}</Inner>;
 };

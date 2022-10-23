@@ -1,13 +1,12 @@
-import { MouseEventHandler, ReactChild, ReactChildren } from "react";
+import { ParentComponentParams } from "../sharedParams";
+import { MouseEventHandler } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Button as Inner } from "react-bootstrap";
 
-export interface ButtonParams {
-  className?: string,
+export interface ButtonParams extends ParentComponentParams {
   onClick?: MouseEventHandler<HTMLButtonElement>,
   outline?: boolean,
   type?: "button" | "reset" | "submit",
-  children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[],
   disabled?: boolean
 }
 

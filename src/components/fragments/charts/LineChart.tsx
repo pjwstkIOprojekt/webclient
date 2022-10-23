@@ -1,35 +1,15 @@
+import { KeyParam, KeyValueChartParams, SingleKeyValueChartData } from "./sharedChartParams";
 import { CurveType } from "recharts/types/shape/Curve";
-import { Margin } from "recharts/types/util/types";
-import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { LineChart as Inner, CartesianGrid, XAxis, YAxis, Tooltip, Line, Legend } from "recharts";
 
-export interface LineChartData {
-  key: string,
-  values: Record<string, number>
-}
-
-export interface LineChartSetting {
-  key: string
+export interface LineChartSettings extends KeyParam {
   stroke?: string,
   strokeDark?: string,
   type?: CurveType
 }
 
-export interface LineChartParams {
-  width: number,
-  height: number,
-  data: LineChartData[],
-  settings: LineChartSetting[],
-  tooltip?: boolean,
-  legend?: boolean,
-  grid?: boolean,
-  syncId?: string | number,
-  margin?: Margin,
-  onClick?: CategoricalChartFunc
-}
-
-const LineChart = (props: Readonly<LineChartParams>) => {
+const LineChart = (props: Readonly<KeyValueChartParams<SingleKeyValueChartData, LineChartSettings>>) => {
   const darkMode = useDarkMode();
   const stroke = darkMode ? "var(--dark-text)" : "var(--light-text)";
 

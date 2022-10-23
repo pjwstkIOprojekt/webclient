@@ -1,5 +1,4 @@
-import { Margin } from "recharts/types/util/types";
-import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
+import { NamedChartDataBase, GridChartParams } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { ScatterChart as Inner, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Scatter, Legend } from "recharts";
 
@@ -9,29 +8,17 @@ export interface ScatterPointData {
   z: number
 }
 
-export interface ScatterChartData {
-  name: string,
-  values: ScatterPointData[],
-  fill: string,
-  fillDark: string
+export interface ScatterChartData extends NamedChartDataBase {
+  values: ScatterPointData[]
 }
 
-export interface ScatterChartParams {
-  width: number,
-  height: number,
-  data: ScatterChartData[],
+export interface ScatterChartParams extends GridChartParams<ScatterChartData> {
   xAxisName: string,
   xAxisUnit: string,
   yAxisName: string,
   yAxisUnit: string,
   zAxisName: string,
-  zAxisUnit: string,
-  grid?: boolean,
-  tooltip?: boolean,
-  legend?: boolean,
-  syncId?: string | number,
-  margin?: Margin,
-  onClick?: CategoricalChartFunc
+  zAxisUnit: string
 }
 
 const ScatterChart = (props: Readonly<ScatterChartParams>) => {

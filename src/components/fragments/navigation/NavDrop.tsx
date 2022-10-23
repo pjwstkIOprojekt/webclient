@@ -1,12 +1,10 @@
-import { To, Link } from "react-router-dom";
-import { MouseEventHandler, ReactChild, ReactChildren } from "react";
+import { NavBaseParams } from "./sharedNavigationParams";
+import { Link } from "react-router-dom";
+import { MouseEventHandler } from "react";
 import { NavDropdown } from "react-bootstrap";
 
-export interface NavDropParams {
-  to: To,
-  className?: string,
-  onClick?: MouseEventHandler<HTMLElement>,
-  children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
+export interface NavDropParams extends NavBaseParams {
+  onClick?: MouseEventHandler<HTMLElement>
 }
 
 const NavDrop = (props: Readonly<NavDropParams>) => {

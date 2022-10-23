@@ -1,5 +1,4 @@
-import { Margin } from "recharts/types/util/types";
-import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
+import { BareBonesChartParams } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { PieChart, Pie } from "recharts";
 
@@ -9,15 +8,10 @@ export interface ProgressColor {
   b: number
 }
 
-export interface ProgressChartParams {
-  width: number,
-  height: number,
+export interface ProgressChartParams extends BareBonesChartParams {
   value: number,
   innerRadius: string | number,
   color: ProgressColor,
-  syncId?: string | number,
-  margin?: Margin,
-  onClick?: CategoricalChartFunc,
   label?: boolean
 }
 

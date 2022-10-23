@@ -1,10 +1,9 @@
-import { ReactChild, ReactChildren, CSSProperties } from "react";
+import { ParentComponentParams } from "../sharedParams";
+import { CSSProperties } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Card as Inner } from "react-bootstrap";
 
-export interface CardParams {
-  className?: string,
-  children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[],
+export interface CardParams extends ParentComponentParams {
   style?: CSSProperties
 }
 

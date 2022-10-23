@@ -46,13 +46,15 @@ const Map = (props: Readonly<MapParams>) => {
   );
 };
 
-interface ClickParams {
-  geocoder: geocoders.Nominatim,
+interface GeocoderParam {
+  geocoder: geocoders.Nominatim
+}
+
+interface ClickParams extends GeocoderParam {
   onClick?: (x: Readonly<L.LatLng>) => void
 }
 
-interface GeocodeParams {
-  geocoder: geocoders.Nominatim,
+interface GeocodeParams extends GeocoderParam {
   onSearch?: MarkGeocodeEventHandlerFn
 }
 

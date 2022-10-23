@@ -1,9 +1,9 @@
+import { ClassNameParam } from "../sharedParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 
-export interface CircleParams {
+export interface CircleParams extends ClassNameParam {
   value: number,
   name?: string,
-  className?: string,
   nameClass?: string,
   valueClass?: string
 }

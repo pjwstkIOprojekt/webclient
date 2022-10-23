@@ -1,14 +1,8 @@
-import { To, Link as Inner } from "react-router-dom";
-import { ReactChild, ReactChildren } from "react";
+import { NavBaseParams } from "./sharedNavigationParams";
+import { Link as Inner } from "react-router-dom";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 
-export interface LinkParams {
-  to: To,
-  className?: string,
-  children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
-}
-
-const Link = (props: Readonly<LinkParams>) => {
+const Link = (props: Readonly<NavBaseParams>) => {
   const darkMode = useDarkMode();
   return <Inner to={props.to} className={`link-${darkMode ? "dark" : "light"} ${props.className}`}>{props.children}</Inner>;
 };

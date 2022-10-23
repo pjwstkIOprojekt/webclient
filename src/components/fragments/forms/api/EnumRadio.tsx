@@ -1,19 +1,13 @@
+import { RadioControlParams } from "../sharedFormsParams";
 import { EnumType } from "../../../../api/enumCalls";
-import { ChangeEventHandler, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FormGroup, Form } from "react-bootstrap";
 
-export interface EnumRadioParams {
+export interface EnumRadioParams extends RadioControlParams {
   enum: EnumType,
-  className?: string,
   labelClass?: string,
-  label?: string,
-  innerClass?: string,
-  required?: boolean,
-  onChange?: ChangeEventHandler<HTMLInputElement>,
-  disabled?: boolean,
-  value?: string,
-  error?: string
+  value?: string
 }
 
 const EnumRadio = (props: Readonly<EnumRadioParams>) => {

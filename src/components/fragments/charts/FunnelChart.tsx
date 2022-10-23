@@ -1,24 +1,8 @@
-import { Margin } from "recharts/types/util/types";
-import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
+import { ChartBaseParams, NamedChartData } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { FunnelChart as Inner, Funnel, LabelList, Tooltip } from "recharts";
 
-export interface FunnelChartData {
-  name: string,
-  value: number,
-  fill: string,
-  fillDark: string
-}
-
-export interface FunnelChartParams {
-  width: number,
-  height: number,
-  data: FunnelChartData[],
-  tooltip?: boolean,
-  legend?: boolean,
-  syncId?: string | number,
-  margin?: Margin,
-  onClick?: CategoricalChartFunc,
+export interface FunnelChartParams extends ChartBaseParams<NamedChartData> {
   animation?: boolean,
   legendOnLeft?: boolean
 }

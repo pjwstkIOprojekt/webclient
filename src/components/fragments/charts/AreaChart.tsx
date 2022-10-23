@@ -1,37 +1,8 @@
-import { CurveType } from "recharts/types/shape/Curve";
-import { Margin } from "recharts/types/util/types";
-import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
+import { KeyValueChartParams, KeyValueChartData, KeyValueCurveSettings } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { AreaChart as Inner, CartesianGrid, XAxis, YAxis, Tooltip, Area, Legend } from "recharts";
 
-export interface AreaChartData {
-  key: string,
-  values: Record<string, number | number[]>
-}
-
-export interface AreaChartSetting {
-  key: string
-  stroke?: string,
-  fill?: string,
-  fillDark?: string,
-  opacity?: string | number,
-  type?: CurveType
-}
-
-export interface AreaChartParams {
-  width: number,
-  height: number,
-  data: AreaChartData[],
-  settings: AreaChartSetting[],
-  tooltip?: boolean,
-  legend?: boolean,
-  grid?: boolean,
-  syncId?: string | number,
-  margin?: Margin,
-  onClick?: CategoricalChartFunc
-}
-
-const AreaChart = (props: Readonly<AreaChartParams>) => {
+const AreaChart = (props: Readonly<KeyValueChartParams<KeyValueChartData, KeyValueCurveSettings>>) => {
   const darkMode = useDarkMode();
   const stroke = darkMode ? "var(--dark-text)" : "var(--light-text)";
 

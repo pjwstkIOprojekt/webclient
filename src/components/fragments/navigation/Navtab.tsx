@@ -1,4 +1,5 @@
 import { To, NavLink } from "react-router-dom";
+import { InnerClassParam } from "../sharedParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Nav } from "react-bootstrap";
 
@@ -7,10 +8,8 @@ export interface NavTarget {
   text: string
 }
 
-export interface NavtabParams {
+export interface NavtabParams extends InnerClassParam {
   links: NavTarget[],
-  className?: string,
-  innerClass?: string,
   linkClass?: string
 }
 

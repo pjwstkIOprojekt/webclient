@@ -1,24 +1,11 @@
-import { ChangeEventHandler } from "react";
+import { TextControlParams } from "./sharedFormsParams";
 import { FormGroup, Form } from "react-bootstrap";
 
-export interface FormControlParams {
-  id?: string,
-  className?: string,
-  label?: string,
-  labelClass?: string,
-  innerClass?: string,
-  required?: boolean,
-  minLength?: number,
-  maxLength?: number,
+export interface FormControlParams extends TextControlParams<HTMLInputElement | HTMLTextAreaElement> {
   minValue?: string | number,
   maxValue?: string | number,
   type?: string,
-  pattern?: string,
-  onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
-  value?: string | number | string[],
-  placeholder?: string,
-  disabled?: boolean,
-  error?: string
+  pattern?: string
 }
 
 const FormControl = (props: Readonly<FormControlParams>) => {

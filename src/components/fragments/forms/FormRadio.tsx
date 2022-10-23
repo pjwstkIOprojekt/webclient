@@ -1,17 +1,10 @@
-import { ChangeEventHandler } from "react";
+import { RadioControlParams } from "./sharedFormsParams";
 import { FormGroup, Form } from "react-bootstrap";
 
-export interface FormRadioParams {
-  className?: string,
+export interface FormRadioParams extends RadioControlParams {
   labelClass?: string,
-  label?: string,
-  innerClass?: string,
-  required?: boolean,
-  onChange?: ChangeEventHandler<HTMLInputElement>,
-  disabled?: boolean,
   values: string[],
-  value?: string,
-  error?: string
+  value?: string
 }
 
 const FormRadio = (props: Readonly<FormRadioParams>) => {

@@ -1,20 +1,11 @@
+import { SelectControlParams } from "../sharedFormsParams";
 import { EnumType } from "../../../../api/enumCalls";
-import { ChangeEventHandler, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FormGroup, Form } from "react-bootstrap";
 
-export interface EnumSelectParams {
-  enum: EnumType,
-  id?: string,
-  className?: string,
-  label?: string,
-  labelClass?: string,
-  innerClass?: string,
-  required?: boolean,
-  value?: string | number | string[],
-  onChange?: ChangeEventHandler<HTMLSelectElement>,
-  disabled?: boolean,
-  error?: string
+export interface EnumSelectParams extends SelectControlParams {
+  enum: EnumType
 }
 
 const EnumSelect = (props: Readonly<EnumSelectParams>) => {
