@@ -36,7 +36,7 @@ const AmbulanceList = () => {
     return availabilities.includes("");
   };
 
-  const cols: TableColumnParams[] = [
+  const cols: TableColumnParams<any>[] = [
     { name: "#", property: "ambulanceId", sortBy: "ambulanceId", filterBy: "ambulanceId" },
     { name: "Rodzaj karetki", property: "ambulanceKind", sortBy: "ambulanceKind", filterBy: "ambulanceKind" },
     { name: "Typ karetki", property: "ambulanceType", sortBy: "ambulanceType", filterBy: "ambulanceType" },

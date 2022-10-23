@@ -1,21 +1,15 @@
 import { useState, useEffect } from "react";
-import { AllergyResponse } from "../../../api/allergyCalls";
-import { DiseaseResponse } from "../../../api/diseaseCalls";
-import { getEmail } from "../../../helpers/authHelper";
-import { getMedicalInfoByEmail, MedicalInfoResponse } from "../../../api/medicalInfoCalls";
+import { AllergyResponse } from "../../../../api/allergyCalls";
+import { DiseaseResponse } from "../../../../api/diseaseCalls";
+import { getEmail } from "../../../../helpers/authHelper";
+import { getMedicalInfoByEmail, MedicalInfoResponse } from "../../../../api/medicalInfoCalls";
 import { Container } from "react-bootstrap";
-import BloodTypeForm from "./bloodtype/BloodTypeForm";
-import AllergyTable from "./allergy/AllergyTable";
-import MedicalConditionTable from "./medicalcondition/MedicalConditionTable";
-
-interface BloodData {
-  id?: number,
-  bloodType?: string,
-  rhType?: string
-}
+import BloodTypeForm, { Blood } from "./BloodTypeForm";
+import AllergyTable from "./AllergyTable";
+import MedicalConditionTable from "./MedicalConditionTable";
 
 const MedicalData = () => {
-  const [blood, setBlood] = useState<BloodData>({});
+  const [blood, setBlood] = useState<Blood>({});
   const [allergies, setAllergies] = useState<AllergyResponse[]>([]);
   const [conditions, setConditions] = useState<DiseaseResponse[]>([]);
   const [isloading, setIsLoading] = useState(true);
@@ -56,8 +50,8 @@ const MedicalData = () => {
     <Container className="my-3">
       <h1 className="mb-3">Dane medyczne</h1>
       <BloodTypeForm id={blood.id} bloodType={blood.bloodType} rhType={blood.rhType} />
-      <AllergyTable data={allergies} loading={isloading} />
-      <MedicalConditionTable data={conditions} loading={isloading} />
+      <AllergyTable data={allergies} isLoading={isloading} />
+      <MedicalConditionTable data={conditions} isLoading={isloading} />
     </Container>
   );
 };

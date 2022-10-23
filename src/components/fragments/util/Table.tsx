@@ -6,17 +6,17 @@ import Button from "./Button";
 import Spinner from "./Spinner";
 import FormControl from "../forms/FormControl";
 
-export interface TableColumnParams {
+export interface TableColumnParams<T> {
   name: (() => ChildrenType) | string,
-  property: ((x: Readonly<Record<string, any>>) => ChildrenType) | string,
+  property: ((x: Readonly<T>) => ChildrenType) | string,
   sortBy?: string,
   filterBy?: string,
   size?: number
 }
 
-export interface TableParams extends ClassNameParam {
-  columns: TableColumnParams[],
-  data: Record<string, any>[],
+export interface TableParams<T> extends ClassNameParam {
+  columns: TableColumnParams<T>[],
+  data: T[],
   headClass?: string,
   bodyClass?: string,
   rowClass?: string,
@@ -30,7 +30,7 @@ interface SortState {
   reversed: boolean
 }
 
-const Table = (props: Readonly<TableParams>) => {
+const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) => {
   const darkMode = useDarkMode();
   const [copy, setCopy] = useState([...props.data]);
   const [filter, setFilter] = useState<Record<string, string>>({});

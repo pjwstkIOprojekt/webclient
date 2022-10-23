@@ -6,10 +6,11 @@ const Past = (props: Readonly<RawTextControlParams>) => {
   const [error, setError] = useState(props.error);
 
   const onUpdate = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setError(props.error);
     const value = e.target.value;
 
     if (value && new Date(value) >= new Date(Date.now())) {
-      setError("Można podać tylko datę w przeszłości");
+      setError("Można podać tylko datę w przeszłości.");
       return;      
     }
 
@@ -18,7 +19,10 @@ const Past = (props: Readonly<RawTextControlParams>) => {
     }
   };
 
-  return <FormControl type="date" error={error} onChange={onUpdate} {...props} />;
+  const args = {...props};
+  delete args.error;
+  delete args.onChange;
+  return <FormControl type="date" error={error} onChange={onUpdate} {...args} />;
 };
 
 export default Past;

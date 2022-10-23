@@ -3,7 +3,8 @@ import { loginUser, JwtResponse } from "../../../api/authCalls";
 import { useLogin } from "../../../hooks/useAuth";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
-import FormControl from "../../fragments/forms/FormControl";
+import Email from "../../fragments/forms/api/Email";
+import Password from "../../fragments/forms/api/Password";
 import Button from "../../fragments/util/Button";
 
 const Login = () => {
@@ -43,10 +44,10 @@ const Login = () => {
       <h1 className="text-center">Logowanie</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
-          <FormControl id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" type="email" maxLength={100} />
+          <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" type="password" maxLength={100} />
+          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" />
         </Row>
         <Row className="justify-content-center">
           <Button className="my-3 w-25" type="submit">Zaloguj się</Button>
