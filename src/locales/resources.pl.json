@@ -19,20 +19,20 @@
         "INJECTION": "Iniekcyjna",
         "INHALATION": "Wziewna"
     },
-    "AmbilanceType": {
+    "AmbulanceType": {
         "A": "A",
         "B": "B",
         "C": "C"
     },
     "AmbulanceStateType": {
-        "FAILURE":"Awaria",
-        "MAINTENANCE":"Konserwacja",
-        "AVAILABLE":"Dostępna",
-        "IN_ACTION":"W akcji",
-        "CREW_BRAKE":"CREW_BRAKE"
+        "FAILURE": "Awaria",
+        "MAINTENANCE": "Konserwacja",
+        "AVAILABLE": "Dostępna",
+        "IN_ACTION": "W akcji",
+        "CREW_BRAKE": "CREW_BRAKE"
     },
     "AmbulanceClass": {
-        "BASIC":"Podstawowa",
+        "BASIC": "Podstawowa",
         "SPECIAL": "Specjalna",
         "TRANSPORT": "Transportowa",
         "NEONATOLOGY": "Neonatologiczna"
