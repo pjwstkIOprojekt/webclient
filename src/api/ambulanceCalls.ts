@@ -16,12 +16,8 @@ interface AmbulanceBase extends LicensePlate {
 export interface AddAmbulanceRequest extends AmbulanceBase {
   // Integer, Min = 1
   seats: number,
-
-  // Not blank
-  longitude: string,
-
-  // Not blank
-  latitude: string
+  longitude: number,
+  latitude: number
 }
 
 export interface AmbulanceResponse extends AmbulanceBase {
