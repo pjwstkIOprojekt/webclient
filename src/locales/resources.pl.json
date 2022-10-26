@@ -1,0 +1,40 @@
+{
+    "RoleName": {
+        "ADMIN": "Administrator",
+        "USER": "Użytkownik"
+    },
+    "RhType": {
+        "PLUS": "Plus",
+        "MINUS": "Minus"
+    },
+    "BloodType": {
+        "A": "A",
+        "B": "B",
+        "ZERO": "ZERO",
+        "AB": "AB"
+    },
+    "AllergyType": {
+        "SKIN_CONTACT": "Kontaktowa",
+        "INGESTION": "Pokarmowa",
+        "INJECTION": "Iniekcyjna",
+        "INHALATION": "Wziewna"
+    },
+    "AmbulanceType": {
+        "A": "A",
+        "B": "B",
+        "C": "C"
+    },
+    "AmbulanceStateType": {
+        "FAILURE": "Awaria",
+        "MAINTENANCE": "Konserwacja",
+        "AVAILABLE": "Dostępna",
+        "IN_ACTION": "W akcji",
+        "CREW_BRAKE": "CREW_BRAKE"
+    },
+    "AmbulanceClass": {
+        "BASIC": "Podstawowa",
+        "SPECIAL": "Specjalna",
+        "TRANSPORT": "Transportowa",
+        "NEONATOLOGY": "Neonatologiczna"
+    }
+}

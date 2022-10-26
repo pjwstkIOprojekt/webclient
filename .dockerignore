@@ -1,0 +1,13 @@
+**/node_modules
+**/npm-debug.log
+**/.git
+**/.vscode
+build
+.dockerignore
+.gitattributes
+.gitignore
+Dockerfile.cleanBuild
+Dockerfile.devBuild
+docker-compose.cleanBuild.yml
+docker-compose.devBuild.yml
+README.md

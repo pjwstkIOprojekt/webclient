@@ -1,44 +1,48 @@
-import React from "react";
-import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-import Func from "./components/Func";
-import Class from "./components/Class";
+import { useRoles } from "./hooks/useAuth";
+import Navbar from "./components/fragments/navigation/Navbar"
+import { Container } from "react-bootstrap";
+import { Routes, Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import ConditionalRoute from "./components/fragments/navigation/ConditionalRoute";
+import { isAuth, isDispositor, isDirector } from "./helpers/authHelper";
+import Login from "./components/content/auth/Login";
+import Register from "./components/content/auth/Register";
+import Settings from "./components/content/userinfo/Settings";
+import Home from "./components/content/home/Home";
+import TutorialView from "./components/content/tutorial/TutorialView";
+import Tutorial from "./components/content/tutorial/Tutorial";
+import CreateReport from "./components/content/report/CreateReport";
+import MainMap from "./components/content/map/MainMap";
+import DispositorPanel from "./components/content/panel/DispositorPanel";
+import AdminPanel from "./components/content/panel/AdminPanel";
+import NotificationArea from "./components/fragments/notifications/NotificationArea";
+import CookieConsent from "./components/fragments/cookies/CookieConsent";
 
-export default class App extends React.Component<any, any>
-{
-    constructor(props: any)
-    {
-        super(props);
+const App = () => {
+  const roles = useRoles();
 
-        this.state = {
-            value: "Test"
-        };
-    }
+  return (
+    <>
+      <Navbar />
+      <Container fluid className="page-content">
+        <Routes>
+          <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route path="/login" element={<ConditionalRoute condition={!isAuth(roles)} element={<Login />} />} />
+          <Route path="/register" element={<ConditionalRoute condition={!isAuth(roles)} element={<Register />} />} />
+          <Route path="/settings/*" element={<ConditionalRoute condition={isAuth(roles)} element={<Settings />} />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/tutorial" element={<TutorialView />} />
+          <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
+          <Route path="/newreport" element={<CreateReport />} />
+          <Route path="/map" element={<ConditionalRoute condition={isDispositor(roles) || isDirector(roles)} element={<MainMap />} />} />
+          <Route path="/dispanel/*" element={<ConditionalRoute condition={isDispositor(roles)} element={<DispositorPanel />} />} />
+          <Route path="/admpanel/*" element={<ConditionalRoute condition={isDirector(roles)} element={<AdminPanel />} />} />
+        </Routes>
+        <NotificationArea />
+      </Container>
+      <CookieConsent />
+    </>
+  );
+};
 
-    onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-
-        this.setState({
-            value: value
-        });
-    };
-
-    render()
-    {
-        return (
-            <main>
-                <BrowserRouter>
-                    <div>
-                        <input onChange={this.onChange} id="val" value={this.state.value} />
-                        <Link to={`/func/${this.state.value}`}>Func</Link>
-                        <Link to={`/class/${this.state.value}`}>Class</Link>
-                        <Routes>
-                            <Route path="/" element={<br />} />
-                            <Route path="/func/:value" element={<Func />} />
-                            <Route path="/class/:value" element={<Class />} />
-                        </Routes>
-                    </div>
-                </BrowserRouter>
-            </main>
-        );
-    }
-}
+export default App;

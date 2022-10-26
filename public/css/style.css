@@ -1,9 +1,406 @@
 :root
 {
-
+    --dark-text: #ffffff;
+    --light-text: #000000;
+    --dark-button: #c59812;
+    --dark-button-hover: #d6a923;
+    --light-button: #98dd98;
+    --light-button-hover: #5dbf62;
+    --dark-alert: #4c4c4c;
+    --light-alert: #98dd98;
+    --dark-bg: #4a4a4a;
+    --light-bg: #efefef;
+    --dark-nav: #c59812;
+    --light-nav: #4caf50;
+    --required: #ff0000;
+    --light-nav-hover: #3b9e40;
+    --dark-nav-hover: #b48701;
+    --dark-popup: #212529;
+    --light-popup: #f8f9fa;
 }
 
-body
+/* Dark themes */
+.btn-custom-dark
 {
+    border-color: var(--dark-button);
+    background-color: var(--dark-button);
+    color: var(--dark-text);
+}
 
+.btn-outline-custom-dark
+{
+    border-color: var(--dark-button-hover);
+    color: var(--dark-text);
+}
+
+.btn-custom-dark:hover
+{
+    background-color: var(--dark-button-hover);
+    color: var(--dark-text);
+}
+
+.btn-outline-custom-dark:hover
+{
+    background-color: var(--dark-button-hover);
+    color: var(--dark-text);
+}
+
+.alert-custom-dark, .alert-custom-dark:hover
+{
+    border-color: var(--dark-alert);
+    background-color: var(--dark-alert);
+    color: var(--dark-text);
+}
+
+.bg-custom-dark
+{
+    background-color: var(--dark-bg);
+}
+
+.bg-navbar-dark
+{
+    background-color: var(--dark-nav);
+}
+
+.link-dark, .link-dark:hover, .link-dark:visited
+{
+    color: var(--dark-text);
+}
+
+.text-custom-dark
+{
+    color: var(--dark-button);
+}
+
+.toast-header-custom-dark
+{
+    background-color: var(--dark-button);
+    color: var(--dark-text);
+}
+
+.nav-link-dark:hover
+{
+    background-color: var(--dark-nav-hover);
+}
+
+.navtab-link-dark.nav-link
+{
+    color: var(--dark-text);
+    background-color: var(--dark-alert);
+    border: 1px solid var(--dark-text);
+}
+
+.navtab-link-dark:hover, .navtab-link-dark.nav-link.active
+{
+    color: var(--dark-text);
+    background-color: var(--dark-nav);
+}
+
+.popup-dark
+{
+    background-color: var(--dark-popup);
+    border-color: var(--dark-text);
+}
+
+.circle-dark
+{
+    background-color: var(--dark-button);
+    color: var(--dark-text);
+}
+
+/* Light themes */
+.btn-custom-light
+{
+    border-color: var(--light-button);
+    background-color: var(--light-button);
+    color: var(--light-text);
+}
+
+.btn-outline-custom-light
+{
+    border-color: var(--light-button-hover);
+    color: var(--light-text);
+}
+
+.btn-custom-light:hover
+{
+    background-color: var(--light-button-hover);
+    color: var(--light-text);
+}
+
+.btn-outline-custom-light:hover
+{
+    background-color: var(--light-button-hover);
+    color: var(--light-text);
+}
+
+.alert-custom-light, .alert-custom-light:hover
+{
+    border-color: var(--light-alert);
+    background-color: var(--light-alert);
+    color: var(--light-text);
+}
+
+.bg-custom-light
+{
+    background-color: var(--light-bg);
+}
+
+.bg-navbar-light
+{
+    background-color: var(--light-nav);
+}
+
+.link-light, .link-light:hover, .link-light:visited
+{
+    color: var(--light-text);
+}
+
+.text-custom-light
+{
+    color: var(--light-button);
+}
+
+.toast-header-custom-light
+{
+    background-color: var(--light-alert);
+    color: var(--light-text);
+}
+
+.nav-link-light:hover
+{
+    background-color: var(--light-nav-hover);
+}
+
+.navtab-link-light.nav-link
+{
+    color: var(--light-text);
+    background-color: var(--light-alert);
+    border: 1px solid var(--light-text);
+}
+
+.navtab-link-light:hover, .navtab-link-light.nav-link.active
+{
+    color: var(--light-text);
+    background-color: var(--light-nav);
+    border: 1px solid var(--light-text);
+}
+
+.navtab-link-light:hover.nav-link
+{
+    border: 1px solid var(--light-text);
+}
+
+.navtab-light
+{
+    border-bottom: 1px solid var(--light-text);
+}
+
+.popup-light
+{
+    background-color: var(--light-popup);
+    border-color: var(--light-text);
+}
+
+.circle-light
+{
+    background-color: var(--light-button);
+    color: var(--light-text);
+}
+
+/* Shared */
+.btn-custom-dark:focus, .btn-outline-custom-dark:focus, .btn-custom-light:focus, .btn-outline-custom-light:focus
+{
+    box-shadow: none;
+}
+
+/* Custom styles */
+.consent
+{
+    display: flex;
+    align-content: baseline;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+    max-width: 3000px;
+}
+
+.consent-content
+{
+    flex: 1 0 300px;
+    margin: 15px;
+    text-align: center;
+}
+
+.req
+{
+    color: var(--required);
+}
+
+.d-contents
+{
+    display: contents;
+}
+
+.navbar
+{
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+}
+
+.leaflet-container
+{
+    position: fixed;
+    height: 100%;
+    right: 0;
+    width: 75%;
+}
+
+.page-content
+{
+    padding: 0;
+}
+
+.tutorial-grid
+{
+    display: grid;
+    gap: 16px;
+    padding: 32px;
+}
+
+.tutorial-element
+{
+    padding: 1rem;
+    max-width: 500px;
+}
+
+.tutorial-card 
+{
+    transition: all 300ms ease-in-out;
+}
+
+.tutorial-card:hover
+{
+    box-shadow: 0px 8px 30px rgb(100, 100, 100);
+}
+
+.img
+{
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+.popup-cover
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 2;
+}
+
+.popup-container
+{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 50%;
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 10px;
+    display: block;
+    opacity: 2;
+}
+
+.circle
+{
+    width: 250px;
+    height: 250px;
+    line-height: 40px;
+    border-radius: 50%;
+    font-size: 80px;
+    text-align: center;
+}
+
+.circle-title
+{
+    font-size: 20px;
+}
+
+@media (min-width: 768px)
+{
+    .tutorial-grid
+    {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .leaflet-container
+    {
+        width: 78%;
+    }
+}
+
+@media (min-width: 960px)
+{
+    .tutorial-grid
+    {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px)
+{
+    .tutorial-grid
+    {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .page-content
+    {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .leaflet-container
+    {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1600px)
+{
+    .tutorial-grid
+    {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .page-content
+    {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+
+    .leaflet-container
+    {
+        width: 83%;
+    }
+}
+
+@media (min-width: 1700px)
+{
+    .leaflet-container
+    {
+        width: 85%;
+    }
 }
