@@ -4,7 +4,7 @@ export interface LoginRequest {
   // Email
   email: string,
 
-  // Not blank
+  // Password
   password: string
 }
 
@@ -15,7 +15,7 @@ export interface SignupRequest extends LoginRequest {
   // Not blank
   lastName: string,
 
-  // Not blank
+  // Phone
   phoneNumber: string,
 
   // Past
@@ -30,5 +30,5 @@ export interface JwtResponse {
 }
 
 const authBase = "auth";
-export const loginUser = (req: Readonly<LoginRequest>) => post(`${authBase}/login`, JSON.stringify(req));
-export const registerUser = (req: Readonly<SignupRequest>) => post(`${authBase}/signup`, JSON.stringify(req));
+export const loginUser = (req: Readonly<LoginRequest>) => post(`${authBase}/login`, req);
+export const registerUser = (req: Readonly<SignupRequest>) => post(`${authBase}/signup`, req);

@@ -4,9 +4,9 @@ import { Routes, Route } from "react-router-dom";
 import UserDataForm from "./personalinfo/UserDataForm";
 import ChangePasswordForm from "./personalinfo/ChangePasswordForm";
 import TrustedPersonForm from "./trustedperson/TrustedPersonForm";
-import MedicalData from "./MedicalData";
-import AllergyForm from "./allergy/AllergyForm";
-import MedicalConditionForm from "./medicalcondition/MedicalConditionForm";
+import MedicalData from "./medicalinfo/MedicalData";
+import AllergyForm from "./medicalinfo/AllergyForm";
+import MedicalConditionForm from "./medicalinfo/MedicalConditionForm";
 
 const Settings = () => {
   const links = [
@@ -17,6 +17,7 @@ const Settings = () => {
 
   return (
     <Container className="my-3">
+      <h1><b>Moje dane</b></h1>
       <Navtab links={links}/>
       <Routes>
         <Route path="userdata" element={<UserDataForm />} />

@@ -8,7 +8,8 @@ const resources = {
   }
 };
 
-i18n.use(initReactI18next).init({resources,
+i18n.use(initReactI18next).init({
+  resources,
   lng: "pl",
   interpolation: {
     escapeValue: false

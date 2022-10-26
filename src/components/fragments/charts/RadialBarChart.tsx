@@ -1,24 +1,8 @@
-import { Margin } from "recharts/types/util/types";
-import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
+import { ChartBaseParams, NamedChartData } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { RadialBarChart as Inner, RadialBar, Tooltip, Legend } from "recharts";
 
-export interface RadialBarChartData {
-  name: string,
-  value: number,
-  fill: string,
-  fillDark: string
-}
-
-export interface RadialBarChartParams {
-  width: number,
-  height: number,
-  data: RadialBarChartData[],
-  tooltip?: boolean,
-  legend?: boolean,
-  syncId?: string | number,
-  margin?: Margin,
-  onClick?: CategoricalChartFunc,
+export interface RadialBarChartParams extends ChartBaseParams<NamedChartData> {
   startAngle?: number,
   endAngle?: number,
   labelFill?: string,

@@ -1,12 +1,9 @@
-import { To, useNavigate } from "react-router-dom";
-import { ReactChild, ReactChildren } from "react";
+import { NavBaseParams } from "./sharedNavigationParams";
+import { useNavigate } from "react-router-dom";
 import Button from "../util/Button";
 
-export interface NavButtonParams {
-  to: To,
-  className?: string,
+export interface NavButtonParams extends NavBaseParams {
   outline?: boolean,
-  children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[],
   disabled?: boolean
 }
 

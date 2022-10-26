@@ -1,8 +1,8 @@
+import { ClassNameParam } from "../sharedParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Spinner as Inner } from "react-bootstrap";
 
-export interface SpinnerParams {
-  className?: string,
+export interface SpinnerParams extends ClassNameParam {
   grow?: boolean
 }
 

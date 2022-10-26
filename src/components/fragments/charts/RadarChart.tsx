@@ -1,32 +1,9 @@
-import { Margin, AxisDomain } from "recharts/types/util/types";
-import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
+import { KeyValueChartParams, SingleKeyValueChartData, KeyValueChartSettings } from "./sharedChartParams";
+import { AxisDomain } from "recharts/types/util/types";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { RadarChart as Inner, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip, Radar, Legend } from "recharts";
 
-export interface RadarChartData {
-  key: string,
-  values: Record<string, number>
-}
-
-export interface RadarChartSetting {
-  key: string,
-  stroke?: string,
-  fill?: string,
-  fillDark?: string,
-  opacity?: string | number
-}
-
-export interface RadarChartParams {
-  width: number,
-  height: number,
-  data: RadarChartData[],
-  settings: RadarChartSetting[],
-  tooltip?: boolean,
-  legend?: boolean,
-  grid?: boolean,
-  syncId?: string | number,
-  margin?: Margin,
-  onClick?: CategoricalChartFunc,
+export interface RadarChartParams extends KeyValueChartParams<SingleKeyValueChartData, KeyValueChartSettings> {
   innerRadius?: number,
   outerRadius?: number,
   angle?: number,

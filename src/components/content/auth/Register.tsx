@@ -3,8 +3,11 @@ import { registerUser, loginUser, JwtResponse } from "../../../api/authCalls";
 import { useLogin } from "../../../hooks/useAuth";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
-import FormControl from "../../fragments/forms/FormControl";
+import NotBlank from "../../fragments/forms/api/NotBlank";
+import Email from "../../fragments/forms/api/Email";
+import Past from "../../fragments/forms/api/Past";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
+import Password from "../../fragments/forms/api/Password";
 import Button from "../../fragments/util/Button";
 import CAlert from "../../fragments/util/Alert";
 
@@ -74,28 +77,28 @@ const Register = () => {
       <h1 className="text-center">Rejestracja</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
-          <FormControl id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label="Imię" maxLength={100} />
+          <NotBlank id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label="Imię" />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="lastName" required onChange={e => setLastName(e.target.value)} value={lastName} className="mb-3 w-50" label="Nazwisko" maxLength={100} />
+          <NotBlank id="lastName" required onChange={e => setLastName(e.target.value)} value={lastName} className="mb-3 w-50" label="Nazwisko" />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" type="email" maxLength={100} />
+          <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="birthDate" required onChange={e => setBirthDate(e.target.value)} value={birthDate} className="mb-3 w-50" label="Data urodzenia" type="date" />
+          <Past id="birthDate" required onChange={e => setBirthDate(e.target.value)} value={birthDate} className="mb-3 w-50" label="Data urodzenia" />
         </Row>
         <Row className="justify-content-center">
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="mb-3 w-50" label="Numer telefonu" />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" type="password" maxLength={100} />
+          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label="Powtórz hasło" type="password" maxLength={100} />
+          <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label="Powtórz hasło" />
         </Row>
         <Row className="justify-content-center">
-          <Button className="my-3 w-25" type="submit">Zarejestruj się</Button>
+          <Button className="mt-3 w-25" type="submit">Zarejestruj się</Button>
         </Row>
         {error ? (
           <Row className="justify-content-center mt-5">

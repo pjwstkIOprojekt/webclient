@@ -1,21 +1,7 @@
-import { ChangeEventHandler } from "react";
+import { RawTextControlParams } from "./sharedFormsParams";
 import { FormGroup, Form } from "react-bootstrap";
 
-export interface FormPhoneParams {
-  id?: string,
-  className?: string,
-  label?: string,
-  labelClass?: string,
-  innerClass?: string,
-  required?: boolean,
-  onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
-  value?: string | number | string[],
-  placeholder?: string,
-  disabled?: boolean,
-  error?: string
-}
-
-const FormPhoneNumber = (props: Readonly<FormPhoneParams>) => {
+const FormPhoneNumber = (props: Readonly<RawTextControlParams>) => {
   return (
     <FormGroup controlId={props.id} className={props.className}>
       {props.label ? <Form.Label className={props.labelClass}>{props.label}{props.required ? <span className="req">*</span> : ""}</Form.Label> : ""}

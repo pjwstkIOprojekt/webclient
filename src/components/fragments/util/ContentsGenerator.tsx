@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export interface GeneratorParams<T> {
   selector: string,
-  result: ((el: T, index: number) => JSX.Element) | ((el: T) => JSX.Element),
+  result: ((el: Readonly<T>, index: number) => JSX.Element) | ((el: Readonly<T>) => JSX.Element),
   update?: boolean
 }
 

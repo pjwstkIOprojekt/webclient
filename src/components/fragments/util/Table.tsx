@@ -1,22 +1,22 @@
-import { ReactChild, ReactChildren, useState, useEffect, ChangeEventHandler, ChangeEvent } from "react";
+import { ChildrenType, ClassNameParam } from "../sharedParams";
+import { useState, useEffect, ChangeEventHandler, ChangeEvent } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Table as Inner, Row, Col, Container } from "react-bootstrap";
 import Button from "./Button";
 import Spinner from "./Spinner";
 import FormControl from "../forms/FormControl";
 
-export interface TableColumnParams {
-  name: (() => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
-  property: ((x: Record<string, any>) => ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) | string,
+export interface TableColumnParams<T> {
+  name: (() => ChildrenType) | string,
+  property: ((x: Readonly<T>) => ChildrenType) | string,
   sortBy?: string,
   filterBy?: string,
   size?: number
 }
 
-export interface TableParams {
-  columns: TableColumnParams[],
-  data: Record<string, any>[],
-  className?: string,
+export interface TableParams<T> extends ClassNameParam {
+  columns: TableColumnParams<T>[],
+  data: T[],
   headClass?: string,
   bodyClass?: string,
   rowClass?: string,
@@ -30,7 +30,7 @@ interface SortState {
   reversed: boolean
 }
 
-const Table = (props: Readonly<TableParams>) => {
+const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) => {
   const darkMode = useDarkMode();
   const [copy, setCopy] = useState([...props.data]);
   const [filter, setFilter] = useState<Record<string, string>>({});

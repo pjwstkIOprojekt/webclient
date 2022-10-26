@@ -1,13 +1,13 @@
+import { ClassNameParam } from "../sharedParams";
 import { ChangeEventHandler, ChangeEvent, useRef, useState } from "react";
 import Button from "./Button";
 
-export interface UploadButtonParams {
+export interface UploadButtonParams extends ClassNameParam {
   id?: string,
   value?: number | string | string[],
   onChange?: ChangeEventHandler<HTMLInputElement>,
   required?: boolean,
   disabled?: boolean,
-  className?: string
 }
 
 const UploadButton = (props: Readonly<UploadButtonParams>) => {

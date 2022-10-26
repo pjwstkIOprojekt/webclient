@@ -1,24 +1,8 @@
-import { Margin } from "recharts/types/util/types";
-import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
+import { ChartBaseParams, NamedChartData } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { PieChart as Inner, Pie, Tooltip, Legend } from "recharts";
 
-export interface PieChartData {
-  name: string,
-  value: number,
-  fill: string,
-  fillDark: string
-}
-
-export interface PieChartParams {
-  width: number,
-  height: number,
-  data: PieChartData[],
-  tooltip?: boolean,
-  legend?: boolean,
-  syncId?: string | number,
-  margin?: Margin,
-  onClick?: CategoricalChartFunc,
+export interface PieChartParams extends ChartBaseParams<NamedChartData> {
   label?: boolean,
   innerRadius?: string | number
 }

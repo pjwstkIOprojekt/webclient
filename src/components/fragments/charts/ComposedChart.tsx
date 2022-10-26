@@ -1,43 +1,16 @@
-import { CurveType } from "recharts/types/shape/Curve";
-import { Margin } from "recharts/types/util/types";
-import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
+import { KeyValueSizeSettings, KeyValueChartParams, KeyValueChartData } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Area, Bar, Line, ComposedChart as Inner, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
 
-export interface ComposedChartData {
-  key: string,
-  values: Record<string, number | number[]>
+export interface ComposedChartSettings extends KeyValueSizeSettings {
+  kind?: "area" | "bar" | "line"
 }
 
-export interface ComposedChartSetting {
-  key: string,
-  kind?: "area" | "bar" | "line",
-  size?: number,
-  stroke?: string,
-  fill?: string,
-  fillDark?: string,
-  opacity?: string | number,
-  type?: CurveType
-}
-
-export interface ComposedChartParams {
-  width: number,
-  height: number,
-  data: ComposedChartData[],
-  settings: ComposedChartSetting[],
-  tooltip?: boolean,
-  legend?: boolean,
-  grid?: boolean,
-  syncId?: string | number,
-  margin?: Margin,
-  onClick?: CategoricalChartFunc
-}
-
-const ComposedChart = (props: Readonly<ComposedChartParams>) => {
+const ComposedChart = (props: Readonly<KeyValueChartParams<KeyValueChartData, ComposedChartSettings>>) => {
   const darkMode = useDarkMode();
   const stroke = darkMode ? "var(--dark-text)" : "var(--light-text)";
 
-  const display = (x: ComposedChartSetting, index: number) => {
+  const display = (x: ComposedChartSettings, index: number) => {
     const fill = darkMode ? x.fillDark : x.fill;
 
     switch (x.kind) {

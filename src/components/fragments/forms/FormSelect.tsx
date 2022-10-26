@@ -1,19 +1,9 @@
-import { ChangeEventHandler } from "react";
+import { SelectControlParams } from "./sharedFormsParams";
 import { FormGroup, Form } from "react-bootstrap";
 
-export interface FormSelectParams {
-  id?: string,
-  className?: string,
-  label?: string,
-  labelClass?: string,
-  innerClass?: string,
-  required?: boolean,
+export interface FormSelectParams extends SelectControlParams {
   options?: string[],
-  allValid?: boolean,
-  value?: string | number | string[],
-  onChange?: ChangeEventHandler<HTMLSelectElement>,
-  disabled?: boolean,
-  error?: string
+  allValid?: boolean
 }
 
 const FormSelect = (props: Readonly<FormSelectParams>) => {

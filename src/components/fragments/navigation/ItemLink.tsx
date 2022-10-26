@@ -1,10 +1,8 @@
-import { ReactChild, ReactChildren } from "react";
+import { ParentComponentParams } from "../sharedParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 
-export interface ItemLinkParams {
+export interface ItemLinkParams extends ParentComponentParams {
   to: string,
-  className?: string,
-  children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
 }
 
 const ItemLink = (props: Readonly<ItemLinkParams>) => {

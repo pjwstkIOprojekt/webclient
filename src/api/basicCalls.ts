@@ -19,21 +19,21 @@ export const get = (path: string) => fetch(`${baseUrl}/${path}`, {
 });
 
 // Basic POST request
-export const post = (path: string, body?: string) => fetch(`${baseUrl}/${path}`, {
+export const post = (path: string, body: any) => fetch(`${baseUrl}/${path}`, {
   method: "POST",
   headers: addToken({
     "Content-type": "application/json; charset=UTF-8"
   }),
-  body: body
+  body: JSON.stringify(body)
 });
 
 // Basic PUT request
-export const put = (path: string, body?: string) => fetch(`${baseUrl}/${path}`, {
+export const put = (path: string, body: any) => fetch(`${baseUrl}/${path}`, {
   method: "PUT",
   headers: addToken({
     "Content-type": "application/json; charset=UTF-8"
   }),
-  body: body
+  body: JSON.stringify(body)
 });
 
 // Basic DELETE request

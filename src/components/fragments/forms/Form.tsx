@@ -1,10 +1,9 @@
-import { ReactChild, ReactChildren, FormEvent } from "react";
+import { ParentComponentParams } from "../sharedParams";
+import { FormEvent } from "react";
 import { Form as Inner } from "react-bootstrap";
 
-export interface FormParams {
-  className?: string,
-  onSubmit?: () => void,
-  children?: ReactChild | ReactChildren | ReactChild[] | ReactChildren[]
+export interface FormParams extends ParentComponentParams {
+  onSubmit?: () => void
 }
 
 const Form = (props: Readonly<FormParams>) => {
