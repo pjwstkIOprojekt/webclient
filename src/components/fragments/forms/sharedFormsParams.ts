@@ -36,3 +36,7 @@ export interface NumberControlParams extends RawTextControlParams {
   maxValue?: string | number,
   step?: string | number
 }
+
+export interface DateControlParams extends RawTextControlParams {
+  withTime?: boolean
+}

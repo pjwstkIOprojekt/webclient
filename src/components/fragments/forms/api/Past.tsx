@@ -1,8 +1,8 @@
-import { RawTextControlParams } from "../sharedFormsParams";
+import { DateControlParams } from "../sharedFormsParams";
 import { useState, ChangeEvent } from "react";
-import FormControl from "../FormControl";
+import Dat from "./Date";
 
-const Past = (props: Readonly<RawTextControlParams>) => {
+const Past = (props: Readonly<DateControlParams>) => {
   const [error, setError] = useState(props.error);
 
   const onUpdate = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -22,7 +22,7 @@ const Past = (props: Readonly<RawTextControlParams>) => {
   const args = {...props};
   delete args.error;
   delete args.onChange;
-  return <FormControl type="date" error={error} onChange={onUpdate} {...args} />;
+  return <Dat error={error} onChange={onUpdate} {...args} />;
 };
 
 export default Past;

@@ -51,5 +51,5 @@ export const getAmbulanceHistory = (licensePlate: string) => get(`${ambulanceBas
 export const getAmbulanceState = (licensePlate: string) => get(`${ambulanceBase}/${licensePlate}/state`);
 export const updateAmbulanceState = (licensePlate: string, req: Readonly<UpdateAmbulanceStateRequest>) => post(`${ambulanceBase}/${licensePlate}/state`, req);
 export const createAmbulance = (req: Readonly<AddAmbulanceRequest>) => post(ambulanceBase, req);
-export const updateAmbulances = (req: Readonly<AddAmbulanceRequest>) => put(ambulanceBase, req);
+export const updateAmbulance = (req: Readonly<AddAmbulanceRequest>) => put(ambulanceBase, req);
 export const deleteAmbulance = (licensePlate: string) => del(`${ambulanceBase}/${licensePlate}`);
