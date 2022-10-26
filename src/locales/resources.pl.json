@@ -36,5 +36,133 @@
         "SPECIAL": "Specjalna",
         "TRANSPORT": "Transportowa",
         "NEONATOLOGY": "Neonatologiczna"
-    }
+    },
+    "Ambulance":{
+        "List":"Lista karetek",
+        "Choose":"Wybierz karetkę",
+        "Ambulance":"Karetka",
+        "RegistrationNumber":"Numer rejestracyjny",
+        "Kind":"Rodzaj karetki",
+        "MaxAmount":"Maksymalna ilośc ratowników",
+        "AddParamedics":"Dodaj ratowników do karetki",
+        "New":"Nowa karetka",
+        "Type":"Typ karetki",
+        "Active":"Karetki aktualnie biorące udział w zgłoszeniach",
+        "Available":"Dostępne karetki",
+        "Amount":"Minimalna ilość",
+        "Metric":"Jednostak miary",
+        "AssignmentDate":"Data przypisania do karetki",
+        "CompletionDate":"Data planowanego uzupełnienia",
+        "Consumption":"Ogólne zużycie",
+        "Equipment":"Wyposażenie karetki",
+        "State":"Stan karetki"
+    },
+    "Reports":{
+        "Reports":"Zgłoszenia",
+        "VictimConsious":"Ofiara jest przytomna?",
+        "VictimBreathing":"Ofiara oddycha?",
+        "Date":"Data",
+        "DangerRating":"Skala zagrożenia",
+        "Description":"Opis",
+        "Accept":"Czy na pewno chcesz zaakceptować to zgłoszenie?",
+        "Delete":"Czy na pewno chcesz usunąć to zgłoszenie?",
+        "Waiting":"Oczekujące zgłoszenia",
+        "Accepted":"Przyjęte zgłoszenia",
+        "KindHelp":"Rodzaj pomocy",
+        "Reason":"Uzasadnienie",
+        "NewReport":"Nowe zgłoszenie",
+        "Kind":"Rodzaj zdarzenia",
+        "AmountVictims":"Ilość poszkodowanych",
+        "Location":"Lokalizacja",
+        "CallServices":"Wezwij dodatkowe służby",
+        "CallIncident":"Zgłoś zdarzenie"
+    },
+    "Person":{
+        "Victims":"Poszkodowani",
+        "Staff":"Pracownicy",
+        "ListParamedics":"Ratownicy",
+        "FirstName":"Imie",
+        "lastName":"Nazwisko",
+        "StateStaff":"Aktualny stan personelu",
+        "DangerousVictims":"Niebezpieczny poszkodowany",
+        "MarkDangerousVictims":"Oznacz niebezpiecznego poszkodowanego",
+        "Trustedperson":"Osoba zaufana",
+        "ListStaff":"Lista pracowników"
+    
+    },
+    "Login":{
+        "Login":"Logowanie",
+        "Sign in":"Zaloguj się",
+        "Registration":"Rejestracja",
+        "Sign up":"Zarejestruj się",
+        "CollectData":"Dlaczego zbieramy dane?"
+    },
+    "Allergy":{
+    "Add":"Dodawanie alergii",
+    "Edit":"Edycja alergii",
+    "Name":"Nazwa alergii",
+    "Type":"Rodzaj alergii",
+    "Other":"Dodatkowe informacje",
+    "Allergies":"Alergie"
+    },
+    "Error":{
+        "Error":"Błąd",
+        "DifferentPasswords":"Powtórzone hasło się różni!",
+        "RegistrationFailed":"Rejestracja nieudana. Spróbuj ponownie później.",
+        "NoResponseServer":"Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.",
+        "UnknownError":"Wystąpił nieznany błąd. Spróbuj ponownie później.",
+        "Incorrect.":"Nieprawidłowy email lub hasło.",
+        "LoadingProblem":"Nastąpił problem z wczytaniem danych. Spróbuj ponownie.",
+        "UndefinedEmail":"User email is undefined. Check Session Storage and verify that user is actually logged in.",
+        "Powtórzone hasło różni się od oryginalnego.":"Powtórzone hasło różni się od oryginalnego.",
+        "EmptyValue":"Ta wartość nie może być pusta."
+    },
+    "Blood":{
+        "Group:":"Grupa krwi:",
+        "Grupa Rh:":"Grupa Rh:",
+        "Undefined":"Blood id is undefined. Check medical data endpoint responses."
+
+    },
+    "Password":{
+        "Check":"Powtórz nowe hasło",
+        "Change":"Zmiana hasła",
+        "Old":"Stare hasło",
+        "New":"Nowe hasło"
+    },
+    "MainPage":{
+        "MainPanel":"Panel główny",
+        "Report24h":"Raport z ostatnich 24 godzin",
+        "Incidents":"Zdarzenia",
+        "OpenMap":"Otwórz mapę",
+        "SaveLife":"Pomóż nam ratować ludzkie życia już teraz!",
+        "Welcome":"Witamy w GARY, w nowym najlepszym przyjacielu człowieka.",
+        "SeeAccident":"Widzisz wypadek? Zareaguj już teraz!",
+        "GARY":"GARY to Twój nowy najlepszy przyjaciel",
+        "CreateAccount":"Założenie konta jest proste i trwa tylko kilka minut, a dostęp do aplikacji może uratować Twoje życie.",
+        "ReportAccidentAnywhere":"Zgłoś zdarzenie z dowolnego miejsca",
+        "ReportAccidentFromApp":"Możesz zgłosić wypadek, atak terrorystyczny lub inne zdarzenie w dowolnym miejscu przez przeglądarkę lub aplikację mobilną.",
+        "GiveHelp":"Udziel pierwszej pomocy",
+        "WatchTutorials":"Przeglądaj liczne poradniki udzielania pierwszej pomocy i wykorzystaj nabytą wiedzę, żeby uratować czyjeś życie."
+    },
+
+    "Amount":"Ilość",
+    "Map":"Mapa",
+    "Filters":"Filtry",
+    "Add":"Dodaj",
+    "NecessaryData":"Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.",
+    "Details":"Szczegóły",
+    "SendData":"Wyślij dane pacjenta",
+    "ComeBack":"Wróć",
+    "Save":"Zapisz zmiany", 
+    "FromBand":"Dzielone z opaski?",
+    "MedicalData":"Dane medyczne",
+   "Settings":"Ustawienia",
+   "userdata":"Dane osobowe",
+   "medicaldata":"Dane medyczne",
+   "MyData":"Moje dane",
+   "Tutorials":"Poradniki",
+   "StartDuty":"Zacznij dyżur",
+   "FinishDuty":"Skończ dyżur",
+   "Name":"Nazwa"
+
 }
