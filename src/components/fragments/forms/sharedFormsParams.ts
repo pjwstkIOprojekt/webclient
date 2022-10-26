@@ -30,3 +30,9 @@ export interface TextControlParams<T> extends RawInputControlParams<T> {
 export type RawTextControlParams = RawInputControlParams<HTMLInputElement | HTMLTextAreaElement>;
 export type RadioControlParams = ControlBaseParams<HTMLInputElement>;
 export type SelectControlParams = TextBasedInputControlParams<HTMLSelectElement>;
+
+export interface NumberControlParams extends RawTextControlParams {
+  minValue?: string | number,
+  maxValue?: string | number,
+  step?: string | number
+}

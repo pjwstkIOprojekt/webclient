@@ -5,7 +5,6 @@ import { Col, Container } from "react-bootstrap";
 import { isDirector } from "../../../helpers/authHelper";
 import NavButton from "../../fragments/navigation/NavButton";
 
-
 const AmbulanceList = () => {
   const [ambulances, setAmbulances] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
