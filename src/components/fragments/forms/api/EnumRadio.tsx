@@ -22,7 +22,7 @@ const EnumRadio = (props: Readonly<EnumRadioParams>) => {
   return (
     <FormGroup className={props.className}>
       {props.label ? <Form.Label className={props.labelClass}>{props.label}{props.required ? <span className="req">*</span> : ""}</Form.Label> : ""}
-      {values.map((val, index) => <Form.Check key={index} value={val} inline type="radio" label={t(`${props.enum.name}.${val}`)} className={props.innerClass} required={props.required} disabled={props.disabled} onChange={props.onChange} checked={val === props.value} />)}
+      {values.map((val, index) => <Form.Check key={index} value={val} id={val} inline type="radio" label={t(`${props.enum.name}.${val}`)} className={props.innerClass} required={props.required} disabled={props.disabled} onChange={props.onChange} checked={val === props.value} />)}
       {props.error ? <span className="req">{props.error}</span> : ""}
     </FormGroup>
   );

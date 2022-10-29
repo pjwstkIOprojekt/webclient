@@ -40,7 +40,7 @@ const MenuBar = () => {
         </NavLink>
       ) : ""}
       {isDirector(roles) ? (
-        <NavLink to="/admpanel/reports">
+        <NavLink to="/admpanel/ambulances">
           <FaToolbox />
           <span className="px-1">Panel kierownika</span>
         </NavLink>

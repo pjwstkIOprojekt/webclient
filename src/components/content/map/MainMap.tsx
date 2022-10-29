@@ -1,7 +1,7 @@
-import { Container, Form, Row } from "react-bootstrap";
+import { accidentIcon, terroristIcon, fireIcon, ambulanceIcon, facilityIcon, policeIcon, alertIcon, covidIcon } from "./MapIcons";
+import { Container, Form } from "react-bootstrap";
 import FormCheck from "../../fragments/forms/FormCheck";
 import { useState, useEffect } from "react";
-import L from "leaflet";
 import MapView from "../../fragments/map/MapView";
 
 enum MarkTypes {
@@ -15,70 +15,6 @@ enum MarkTypes {
   Alert = 64,
   Covid = 128
 }
-
-const accidentIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Map_pin_icon.svg/1504px-Map_pin_icon.svg.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const ambulanceIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const facilityIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/8/8115.png?w=826&t=st=1666208765~exp=1666209365~hmac=e2449742142cbe00032697d49c7d236b48769e71bb872561825ba786688ddfc3",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const terroristIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://freesvg.org/img/Map-Warning-Icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const fireIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://cdn3.iconfinder.com/data/icons/map-markers-2-1/512/danger-512.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const alertIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://cdn2.iconfinder.com/data/icons/danger-problems-2/512/xxx013-512.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const policeIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-20-512.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const covidIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://img.icons8.com/cotton/344/coronavirus-hospital-map-pin--v2.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
 
 const positions = [
   { coords: [52.22, 21.01], desc: "Zdarzenie", type: MarkTypes.Incident, icon: accidentIcon },
@@ -98,46 +34,20 @@ interface MapFormParams {
   setFilters: (x: MarkTypes) => void
 }
 
-const Pin = (props: any) => <img src={props.src} height={25} width={10} alt="Ikonka" />;
-
 const MapForm = (props: Readonly<MapFormParams>) => {
   return (
     <Container>
       <h1 className="mt-3">Mapa</h1>
       <h3 className="mb-3">Filtry (pokaż):</h3>
-      <Form className="w-25">
-        <Row xs={2}>
-          <Pin src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Map_pin_icon.svg/1504px-Map_pin_icon.svg.png" />
-          <FormCheck label="Zdarzenia" value={props.filters & MarkTypes.Incident} onChange={e => props.setFilters(props.filters ^ MarkTypes.Incident)} />
-        </Row>
-        <Row xs={2}>
-          <Pin src="https://freesvg.org/img/Map-Warning-Icon.png" />
-          <FormCheck label="Ataki terrorystyczne" value={props.filters & MarkTypes.Terrorist} onChange={e => props.setFilters(props.filters ^ MarkTypes.Terrorist)} />
-        </Row>
-        <Row xs={2}>
-          <Pin src="https://cdn3.iconfinder.com/data/icons/map-markers-2-1/512/danger-512.png" />
-          <FormCheck label="Pożary" value={props.filters & MarkTypes.Fire} onChange={e => props.setFilters(props.filters ^ MarkTypes.Fire)} />
-        </Row>
-        <Row xs={2}>
-          <Pin src="https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png" />
-          <FormCheck label="Karetki" value={props.filters & MarkTypes.Ambulance} onChange={e => props.setFilters(props.filters ^ MarkTypes.Ambulance)} />
-        </Row>
-        <Row xs={2}>
-          <Pin src="https://cdn-icons-png.flaticon.com/512/8/8115.png?w=826&t=st=1666208765~exp=1666209365~hmac=e2449742142cbe00032697d49c7d236b48769e71bb872561825ba786688ddfc3" />
-          <FormCheck label="Szpitale" value={props.filters & MarkTypes.Hospital} onChange={e => props.setFilters(props.filters ^ MarkTypes.Hospital)} />
-        </Row>
-        <Row xs={2}>
-          <Pin src="https://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-20-512.png" />
-          <FormCheck label="Posterunki policji" value={props.filters & MarkTypes.Police} onChange={e => props.setFilters(props.filters ^ MarkTypes.Police)} />
-        </Row>
-        <Row xs={2}>
-          <Pin src="https://cdn2.iconfinder.com/data/icons/danger-problems-2/512/xxx013-512.png" />
-          <FormCheck label="Alerty" value={props.filters & MarkTypes.Alert} onChange={e => props.setFilters(props.filters ^ MarkTypes.Alert)} />
-        </Row>
-        <Row xs={2}>
-          <Pin src="https://img.icons8.com/cotton/344/coronavirus-hospital-map-pin--v2.png" />
-          <FormCheck label="Ognisko Covid" value={props.filters & MarkTypes.Covid} onChange={e => props.setFilters(props.filters ^ MarkTypes.Covid)} />
-        </Row>
+      <Form className="w-50">
+        <FormCheck label="Zdarzenia" value={props.filters & MarkTypes.Incident} onChange={e => props.setFilters(props.filters ^ MarkTypes.Incident)} icon="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Map_pin_icon.svg/1504px-Map_pin_icon.svg.png" />
+        <FormCheck label="Ataki terrorystyczne" value={props.filters & MarkTypes.Terrorist} onChange={e => props.setFilters(props.filters ^ MarkTypes.Terrorist)} icon="https://freesvg.org/img/Map-Warning-Icon.png" />
+        <FormCheck label="Pożary" value={props.filters & MarkTypes.Fire} onChange={e => props.setFilters(props.filters ^ MarkTypes.Fire)} icon="https://cdn3.iconfinder.com/data/icons/map-markers-2-1/512/danger-512.png" />
+        <FormCheck label="Karetki" value={props.filters & MarkTypes.Ambulance} onChange={e => props.setFilters(props.filters ^ MarkTypes.Ambulance)} icon="https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png" />
+        <FormCheck label="Szpitale" value={props.filters & MarkTypes.Hospital} onChange={e => props.setFilters(props.filters ^ MarkTypes.Hospital)} icon="https://cdn-icons-png.flaticon.com/512/8/8115.png?w=826&t=st=1666208765~exp=1666209365~hmac=e2449742142cbe00032697d49c7d236b48769e71bb872561825ba786688ddfc3" />
+        <FormCheck label="Posterunki policji" value={props.filters & MarkTypes.Police} onChange={e => props.setFilters(props.filters ^ MarkTypes.Police)} icon="https://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-20-512.png" />
+        <FormCheck label="Alerty" value={props.filters & MarkTypes.Alert} onChange={e => props.setFilters(props.filters ^ MarkTypes.Alert)} icon="https://cdn2.iconfinder.com/data/icons/danger-problems-2/512/xxx013-512.png" />
+        <FormCheck label="Ognisko Covid" value={props.filters & MarkTypes.Covid} onChange={e => props.setFilters(props.filters ^ MarkTypes.Covid)} icon="https://img.icons8.com/cotton/344/coronavirus-hospital-map-pin--v2.png" />
       </Form>
     </Container>
   );

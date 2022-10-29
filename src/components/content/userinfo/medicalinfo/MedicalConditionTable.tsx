@@ -23,7 +23,7 @@ const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>
     { name: "#", property: (x: Readonly<DiseaseResponse>) => <Link to={`disease/${x.diseaseId}`}>{x.diseaseId}</Link>, filterBy: "diseaseId", sortBy: "diseaseId" },
     { name: "Nazwa", property: "diseaseName", filterBy: "diseaseName", sortBy: "diseaseName" },
     { name: "Opis", property: "description", filterBy: "description", sortBy: "description" },
-    { name: "Dzielone z opaski?", property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? "Tak" : "Nie" },
+    { name: "Udostępnij przy zagrożeniu", property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? "Tak" : "Nie" },
     { name: "Usuń", property: (x: Readonly<DiseaseResponse>) => <Button onClick={e => remove(x)}>X</Button> }
   ];
 

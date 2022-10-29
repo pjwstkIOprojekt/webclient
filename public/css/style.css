@@ -338,6 +338,12 @@
     font-size: 20px;
 }
 
+.nav-tabs
+{
+    position: sticky;
+    top: 72px;
+}
+
 @media (min-width: 768px)
 {
     .tutorial-grid
@@ -356,6 +362,14 @@
     .tutorial-grid
     {
         grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 992px)
+{
+    .nav-tabs
+    {
+        top: 74px;
     }
 }
 
