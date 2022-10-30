@@ -6,6 +6,8 @@ import { FaHome, FaMedkit, FaBook, FaUserCircle, FaMap, FaNotesMedical, FaToolbo
 import { isDispositor, isDirector, isAuth, Roles } from "../../../helpers/authHelper";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
+import { useState } from "react";
+import i18n from "../../../i18n";
 import NavDrop from "./NavDrop";
 import { IoMdPerson, IoIosPaper } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
@@ -61,7 +63,53 @@ const SideMenu = () => {
         <span className="px-1">Zmień motyw</span>
       </Nav.Link>
       <UserDropdown />
+      <LangDropdown />
     </Nav>
+  );
+};
+
+const LangDropdown = () => {
+  const [lang, setLang] = useState(i18n.language);
+  const darkMode = useDarkMode();
+
+  const changeLang = (lang: string) => {
+    i18n.changeLanguage(lang, (err, t) => {
+      if (err) {
+        console.error(err);
+      }
+
+      setLang(i18n.language);
+    });
+  };
+
+  return (
+    <NavDropdown align="end" title={
+      <span className="d-inline-flex align-items-center">
+        <span className="px-1">Język</span>
+      </span>
+    } className={`nav-link-${darkMode ? "dark" : "light"}`}>
+      <LangDrop display="Polski" lang="pl" current={lang} update={changeLang} />
+      <LangDrop display="English" lang="en" current={lang} update={changeLang} />
+    </NavDropdown>
+  );
+};
+
+interface LangParams {
+  display: string,
+  lang: string,
+  current: string,
+  update: (lang: string) => void
+}
+
+const LangDrop = (props: Readonly<LangParams>) => {
+  if (props.current === props.lang) {
+    return <></>;
+  }
+
+  return (
+    <NavDropdown.Item onClick={e => props.update(props.lang)} className="d-inline-flex align-items-center">
+      <span className="px-1">{props.display}</span>
+    </NavDropdown.Item>
   );
 };
 
@@ -72,11 +120,11 @@ const UserDropdown = () => {
 
   return (
     <NavDropdown align="end" title={
-        <span className="d-inline-flex align-items-center">
-          <FaUserCircle />
-          <span className="px-1">Konto</span>
-        </span>
-      } className={`nav-link-${darkMode ? "dark" : "light"}`}>
+      <span className="d-inline-flex align-items-center">
+        <FaUserCircle />
+        <span className="px-1">Konto</span>
+      </span>
+    } className={`nav-link-${darkMode ? "dark" : "light"}`}>
       {isAuth(roles) ? (
         <>
           <NavDrop to="/settings/userdata">
