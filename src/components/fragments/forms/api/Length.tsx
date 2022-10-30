@@ -6,7 +6,7 @@ export interface LengthParams extends RawTextControlParams {
 }
 
 const Length = (props: Readonly<LengthParams>) => {
-  return <FormControl pattern={`\S{${props.length}}`} {...props} />;
+  return <FormControl pattern={`\\S{${props.length}}`} {...props} />;
 };
 
 export default Length;

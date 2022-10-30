@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getEmail } from "../../../../helpers/authHelper";
 import { updateBlood } from "../../../../api/medicalInfoCalls";
 import Form from "../../../fragments/forms/Form";
@@ -19,8 +19,16 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
   const [readOnly, setReadOnly] = useState(true);
   const [error, setError] = useState("");
 
-  const reset = (message: string) => {
-    console.error(message);
+  useEffect(() => {
+    setGroup(props.bloodType);
+    setRh(props.rhType);
+  }, [props.bloodType, props.rhType]);
+
+  const reset = (message?: string) => {
+    if (message) {
+      console.error(message);
+    }
+
     setGroup(props.bloodType);
     setRh(props.rhType);
     setReadOnly(true);
@@ -91,6 +99,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
           </Alert>
         ) : ""}
         <Button type="submit">{readOnly ? "Edytuj" : "Zapisz"}</Button>
+        {readOnly ? "" : <Button type="button" onClick={e => reset()} className="mx-3">Anuluj</Button>}
       </div>
     </Form>
   );

@@ -2,7 +2,8 @@ import { IdControlParams } from "./sharedFormsParams";
 import { FormGroup, Form } from "react-bootstrap";
 
 export interface FormCheckParams extends IdControlParams<HTMLInputElement> {
-  value?: string | number | boolean
+  value?: string | number | boolean,
+  icon?: string
 }
 
 const FormCheck = (props: Readonly<FormCheckParams>) => {
@@ -10,6 +11,9 @@ const FormCheck = (props: Readonly<FormCheckParams>) => {
     <FormGroup className={props.className}>
       <Form.Check id={props.id} className={props.innerClass} required={props.required} label={(
         <>
+          {props.icon ? <img src={props.icon} alt="Ikonka" style={{
+            height: "40px"
+          }} /> : ""}
           {props.label}
           {props.required ? <span className="req">*</span> : ""}
         </>

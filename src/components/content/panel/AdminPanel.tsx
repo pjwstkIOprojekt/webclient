@@ -1,11 +1,9 @@
 import { Container } from "react-bootstrap";
 import Navtab from "../../fragments/navigation/Navtab";
 import { Route, Routes } from "react-router-dom";
-import AcceptReport from "../report/AcceptReport";
-import Report from "../incident/Report";
 import AmbulanceList from "../ambulance/AmbulanceList";
-import AmbulanceEquipmentList from "../ambulance/AmbulanceEquipmentList";
-import AmbulanceEquipment from "../ambulance/AmbulanceEquipment";
+import AmbulanceForm from "../ambulance/AmbulanceForm";
+import AmbulanceHistory from "../ambulance/AmbulanceHistory";
 import VictimsList from "../victim/VictimsList";
 import VictimInfo from "../victim/VictimInfo";
 import StaffList from "../staff/StaffList";
@@ -13,8 +11,7 @@ import StaffUserForm from "../staff/StaffUserForm";
 
 const AdminPanel = () => {
   const links = [
-    { to: "reports", text: "Zgłoszenia" },
-    { to: "ambulances", text: "Lista karetek" },
+    { to: "ambulances", text: "Karetki" },
     { to: "victims", text: "Poszkodowani" },
     { to: "staff", text: "Pracownicy" }
   ];
@@ -23,11 +20,10 @@ const AdminPanel = () => {
     <Container fluid className="my-3">
       <Navtab links={links} />
       <Routes>
-        <Route path="reports" element={<AcceptReport />} />
-        <Route path="reports/:idReport" element={<Report />} />
         <Route path="ambulances" element={<AmbulanceList />} />
-        <Route path="ambulances/equipment/:ambulanceId" element={<AmbulanceEquipmentList />} />
-        <Route path="equipment/:equipmentId" element={<AmbulanceEquipment />} />
+        <Route path="ambulances/new" element={<AmbulanceForm />} />
+        <Route path="ambulances/edit/:ambulanceId" element={<AmbulanceForm />} />
+        <Route path="ambulances/hist/:ambulanceId" element={<AmbulanceHistory />} />
         <Route path="victims" element={<VictimsList />} />
         <Route path="victims/edit/:victimId" element={<VictimInfo />} />
         <Route path="staff" element={<StaffList />} />

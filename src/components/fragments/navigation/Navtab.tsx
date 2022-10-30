@@ -17,7 +17,7 @@ const Navtab = (props: Readonly<NavtabParams>) => {
   const darkMode = useDarkMode();
 
   return (
-    <Nav variant="tabs" className={`navtab-${darkMode ? "dark" : "light"} ${props.className}`}>
+    <Nav variant="tabs" className={`navtab-${darkMode ? "dark" : "light"} ${props.className} d-fixed`}>
       {props.links.map((link, index) => (
         <Nav.Item key={index} className={props.innerClass}>
           <Nav.Link as={NavLink} to={link.to} className={`navtab-link-${darkMode ? "dark" : "light"} ${props.linkClass}`}>{link.text}</Nav.Link>
