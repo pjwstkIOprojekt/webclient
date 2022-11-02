@@ -6,12 +6,14 @@ import Form from "../../fragments/forms/Form";
 import Email from "../../fragments/forms/api/Email";
 import Password from "../../fragments/forms/api/Password";
 import Button from "../../fragments/util/Button";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const login = useLogin();
+  const { t } = useTranslation("jezyk");
 
   const handleSubmit = () => {
     let status = -1;
@@ -41,21 +43,21 @@ const Login = () => {
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center">Logowanie</h1>
+      <h1 className="text-center">{t('Login.Login')}</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
           <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" />
         </Row>
         <Row className="justify-content-center">
-          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" />
+          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t('Login.Password')} />
         </Row>
         <Row className="justify-content-center">
-          <Button className="my-3 w-25" type="submit">Zaloguj się</Button>
+          <Button className="my-3 w-25" type="submit">{t('Login.Sign in')}</Button>
         </Row>
         {error ? (
           <Row className="justify-content-center mt-5">
             <Alert variant="danger" className="w-50">
-              <Alert.Heading>Błąd</Alert.Heading>
+              <Alert.Heading>{t('Error.Error')}</Alert.Heading>
               <p>{error}</p>
             </Alert>
           </Row>

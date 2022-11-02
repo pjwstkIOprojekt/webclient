@@ -59,6 +59,7 @@
     },
     "Reports":{
         "Reports":"Zgłoszenia",
+        "Report":"Zgłoszenie",
         "VictimConsious":"Ofiara jest przytomna?",
         "VictimBreathing":"Ofiara oddycha?",
         "Date":"Data",
@@ -75,19 +76,26 @@
         "AmountVictims":"Ilość poszkodowanych",
         "Location":"Lokalizacja",
         "CallServices":"Wezwij dodatkowe służby",
-        "CallIncident":"Zgłoś zdarzenie"
+        "CallIncident":"Zgłoś zdarzenie",
+        "Police":"Policja",
+        "FireDepartment":"Straż pożarna",
+        "CityGuard":"Straż miejska",
+        "Military":"Wojsko"
     },
     "Person":{
         "Victims":"Poszkodowani",
         "Staff":"Pracownicy",
         "ListParamedics":"Ratownicy",
         "FirstName":"Imie",
-        "lastName":"Nazwisko",
+        "LastName":"Nazwisko",
         "StateStaff":"Aktualny stan personelu",
         "DangerousVictims":"Niebezpieczny poszkodowany",
         "MarkDangerousVictims":"Oznacz niebezpiecznego poszkodowanego",
         "Trustedperson":"Osoba zaufana",
-        "ListStaff":"Lista pracowników"
+        "ListStaff":"Lista pracowników",
+        "PhoneNumber":"Numer telefonu",
+        "Birthdate":"Data urodzenia",
+        "Nick":"Nazwa użytkownika"
     
     },
     "Login":{
@@ -95,7 +103,10 @@
         "Sign in":"Zaloguj się",
         "Registration":"Rejestracja",
         "Sign up":"Zarejestruj się",
-        "CollectData":"Dlaczego zbieramy dane?"
+        "CollectData":"Dlaczego zbieramy dane?",
+        "LogOff":"Wyloguj",
+        "Password":"Hasło"
+
     },
     "Allergy":{
     "Add":"Dodawanie alergii",
@@ -119,7 +130,7 @@
     },
     "Blood":{
         "Group:":"Grupa krwi:",
-        "Grupa Rh:":"Grupa Rh:",
+        "GroupRh:":"Grupa Rh:",
         "Undefined":"Blood id is undefined. Check medical data endpoint responses."
 
     },
@@ -130,6 +141,7 @@
         "New":"Nowe hasło"
     },
     "MainPage":{
+        "MainPage":"Strona",
         "MainPanel":"Panel główny",
         "Report24h":"Raport z ostatnich 24 godzin",
         "Incidents":"Zdarzenia",
@@ -149,6 +161,7 @@
     "Map":"Mapa",
     "Filters":"Filtry",
     "Add":"Dodaj",
+    "Edit":"Edytuj",
     "NecessaryData":"Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.",
     "Details":"Szczegóły",
     "SendData":"Wyślij dane pacjenta",
@@ -163,6 +176,13 @@
    "Tutorials":"Poradniki",
    "StartDuty":"Zacznij dyżur",
    "FinishDuty":"Skończ dyżur",
-   "Name":"Nazwa"
-
+   "Name":"Nazwa",
+   "Language":"Język",
+    "Theme":"Zmień motyw",
+    "Account":"Konto",
+    "Cancel":"Anuluj",
+    "Diseases":"Choroby",
+    "AddDisease":"Dodawanie choroby",
+    "EditDisease":"Edytowanie choroby",
+    "AllCapabilities":"Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!"
 }

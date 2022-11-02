@@ -1,0 +1,187 @@
+{
+    "RoleName": {
+        "ADMIN": "administrator",
+        "USER": "User"
+    },
+    "RhType": {
+        "PLUS": "Plus",
+        "MINUS": "Minus"
+    },
+    "BloodType": {
+        "A": "A",
+        "B": "B",
+        "ZERO": "ZERO",
+        "AB": "AB"
+    },
+    "AllergyType": {
+        "SKIN_CONTACT": "Kontaktowa",
+        "INGESTION": "Ingestion",
+        "INJECTION": "Injection",
+        "INHALATION": "Inhalation"
+    },
+    "AmbulanceType": {
+        "A": "A",
+        "B": "B",
+        "C": "C"
+    },
+    "AmbulanceStateType": {
+        "FAILURE": "Failure",
+        "MAINTENANCE": "Maintenance",
+        "AVAILABLE": "Available",
+        "IN_ACTION": "In action",
+        "CREW_BRAKE": "Crew Brake"
+    },
+    "AmbulanceClass": {
+        "BASIC": "Basic",
+        "SPECIAL": "Special",
+        "TRANSPORT": "Transport",
+        "NEONATOLOGY": "Neonatology"
+    },
+    "Ambulance":{
+        "List":"Ambulance list",
+        "Choose":"Choose ambulance",
+        "Ambulance":"Ambulance",
+        "RegistrationNumber":"Registration number",
+        "Kind":"Kind ambulance",
+        "MaxAmount":"Maximum number of paramedics",
+        "AddParamedics":"Add a paramedic",
+        "New":"New amulance",
+        "Type":"Type ambulance",
+        "Active":"Karetki aktualnie biorące udział w zgłoszeniach",
+        "Available":"Ambulances available",
+        "Amount":"Minimal amount",
+        "Metric":"Unit of measure",
+        "AssignmentDate":"Date of assignment to the ambulance",
+        "CompletionDate":"Planned replenishment date",
+        "Consumption":"General consumption",
+        "Equipment":"Ambulance equipment",
+        "State":"Ambulance status"
+    },
+    "Reports":{
+        "Reports":"Reports",
+        "Report":"Report",
+        "VictimConsious":"Is victim conscious?",
+        "VictimBreathing":"Is victim breathing?",
+        "Date":"Date",
+        "DangerRating":"Danger rating",
+        "Description":"Description",
+        "Accept":"Are you sure you want to accept this application?",
+        "Delete":"Are you sure you want to delete this report?",
+        "Waiting":"Oczekujące zgłoszenia",
+        "Accepted":"Accepted reports",
+        "KindHelp":"Kind of help",
+        "Reason":"Reason",
+        "NewReport":"New Report",
+        "Kind":"Kind a report",
+        "AmountVictims":"Amount of Victims",
+        "Location":"Location",
+        "CallServices":"Call Services",
+        "CallIncident":"Call Incident",
+        "Police":"Police",
+        "FireDepartment":"Fire Department",
+        "CityGuard":"City Guard",
+        "Military":"Military"
+    },
+    "Person":{
+        "Victims":"Victims",
+        "Staff":"Staff",
+        "ListParamedics":"List of paramedics",
+        "FirstName":"Firstname",
+        "LastName":"Lastname",
+        "StateStaff":"Current State Staff",
+        "DangerousVictims":"Dangerous Victims",
+        "MarkDangerousVictims":"Mark dangerous victim",
+        "Trustedperson":"Trusted person",
+        "ListStaff":"List of Staff",
+        "PhoneNumber":"Phone number",
+        "Birthdate":"Birthdate",
+        "Nick":"Nickname"
+    },
+    "Login":{
+        "Login":"Login",
+        "Sign in":"Sign in",
+        "Registration":"Registration",
+        "Sign up":"Sign up",
+        "CollectData":"Why do we collect data?",
+        "LogOff":"Log off",
+        "Password":"Password"
+    },
+    "Allergy":{
+        "Add":"Add allergy",
+        "Edit":"Edit allergy",
+        "Name":"Name of the allergy",
+        "Type":"Type of the allergy",
+        "Other":"Other",
+        "Allergies":"Allergies"
+        },
+    "Error":{
+        "Error":"Error",
+        "DifferentPasswords":"Passwords are different",
+        "RegistrationFailed":"Registration failed. Try again.",
+        "NoResponseServer":"The server response was corrupted or partially lost. Try again.",
+        "UnknownError":"An unknown error has occurred. Please try again later.",
+        "Incorrect.":"Incorrect email or password.",
+        "LoadingProblem":"There was a problem loading the data. Try again.",
+        "UndefinedEmail":"User email is undefined. Check Session Storage and verify that user is actually logged in.",
+        "EmptyValue":"This value cannot be empty."
+    },
+    "Blood":{
+        "Group:":"Blood group:",
+        "GroupRh:":"Group Rh:",
+        "Undefined":"Blood id is undefined. Check medical data endpoint responses."
+    },
+    "Password":{
+        "Check":"Repeat new password",
+        "Change":"Password change",
+        "Old":"Old password",
+        "New":"New password"
+    },
+    "MainPage":{
+        "MainPage":"Main Page",
+        "MainPanel":"Main Panel",
+        "Report24h":"Last 24 hours report",
+        "Incidents":"Incidents",
+        "OpenMap":"Open map",
+        "SaveLife":"Help us save human lives now!",
+        "Welcome":"Witamy w GARY, w nowym najlepszym przyjacielu człowieka.",
+        "SeeAccident":"You see the accident? React right now!",
+        "GARY":"GARY is your new best friend",
+        "CreateAccount":"Creating an account is simple and takes only a few minutes, and access to the application can save your life.",
+        "ReportAccidentAnywhere":"Report an incident from anywhere",
+        "ReportAccidentFromApp":"You can report an accident, terrorist attack or other incident anywhere via a browser or mobile application.",
+        "GiveHelp":"Give first aid",
+        "WatchTutorials":"Browse through the numerous first aid guides and use the acquired knowledge to save someone's life."
+    },
+    "Amount":"Amount",
+    "Map":"Map",
+    "Filters":"Filters",
+    "Add":"Add",
+    "NecessaryData":"All of the above data is necessary for the proper provision of services.",
+    "Details":"Details",
+    "SendData":"Send patient details",
+    "ComeBack":"Come back",
+    "Save":"Save", 
+    "FromBand":"Dzielone z opaski?",
+    "MedicalData":"Medical data",
+    "Settings":"Settings",
+    "userdata":"User data",
+    "medicaldata":"Medical data",
+    "MyData":"My data",
+    "Tutorials":"Tutorials",
+    "StartDuty":"Start Duty",
+    "FinishDuty":"Finish duty",
+    "Name":"Name",
+    "Language":"Language",
+    "Theme":"Change theme",
+    "Account":"Account",
+    "Cancel":"Cancel",
+    "Diseases":"Diseases",
+    "AddDisease":"Add disease",
+    "EditDisease":"edit disease",
+    "AllCapabilities":"Want to be able to use all the capabilities of our platform? Log in to your account now!"
+
+
+
+
+
+}

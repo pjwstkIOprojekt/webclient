@@ -3,8 +3,10 @@ import { Container, Row, Card } from "react-bootstrap";
 import CustomCard from "../../fragments/util/Card";
 import PieChart from "../../fragments/charts/PieChart";
 import Table from "../../fragments/util/Table";
+import { useTranslation } from "react-i18next";
 
 const AdminHome = () => {
+  const { t } = useTranslation("jezyk");
   const data = [
     { id: 1, name: "Karetka T", accident: 1, status: "Dojeżdża", color: "#ff0000" },
     { id: 2, name: "Karetka R", accident: 1, status: "Dojeżdża", color: "#ff0000" },
@@ -35,11 +37,11 @@ const AdminHome = () => {
 
   return (
     <Container className="mt-5 justify-content-center text-center">
-      <h1 className="mb-3">Panel główny</h1>
+      <h1 className="mb-3">{t('MainPage.MainPanel')}</h1>
       <Row xs={2}>
         <CustomCard>
           <Card.Header>
-            <Card.Title>Aktualny stan personelu</Card.Title>
+            <Card.Title>{t('Person.StateStaff')}</Card.Title>
           </Card.Header>
           <Card.Body>
             <PieChart width={500} height={600} data={pieDat} label legend tooltip />
@@ -47,14 +49,14 @@ const AdminHome = () => {
         </CustomCard>
         <CustomCard>
           <Card.Header>
-            <Card.Title>Raport z ostatnich 24 godzin</Card.Title>
+            <Card.Title>{t('MainPage.Report24h')}</Card.Title>
           </Card.Header>
           <Card.Body>
             <PieChart width={500} height={600} data={pieDat2} label legend tooltip />
           </Card.Body>
         </CustomCard>
       </Row>
-      <h2 className="mt-5 mb-3">Karetki aktualnie biorące udział w zgłoszeniach</h2>
+      <h2 className="mt-5 mb-3">{t('Ambulance.Active')}</h2>
       <Table columns={cols} data={data} />
     </Container>
   );

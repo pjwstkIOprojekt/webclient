@@ -3,8 +3,10 @@ import ProgressChart from "../../fragments/charts/ProgressChart";
 import PieChart from "../../fragments/charts/PieChart";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
+import { useTranslation } from "react-i18next";
 
 const DispositorHome = () => {
+  const { t } = useTranslation("jezyk");
   const tableData = [
     { date: "2022-07-19 18:00", cause: "Wypadek samochodowy", scale: 2 },
     { date: "2022-07-12 16:53", cause: "Atak terrorystyczny", scale: 4 }
@@ -24,7 +26,7 @@ const DispositorHome = () => {
 
   return (
     <Container className="mt-5">
-      <h1 className="mb-3 text-center">Panel główny</h1>
+      <h1 className="mb-3 text-center">{t('MainPage.MainPanel')}</h1>
       <Row xs={4} className="justify-content-around">
         <ProgressChart width={350} height={350} value={43} innerRadius="100" color={{
           r: 255,
@@ -39,12 +41,12 @@ const DispositorHome = () => {
         }} />
       </Row>
       <Row xs={3} className="text-center">
-        <h3>Dostępne karetki</h3>
-        <h3>Zdarzenia</h3>
-        <h3>Przyjęte zgłoszenia</h3>
+        <h3>{t('Ambulance.Available')}</h3>
+        <h3>{t('MainPage.Incidents')}</h3>
+        <h3>{t('Reports.Accepted')}</h3>
       </Row>
       <Row className="mt-5 justify-content-center">
-        <NavButton to="/map" className="w-25">Otwórz mapę</NavButton>
+        <NavButton to="/map" className="w-25">{t('MainPage.OpenMap')}</NavButton>
       </Row>
       <Row className="my-5">
         <Table columns={cols} data={tableData} />

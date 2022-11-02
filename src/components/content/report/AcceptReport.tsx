@@ -4,11 +4,13 @@ import FormSelect from "../../fragments/forms/FormSelect";
 import Button from '../../fragments/util/Button';
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
+import { useTranslation } from "react-i18next";
 
 const AcceptReport = () => {
   const [pending, setPending] = useState<Record<string, any>[]>([]);
   const [approved, setApproved] = useState<Record<string, any>[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation("jezyk");
 
   useEffect(() => {
     /*getUnapproved().then(res => res.json()).then(items => setPending(items)).then(getApproved).then(res => res.json()).then(items => {
@@ -45,9 +47,9 @@ const AcceptReport = () => {
 
   return (
     <Container className="mb-3 justify-content-center text-center">
-      <h3>Oczekujące zgłoszenia</h3>
+      <h3>{t('Reports.Waiting')}</h3>
       <Table columns={pendingCols} data={pending} isLoading={isLoading} />
-      <h3 className="mt-5">Przyjęte zgłoszenia</h3>
+      <h3 className="mt-5">{t('Reports.Accepted')}</h3>
       <Table columns={approvedCols} data={approved} isLoading={isLoading} />
     </Container>
   );

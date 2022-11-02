@@ -6,6 +6,7 @@ import EnumRadio from "../../../fragments/forms/api/EnumRadio";
 import { BloodType, RhType } from "../../../../api/enumCalls";
 import Button from "../../../fragments/util/Button";
 import { Alert } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 export interface Blood {
   id?: number,
@@ -18,6 +19,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
   const [rh, setRh] = useState(props.rhType);
   const [readOnly, setReadOnly] = useState(true);
   const [error, setError] = useState("");
+  const { t } = useTranslation("jezyk");
 
   useEffect(() => {
     setGroup(props.bloodType);
@@ -85,21 +87,21 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
   return (
     <Form onSubmit={onSubmit}>
       <div className="mb-3">
-        <h3>Grupa krwi</h3>
+        <h3>{t('Blood.Group')}</h3>
         <div>
-          <EnumRadio labelClass="p-3" label="Grupa krwi:" required enum={BloodType} onChange={e => setGroup(e.target.value)} value={group} disabled={readOnly} error={getError(group)} />
+          <EnumRadio labelClass="p-3" label={t('Blood.Group')} required enum={BloodType} onChange={e => setGroup(e.target.value)} value={group} disabled={readOnly} error={getError(group)} />
         </div>
         <div>
-          <EnumRadio labelClass="p-3" label="Grupa Rh:" required enum={RhType} onChange={e => setRh(e.target.value)} value={rh} disabled={readOnly} error={getError(rh)} />
+          <EnumRadio labelClass="p-3" label={t('Blood.Group Rh')} required enum={RhType} onChange={e => setRh(e.target.value)} value={rh} disabled={readOnly} error={getError(rh)} />
         </div>
         {error ? (
           <Alert variant="danger" className="w-25">
-            <Alert.Heading>Błąd</Alert.Heading>
+            <Alert.Heading>{t('Error.Error')}</Alert.Heading>
             <p>{error}</p>
           </Alert>
         ) : ""}
         <Button type="submit">{readOnly ? "Edytuj" : "Zapisz"}</Button>
-        {readOnly ? "" : <Button type="button" onClick={e => reset()} className="mx-3">Anuluj</Button>}
+        {readOnly ? "" : <Button type="button" onClick={e => reset()} className="mx-3">{t('Cancel')}</Button>}
       </div>
     </Form>
   );

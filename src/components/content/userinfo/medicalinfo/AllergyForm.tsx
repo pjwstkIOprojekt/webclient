@@ -9,6 +9,7 @@ import { AllergyType } from "../../../../api/enumCalls";
 import NotBlank from "../../../fragments/forms/api/NotBlank";
 import Button from "../../../fragments/util/Button";
 import NavButton from "../../../fragments/navigation/NavButton";
+import { useTranslation } from "react-i18next";
 
 const AllergyForm = () => {
   const [allergyType, setAllergyType] = useState("");
@@ -17,6 +18,7 @@ const AllergyForm = () => {
   const [error, setError] = useState("");
   const { allergyId } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation("jezyk");
 
   useEffect(() => {
     if (allergyId !== undefined) {
@@ -68,14 +70,14 @@ const AllergyForm = () => {
     <Container className="my-3">
       <h1 className="mb-3">{allergyId === undefined ? "Dodawanie alergii" : "Edycja alergii"}</h1>
       <Form onSubmit={onSubmit}>
-        <EnumSelect id="allergyType" className="mb-3" label="Rodzaj alergii" required enum={AllergyType} value={allergyType} onChange={e => setAllergyType(e.target.value)} />
-        <NotBlank id="allergyName" className="mb-3" label="Nazwa alergii" required value={allergyName} onChange={e => setAllergyName(e.target.value)} />
-        <NotBlank id="other" className="mb-3" label="Dodatkowe informacje" required value={other} onChange={e => setOther(e.target.value)} />
+        <EnumSelect id="allergyType" className="mb-3" label={t('Allergy.Type')} required enum={AllergyType} value={allergyType} onChange={e => setAllergyType(e.target.value)} />
+        <NotBlank id="allergyName" className="mb-3" label={t('Allergy.Name')} required value={allergyName} onChange={e => setAllergyName(e.target.value)} />
+        <NotBlank id="other" className="mb-3" label={t('Allergy.Other')} required value={other} onChange={e => setOther(e.target.value)} />
         <Button className="m-2" type="submit">{allergyId === undefined ? "Dodaj alergię" : "Zapisz zmiany"}</Button>
-        <NavButton to="../medicaldata">Anuluj</NavButton>
+        <NavButton to="../medicaldata">{t('Cancel')}</NavButton>
         {error ? (
           <Alert variant="danger" className="mt-3">
-            <Alert.Heading>Błąd</Alert.Heading>
+            <Alert.Heading>{t('Error.Error')}</Alert.Heading>
             <p>{error}</p>
           </Alert>
         ) : ""}

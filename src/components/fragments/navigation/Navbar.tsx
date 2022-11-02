@@ -11,28 +11,30 @@ import i18n from "../../../i18n";
 import NavDrop from "./NavDrop";
 import { IoMdPerson, IoIosPaper } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 const MenuBar = () => {
+  const { t } = useTranslation("jezyk");
   const roles = useRoles();
-
+  
   return (
     <Nav className="me-auto">
       <NavLink to="/">
         <FaHome />
-        <span className="px-1">Strona główna</span>
+        <span className="px-1">{t('MainPage.MainPage')}</span>
       </NavLink>
       <NavLink to="/newreport">
         <FaMedkit />
-        <span className="px-1">Zgłoszenie</span>
+        <span className="px-1">{t('Reports.Report')}</span>
       </NavLink>
       <NavLink to="/tutorial">
         <FaBook />
-        <span className="px-1">Poradniki</span>
+        <span className="px-1">{t('Tutorials')}</span>
       </NavLink>
       {isDispositor(roles) || isDirector(roles) ? (
         <NavLink to="/map">
           <FaMap />
-          <span className="px-1">Mapa</span>
+          <span className="px-1">{t('Map')}</span>
         </NavLink>
       ) : ""}
       {isDispositor(roles) ? (
@@ -54,13 +56,14 @@ const MenuBar = () => {
 const SideMenu = () => {
   const darkMode = useDarkModeManager();
   const roles = useRoles();
+  const { t } = useTranslation("jezyk");
 
   return (
     <Nav>
       {isDispositor(roles) ? <CheckIn /> : ""}
       <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
         <HiOutlineLightBulb />
-        <span className="px-1">Zmień motyw</span>
+        <span className="px-1">{t('Theme')}</span>
       </Nav.Link>
       <UserDropdown />
       <LangDropdown />
@@ -69,6 +72,7 @@ const SideMenu = () => {
 };
 
 const LangDropdown = () => {
+  const { t } = useTranslation("jezyk");
   const [lang, setLang] = useState(i18n.language);
   const darkMode = useDarkMode();
 
@@ -85,7 +89,7 @@ const LangDropdown = () => {
   return (
     <NavDropdown align="end" title={
       <span className="d-inline-flex align-items-center">
-        <span className="px-1">Język</span>
+        <span className="px-1">{t('Language')}</span>
       </span>
     } className={`nav-link-${darkMode ? "dark" : "light"}`}>
       <LangDrop display="Polski" lang="pl" current={lang} update={changeLang} />
@@ -114,6 +118,7 @@ const LangDrop = (props: Readonly<LangParams>) => {
 };
 
 const UserDropdown = () => {
+  const { t } = useTranslation("jezyk");
   const darkMode = useDarkMode();
   const auth = useAuth();
   const roles = auth.user ? auth.user.roles : Roles.None;
@@ -122,22 +127,22 @@ const UserDropdown = () => {
     <NavDropdown align="end" title={
       <span className="d-inline-flex align-items-center">
         <FaUserCircle />
-        <span className="px-1">Konto</span>
+        <span className="px-1">{t('Account')}</span>
       </span>
     } className={`nav-link-${darkMode ? "dark" : "light"}`}>
       {isAuth(roles) ? (
         <>
           <NavDrop to="/settings/userdata">
             <IoMdPerson />
-            <span className="px-1">Dane osobowe</span>
+            <span className="px-1">{t('userdata')}</span>
           </NavDrop>
           <NavDrop to="/settings/medicaldata">
             <FaNotesMedical />
-            <span className="px-1">Dane medyczne</span>
+            <span className="px-1">{t('MedicalData')}</span>
           </NavDrop>
           <NavDrop to="/settings/trustedperson">
             <FaUserSecret />
-            <span className="px-1">Osoba zaufana</span>
+            <span className="px-1">{t('Trustedperson')}</span>
           </NavDrop>
           <NavDropdown.Divider />
         </>
@@ -145,18 +150,18 @@ const UserDropdown = () => {
       {isAuth(roles) ? (
         <NavDropdown.Item onClick={auth.logout} className="d-inline-flex align-items-center">
           <BiLogIn />
-          <span className="px-1">Wyloguj</span>
+          <span className="px-1">{t('LogOff')}</span>
         </NavDropdown.Item>
       ) : (
         <NavDrop to="/login">
           <BiLogIn />
-          <span className="px-1">Zaloguj się</span>
+          <span className="px-1">{t('Sign in')}</span>
         </NavDrop>
       )}
       {isAuth(roles) ? "" : (
         <NavDrop to="/register">
           <IoIosPaper />
-          <span className="px-1">Zarejestruj się</span>
+          <span className="px-1">{t('Sign up')}</span>
         </NavDrop>
       )}
     </NavDropdown>

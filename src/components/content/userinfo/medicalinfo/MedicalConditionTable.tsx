@@ -5,8 +5,10 @@ import Link from "../../../fragments/navigation/Link";
 import Button from "../../../fragments/util/Button";
 import Table from "../../../fragments/util/Table";
 import NavButton from "../../../fragments/navigation/NavButton";
+import { useTranslation } from "react-i18next";
 
 const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>) => {
+  const { t } = useTranslation("jezyk");
   const remove = (x: Readonly<DiseaseResponse>) => {
     if (!window.confirm("Czy na pewno chcesz usunąć tą chorobę?")) {
       return;
@@ -29,9 +31,9 @@ const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>
 
   return (
     <div>
-      <h3>Choroby</h3>
+      <h3>{t('Diseases')}</h3>
       <Table columns={cols} data={props.data} isLoading={props.isLoading} />
-      <NavButton to="disease">Dodaj</NavButton>
+      <NavButton to="disease">{t('Add')}</NavButton>
     </div>
   );
 };

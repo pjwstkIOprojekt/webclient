@@ -8,6 +8,7 @@ import FormTextArea from "../../fragments/forms/FormTextArea";
 import Button from "../../fragments/util/Button";
 import L from "leaflet";
 import MapView from "../../fragments/map/MapView";
+import { useTranslation } from "react-i18next";
 
 interface ReportFormParams {
   update: (lat: number, lng: number) => void,
@@ -23,6 +24,7 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
   const [amountVictims, setAmountVictims] = useState(0);
   const [desc, setDesc] = useState("");
   const navigate = useNavigate();
+  const { t } = useTranslation("jezyk");
 
   const accidentTypes = [
     "Atak terrorystyczny",
@@ -57,49 +59,49 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
 
   return (
     <Form onSubmit={handleSubmit} className="w-50">
-      <h1 className="text-center mt-3">Nowe zgłoszenie</h1>
+      <h1 className="text-center mt-3">{t('Reports.NewReport')}</h1>
       <Row className="justify-content-center mb-3">
-        <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} label="Rodzaj zdarzenia:" options={accidentTypes} />
+        <FormSelect id="type" onChange={e => setType(parseInt(e.target.value))} value={type} label={t('Reports.Kind')} options={accidentTypes} />
       </Row>
       <Row className="justify-content-center mb-3 ml-2">
-        <FormCheck id="breat" onChange={e => setBreathing(!breathing)} value={breathing} label="Czy ofiara oddycha?" />
+        <FormCheck id="breat" onChange={e => setBreathing(!breathing)} value={breathing} label={t('Reports.VictimBreathing')} />
       </Row>
       <Row className="justify-content-center mb-3 ml-2">
-        <FormCheck id="cons" onChange={e => setConscious(!conscious)} value={conscious} label="Czy ofiara jest przytomna?" />
+        <FormCheck id="cons" onChange={e => setConscious(!conscious)} value={conscious} label={t('Reports.VictimConsious')} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormSelect id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} label="Skala zagrożenia" options={dangerLevels} />
+        <FormSelect id="dangerRating" onChange={e => setRating(parseInt(e.target.value))} value={rating} label={t('Reports.DangerRating')} options={dangerLevels} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormControl id="amountVictims" onChange={e => setAmountVictims(parseInt(e.target.value))} value={amountVictims} label="Ilość poszkodowanych" type="number" />
+        <FormControl id="amountVictims" onChange={e => setAmountVictims(parseInt(e.target.value))} value={amountVictims} label={t('Reports.AmountVictims')} type="number" />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis sytuacji:" />
+        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label={t('Reports.Description')} />
       </Row>
-      <h4 className="text-center mt-3">Lokalizacja</h4>
+      <h4 className="text-center mt-3">{t('Reports.Location')}</h4>
       <Row className="justify-content-center mb-3">
         <FormControl id="lat" type="number" onChange={e => props.update(parseFloat(e.target.value), props.lng)} value={props.lat} placeholder="Lat" />
       </Row>
       <Row className="justify-content-center mb-3">
         <FormControl id="lng" type="number" onChange={e => props.update(props.lat, parseFloat(e.target.value))} value={props.lng} placeholder="Lng" />
       </Row>
-      <h3 className="text-center mt-3">Wezwij dodatkowe służby</h3>
+      <h3 className="text-center mt-3">{t('Reports.CallServices')}</h3>
       <Row className="justify-content-center mb-3 ml-2">
         <Col>
-          <FormCheck label="Policja" value={false} onChange={e => 3} />
+          <FormCheck label={t('Reports.Police')} value={false} onChange={e => 3} />
         </Col>
         <Col>
-          <FormCheck label="Straż pożarna" value={false} onChange={e => 3} />
+          <FormCheck label={t('Reports.FireDepartment')} value={false} onChange={e => 3} />
         </Col>
         <Col>
-          <FormCheck label="Straż miejska" value={false} onChange={e => 3} />
+          <FormCheck label={t('Reports.CityGuard')} value={false} onChange={e => 3} />
         </Col>
         <Col>
-          <FormCheck label="Wojsko" value={false} onChange={e => 3} />
+          <FormCheck label={t('Reports.Military')} value={false} onChange={e => 3} />
         </Col>
       </Row>
       <Row className="justify-content-center mb-5">
-        <Button className="mt-3 w-50" type="submit">Zgłoś zdarzenie</Button>
+        <Button className="mt-3 w-50" type="submit">{t('Reports.CallIncident')}</Button>
       </Row>
     </Form>
   );

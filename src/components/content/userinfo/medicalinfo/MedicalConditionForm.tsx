@@ -8,6 +8,7 @@ import NotBlank from "../../../fragments/forms/api/NotBlank";
 import FormCheck from "../../../fragments/forms/FormCheck";
 import Button from "../../../fragments/util/Button";
 import NavButton from "../../../fragments/navigation/NavButton";
+import { useTranslation } from "react-i18next";
 
 const MedicalConditionForm = () => {
   const [diseaseName, setDiseaseName] = useState("");
@@ -16,6 +17,7 @@ const MedicalConditionForm = () => {
   const [error, setError] = useState("");
   const { diseaseId } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation("jezyk");
 
   useEffect(() => {
     if (diseaseId !== undefined) {
@@ -67,14 +69,14 @@ const MedicalConditionForm = () => {
     <Container className="my-3">
       <h1 className="mb-3">{diseaseId === undefined ? "Dodawanie choroby" : "Edycja choroby"}</h1>
       <Form onSubmit={onSubmit}>
-        <NotBlank id="diseaseName" className="mb-3" label="Nazwa choroby" required value={diseaseName} onChange={e => setDiseaseName(e.target.value)} />
-        <NotBlank id="description" className="mb-3" label="Opis" required value={description} onChange={e => setDescription(e.target.value)} />
-        <FormCheck id="shareWithBand" className="mb-3" label="Dzielone z opaski?" value={share} onChange={e => setShare(!share)} />
+        <NotBlank id="diseaseName" className="mb-3" label={t('Name')} required value={diseaseName} onChange={e => setDiseaseName(e.target.value)} />
+        <NotBlank id="description" className="mb-3" label={t('Reports.Description')} required value={description} onChange={e => setDescription(e.target.value)} />
+        <FormCheck id="shareWithBand" className="mb-3" label={t('FromBand')} value={share} onChange={e => setShare(!share)} />
         <Button className="m-2" type="submit">{diseaseId === undefined ? "Dodaj chorobę" : "Zapisz zmiany"}</Button>
-        <NavButton to="../medicaldata">Anuluj</NavButton>
+        <NavButton to="../medicaldata">{t('Cancel')}</NavButton>
         {error ? (
           <Alert variant="danger" className="mt-3">
-            <Alert.Heading>Błąd</Alert.Heading>
+            <Alert.Heading>{t('Error.Error')}</Alert.Heading>
             <p>{error}</p>
           </Alert>
         ) : ""}
