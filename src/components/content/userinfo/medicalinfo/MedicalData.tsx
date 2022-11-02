@@ -46,12 +46,15 @@ const MedicalData = () => {
     });
   }, []);
 
+  const removeAllergy = (x: Readonly<AllergyResponse>) => setAllergies(allergies.filter(a => a.allergyId !== x.allergyId));
+  const removeDisease = (x: Readonly<DiseaseResponse>) => setConditions(conditions.filter(c => c.diseaseId !== x.diseaseId));
+
   return (
     <Container className="my-3">
       <h1 className="mb-3">Dane medyczne</h1>
       <BloodTypeForm id={blood.id} bloodType={blood.bloodType} rhType={blood.rhType} />
-      <AllergyTable data={allergies} isLoading={isloading} />
-      <MedicalConditionTable data={conditions} isLoading={isloading} />
+      <AllergyTable data={allergies} isLoading={isloading} onRemove={removeAllergy} />
+      <MedicalConditionTable data={conditions} isLoading={isloading} onRemove={removeDisease} />
     </Container>
   );
 };
