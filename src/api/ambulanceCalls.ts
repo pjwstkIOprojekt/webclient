@@ -26,7 +26,7 @@ export interface AmbulanceResponse extends AmbulanceBase {
 
 export interface UpdateAmbulanceStateRequest {
   // Enum - AmbulanceState
-  ambulanceState: string,
+  stateType: string,
 
   // Datetime
   start: string,

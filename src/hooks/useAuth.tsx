@@ -1,10 +1,10 @@
-import { User, Roles, getUser, stringsToRoles, login, logout } from "../helpers/authHelper";
+import { Roles, getRoles, stringsToRoles, login, logout } from "../helpers/authHelper";
 import { createContext, useContext, useState } from "react";
 import { useNotificationsManager } from "./useNotify";
 
 // Default auth settings
 const defaultContext = {
-  user: null as User | null,
+  roles: Roles.None,
   login: (token: string, roles: Readonly<string[]>, email: string) => {},
   logout: () => {}
 };
@@ -14,15 +14,11 @@ const AuthContext = createContext(defaultContext);
 export const useAuth = () => useContext(AuthContext);
 export const useLogin = () => useAuth().login;
 export const useLogout = () => useAuth().logout;
-
-export const useRoles = () => {
-  const user = useAuth().user;
-  return user ? user.roles : Roles.None;
-};
+export const useRoles = () => useAuth().roles;
 
 // Auth hook provider component
 export const AuthProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
-  const [user, setUser] = useState<User | null>(getUser());
+  const [roles, setRoles] = useState(getRoles() ?? Roles.None);
   const notifications = useNotificationsManager();
 
   const handleLogin = (token: string, roles: Readonly<string[]>, email: string) => {
@@ -32,20 +28,20 @@ export const AuthProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
       email: email
     };
 
-    setUser(usr);
+    setRoles(usr.roles);
     login(usr);
     notifications.clear("Logowanie", "Pomyślnie zalogowano na konto");
   };
 
   const handleLogout = () => {
-    setUser(null);
+    setRoles(Roles.None);
     logout();
     notifications.clear("Wylogowanie", "Pomyślnie wylogowano z konta");
   };
 
   return (
     <AuthContext.Provider value={{
-      user: user,
+      roles: roles,
       login: handleLogin,
       logout: handleLogout
     }}>

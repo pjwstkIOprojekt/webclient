@@ -1,6 +1,7 @@
 import { CurveType } from "recharts/types/shape/Curve";
 import { Margin } from "recharts/types/util/types";
 import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";
+import { customTheme } from "../sharedParams";
 
 export interface KeyParam {
   key: string
@@ -60,3 +61,5 @@ export interface NamedChartDataBase {
 export interface NamedChartData extends NamedChartDataBase {
   value: number
 }
+
+export const customStroke = (darkMode: boolean) => `var(--${customTheme(darkMode)}-text)`;

@@ -1,4 +1,4 @@
-import { ParentComponentParams } from "../sharedParams";
+import { ParentComponentParams, customVar } from "../sharedParams";
 import { CSSProperties } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Card as Inner } from "react-bootstrap";
@@ -9,7 +9,7 @@ export interface CardParams extends ParentComponentParams {
 
 const Card = (props: Readonly<CardParams>) => {
   const darkMode = useDarkMode();
-  return <Inner className={props.className} bg={`custom-${darkMode ? "dark" : "light"}`} style={props.style}>{props.children}</Inner>;
+  return <Inner className={props.className} bg={customVar(darkMode)} style={props.style}>{props.children}</Inner>;
 };
 
 export default Card;

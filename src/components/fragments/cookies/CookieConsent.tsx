@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { getCookieConsentValue, acceptCookies } from "../../../helpers/cookieHelper";
 import { Container, Row, Col } from "react-bootstrap";
+import { customVar } from "../sharedParams";
 import Button from "../util/Button";
 
 const CookieConsent = () => {
@@ -25,7 +26,7 @@ const CookieConsent = () => {
   };
 
   return (
-    <Container className={`consent bg-custom-${darkMode ? "dark" : "light"}`}>
+    <Container className={`consent bg-${customVar(darkMode)}`}>
       <Row className="consent-content">
         <Col className="pt-2">
           Ta strona używa plików cookies. Podejmij jedyną słuszną decyzję.

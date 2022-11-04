@@ -3,7 +3,8 @@ import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
 import { FaHome, FaMedkit, FaBook, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
-import { isDispositor, isDirector, isAuth, Roles } from "../../../helpers/authHelper";
+import { isDispositor, isDirector, isAuth } from "../../../helpers/authHelper";
+import { customLink } from "./sharedNavigationParams";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { useState } from "react";
@@ -11,6 +12,7 @@ import i18n from "../../../i18n";
 import NavDrop from "./NavDrop";
 import { IoMdPerson, IoIosPaper } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
+import { customTheme } from "../sharedParams";
 
 const MenuBar = () => {
   const roles = useRoles();
@@ -58,7 +60,7 @@ const SideMenu = () => {
   return (
     <Nav>
       {isDispositor(roles) ? <CheckIn /> : ""}
-      <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-link-${darkMode.isDark ? "dark" : "light"}`}>
+      <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-${customLink(darkMode.isDark)}`}>
         <HiOutlineLightBulb />
         <span className="px-1">Zmień motyw</span>
       </Nav.Link>
@@ -87,7 +89,7 @@ const LangDropdown = () => {
       <span className="d-inline-flex align-items-center">
         <span className="px-1">Język</span>
       </span>
-    } className={`nav-link-${darkMode ? "dark" : "light"}`}>
+    } className={`nav-${customLink(darkMode)}`}>
       <LangDrop display="Polski" lang="pl" current={lang} update={changeLang} />
       <LangDrop display="English" lang="en" current={lang} update={changeLang} />
     </NavDropdown>
@@ -116,7 +118,7 @@ const LangDrop = (props: Readonly<LangParams>) => {
 const UserDropdown = () => {
   const darkMode = useDarkMode();
   const auth = useAuth();
-  const roles = auth.user ? auth.user.roles : Roles.None;
+  const roles = auth.roles;
 
   return (
     <NavDropdown align="end" title={
@@ -124,7 +126,7 @@ const UserDropdown = () => {
         <FaUserCircle />
         <span className="px-1">Konto</span>
       </span>
-    } className={`nav-link-${darkMode ? "dark" : "light"}`}>
+    } className={`nav-${customLink(darkMode)}`}>
       {isAuth(roles) ? (
         <>
           <NavDrop to="/settings/userdata">
@@ -167,7 +169,7 @@ const Navbar = () => {
   const darkMode = useDarkMode();
 
   return (
-    <Inner bg={`navbar-${darkMode ? "dark" : "light"}`} variant={darkMode ? "dark" : "light"} expand="lg">
+    <Inner bg={`navbar-${customTheme(darkMode)}`} variant={customTheme(darkMode)} expand="lg">
       <Container fluid>
         <Inner.Brand className="px-5">GARY</Inner.Brand>
         <Inner.Toggle aria-controls="basic-navbar-nav" />

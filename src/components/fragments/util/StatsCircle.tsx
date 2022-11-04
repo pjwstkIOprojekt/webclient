@@ -1,4 +1,4 @@
-import { ClassNameParam } from "../sharedParams";
+import { ClassNameParam, customTheme } from "../sharedParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 
 export interface CircleParams extends ClassNameParam {
@@ -11,7 +11,7 @@ export interface CircleParams extends ClassNameParam {
 const StatsCircle = (props: Readonly<CircleParams>) => {
   const darkMode = useDarkMode();
   return (
-    <div className={`circle circle-${darkMode ? "dark" : "light"} ${props.className}`}>
+    <div className={`circle circle-${customTheme(darkMode)} ${props.className}`}>
       <span className={`circle-title ${props.nameClass ?? ""}`}>{props.name}</span>
       <br />
       <br />

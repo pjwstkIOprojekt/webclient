@@ -1,5 +1,6 @@
 import { ParentComponentParams } from "../sharedParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
+import { customLink } from "./sharedNavigationParams";
 
 export interface ItemLinkParams extends ParentComponentParams {
   to: string,
@@ -7,7 +8,7 @@ export interface ItemLinkParams extends ParentComponentParams {
 
 const ItemLink = (props: Readonly<ItemLinkParams>) => {
   const darkMode = useDarkMode();
-  return <a href={`#${props.to}`} className={`link-${darkMode ? "dark" : "light"} ${props.className}`}>{props.children}</a>;
+  return <a href={`#${props.to}`} className={`${customLink(darkMode)} ${props.className}`}>{props.children}</a>;
 };
 
 export default ItemLink;
