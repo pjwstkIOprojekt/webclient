@@ -1,6 +1,6 @@
 import { MarkGeocodeEventHandlerFn, MarkGeocodeEvent } from "leaflet-control-geocoder/dist/control";
 import Geocoder, { geocoders } from "leaflet-control-geocoder";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Polyline, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 import { useState, useEffect } from "react";
 import L from "leaflet";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
@@ -11,10 +11,16 @@ export interface Position {
   icon?: L.Icon<L.IconOptions> | L.DivIcon
 }
 
+export interface Path {
+  points: [number, number][],
+  color?: string
+}
+
 export interface MapParams {
   center: [number, number],
   initialZoom: number,
   marks?: Position[],
+  paths?: Path[],
   searchable?: boolean,
   onSearch?: MarkGeocodeEventHandlerFn,
   clickable?: boolean,
@@ -37,6 +43,7 @@ const Map = (props: Readonly<MapParams>) => {
       <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {props.searchable ? <GeocoderMenu geocoder={geocoder} onSearch={props.onSearch} /> : ""}
       {props.clickable ? <ClickHandler geocoder={geocoder} onClick={props.onClick} /> : ""}
+      {props.paths ? props.paths.map((path, index) => <Polyline key={index} positions={path.points} color={path.color} />) : ""}
       {props.marks ? props.marks.map((pos, index) => (
         <Marker key={index} position={pos.coords} icon={pos.icon}>
           {pos.desc ? <Popup>{pos.desc}</Popup> : ""}
