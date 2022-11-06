@@ -9,7 +9,7 @@ export interface GeneratorParams<T> {
 const ContentsGenerator = <T extends Element>(props: Readonly<GeneratorParams<T>>) => {
   const [contents, setContents] = useState<T[]>([]);
   useEffect(() => setContents(Array.from(document.querySelectorAll(props.selector))), [props.update, props.selector]);
-  return <>{contents.map(props.result)}</>;
+  return <>{contents.map((el, index) => el.id ? props.result(el, index) : "")}</>;
 };
 
 export default ContentsGenerator;
