@@ -41,6 +41,7 @@
         "List":"Lista karetek",
         "Choose":"Wybierz karetkę",
         "Ambulance":"Karetka",
+        "Ambulances":"Karetki",
         "RegistrationNumber":"Numer rejestracyjny",
         "Kind":"Rodzaj karetki",
         "MaxAmount":"Maksymalna ilośc ratowników",
@@ -55,7 +56,12 @@
         "CompletionDate":"Data planowanego uzupełnienia",
         "Consumption":"Ogólne zużycie",
         "Equipment":"Wyposażenie karetki",
-        "State":"Stan karetki"
+        "State":"Stan karetki",
+        "Status":"Status karetki",
+        "View":"Zobacz",
+        "Edit":"Edytuj karetkę",
+        "Mileage":"Przebieg",
+        "Delete":"Usuń"
     },
     "Reports":{
         "Reports":"Zgłoszenia",
@@ -78,9 +84,21 @@
         "CallServices":"Wezwij dodatkowe służby",
         "CallIncident":"Zgłoś zdarzenie",
         "Police":"Policja",
+        "Polices":"Posterunki policji",
         "FireDepartment":"Straż pożarna",
         "CityGuard":"Straż miejska",
-        "Military":"Wojsko"
+        "Military":"Wojsko",
+        "Hospital":"Szpital",
+        "Hospitals":"Szpitale",
+        "Accidents":"Wypadki",
+        "Accident":"Wypadek",
+        "TerroristAttacks":"Ataki terrorystyczne",
+        "TerroristAttack":"Atak terrorystyczny",
+        "CovidOutbreaks":"Ogniska COVID",
+        "Fires":"Pożary",
+        "Fire":"Pożar",
+        "Confirm":"Potwierdź",
+        "Alert":"Ostrzeżenie"
     },
     "Person":{
         "Victims":"Poszkodowani",
@@ -95,7 +113,10 @@
         "ListStaff":"Lista pracowników",
         "PhoneNumber":"Numer telefonu",
         "Birthdate":"Data urodzenia",
-        "Nick":"Nazwa użytkownika"
+        "Nick":"Nazwa użytkownika",
+        "ParamedicsInAction": "Ratownicy w akcji",
+        "ParamedicsOnStandby": "Ratownicy w gotowości",
+        "ParamedicsInactive": "Ratownicy nieaktywni"
     
     },
     "Login":{
@@ -145,6 +166,8 @@
         "MainPanel":"Panel główny",
         "Report24h":"Raport z ostatnich 24 godzin",
         "Incidents":"Zdarzenia",
+        "Incident":"Zdarzenie",
+        "Incident2":"Zdarzenie 2",
         "OpenMap":"Otwórz mapę",
         "SaveLife":"Pomóż nam ratować ludzkie życia już teraz!",
         "Welcome":"Witamy w GARY, w nowym najlepszym przyjacielu człowieka.",
@@ -185,4 +208,5 @@
     "AddDisease":"Dodawanie choroby",
     "EditDisease":"Edytowanie choroby",
     "AllCapabilities":"Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!"
+    
 }

@@ -3,6 +3,7 @@ import { Form, Row, Col} from "react-bootstrap";
 import FormSelect from "../../fragments/forms/FormSelect";
 import FormControl from "../../fragments/forms/FormControl";
 import Button from "../../fragments/util/Button";
+import { useTranslation } from "react-i18next";
 
 
 const ambulanceTypes = [
@@ -20,6 +21,7 @@ const ambulanceKinds = [
 ];
 
 const EditAmbulance = () => {
+  const { t } = useTranslation("jezyk");
   const [type, setType] = useState(ambulanceTypes[1]);
   const [kind, setKind] = useState(ambulanceKinds[4]);
   const [capacity, setCapacity] = useState(70);
@@ -29,27 +31,15 @@ const EditAmbulance = () => {
 
   return (
     <Form className="mt-5 w-50 ">
-      <h3 >Edytuj karetkę</h3>
+      <h3 >{t('Ambulance.Edit')}</h3>
       <Row>
         <Col>
-            <FormSelect className="mb-3 " id="type" onChange={e => setType(e.target.value)} value={type} label="Typ karetki" options={ambulanceTypes} />
+            <FormSelect className="mb-3 " id="type" onChange={e => setType(e.target.value)} value={type} label={t('Ambulance.Type')} options={ambulanceTypes} />
         </Col>
       </Row>
       <Row>
         <Col>
-        <FormSelect className="mb-3 " id="kind" onChange={e => setKind(e.target.value)} value={kind} label="Rodzaj karetki" options={ambulanceKinds} />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <FormControl
-            id="Capacity"
-            className="mb-3 "
-            value={capacity}
-            label="Pojemność baku"
-            type="text"
-            disabled={false}
-          />
+        <FormSelect className="mb-3 " id="kind" onChange={e => setKind(e.target.value)} value={kind} label={t('Ambulance.Kind')} options={ambulanceKinds} />
         </Col>
       </Row>
       <Row>
@@ -58,7 +48,7 @@ const EditAmbulance = () => {
             id="MaxAmount"
             className="mb-3"
             value={maxAmount}
-            label="Maksymalna ilośc ratowników"
+            label={t('Ambulance.MaxAmount')}
             type="text"
             disabled={false}
           />
@@ -70,13 +60,13 @@ const EditAmbulance = () => {
             id="RegistrationNumber"
             className="mb-3"
             value={registrationNumber}
-            label="Numer rejestracyjny"
+            label={t('Ambulance.RegistrationNumber')}
             type="text"
             disabled={false}
           />
         </Col>
       </Row>
-        <Button className="mt-3 w-50" type="submit">Edytuj karetkę</Button>
+        <Button className="mt-3 w-50" type="submit">{t('Save')}</Button>
     </Form>
   );
 };

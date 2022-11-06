@@ -41,13 +41,14 @@
         "List":"Ambulance list",
         "Choose":"Choose ambulance",
         "Ambulance":"Ambulance",
+        "Ambulances":"Ambulances",
         "RegistrationNumber":"Registration number",
         "Kind":"Kind ambulance",
         "MaxAmount":"Maximum number of paramedics",
         "AddParamedics":"Add a paramedic",
         "New":"New amulance",
         "Type":"Type ambulance",
-        "Active":"Karetki aktualnie biorące udział w zgłoszeniach",
+        "Active":"Ambulances currently involved in reports",
         "Available":"Ambulances available",
         "Amount":"Minimal amount",
         "Metric":"Unit of measure",
@@ -55,7 +56,11 @@
         "CompletionDate":"Planned replenishment date",
         "Consumption":"General consumption",
         "Equipment":"Ambulance equipment",
-        "State":"Ambulance status"
+        "State":"Ambulance status",
+        "View":"View",
+        "Edit":"Edit ambulance",
+        "Mileage":"Mileage",
+        "Delete":"Delete"
     },
     "Reports":{
         "Reports":"Reports",
@@ -78,9 +83,23 @@
         "CallServices":"Call Services",
         "CallIncident":"Call Incident",
         "Police":"Police",
+        "Polices":"Police Stations",
         "FireDepartment":"Fire Department",
         "CityGuard":"City Guard",
-        "Military":"Military"
+        "Hospital":"Hospital",
+        "Hospitals":"Hospitals",
+        "Military":"Military",
+        "Accidents":"Accidents",
+        "Accident":"Accident",
+        "TerroristAttacks":"Terrorist attacks",
+        "TerroristAttack":"Terrorist attack",
+        "CovidOutbreaks":"Covid outbreaks",
+        "CovidOutbreak":"Covid outbreak",
+        "Fires":"Fires",
+        "Fire":"Fire",
+        "Confirm":"Confirm",
+        "Alert":"Alert"
+        
     },
     "Person":{
         "Victims":"Victims",
@@ -95,7 +114,10 @@
         "ListStaff":"List of Staff",
         "PhoneNumber":"Phone number",
         "Birthdate":"Birthdate",
-        "Nick":"Nickname"
+        "Nick":"Nickname",
+        "ParamedicsInAction": "Paramedics in action",
+        "ParamedicsOnStandby": "Paramedics on standby",
+        "ParamedicsInactive": "Paramedics inactive"
     },
     "Login":{
         "Login":"Login",
@@ -141,6 +163,8 @@
         "MainPanel":"Main Panel",
         "Report24h":"Last 24 hours report",
         "Incidents":"Incidents",
+        "Incident":"Incident",
+        "Incident2":"Incident 2" ,
         "OpenMap":"Open map",
         "SaveLife":"Help us save human lives now!",
         "Welcome":"Witamy w GARY, w nowym najlepszym przyjacielu człowieka.",

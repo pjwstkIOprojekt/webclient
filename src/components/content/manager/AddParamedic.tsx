@@ -6,12 +6,14 @@ import Button from "../../fragments/util/Button";
 import FormRadio from "../../fragments/forms/FormRadio";
 import Table from "../../fragments/util/Table";
 import FormCheck from "../../fragments/forms/FormCheck"
+import { useTranslation } from "react-i18next";
 
 const AddParamedics = () => {
   const [checked, setChecked] = useState(false);
   const FirstName = useState("Jan");
   const LastName = useState("Nowak");
   const [added, setAdded] = useState(false);
+  const { t } = useTranslation("jezyk");
 
     const [paramedics] = useState<any[]>([
       { id: 1, firstName: FirstName,  lastName: LastName, add: <input type={"checkbox"} onClick={()=>setAdded(onclick?true:false)} defaultChecked={added}  name="paramedic" /> },
@@ -21,9 +23,9 @@ const AddParamedics = () => {
     const cols = [
       {
         name: "#", property: "id", sortBy: "id", filterBy: "id" },
-      { name: "Imie", property: "firstName", sortBy: "firstName", filterBy: "firstName" },
-      { name: "Nazwisko", property: "lastName", sortBy: "lastName", filterBy: "lastName" },
-      { name: "Dodaj", property: "add" },
+      { name: t('Person.FirstName'), property: "firstName", sortBy: "firstName", filterBy: "firstName" },
+      { name: t('Person.LastName'), property: "lastName", sortBy: "lastName", filterBy: "lastName" },
+      { name: t('Add'), property: "add" },
      
     ];
 
@@ -35,8 +37,8 @@ const AddParamedics = () => {
     
   return (
     <Container className=" w-50 ">
-    <h2 className="text-center">Ratownicy</h2>
-    <h4 className=" mt-5 text-left">Karetka</h4>
+    <h2 className="text-center">{t('Person.ListParamedics')}</h2>
+    <h4 className=" mt-5 text-left">{t('Ambulance.Ambulance')}</h4>
     <Form className="mt-5 w-50 ">
     <Row>
         <Col>
@@ -44,7 +46,7 @@ const AddParamedics = () => {
             id="RegistrationNumber"
             className="mb-3"
             value={registrationNumber}
-            label="Numer rejestracyjny:"
+            label={t('Ambulance.RegistrationNumber')}
             type="text"
             disabled={true}
           />
@@ -56,7 +58,7 @@ const AddParamedics = () => {
             id="kind"
             className="mb-3 "
             value={kind}
-            label="Rodzaj:"
+            label={t('Ambulance.Kind')}
             type="text"
             disabled={true}
           />
@@ -68,7 +70,7 @@ const AddParamedics = () => {
             id="maxAmount"
             className="mb-3"
             value={maxAmount}
-            label="Maksymalna ilośc ratowników:"
+            label={t('Ambulance.MaxAmount')}
             type="text"
             disabled={true}
           />
@@ -80,7 +82,7 @@ const AddParamedics = () => {
             id="listParamedics"
             className="mb-3"
             value={listParamedics}
-            label="Ratownicy:"
+            label={t('Person.ListParamedics')}
             type="text"
             disabled={true}
           />
@@ -92,10 +94,10 @@ const AddParamedics = () => {
 
 
 
-    <h4 className=" mt-5 text-left">Dodaj ratowników do karetki</h4>
+    <h4 className=" mt-5 text-left">{t('Ambulance.AddParamedics')}</h4>
     <Table className="text-center" columns={cols} data={paramedics} />
 
-      <Button className="mt-3 w-100" type="submit">Dodaj</Button>
+      <Button className="mt-3 w-100" type="submit">{t('Add')}</Button>
   </Container>
 );
 

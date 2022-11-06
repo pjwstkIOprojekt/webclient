@@ -16,23 +16,23 @@ const AdminHome = () => {
 
   const cols = [
     { name: "#", property: "id", sortBy: "id", filterBy: "id", size: 10 },
-    { name: "Karetka", property: "name", sortBy: "name", filterBy: "name" },
-    { name: "Wyposażenie", property: (x: Record<string, any>) => <NavButton to={`/admpanel/ambulances/equipment/${x.id}`}>Zobacz</NavButton>, size: 12 },
-    { name: "Zgłoszenie", property: (x: Record<string, any>) => <NavButton to={`/admpanel/reports/${x.accident}`}>Zobacz</NavButton>, sortBy: "accident", filterBy: "accident", size: 12 },
-    { name: "Status", property: (x: Record<string, any>) => <span style={{ color: x.color }}>{x.status}</span>, filterBy: "status", sortBy: "status", size: 20 }
+    { name: t('Ambulance.Ambulance'), property: "name", sortBy: "name", filterBy: "name" },
+    { name: t('Ambulance.Equipment'), property: (x: Record<string, any>) => <NavButton to={`/admpanel/ambulances/equipment/${x.id}`}>{t('Ambulance.View')}</NavButton>, size: 12 },
+    { name: t('Reports.Report'), property: (x: Record<string, any>) => <NavButton to={`/admpanel/reports/${x.accident}`}>{t('Ambulance.View')}</NavButton>, sortBy: "accident", filterBy: "accident", size: 12 },
+    { name: t('Ambulance.Status'), property: (x: Record<string, any>) => <span style={{ color: x.color }}>{x.status}</span>, filterBy: "status", sortBy: "status", size: 20 }
   ];
 
   const pieDat = [
-    { name: "Ratownicy w akcji", value: 4, fill: "#bbbb00", fillDark: "#5dbf62" },
-    { name: "Ratownicy w gotowości", value: 24, fill: "#5dbf62", fillDark: "#c59812" },
-    { name: "Ratownicy nieaktywni", value: 11, fill: "#343489", fillDark: "#aaaa00" }
+    { name: t('Person.ParamedicsInAction'), value: 4, fill: "#bbbb00", fillDark: "#5dbf62" },
+    { name: t('Person.ParamedicsOnStandby'), value: 24, fill: "#5dbf62", fillDark: "#c59812" },
+    { name: t('Person.ParamedicsInAction'), value: 11, fill: "#343489", fillDark: "#aaaa00" }
   ];
 
   const pieDat2 = [
-    { name: "Wypadki", value: 4, fill: "#bbbb00", fillDark: "#5dbf62" },
-    { name: "Ataki terrorystyczne", value: 0, fill: "#5dbf62", fillDark: "#c59812" },
-    { name: "Ogniska Covid", value: 3, fill: "#343489", fillDark: "#aaaa00" },
-    { name: "Pożary", value: 1, fill: "#000000", fillDark: "#cc4444" }
+    { name: t('Reports.Accidents'), value: 4, fill: "#bbbb00", fillDark: "#5dbf62" },
+    { name: t('Reports.TerroristAttacks'), value: 0, fill: "#5dbf62", fillDark: "#c59812" },
+    { name: t('Reports.CovidOutbreaks'), value: 3, fill: "#343489", fillDark: "#aaaa00" },
+    { name: t('Reports.Fires'), value: 1, fill: "#000000", fillDark: "#cc4444" }
   ];
 
   return (
