@@ -1,41 +1,53 @@
+import { useState, useEffect } from "react";
+import { AccidentReportResponse, getAccidents, deleteAccident } from "../../../api/accidentReportCalls";
 import Link from "../../fragments/navigation/Link";
+import Enum from "../../fragments/util/Enum";
+import { EmergencyType } from "../../../api/enumCalls";
+import Button from "../../fragments/util/Button";
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
-import { useState, useEffect } from "react";
-import ViewLoader from "../../fragments/util/ViewLoader";
 
-interface ReportsListParams {
-  data: Record<string, any>[]
-}
+const ReportsList = () => {
+  const [reports, setReports] = useState<AccidentReportResponse[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-const ReportsListDisplay = (props: Readonly<ReportsListParams>) => {
+  useEffect(() => {
+    getAccidents().then(res => res.json()).then((data: AccidentReportResponse[]) => {
+      if (data) {
+        setReports(data);
+      }
+
+      setIsLoading(false);
+    }).catch(err => {
+      console.error(err);
+      setIsLoading(false);
+    });
+  }, []);
+
+  const remove = (id: number) => {
+    if (!window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?")) {
+      return;
+    }
+
+    setReports(reports.filter(r => r.accidentId !== id));
+    deleteAccident(id);
+  };
+
   const cols = [
-    { name: "#", property: (x: any) => <Link to={`/report/${x.id}`}>{x.id}</Link> },
-    { name: "Ofiara jest przytomna?", property: (x: any) => x.victimConsious ? "Tak" : "Nie" },
-    { name: "Ofiara oddycha?", property: (x: any) => x.victimBreathing ? "Tak" : "Nie" },
-    { name: "Data", property: "date" },
-    { name: "Skala zagrożenia", property: "dangerRating" },
-    { name: "Opis", property: (x: any) => x.description.substring(0, 100) }
+    { name: "#", property: (x: Readonly<AccidentReportResponse>) => <Link to={x.accidentId.toString()}>{x.accidentId}</Link>, filterBy: "accidentId", sortBy: "accidentId" },
+    { name: "Rodzaj zdarzenia", property: (x: Readonly<AccidentReportResponse>) => <Enum enum={EmergencyType} value={x.emergencyType} />, filterBy: "emergencyType", sortBy: "emergencyType" },
+    { name: "Liczba ofiar", property: "victimCount", filterBy: "victimCount", sortBy: "victimCount" },
+    { name: "Data zgłoszenia", property: "date", filterBy: "date", sortBy: "date" },
+    { name: "Kod z opaski", property: "bandCode", filterBy: "bandCode", sortBy: "bandCode" },
+    { name: "Usuń", property: (x: Readonly<AccidentReportResponse>) => <Button onClick={e => remove(x.accidentId)}>X</Button> }
   ];
 
   return (
-    <Container className="mb-3 justify-content-center text-center">
+    <Container className="mt-3 justify-content-center text-center">
       <h1>Zgłoszenia</h1>
-      <Table columns={cols} data={props.data} />
+      <Table columns={cols} data={reports} isLoading={isLoading} />
     </Container>
   );
-};
-
-const ReportsList = () => {
-  const [items] = useState<any[]>([]);
-
-  useEffect(() => {
-    /*getApproved().then(res => res.json()).then(data => {
-      console.log(data);
-    }).catch(err => console.log(err));*/
-  }, []);
-
-  return <ViewLoader isLoaded={items.length > 0} element={<ReportsListDisplay data={items} />} />;
 };
 
 export default ReportsList;
