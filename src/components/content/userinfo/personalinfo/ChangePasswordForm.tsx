@@ -15,7 +15,7 @@ const ChangePasswordForm = () => {
   const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();
     const isPasswordValid = password === passwordCheck;
-    setError(isPasswordValid ? "" : "Powtórzone hasło różni się od oryginalnego.");
+    setError(isPasswordValid ? "" : t('Error.DifferentPasswords'));
 
     if (!isPasswordValid) {
       return;

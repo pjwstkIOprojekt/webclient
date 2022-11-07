@@ -99,7 +99,6 @@
         "Fire":"Fire",
         "Confirm":"Confirm",
         "Alert":"Alert"
-        
     },
     "Person":{
         "Victims":"Victims",
@@ -117,7 +116,11 @@
         "Nick":"Nickname",
         "ParamedicsInAction": "Paramedics in action",
         "ParamedicsOnStandby": "Paramedics on standby",
-        "ParamedicsInactive": "Paramedics inactive"
+        "ParamedicsInactive": "Paramedics inactive",
+        "Trusted":"Trusted person",
+        "Paramedic":"Paramedic",
+        "Manager":"Manager",
+        "Dispatcher":"Dispositor"
     },
     "Login":{
         "Login":"Login",
@@ -134,7 +137,8 @@
         "Name":"Name of the allergy",
         "Type":"Type of the allergy",
         "Other":"Other",
-        "Allergies":"Allergies"
+        "Allergies":"Allergies",
+        "Remove":"Are you sure you want to remove this allergy?"
         },
     "Error":{
         "Error":"Error",
@@ -185,6 +189,7 @@
     "SendData":"Send patient details",
     "ComeBack":"Come back",
     "Save":"Save", 
+    "Remove":"Remove",
     "FromBand":"Dzielone z opaski?",
     "MedicalData":"Medical data",
     "Settings":"Settings",
@@ -199,13 +204,18 @@
     "Theme":"Change theme",
     "Account":"Account",
     "Cancel":"Cancel",
+    "AddingEmployee":"Adding Employee",
+    "EditingEmployee":"Editing Employee",
+    "TypeEmployee":"Type of Employee",
     "Diseases":"Diseases",
     "AddDisease":"Add disease",
-    "EditDisease":"edit disease",
-    "AllCapabilities":"Want to be able to use all the capabilities of our platform? Log in to your account now!"
+    "EditDisease":"Edit disease",
 
-
-
-
-
+    "RemoveDisease":"Are you sure you want to remove this disease?",
+    "AllCapabilities":"Want to be able to use all the capabilities of our platform? Log in to your account now!",
+    "Share":"Share at risk",
+    "Yes":"Yes",
+    "No":"No",
+    "Role":"Role",
+    "Action":"Action"
 }

@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>) => {
   const { t } = useTranslation("jezyk");
   const remove = (x: Readonly<DiseaseResponse>) => {
-    if (!window.confirm("Czy na pewno chcesz usunąć tą chorobę?")) {
+    if (!window.confirm(t('RemoveDisease'))) {
       return;
     }
 
@@ -23,10 +23,10 @@ const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>
 
   const cols = [
     { name: "#", property: (x: Readonly<DiseaseResponse>) => <Link to={`disease/${x.diseaseId}`}>{x.diseaseId}</Link>, filterBy: "diseaseId", sortBy: "diseaseId" },
-    { name: "Nazwa", property: "diseaseName", filterBy: "diseaseName", sortBy: "diseaseName" },
-    { name: "Opis", property: "description", filterBy: "description", sortBy: "description" },
-    { name: "Udostępnij przy zagrożeniu", property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? "Tak" : "Nie" },
-    { name: "Usuń", property: (x: Readonly<DiseaseResponse>) => <Button onClick={e => remove(x)}>X</Button> }
+    { name: t('Name'), property: "diseaseName", filterBy: "diseaseName", sortBy: "diseaseName" },
+    { name: t('Reports.Description'), property: "description", filterBy: "description", sortBy: "description" },
+    { name: t('Share'), property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? t('Yes') : t('No') },
+    { name: t('Remove'), property: (x: Readonly<DiseaseResponse>) => <Button onClick={e => remove(x)}>X</Button> }
   ];
 
   return (

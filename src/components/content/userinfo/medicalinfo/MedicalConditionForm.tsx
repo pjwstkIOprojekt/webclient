@@ -27,11 +27,11 @@ const MedicalConditionForm = () => {
           setDescription(data.description);
           setShare(data.shareWithBand === true);
         } else {
-          setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
+          setError(t('Error.LoadingProblem'));
         }
       }).catch(err => {
         console.error(err);
-        setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
+        setError(t('Error.LoadingProblem'));
       });
     }
   }, [diseaseId]);
@@ -41,7 +41,7 @@ const MedicalConditionForm = () => {
     const email = getEmail();
 
     if (!email) {
-      console.error("User email is undefined. Check Session Storage and verify that user is actually logged in.");
+      console.error(t('Error.UndefinedEmail'));
       return;
     }
 
@@ -57,22 +57,22 @@ const MedicalConditionForm = () => {
         navigate("../medicaldata");
       } else {
         console.log(res);
-        setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+        setError(t('Error.UnknownError'));
       }
     }).catch(err => {
       console.error(err);
-      setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+      setError(t('Error.UnknownError'));
     });
   };
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">{diseaseId === undefined ? "Dodawanie choroby" : "Edycja choroby"}</h1>
+      <h1 className="mb-3">{diseaseId === undefined ? t('AddDisease') : t('EditDisease')}</h1>
       <Form onSubmit={onSubmit}>
         <NotBlank id="diseaseName" className="mb-3" label={t('Name')} required value={diseaseName} onChange={e => setDiseaseName(e.target.value)} />
         <NotBlank id="description" className="mb-3" label={t('Reports.Description')} required value={description} onChange={e => setDescription(e.target.value)} />
         <FormCheck id="shareWithBand" className="mb-3" label={t('FromBand')} value={share} onChange={e => setShare(!share)} />
-        <Button className="m-2" type="submit">{diseaseId === undefined ? "Dodaj chorobę" : "Zapisz zmiany"}</Button>
+        <Button className="m-2" type="submit">{diseaseId === undefined ? t('Add') : t('Save')}</Button>
         <NavButton to="../medicaldata">{t('Cancel')}</NavButton>
         {error ? (
           <Alert variant="danger" className="mt-3">

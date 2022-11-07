@@ -20,7 +20,7 @@ const MedicalData = () => {
     const email = getEmail();
 
     if (!email) {
-      console.error("User email is undefined. Check Session Storage and verify that user is actually logged in.");
+      console.error(t('Error.UndefinedEmail'));
       return;
     }
 

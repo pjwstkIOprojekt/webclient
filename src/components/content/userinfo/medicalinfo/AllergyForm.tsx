@@ -28,11 +28,11 @@ const AllergyForm = () => {
           setAllergyName(data.allergyName);
           setOther(data.other);
         } else {
-          setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
+          setError(t('Error.LoadingProblem'));
         }
       }).catch(err => {
         console.error(err);
-        setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
+        setError(t('Error.LoadingProblem'));
       });
     }
   }, [allergyId]);
@@ -42,7 +42,7 @@ const AllergyForm = () => {
     const email = getEmail();
 
     if (!email) {
-      console.error("User email is undefined. Check Session Storage and verify that user is actually logged in.");
+      console.error(t('Error.UndefinedEmail'));
       return;
     }
 
@@ -58,22 +58,22 @@ const AllergyForm = () => {
         navigate("../medicaldata");
       } else {
         console.log(res);
-        setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+        setError(t('Error.UnknownError'));
       }
     }).catch(err => {
       console.error(err);
-      setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+      setError(t('Error.UnknownError'));
     });
   };
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">{allergyId === undefined ? "Dodawanie alergii" : "Edycja alergii"}</h1>
+      <h1 className="mb-3">{allergyId === undefined ? t('Allergy.Add') : t('Allergy.Edit')}</h1>
       <Form onSubmit={onSubmit}>
         <EnumSelect id="allergyType" className="mb-3" label={t('Allergy.Type')} required enum={AllergyType} value={allergyType} onChange={e => setAllergyType(e.target.value)} />
         <NotBlank id="allergyName" className="mb-3" label={t('Allergy.Name')} required value={allergyName} onChange={e => setAllergyName(e.target.value)} />
         <NotBlank id="other" className="mb-3" label={t('Allergy.Other')} required value={other} onChange={e => setOther(e.target.value)} />
-        <Button className="m-2" type="submit">{allergyId === undefined ? "Dodaj alergię" : "Zapisz zmiany"}</Button>
+        <Button className="m-2" type="submit">{allergyId === undefined ? t('Add') : t('Save')}</Button>
         <NavButton to="../medicaldata">{t('Cancel')}</NavButton>
         {error ? (
           <Alert variant="danger" className="mt-3">

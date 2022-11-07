@@ -29,15 +29,15 @@ const Login = () => {
         if (data.token && data.roles && data.email) {
           login(data.token, data.roles, data.email);
         } else {
-          setError("Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.");
+          setError(t('Error.UnknownError'));
         }
       } else {
-        setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+        setError(t('Error.UnknownError'));
       }
     }
     ).catch(err => {
       console.error(err);
-      setError("Nieprawidłowy email lub hasło.");
+      setError(t('Error.Incorrect'));
     });
   };
 

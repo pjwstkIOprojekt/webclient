@@ -116,7 +116,11 @@
         "Nick":"Nazwa użytkownika",
         "ParamedicsInAction": "Ratownicy w akcji",
         "ParamedicsOnStandby": "Ratownicy w gotowości",
-        "ParamedicsInactive": "Ratownicy nieaktywni"
+        "ParamedicsInactive": "Ratownicy nieaktywni",
+        "Trusted":"Osoba zaufana",
+        "Paramedic":"Ratownik",
+        "Manager":"Menadżer",
+        "Dispatcher":"Dyspozytor"
     
     },
     "Login":{
@@ -130,12 +134,13 @@
 
     },
     "Allergy":{
-    "Add":"Dodawanie alergii",
-    "Edit":"Edycja alergii",
-    "Name":"Nazwa alergii",
-    "Type":"Rodzaj alergii",
-    "Other":"Dodatkowe informacje",
-    "Allergies":"Alergie"
+        "Add":"Dodawanie alergii",
+        "Edit":"Edycja alergii",
+        "Name":"Nazwa alergii",
+        "Type":"Rodzaj alergii",
+        "Other":"Dodatkowe informacje",
+        "Allergies":"Alergie",
+        "Remove":"Czy na pewno chcesz usunąć tą alergię?"
     },
     "Error":{
         "Error":"Błąd",
@@ -153,7 +158,6 @@
         "Group:":"Grupa krwi:",
         "GroupRh:":"Grupa Rh:",
         "Undefined":"Blood id is undefined. Check medical data endpoint responses."
-
     },
     "Password":{
         "Check":"Powtórz nowe hasło",
@@ -179,7 +183,6 @@
         "GiveHelp":"Udziel pierwszej pomocy",
         "WatchTutorials":"Przeglądaj liczne poradniki udzielania pierwszej pomocy i wykorzystaj nabytą wiedzę, żeby uratować czyjeś życie."
     },
-
     "Amount":"Ilość",
     "Map":"Mapa",
     "Filters":"Filtry",
@@ -190,6 +193,7 @@
     "SendData":"Wyślij dane pacjenta",
     "ComeBack":"Wróć",
     "Save":"Zapisz zmiany", 
+    "Remove":"Usuń",
     "FromBand":"Dzielone z opaski?",
     "MedicalData":"Dane medyczne",
    "Settings":"Ustawienia",
@@ -207,6 +211,14 @@
     "Diseases":"Choroby",
     "AddDisease":"Dodawanie choroby",
     "EditDisease":"Edytowanie choroby",
-    "AllCapabilities":"Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!"
-    
+    "AddingEmployee":"Dodawanie pracownika",
+    "TypeEmployee":"Rodzaj pracownika",
+    "EditingEmployee":"Edytowanie pracownika",
+    "RemoveDisease":"Czy na pewno chcesz usunąć tą chorobę?",
+    "AllCapabilities":"Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!",
+    "Share":"Udostępnij przy zagrożeniu",
+    "Yes":"Tak",
+    "No":"Nie",
+    "Role":"Rola",
+    "Action":"Akcje"
 }

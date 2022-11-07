@@ -7,12 +7,14 @@ import TrustedPersonForm from "./trustedperson/TrustedPersonForm";
 import MedicalData from "./medicalinfo/MedicalData";
 import AllergyForm from "./medicalinfo/AllergyForm";
 import MedicalConditionForm from "./medicalinfo/MedicalConditionForm";
+import { useTranslation } from "react-i18next";
 
 const Settings = () => {
+  const { t } = useTranslation("jezyk");
   const links = [
-    { to: "userdata", text: "Dane osobowe" },
-    { to: "medicaldata", text: "Dane medyczne" },
-    { to: "trustedperson", text: "Osoba zaufana" }
+    { to: "userdata", text: t('userdata') },
+    { to: "medicaldata", text: t('medicaldata') },
+    { to: "trustedperson", text: t('Person.Trustedperson') }
   ];
 
   return (

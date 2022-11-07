@@ -54,14 +54,14 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
     }
 
     if (!props.id) {
-      reset("Blood id is undefined. Check medical data endpoint responses.");
+      reset(t('Blood.Undefined'));
       return;
     }
 
     const email = getEmail();
 
     if (!email) {
-      reset("User email is undefined. Check Session Storage and verify that user is actually logged in.");
+      reset(t('Error.UndefinedEmail'));
       return;
     }
 
@@ -74,15 +74,15 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
         setReadOnly(true);
       } else {
         console.log(res);
-        setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+        setError(t('Error.UnknownError'));
       }
     }).catch(err => {
       console.error(err);
-      setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+      setError(t('Error.UnknownError'));
     });
   };
 
-  const getError = (x?: string) => !readOnly && !x ? "Ta wartość nie może być pusta." : undefined;
+  const getError = (x?: string) => !readOnly && !x ? t('Error.EmptyValue') : undefined;
 
   return (
     <Form onSubmit={onSubmit}>
@@ -100,7 +100,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
             <p>{error}</p>
           </Alert>
         ) : ""}
-        <Button type="submit">{readOnly ? "Edytuj" : "Zapisz"}</Button>
+        <Button type="submit">{readOnly ? t('Edit') : t('Save')}</Button>
         {readOnly ? "" : <Button type="button" onClick={e => reset()} className="mx-3">{t('Cancel')}</Button>}
       </div>
     </Form>
