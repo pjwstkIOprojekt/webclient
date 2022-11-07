@@ -26,7 +26,7 @@ const AmbulanceState = () => {
     setError("");
 
     updateAmbulanceState(ambulanceId, {
-      ambulanceState: ambulanceState,
+      stateType: ambulanceState,
       start: start,
       end: end
     }).then(res => {

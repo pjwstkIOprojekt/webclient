@@ -8,7 +8,9 @@ export interface EnumParams {
 
 const Enum = (props: Readonly<EnumParams>) => {
   const { t } = useTranslation();
-  return <>{t(`${props.enum.name}.${props.value}`)}</>;
+  return <span style={{
+    color: props.enum.colors ? props.enum.colors[props.value] : undefined
+  }}>{t(`${props.enum.name}.${props.value}`)}</span>;
 };
 
 export default Enum;

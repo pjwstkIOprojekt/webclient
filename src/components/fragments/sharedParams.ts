@@ -1,4 +1,5 @@
 import { ReactChild, ReactChildren } from "react";
+import { dark, light } from "../../hooks/useDarkMode";
 
 export type ChildrenType = ReactChild | ReactChildren | ReactChild[] | ReactChildren[];
 
@@ -13,3 +14,6 @@ export interface InnerClassParam extends ClassNameParam {
 export interface ParentComponentParams extends ClassNameParam {
   children?: ChildrenType
 }
+
+export const customTheme = (darkMode: boolean) => darkMode ? dark : light;
+export const customVar = (darkMode: boolean) => `custom-${customTheme(darkMode)}`;

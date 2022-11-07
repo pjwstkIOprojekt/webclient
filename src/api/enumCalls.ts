@@ -1,8 +1,10 @@
+
 import { get } from "./basicCalls";
 
 export interface EnumType {
   getter: () => Promise<Response>,
-  name: string
+  name: string,
+  colors?: Record<string, string>
 }
 
 const enumBase = "enum";
@@ -24,7 +26,14 @@ export const BloodType = {
 
 export const AmbulanceState = {
   getter: () => get(`${enumBase}/ambulance_states`),
-  name: "AmbulanceStateType"
+  name: "AmbulanceStateType",
+  colors: {
+    "FAILURE": "red",
+    "MAINTENANCE": "orange",
+    "AVAILABLE": "green",
+    "IN_ACTION": "blue",
+    "CREW_BRAKE": "grey"
+  }
 };
 
 export const AmbulanceClass = {
@@ -35,4 +44,9 @@ export const AmbulanceClass = {
 export const AmbulanceType = {
   getter: () => get(`${enumBase}/ambulance_types`),
   name: "AmbulanceType"
+};
+
+export const EmergencyType = {
+  getter: () => get(`${enumBase}/emergency_type`),
+  name: "EmergencyType"
 };

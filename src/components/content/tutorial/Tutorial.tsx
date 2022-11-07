@@ -4,23 +4,24 @@ import { useRoles } from "../../../hooks/useAuth";
 import { usePopup } from "../../../hooks/usePopup";
 import { isAuth } from "../../../helpers/authHelper";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
-import { Container, Card, Row, Col, Alert } from "react-bootstrap";
+import { Container, Card, Row } from "react-bootstrap";
 import CustomCard from "../../fragments/util/Card";
 import ContentsGenerator from "../../fragments/util/ContentsGenerator";
 import ItemLink from "../../fragments/navigation/ItemLink";
-import CAlert from "../../fragments/util/Alert";
+import InnerHtml from "../../fragments/util/InnerHtml";
 import Rating from "../../fragments/util/Rating";
 
 const Tutorial = () => {
-  const [data, setData] = useState<any>({});
+  const [data, setData] = useState("");
   const { tutorialId } = useParams();
   const roles = useRoles();
   const popup = usePopup();
 
   useEffect(() => {
-    if (tutorialId) {
-      //getTutorialById(parseInt(tutorialId)).then(res => res.json()).then(dat => setData(dat)).catch(err => console.log(err));
-    }
+    setData("");
+    const tutorials = ["AtakEpilepsji", "Omdlenie", "Oparzenia", "PorazeniePradem", "RKO", "Udar1"];
+    const id = tutorialId ? parseInt(tutorialId) : 0;
+    fetch(`/tmp/${tutorials[id % tutorials.length]}.html`).then(res => res.text()).then(setData).catch(console.error);
   }, [tutorialId]);
 
   const review = () => {
@@ -31,59 +32,21 @@ const Tutorial = () => {
 
   return (
     <Container className="my-5">
-      <h1>Poradnik - {data.name} - {data.tutorialKind}</h1>
-      <Row className="justify-content-end">
-        <Col>
-          <img src="/img/thumbnail.jpg" alt="Miniaturka" />
-        </Col>
-        <Col md="auto">
-          <CustomCard className="mx-3">
-            <Card.Body>
-              <Card.Title>
-                <h3>Spis treści</h3>
-              </Card.Title>
-              <ul>
-                <ContentsGenerator selector="h2" result={(ch, index) => <li key={index}><ItemLink to={ch.id}>{ch.textContent ? ch.textContent : ""}</ItemLink></li>} />
-              </ul>
-            </Card.Body>
-          </CustomCard>
-        </Col>
-      </Row>
-      <CustomCard className="mt-3 mx-3">
+      <CustomCard className="my-3 w-50">
         <Card.Body>
           <Card.Title>
-            <h2 id="dt">Kieszonkowstwo dla opornych</h2>
+            <h3>Spis treści</h3>
           </Card.Title>
-          <Card.Img variant="top" src="/img/thumbnail.jpg" height="560" />
-          <p>Podejdź do leżącej osoby i upewnij się czy jest przytomna...</p>
-          <p>Jakieś instrukcje....</p>
-          <p>Paawfaniaonwaocjsocjapawoapwawvawfawwafaw</p>
-          <Card.Title>
-            <h2 id="dp">Rozdział 2</h2>
-          </Card.Title>
-          <p>Paawfaniaonwaocjsocjapawoapwawvawfawwafaw</p>
-          <p>Paawfaniaonwaocjsocjapawoapwawvawfawwafaw</p>
-          <Card.Title>
-            <h2 id="dz">Słowa kończące</h2>
-          </Card.Title>
-          <p>Panie! A idź Pan w...</p>
+          <ul>
+            <ContentsGenerator selector="h1, h3, h4" result={(ch, index) => <li key={index}><ItemLink to={ch.id}>{ch.textContent ?? ""}</ItemLink></li>} update={data === ""} />
+          </ul>
         </Card.Body>
       </CustomCard>
-      <CAlert className="my-4 mx-3">
-        <Alert.Heading>Dodatkowe wskazówki:</Alert.Heading>
-        <ul>
-          <li>
-            <b>Robienie tego w pobliżu komisariatu policji raczej nie jest dobrym pomysłem</b>
-          </li>
-          <li>
-            <b>Nie rób sobie selfie, żeby pochwalić się nową zdobyczą w internecie</b>
-          </li>
-        </ul>
-      </CAlert>
+      <InnerHtml content={data} containerClass="tutorial-content" />
       <Row className="text-center">
         <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
         <span onClick={review}>
-          <Rating initialValue={data.average} disabled={!isAuth(roles)} />
+          <Rating initialValue={0} disabled={!isAuth(roles)} />
         </span>
       </Row>
     </Container>

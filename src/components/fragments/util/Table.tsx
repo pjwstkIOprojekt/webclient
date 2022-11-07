@@ -1,4 +1,4 @@
-import { ChildrenType, ClassNameParam } from "../sharedParams";
+import { ChildrenType, ClassNameParam, customTheme } from "../sharedParams";
 import { useState, useEffect, ChangeEventHandler, ChangeEvent } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Table as Inner, Row, Col, Container } from "react-bootstrap";
@@ -78,7 +78,7 @@ const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) =
   };
 
   return (
-    <Inner striped bordered hover variant={darkMode ? "dark" : "light"} className={props.className}>
+    <Inner striped bordered hover variant={customTheme(darkMode)} className={props.className}>
       <thead className={props.headClass}>
         <tr className={props.rowClass}>
           {props.columns.map((col, index) => (

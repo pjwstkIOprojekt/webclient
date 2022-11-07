@@ -1,6 +1,7 @@
-import { ChartBaseParams, NamedChartData } from "./sharedChartParams";
+import { ChartBaseParams, NamedChartData, customStroke } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { RadialBarChart as Inner, RadialBar, Tooltip, Legend } from "recharts";
+import { customTheme } from "../sharedParams";
 
 export interface RadialBarChartParams extends ChartBaseParams<NamedChartData> {
   startAngle?: number,
@@ -11,7 +12,7 @@ export interface RadialBarChartParams extends ChartBaseParams<NamedChartData> {
 
 const RadialBarChart = (props: Readonly<RadialBarChartParams>) => {
   const darkMode = useDarkMode();
-  const stroke = darkMode ? "var(--dark-text)" : "var(--light-text)";
+  const stroke = customStroke(darkMode);
 
   const data = props.data.map(x => {
     return {
@@ -27,7 +28,7 @@ const RadialBarChart = (props: Readonly<RadialBarChartParams>) => {
         fill: props.labelFill,
         position: "insideStart"
       }} background={props.background} dataKey="value" name="Wartość" />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} itemStyle={{
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${customTheme(darkMode)}`} itemStyle={{
         color: stroke
       }} cursor={{
         stroke: stroke
