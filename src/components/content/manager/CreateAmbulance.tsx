@@ -26,7 +26,7 @@ const CreateAmbulance = () => {
   const [capacity, setCapacity] = useState(0);
   const [maxAmount, setMaxAmount] = useState(1);
   const [registrationNumber, setRegistrationNumber] = useState("");
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();

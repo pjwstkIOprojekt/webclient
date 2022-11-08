@@ -10,7 +10,7 @@ const ChangePasswordForm = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [error, setError] = useState("");
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   const onSubmit = (e: FormEvent<Element>) => {
     e.preventDefault();

@@ -14,7 +14,7 @@ import { BiLogIn } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
 
 const MenuBar = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const roles = useRoles();
   
   return (
@@ -56,7 +56,7 @@ const MenuBar = () => {
 const SideMenu = () => {
   const darkMode = useDarkModeManager();
   const roles = useRoles();
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   return (
     <Nav>
@@ -72,7 +72,7 @@ const SideMenu = () => {
 };
 
 const LangDropdown = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
   const darkMode = useDarkMode();
 
@@ -118,7 +118,7 @@ const LangDrop = (props: Readonly<LangParams>) => {
 };
 
 const UserDropdown = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const darkMode = useDarkMode();
   const auth = useAuth();
   const roles = auth.user ? auth.user.roles : Roles.None;

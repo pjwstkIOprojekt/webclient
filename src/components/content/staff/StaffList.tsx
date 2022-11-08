@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const StaffList = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   useEffect(() => {
     /*getStaff().then(res => res.json()).then(dat => {
@@ -21,7 +21,7 @@ const StaffList = () => {
     { name: t('Person.FirstName'), property: "firstName", sortBy: "firstName", filterBy: "firstName" },
     { name: t('Person.LastName'), property: "lastName", sortBy: "lastName", filterBy: "lastName" },
     { name: t('Role'), property: "role", sortBy: "role", filterBy: "role" },
-    { name: t(''), property: (x: any) => <NavButton to={`edit/${x.id}`}>{t('Edit')}</NavButton> }
+    { name: t('Action'), property: (x: any) => <NavButton to={`edit/${x.id}`}>{t('Edit')}</NavButton> }
   ];
 
   return (

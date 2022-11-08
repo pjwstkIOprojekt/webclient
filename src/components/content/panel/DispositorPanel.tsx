@@ -6,7 +6,7 @@ import Report from "../incident/Report";
 import { useTranslation } from "react-i18next";
 
 const DispositorPanel = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const links = [
     { to: "reports", text: t('Reports.Reports') }
   ];

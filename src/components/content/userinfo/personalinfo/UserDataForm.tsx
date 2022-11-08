@@ -14,7 +14,7 @@ const UserDataForm = () => {
   const [birthDate, setBirthDate] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [readOnly, setReadOnly] = useState(true);
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   useEffect(() => {
     /*getUserById(0).then(res => res.json()).then(data => {

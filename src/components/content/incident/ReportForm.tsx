@@ -10,7 +10,7 @@ interface IncidentFormParams {
 }
 
 const ReportForm = (props: Readonly<IncidentFormParams>) => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (

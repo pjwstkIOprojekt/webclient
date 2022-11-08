@@ -14,7 +14,7 @@ const MedicalData = () => {
   const [allergies, setAllergies] = useState<AllergyResponse[]>([]);
   const [conditions, setConditions] = useState<DiseaseResponse[]>([]);
   const [isloading, setIsLoading] = useState(true);
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   useEffect(() => {
     const email = getEmail();

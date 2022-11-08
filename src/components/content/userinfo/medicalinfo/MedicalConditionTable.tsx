@@ -8,7 +8,7 @@ import NavButton from "../../../fragments/navigation/NavButton";
 import { useTranslation } from "react-i18next";
 
 const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>) => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const remove = (x: Readonly<DiseaseResponse>) => {
     if (!window.confirm(t('RemoveDisease'))) {
       return;

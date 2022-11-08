@@ -18,7 +18,7 @@ const StaffUserForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
   const { userId } = useParams();
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (userId !== undefined) {

@@ -13,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const login = useLogin();
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   const handleSubmit = () => {
     let status = -1;

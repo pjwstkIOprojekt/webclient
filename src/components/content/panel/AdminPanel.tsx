@@ -12,7 +12,7 @@ import StaffUserForm from "../staff/StaffUserForm";
 import { useTranslation } from "react-i18next";
 
 const AdminPanel = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const links = [
     { to: "ambulances", text: t('Ambulance.Ambulances') },
     { to: "victims", text: t('Person.Victims') },

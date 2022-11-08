@@ -60,7 +60,17 @@
         "View":"View",
         "Edit":"Edit ambulance",
         "Mileage":"Mileage",
-        "Delete":"Delete"
+        "Delete":"Delete",
+        "OnGo":"On the go",
+        "OnSite":"On site",
+        "Return":"Return",
+        "Assigned":"Assigned ambulance",
+        "Add":"Add ambulance",
+        "History":"History of the ambulance",
+        "License":"License plate is undefined! This should never happen.",
+        "IsDelete":"Are you sure you want to remove this carriage?",
+        "ChangeState":"Change in ambulance status",
+        "ChangeState1":"Change in ambulance status"
     },
     "Reports":{
         "Reports":"Reports",
@@ -98,7 +108,9 @@
         "Fires":"Fires",
         "Fire":"Fire",
         "Confirm":"Confirm",
-        "Alert":"Alert"
+        "Reject":"Reject",
+        "Alert":"Alert",
+        "DateLast":"Date of last incident"
     },
     "Person":{
         "Victims":"Victims",
@@ -120,7 +132,8 @@
         "Trusted":"Trusted person",
         "Paramedic":"Paramedic",
         "Manager":"Manager",
-        "Dispatcher":"Dispositor"
+        "Dispatcher":"Dispositor",
+        "Dangerous":"Is dangerous?"
     },
     "Login":{
         "Login":"Login",
@@ -149,7 +162,8 @@
         "Incorrect.":"Incorrect email or password.",
         "LoadingProblem":"There was a problem loading the data. Try again.",
         "UndefinedEmail":"User email is undefined. Check Session Storage and verify that user is actually logged in.",
-        "EmptyValue":"This value cannot be empty."
+        "EmptyValue":"This value cannot be empty.",
+        "Past":"Only a date in the past can be given."
     },
     "Blood":{
         "Group:":"Blood group:",
@@ -208,14 +222,19 @@
     "EditingEmployee":"Editing Employee",
     "TypeEmployee":"Type of Employee",
     "Diseases":"Diseases",
-    "AddDisease":"Add disease",
-    "EditDisease":"Edit disease",
-
+    "AddDisease":"Adding disease",
+    "EditDisease":"Editing disease",
+    "AddEquipment":"Adding equipment",
+    "EditEquipment":"Editing equipment",
+    "AddAmbulance":"Adding ambulance",
+    "EditAmbulance":"Editing ambulance",
     "RemoveDisease":"Are you sure you want to remove this disease?",
     "AllCapabilities":"Want to be able to use all the capabilities of our platform? Log in to your account now!",
     "Share":"Share at risk",
     "Yes":"Yes",
     "No":"No",
     "Role":"Role",
-    "Action":"Action"
+    "Action":"Action",
+    "From":"From",
+    "To":"To"
 }

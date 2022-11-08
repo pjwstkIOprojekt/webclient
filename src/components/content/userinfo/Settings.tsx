@@ -10,7 +10,7 @@ import MedicalConditionForm from "./medicalinfo/MedicalConditionForm";
 import { useTranslation } from "react-i18next";
 
 const Settings = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const links = [
     { to: "userdata", text: t('userdata') },
     { to: "medicaldata", text: t('medicaldata') },

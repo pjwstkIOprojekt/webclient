@@ -19,7 +19,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
   const [rh, setRh] = useState(props.rhType);
   const [readOnly, setReadOnly] = useState(true);
   const [error, setError] = useState("");
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   useEffect(() => {
     setGroup(props.bloodType);

@@ -5,7 +5,7 @@ import { CgWorkAlt } from "react-icons/cg";
 import { useTranslation } from "react-i18next";
 
 const CheckIn = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const [checked, setChecked] = useState(false);
   const darkMode = useDarkMode();
 

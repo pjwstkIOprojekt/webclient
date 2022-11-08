@@ -13,7 +13,7 @@ const AddParamedics = () => {
   const FirstName = useState("Jan");
   const LastName = useState("Nowak");
   const [added, setAdded] = useState(false);
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
     const [paramedics] = useState<any[]>([
       { id: 1, firstName: FirstName,  lastName: LastName, add: <input type={"checkbox"} onClick={()=>setAdded(onclick?true:false)} defaultChecked={added}  name="paramedic" /> },

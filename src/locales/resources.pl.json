@@ -61,7 +61,17 @@
         "View":"Zobacz",
         "Edit":"Edytuj karetkę",
         "Mileage":"Przebieg",
-        "Delete":"Usuń"
+        "Delete":"Usuń",
+        "OnGo":"W drodze",
+        "OnSite":"Na miejscu",
+        "Return":"Wraca",
+        "Assigned":"Przypisana karetka",
+        "Add":"Dodaj karetkę",
+        "History":"Historia karetki",
+        "License":"License plate is undefined! This should never happen.",
+        "IsDelete":"Czy na pewno chcesz usunąć tą karetkę?",
+        "ChangeState":"Zmiana stanu karetki",
+        "ChangeState1":"Zmień stan karetki"
     },
     "Reports":{
         "Reports":"Zgłoszenia",
@@ -98,7 +108,9 @@
         "Fires":"Pożary",
         "Fire":"Pożar",
         "Confirm":"Potwierdź",
-        "Alert":"Ostrzeżenie"
+        "Reject":"Odrzuć",
+        "Alert":"Ostrzeżenie",
+        "DateLast":"Data ostatniego zdarzenia"
     },
     "Person":{
         "Victims":"Poszkodowani",
@@ -120,8 +132,8 @@
         "Trusted":"Osoba zaufana",
         "Paramedic":"Ratownik",
         "Manager":"Menadżer",
-        "Dispatcher":"Dyspozytor"
-    
+        "Dispatcher":"Dyspozytor",
+        "Dangerous":"Czy jest niebezpieczny?"
     },
     "Login":{
         "Login":"Logowanie",
@@ -152,7 +164,8 @@
         "LoadingProblem":"Nastąpił problem z wczytaniem danych. Spróbuj ponownie.",
         "UndefinedEmail":"User email is undefined. Check Session Storage and verify that user is actually logged in.",
         "Powtórzone hasło różni się od oryginalnego.":"Powtórzone hasło różni się od oryginalnego.",
-        "EmptyValue":"Ta wartość nie może być pusta."
+        "EmptyValue":"Ta wartość nie może być pusta.",
+        "Past":"Można podać tylko datę w przeszłości."
     },
     "Blood":{
         "Group:":"Grupa krwi:",
@@ -211,14 +224,20 @@
     "Diseases":"Choroby",
     "AddDisease":"Dodawanie choroby",
     "EditDisease":"Edytowanie choroby",
+    "AddEquipment":"Dodawanie wyposażenia",
+    "EditEquipment":"Edytowanie wyposażenia",
     "AddingEmployee":"Dodawanie pracownika",
     "TypeEmployee":"Rodzaj pracownika",
     "EditingEmployee":"Edytowanie pracownika",
+    "AddAmbulance":"Dodawanie karetki",
+    "EditAmbulance":"Edytowanie karetki",
     "RemoveDisease":"Czy na pewno chcesz usunąć tą chorobę?",
     "AllCapabilities":"Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!",
     "Share":"Udostępnij przy zagrożeniu",
     "Yes":"Tak",
     "No":"Nie",
     "Role":"Rola",
-    "Action":"Akcje"
+    "Action":"Akcje",
+    "From":"Od",
+    "To":"Do"
 }

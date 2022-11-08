@@ -6,7 +6,7 @@ import Table from "../../fragments/util/Table";
 import { useTranslation } from "react-i18next";
 
 const ListAmbulance = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const [ambulances, setAmbulances] = useState<any[]>([
     {
       id: 1, kind: "Covid", paramedics: "Jan Nowak  Adam Kowalski", registrationNumber: "WW 40404", mileage: "1000000", add: <Button onClick={e => navigate("/listAmbulances/addParamedics/1")}>Przypisz</Button>, edit: <Button onClick={e => navigate("/editAmbulance/1")}>Edytuj</Button>,  delete: <Button>Usuń</Button>},

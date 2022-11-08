@@ -6,7 +6,7 @@ import Table from "../../fragments/util/Table";
 import { useTranslation } from "react-i18next";
 
 const DispositorHome = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const tableData = [
     { date: "2022-07-19 18:00", cause: t('Reports.Accident'), scale: 2 },
     { date: "2022-07-12 16:53", cause: t('Reports.TerroristAttack'), scale: 4 }

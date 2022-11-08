@@ -24,7 +24,7 @@ const ReportForm = (props: Readonly<ReportFormParams>) => {
   const [amountVictims, setAmountVictims] = useState(0);
   const [desc, setDesc] = useState("");
   const navigate = useNavigate();
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   const accidentTypes = [
     "Atak terrorystyczny",

@@ -10,7 +10,7 @@ import NavButton from '../../../fragments/navigation/NavButton';
 import { useTranslation } from "react-i18next";
 
 const AllergyTable = (props: Readonly<TableViewParams<AllergyResponse>>) => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const remove = (x: Readonly<AllergyResponse>) => {
     if (!window.confirm(t('Allergy.Remove'))) {
       return;

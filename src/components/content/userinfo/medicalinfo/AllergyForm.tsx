@@ -18,7 +18,7 @@ const AllergyForm = () => {
   const [error, setError] = useState("");
   const { allergyId } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (allergyId !== undefined) {

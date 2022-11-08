@@ -17,7 +17,7 @@ const MedicalConditionForm = () => {
   const [error, setError] = useState("");
   const { diseaseId } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (diseaseId !== undefined) {

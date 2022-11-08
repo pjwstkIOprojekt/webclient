@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 const GuestHome = () => {
   const roles = useRoles();
   const navigate = useNavigate();
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   return (
     <Container className="mt-5 justify-content-center text-center">

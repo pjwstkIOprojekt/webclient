@@ -10,19 +10,19 @@ interface ReportsListParams {
 }
 
 const ReportsListDisplay = (props: Readonly<ReportsListParams>) => {
-  
+  const { t } = useTranslation();
   const cols = [
     { name: "#", property: (x: any) => <Link to={`/report/${x.id}`}>{x.id}</Link> },
-    { name: "Ofiara jest przytomna?", property: (x: any) => x.victimConsious ? "Tak" : "Nie" },
-    { name: "Ofiara oddycha?", property: (x: any) => x.victimBreathing ? "Tak" : "Nie" },
-    { name: "Data", property: "date" },
-    { name: "Skala zagrożenia", property: "dangerRating" },
-    { name: "Opis", property: (x: any) => x.description.substring(0, 100) }
+    { name: t('Reports.VictimConsious'), property: (x: any) => x.victimConsious ? t('Yes') : t('No') },
+    { name: t('Reports.VictimBreathing'), property: (x: any) => x.victimBreathing ? t('Yes') : t('No') },
+    { name: t('Reports.Date'), property: "date" },
+    { name: t('Reports.DangerRating'), property: "dangerRating" },
+    { name: t('Reports.Description'), property: (x: any) => x.description.substring(0, 100) }
   ];
 
   return (
     <Container className="mb-3 justify-content-center text-center">
-      <h1>Zgłoszenia</h1>
+      <h1>{t('Reports.Reports')}</h1>
       <Table columns={cols} data={props.data} />
     </Container>
   );

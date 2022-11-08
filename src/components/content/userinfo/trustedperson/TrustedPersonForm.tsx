@@ -11,7 +11,7 @@ const TrustedPersonForm = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [readOnly, setReadOnly] = useState(true);
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   useEffect(() => {
     /*getUserById(0).then(res => res.json()).then(data => {
       setFirstName(data.firstName);

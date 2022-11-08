@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import MapView from "../../fragments/map/MapView";
 import { useTranslation } from "react-i18next";
 
-const { t } = useTranslation("jezyk");
+
 enum MarkTypes {
   None = 0,
   Incident = 1,
@@ -19,25 +19,24 @@ enum MarkTypes {
 }
 
 const positions = [
-  { coords: [52.22, 21.01], desc: t('MainPage.Incident'), type: MarkTypes.Incident, icon: accidentIcon },
-  { coords: [52.23, 21.0], desc: t('Reports.TerroristAttack'), type: MarkTypes.Terrorist, icon: terroristIcon },
-  { coords: [52.21, 21.02], desc: t('Reports.Fire'), type: MarkTypes.Fire, icon: fireIcon },
-  { coords: [52.12, 21.05], desc: t('Ambulance.Ambulance'), type: MarkTypes.Ambulance, icon: ambulanceIcon },
-  { coords: [52.02, 20.99], desc: t('Reports.Hospital'), type: MarkTypes.Hospital, icon: facilityIcon },
-  { coords: [52.32, 21.00], desc: t('Reports.Police'), type: MarkTypes.Police, icon: policeIcon },
-  { coords: [52.32, 21.00], desc: t('Alert'), type: MarkTypes.Alert, icon: alertIcon },
-  { coords: [52.12, 21.23], desc: t('MainPage.Incident2'), type: MarkTypes.Incident, icon: accidentIcon },
-  { coords: [52.22, 20.87], desc: t('Ambulance.Ambulance2'), type: MarkTypes.Ambulance, icon: ambulanceIcon },
-  { coords: [52.26, 19.98], desc: t('Reports.CovidOutbreaks'), type: MarkTypes.Covid, icon: covidIcon }
+  { coords: [52.22, 21.01], desc: "Zdarzenie", type: MarkTypes.Incident, icon: accidentIcon },
+  { coords: [52.23, 21.0], desc: "Atak terrorystyczny", type: MarkTypes.Terrorist, icon: terroristIcon },
+  { coords: [52.21, 21.02], desc: "Pożar", type: MarkTypes.Fire, icon: fireIcon },
+  { coords: [52.12, 21.05], desc: "Karetka", type: MarkTypes.Ambulance, icon: ambulanceIcon },
+  { coords: [52.02, 20.99], desc: "Szpital", type: MarkTypes.Hospital, icon: facilityIcon },
+  { coords: [52.32, 21.00], desc: "Posterunek policji", type: MarkTypes.Police, icon: policeIcon },
+  { coords: [52.32, 21.00], desc: "Alert", type: MarkTypes.Alert, icon: alertIcon },
+  { coords: [52.12, 21.23], desc: "Zdarzenie 2", type: MarkTypes.Incident, icon: accidentIcon },
+  { coords: [52.22, 20.87], desc: "Karetka 2", type: MarkTypes.Ambulance, icon: ambulanceIcon },
+  { coords: [52.26, 19.98], desc: "Ognisko Covid", type: MarkTypes.Covid, icon: covidIcon }
 ];
-
 interface MapFormParams {
   filters: MarkTypes,
   setFilters: (x: MarkTypes) => void
 }
 
 const MapForm = (props: Readonly<MapFormParams>) => {
-
+  const { t } = useTranslation();
   return (
     <Container>
       <h1 className="mt-3">{t('Map')}</h1>

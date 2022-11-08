@@ -1,14 +1,17 @@
 import { DateControlParams } from "../sharedFormsParams";
 import { useState, ChangeEvent } from "react";
 import Dat from "./Date";
-
+import { useTranslation } from "react-i18next";
 const Past = (props: Readonly<DateControlParams>) => {
   const [error, setError] = useState(props.error);
+  const { t } = useTranslation();
+
 
   const onUpdate = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    
     setError(props.error);
     const value = e.target.value;
-
+    
     if (value && new Date(value) >= new Date(Date.now())) {
       setError("Można podać tylko datę w przeszłości.");
       return;      

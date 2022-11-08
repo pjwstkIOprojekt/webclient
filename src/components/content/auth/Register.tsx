@@ -22,11 +22,11 @@ const Register = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [error, setError] = useState("");
   const login = useLogin();
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
 
   const handleSubmit = () => {
     if (password !== passwordCheck) {
-      setError("Powtórzone hasło się różni!");
+      setError(t('Error.DiffrentPasswords'));
       return;
     }
 
@@ -42,7 +42,7 @@ const Register = () => {
       phoneNumber: phoneNumber
     }).then(res => {
       if (res.status !== 200) {
-        setError("Rejestracja nieudana. Spróbuj ponownie później.");
+        setError(t('Error.RegistrationFailed'));
         return;
       }
 
@@ -59,18 +59,18 @@ const Register = () => {
           if (data.token && data.roles && data.email) {
             login(data.token, data.roles, data.email);
           } else {
-            setError("Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.");
+            setError(t('Error.NoResponseServer'));
           }
         } else {
-          setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+          setError(t('Error.UnknownError'));
         }
       }).catch(err => {
         console.error(err);
-        setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+        setError(t('Error.UnknownError'));
       });
     }).catch(err => {
       console.error(err);
-      setError("Rejestracja nieudana. Spróbuj ponownie później.");
+      setError(t('Error.RegistrationFailed'));
     });
   };
 
@@ -105,7 +105,7 @@ const Register = () => {
         {error ? (
           <Row className="justify-content-center mt-5">
             <Alert variant="danger" className="w-50">
-              <Alert.Heading>Błąd</Alert.Heading>
+              <Alert.Heading>{t('Error.Error')}</Alert.Heading>
               <p>{error}</p>
             </Alert>
           </Row>

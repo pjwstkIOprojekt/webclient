@@ -21,7 +21,7 @@ const ambulanceKinds = [
 ];
 
 const EditAmbulance = () => {
-  const { t } = useTranslation("jezyk");
+  const { t } = useTranslation();
   const [type, setType] = useState(ambulanceTypes[1]);
   const [kind, setKind] = useState(ambulanceKinds[4]);
   const [capacity, setCapacity] = useState(70);
