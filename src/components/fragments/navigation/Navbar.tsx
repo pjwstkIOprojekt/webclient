@@ -164,13 +164,13 @@ const UserDropdown = () => {
       ) : (
         <NavDrop to="/login">
           <BiLogIn />
-          <span className="px-1">{t("Sign in")}</span>
+          <span className="px-1">{t("Login.Sign in")}</span>
         </NavDrop>
       )}
       {isAuth(roles) ? "" : (
         <NavDrop to="/register">
           <IoIosPaper />
-          <span className="px-1">{t("Sign up")}</span>
+          <span className="px-1">{t("Login.Sign up")}</span>
         </NavDrop>
       )}
     </NavDropdown>
