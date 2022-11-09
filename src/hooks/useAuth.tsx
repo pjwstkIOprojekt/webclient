@@ -32,13 +32,13 @@ export const AuthProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
 
     setRoles(usr.roles);
     login(usr);
-    notifications.clear(t('Login.Login'), t('Login.LoggedInto'));
+    notifications.clear(t("Login.Login"), t("Login.LoggedInto"));
   };
 
   const handleLogout = () => {
     setRoles(Roles.None);
     logout();
-    notifications.clear(t('Login.LogOut'), t('Login.LoggedOut'));
+    notifications.clear(t("Login.LogOut"), t("Login.LoggedOut"));
   };
 
   return (
