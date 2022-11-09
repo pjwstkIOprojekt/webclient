@@ -53,3 +53,7 @@ export const updateAmbulanceState = (licensePlate: string, req: Readonly<UpdateA
 export const createAmbulance = (req: Readonly<AddAmbulanceRequest>) => post(ambulanceBase, req);
 export const updateAmbulance = (req: Readonly<AddAmbulanceRequest>) => put(ambulanceBase, req);
 export const deleteAmbulance = (licensePlate: string) => del(`${ambulanceBase}/${licensePlate}`);
+
+// To fix
+export const getEquipmentInAmbulance = (licensePlate: string) => get(`${ambulanceBase}/${licensePlate}/equipment`);
+export const addEquipmentToAmbulance = (licensePlate: string, equipmentId: number) => post(`${ambulanceBase}/${licensePlate}/${equipmentId}`, undefined);
