@@ -92,10 +92,10 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
 
 const AmbulanceForm = () => {
   const [coords, setCoords] = useState<[number, number]>([52.222, 21.015]);
+  const { t } = useTranslation();
   useEffect(() => navigator.geolocation.getCurrentPosition(pos => setCoords([pos.coords.latitude, pos.coords.longitude])), []);
   const onUpdate = (lat: number, lng: number) => setCoords([lat, lng]);
   const altUpdate = (x: L.LatLng) => onUpdate(x.lat, x.lng);
-  const { t } = useTranslation();
 
   const mark = {
     coords: coords,
