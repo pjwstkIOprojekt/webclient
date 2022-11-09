@@ -61,7 +61,7 @@ const StaffUserForm = () => {
           <FormControl id="lastName" onChange={e => setLastName(e.target.value)} value={lastName} required className="mb-3 w-50" label={t('Person.LastName')} />
         </Row>
         <Row className="justify-content-center">
-          <FormControl id="email" onChange={e => setEmail(e.target.value)} value={email} required className="mb-3 w-50" label={t("Person.Email") } type="email" />
+          <FormControl id="email" onChange={e => setEmail(e.target.value)} value={email} required className="mb-3 w-50" label={t("Person.Email")} type="email" />
         </Row>
         <Row className="justify-content-center">
           <FormControl id="password" onChange={e => setPassword(e.target.value)} value={password} required className="mb-3 w-50" label="Hasło" type={t('Login.Password')} />
