@@ -13,7 +13,7 @@ const Past = (props: Readonly<DateControlParams>) => {
     const value = e.target.value;
     
     if (value && new Date(value) >= new Date(Date.now())) {
-      setError(t('Error.Past'));
+      setError(t("Error.Past"));
       return;      
     }
 
