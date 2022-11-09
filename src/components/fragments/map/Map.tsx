@@ -29,7 +29,6 @@ export interface MapParams {
 }
 
 const Map = (props: Readonly<MapParams>) => {
-  
   const [geocoder] = useState(new geocoders.Nominatim({
     geocodingQueryParams: {
       "polygon_geojson": 1,
