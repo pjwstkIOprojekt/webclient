@@ -4,7 +4,7 @@ import { FormGroup, Form } from "react-bootstrap";
 
 export interface FormCheckParams extends IdControlParams<HTMLInputElement> {
   value?: string | number | boolean,
-  icon?: L.Icon<L.IconOptions>
+  icon?: L.Icon<L.IconOptions> | L.DivIcon
 }
 
 const FormCheck = (props: Readonly<FormCheckParams>) => {
