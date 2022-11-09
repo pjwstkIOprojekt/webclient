@@ -47,7 +47,7 @@ const Login = () => {
       <h1 className="text-center">{t("Login.Login")}</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
-          <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label={t("Person.Email") }/>
+          <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label={t("Person.Email")}/>
         </Row>
         <Row className="justify-content-center">
           <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Login.Password")} />
