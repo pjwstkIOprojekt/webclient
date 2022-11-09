@@ -1,8 +1,10 @@
+import { Position } from "../../fragments/map/Map";
 import { accidentIcon, terroristIcon, fireIcon, ambulanceIcon, facilityIcon, policeIcon, alertIcon, covidIcon } from "./MapIcons";
 import { useTranslation } from "react-i18next";
 import { Container, Form } from "react-bootstrap";
 import FormCheck from "../../fragments/forms/FormCheck";
 import { useState, useEffect } from "react";
+import { getFacilities, FacilityRequest } from "../../../api/facilityCalls";
 import MapView from "../../fragments/map/MapView";
 
 enum MarkTypes {
@@ -17,13 +19,15 @@ enum MarkTypes {
   Covid = 128
 }
 
+interface Mark extends Position {
+  type: MarkTypes
+}
+
 const positions = [
   { coords: [52.22, 21.01], desc: "Zdarzenie", type: MarkTypes.Incident, icon: accidentIcon },
   { coords: [52.23, 21.0], desc: "Atak terrorystyczny", type: MarkTypes.Terrorist, icon: terroristIcon },
   { coords: [52.21, 21.02], desc: "Pożar", type: MarkTypes.Fire, icon: fireIcon },
   { coords: [52.12, 21.05], desc: "Karetka", type: MarkTypes.Ambulance, icon: ambulanceIcon },
-  { coords: [52.02, 20.99], desc: "Szpital", type: MarkTypes.Hospital, icon: facilityIcon },
-  { coords: [52.32, 21.00], desc: "Posterunek policji", type: MarkTypes.Police, icon: policeIcon },
   { coords: [52.32, 21.00], desc: "Alert", type: MarkTypes.Alert, icon: alertIcon },
   { coords: [52.12, 21.23], desc: "Zdarzenie 2", type: MarkTypes.Incident, icon: accidentIcon },
   { coords: [52.22, 20.87], desc: "Karetka 2", type: MarkTypes.Ambulance, icon: ambulanceIcon },
@@ -57,9 +61,8 @@ const MapForm = (props: Readonly<MapFormParams>) => {
 };
 
 const MainMap = () => {
-  //const [accidents, setAccidents] = useState([]);
-  //const [ambulances, setAmbulances] = useState([]);
-  //const [facilities, setFacilities] = useState([]);
+  //const [dynamic, setDynamic] = useState<Mark[]>([]);
+  const [fixed, setFixed] = useState<Mark[]>([]);
   const [filters, setFilters] = useState(255);
   const [update, setUpdate] = useState(false);
 
@@ -72,10 +75,23 @@ const MainMap = () => {
   }, [update]);
 
   useEffect(() => {
-    //
+    const res: Mark[] = [];
+
+    getFacilities().then(res => res.json()).then((data: FacilityRequest[]) => {
+      if (data) {
+        data.forEach(e => res.push({
+          coords: [e.latitude, e.longitude],
+          desc: e.name,
+          type: e.facilityType.toLowerCase().includes("h") ? MarkTypes.Hospital : MarkTypes.Police,
+          icon: e.facilityType.toLowerCase().includes("h") ? facilityIcon : policeIcon,
+        }));
+
+        setFixed(res);
+      }
+    }).catch(console.error);
   }, []);
 
-  const marks = [...positions].filter(p => p.type & filters).map((e: any) => {
+  const marks = [...positions, ...fixed].filter(p => p.type & filters).map((e: any) => {
     return {
       coords: e.coords,
       desc: e.desc,

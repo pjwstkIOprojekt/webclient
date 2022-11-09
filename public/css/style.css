@@ -344,6 +344,12 @@
     top: 72px;
 }
 
+.lang-icon
+{
+    width: 30px;
+    height: 20px;
+}
+
 @media (min-width: 768px)
 {
     .tutorial-grid

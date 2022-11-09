@@ -10,8 +10,6 @@ import L from "leaflet";
 import MapView from "../../fragments/map/MapView";
 import { useTranslation } from "react-i18next";
 
-
-
 const CreateSchedule = () => {
 const [paramedic, setParamedic] = useState(0);
 const [from, setFrom]= useState();

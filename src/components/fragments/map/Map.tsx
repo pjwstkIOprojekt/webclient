@@ -104,7 +104,7 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
     return () => {
       geocoder.remove();
     };
-  }, [map, props.onSearch, props.geocoder]);
+  }, [map, t, props.onSearch, props.geocoder]);
 
   return null;
 };

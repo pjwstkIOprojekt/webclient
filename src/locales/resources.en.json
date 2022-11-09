@@ -133,7 +133,7 @@
         "Manager": "Manager",
         "Dispatcher": "Dispositor",
         "Dangerous": "Is dangerous?",
-        "Email":"Email"
+        "Email": "Email"
     },
     "Login": {
         "Login": "Login",
@@ -143,9 +143,9 @@
         "CollectData": "Why do we collect data?",
         "LogOff": "Log off",
         "Password": "Password",
-        "LoggedInto":"Successfully logged into the account",
-        "LogOut":"Logout",
-        "LoggedOut":"Successfully logged out of account"
+        "LoggedInto": "Successfully logged into the account",
+        "LogOut": "Logout",
+        "LoggedOut": "Successfully logged out of account"
     },
     "Allergy": {
         "Add": "Add allergy",
@@ -196,9 +196,9 @@
         "GiveHelp": "Give first aid",
         "WatchTutorials": "Browse through the numerous first aid guides and use the acquired knowledge to save someone's life."
     },
-    "Cookies":{
-        "Info":"This site uses cookies. Make the only right decision.",
-        "Agree":"I agree"
+    "Cookies": {
+        "Info": "This site uses cookies. Make the only right decision.",
+        "Agree": "I agree"
     },
     "Amount": "Amount",
     "Map": "Map",
@@ -242,9 +242,11 @@
     "Action": "Action",
     "From": "From",
     "To": "To",
-    "Search":"Search",
-    "PanelManager":"Manager's panel",
-    "PanelDispatcher":"Dispatcher's panel",
-    "NoResults":"No results",
-    "Value":"Value"
+    "Search": "Search",
+    "PanelManager": "Manager's panel",
+    "PanelDispatcher": "Dispatcher's panel",
+    "NoResults": "No results",
+    "Value": "Value",
+    "Icon": "Icon",
+    "Flag": "Flag"
 }
