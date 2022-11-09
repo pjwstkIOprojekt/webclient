@@ -5,6 +5,7 @@ import { Table as Inner, Row, Col, Container } from "react-bootstrap";
 import Button from "./Button";
 import Spinner from "./Spinner";
 import FormControl from "../forms/FormControl";
+import { useTranslation } from "react-i18next";
 
 export interface TableColumnParams<T> {
   name: (() => ChildrenType) | string,
@@ -31,6 +32,7 @@ interface SortState {
 }
 
 const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) => {
+  
   const darkMode = useDarkMode();
   const [copy, setCopy] = useState([...props.data]);
   const [filter, setFilter] = useState<Record<string, string>>({});
@@ -126,6 +128,7 @@ interface Bind {
 }
 
 const BindableControl = (props: Readonly<Bind>) => {
+  const { t } = useTranslation();
   const [value, setValue] = useState("");
 
   const change = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -133,7 +136,7 @@ const BindableControl = (props: Readonly<Bind>) => {
     props.callback(e);
   };
 
-  return <FormControl placeholder="Szukaj..." value={value} onChange={change} />;
+  return <FormControl placeholder={t('Search')} value={value} onChange={change} />;
 };
 
 export default Table;

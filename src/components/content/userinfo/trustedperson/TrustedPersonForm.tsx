@@ -90,7 +90,7 @@ const TrustedPersonForm = () => {
           <NotBlank id="lastName" required onChange={e => setLastName(e.target.value)} className="mb-3" value={lastName} label={t("Person.LastName")} disabled={readOnly} />
         </Row>
         <Row md={2}>
-          <Email id="email" onChange={e => setEmail(e.target.value)} className="mb-3" value={email} label="Email" disabled={readOnly} />
+          <Email id="email" onChange={e => setEmail(e.target.value)} className="mb-3" value={email} label={t("Person.Email") } disabled={readOnly} />
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label={t("Person.PhoneNumber")} disabled={readOnly} />
         </Row>
         <Button type="submit" className="mx-3">{readOnly ? t("Edit") : t("Save")}</Button>

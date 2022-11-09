@@ -132,7 +132,8 @@
         "Paramedic": "Paramedic",
         "Manager": "Manager",
         "Dispatcher": "Dispositor",
-        "Dangerous": "Is dangerous?"
+        "Dangerous": "Is dangerous?",
+        "Email":"Email"
     },
     "Login": {
         "Login": "Login",
@@ -141,7 +142,10 @@
         "Sign up": "Sign up",
         "CollectData": "Why do we collect data?",
         "LogOff": "Log off",
-        "Password": "Password"
+        "Password": "Password",
+        "LoggedInto":"Successfully logged into the account",
+        "LogOut":"Logout",
+        "LoggedOut":"Successfully logged out of account"
     },
     "Allergy": {
         "Add": "Add allergy",
@@ -192,6 +196,10 @@
         "GiveHelp": "Give first aid",
         "WatchTutorials": "Browse through the numerous first aid guides and use the acquired knowledge to save someone's life."
     },
+    "Cookies":{
+        "Info":"This site uses cookies. Make the only right decision.",
+        "Agree":"I agree"
+    },
     "Amount": "Amount",
     "Map": "Map",
     "Filters": "Filters",
@@ -233,5 +241,10 @@
     "Role": "Role",
     "Action": "Action",
     "From": "From",
-    "To": "To"
+    "To": "To",
+    "Search":"Search",
+    "PanelManager":"Manager's panel",
+    "PanelDispatcher":"Dispatcher's panel",
+    "NoResults":"No results",
+    "Value":"Value"
 }
