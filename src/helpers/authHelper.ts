@@ -40,6 +40,6 @@ export const getUser = () => JSON.parse(sessionStorage.getItem(userCookie) ?? "n
 export const getToken = () => getUser()?.token;
 export const getRoles = () => getUser()?.roles;
 export const getEmail = () => getUser()?.email;
-export const isAuth = (roles: Roles) => (roles & Roles.User) !== Roles.None;
-export const isDispositor = (roles: Roles) => (roles & Roles.User) !== Roles.None;
-export const isDirector = (roles: Roles) => (roles & Roles.User) !== Roles.None;
+export const isAuth = (roles: Roles) => (roles & Roles.User) === Roles.None;
+export const isDispositor = (roles: Roles) => (roles & Roles.User) === Roles.None;
+export const isDirector = (roles: Roles) => (roles & Roles.User) === Roles.None;

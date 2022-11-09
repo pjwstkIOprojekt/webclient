@@ -77,6 +77,7 @@ const SideMenu = () => {
 const LangDropdown = () => {
   const [lang, setLang] = useState(i18n.language);
   const darkMode = useDarkMode();
+  const { t } = useTranslation();
 
   const changeLang = (lang: string) => {
     i18n.changeLanguage(lang, (err, t) => {
@@ -89,10 +90,15 @@ const LangDropdown = () => {
     });
   };
 
+  const flags: Record<string, string> = {
+    pl: "polish",
+    en: "english"
+  };
+
   return (
     <NavDropdown align="end" title={
       <span className="d-inline-flex align-items-center">
-        <span className="px-1">TEXT</span>
+        <span className="px-1"><img src={`/img/flags/${flags[lang]}.png`} className="lang-icon" alt={t("Flag")} /></span>
       </span>
     } className={`nav-${customLink(darkMode)}`}>
       <LangDrop display="Polski" lang="pl" current={lang} update={changeLang} />
