@@ -1,15 +1,17 @@
 import Link from "../../fragments/navigation/Link";
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
+import { useTranslation } from "react-i18next";
 
 const PatientsList = () => {
+  const { t } = useTranslation();
   const cols = [
     { name: "#", property: (x: Record<string, any>) => <Link to={`edit/${x.id}`}>{x.id}</Link>, sortBy: "id", filterBy: "id" },
-    { name: "Imie", property: "name", sortBy: "name", filterBy: "name" },
-    { name: "Nazwisko", property: "surname", sortBy: "surname", filterBy: "surname" },
-    { name: "Data ostatniego zdarzenia", property: "date", sortBy: "date", filterBy: "date" },
-    { name: "Czy jest niebezpieczny?", property: (x: Record<string, any>) => x.dangerous ? "Tak" : "Nie" },
-    { name: "Szczegóły/Uwagi", property: "details", sortBy: "details", filterBy: "details" },
+    { name: t('Person.FirstName'), property: "name", sortBy: "name", filterBy: "name" },
+    { name: t('Person.LastName'), property: "surname", sortBy: "surname", filterBy: "surname" },
+    { name: t('Reports.DateLast'), property: "date", sortBy: "date", filterBy: "date" },
+    { name: t('Person.Dangerous'), property: (x: Record<string, any>) => x.dangerous ? "Tak" : "Nie" },
+    { name: t('Details'), property: "details", sortBy: "details", filterBy: "details" },
   ];
 
   const patients = [
@@ -19,7 +21,7 @@ const PatientsList = () => {
 
   return (
     <Container className="mb-3 justify-content-center text-center">
-      <h3>Poszkodowani</h3>
+      <h3>{t('Person.Victims')}</h3>
       <Table columns={cols} data={patients} />
     </Container>
   );

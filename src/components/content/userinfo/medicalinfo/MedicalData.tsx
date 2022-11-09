@@ -7,18 +7,20 @@ import { Container } from "react-bootstrap";
 import BloodTypeForm, { Blood } from "./BloodTypeForm";
 import AllergyTable from "./AllergyTable";
 import MedicalConditionTable from "./MedicalConditionTable";
+import { useTranslation } from "react-i18next";
 
 const MedicalData = () => {
   const [blood, setBlood] = useState<Blood>({});
   const [allergies, setAllergies] = useState<AllergyResponse[]>([]);
   const [conditions, setConditions] = useState<DiseaseResponse[]>([]);
   const [isloading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const email = getEmail();
 
     if (!email) {
-      console.error("User email is undefined. Check Session Storage and verify that user is actually logged in.");
+      console.error(t('Error.UndefinedEmail'));
       return;
     }
 
@@ -51,7 +53,7 @@ const MedicalData = () => {
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">Dane medyczne</h1>
+      <h1 className="mb-3">{t('MedicalData')}</h1>
       <BloodTypeForm id={blood.id} bloodType={blood.bloodType} rhType={blood.rhType} />
       <AllergyTable data={allergies} isLoading={isloading} onRemove={removeAllergy} />
       <MedicalConditionTable data={conditions} isLoading={isloading} onRemove={removeDisease} />

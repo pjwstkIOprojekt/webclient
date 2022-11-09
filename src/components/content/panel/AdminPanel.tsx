@@ -9,12 +9,14 @@ import VictimsList from "../victim/VictimsList";
 import VictimInfo from "../victim/VictimInfo";
 import StaffList from "../staff/StaffList";
 import StaffUserForm from "../staff/StaffUserForm";
+import { useTranslation } from "react-i18next";
 
 const AdminPanel = () => {
+  const { t } = useTranslation();
   const links = [
-    { to: "ambulances", text: "Karetki" },
-    { to: "victims", text: "Poszkodowani" },
-    { to: "staff", text: "Pracownicy" }
+    { to: "ambulances", text: t('Ambulance.Ambulances') },
+    { to: "victims", text: t('Person.Victims') },
+    { to: "staff", text: t('Person.Staff') }
   ];
 
   return (

@@ -7,6 +7,7 @@ import NotBlank from "../../../fragments/forms/api/NotBlank";
 import Email from "../../../fragments/forms/api/Email";
 import FormPhoneNumber from "../../../fragments/forms/FormPhoneNumber";
 import Button from "../../../fragments/util/Button";
+import { useTranslation } from "react-i18next";
 
 const TrustedPersonForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -16,6 +17,7 @@ const TrustedPersonForm = () => {
   const [error, setError] = useState("");
   const [readOnly, setReadOnly] = useState(true);
   const [isNew, setIsNew] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!readOnly) {
@@ -80,17 +82,17 @@ const TrustedPersonForm = () => {
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">Osoba zaufana</h1>
+      <h1 className="mb-3">{t('Person.Trusted')}</h1>
       <Form onSubmit={onSubmit}>
         <Row md={2}>
-          <NotBlank id="firstName" required onChange={e => setFirstName(e.target.value)} className="mb-3" value={firstName} label="Imię" disabled={readOnly} />
-          <NotBlank id="lastName" required onChange={e => setLastName(e.target.value)} className="mb-3" value={lastName} label="Nazwisko" disabled={readOnly} />
+          <NotBlank id="firstName" required onChange={e => setFirstName(e.target.value)} className="mb-3" value={firstName} label={t('Person.FirstName')} disabled={readOnly} />
+          <NotBlank id="lastName" required onChange={e => setLastName(e.target.value)} className="mb-3" value={lastName} label={t('Person.LastName')} disabled={readOnly} />
         </Row>
         <Row md={2}>
           <Email id="email" onChange={e => setEmail(e.target.value)} className="mb-3" value={email} label="Email" disabled={readOnly} />
-          <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label="Numer telefonu" disabled={readOnly} />
+          <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label={t('Person.PhoneNumber')} disabled={readOnly} />
         </Row>
-        <Button type="submit" className="mx-3">{readOnly ? "Edytuj" : "Zapisz"}</Button>
+        <Button type="submit" className="mx-3">{readOnly ? t('Edit') : t('Save')}</Button>
         {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)}>Anuluj</Button>}
         {error ? (
           <Alert variant="danger" className="mt-3">

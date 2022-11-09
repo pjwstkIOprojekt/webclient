@@ -6,10 +6,13 @@ import { EmergencyType } from "../../../api/enumCalls";
 import Button from "../../fragments/util/Button";
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
+import ViewLoader from "../../fragments/util/ViewLoader";
+import { useTranslation } from "react-i18next";
 
 const ReportsList = () => {
   const [reports, setReports] = useState<AccidentReportResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getAccidents().then(res => res.json()).then((data: AccidentReportResponse[]) => {
@@ -37,7 +40,7 @@ const ReportsList = () => {
     { name: "#", property: (x: Readonly<AccidentReportResponse>) => <Link to={x.accidentId.toString()}>{x.accidentId}</Link>, filterBy: "accidentId", sortBy: "accidentId" },
     { name: "Rodzaj zdarzenia", property: (x: Readonly<AccidentReportResponse>) => <Enum enum={EmergencyType} value={x.emergencyType} />, filterBy: "emergencyType", sortBy: "emergencyType" },
     { name: "Liczba ofiar", property: "victimCount", filterBy: "victimCount", sortBy: "victimCount" },
-    { name: "Data zgłoszenia", property: "date", filterBy: "date", sortBy: "date" },
+    { name: t('Reports.Date'), property: "date", filterBy: "date", sortBy: "date" },
     { name: "Kod z opaski", property: "bandCode", filterBy: "bandCode", sortBy: "bandCode" },
     { name: "Usuń", property: (x: Readonly<AccidentReportResponse>) => <Button onClick={e => remove(x.accidentId)}>X</Button> }
   ];
