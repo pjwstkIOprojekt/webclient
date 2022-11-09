@@ -132,7 +132,8 @@
         "Paramedic": "Ratownik",
         "Manager": "Menadżer",
         "Dispatcher": "Dyspozytor",
-        "Dangerous": "Czy jest niebezpieczny?"
+        "Dangerous": "Czy jest niebezpieczny?",
+        "Email":"Email"
     },
     "Login": {
         "Login": "Logowanie",
@@ -141,7 +142,10 @@
         "Sign up": "Zarejestruj się",
         "CollectData": "Dlaczego zbieramy dane?",
         "LogOff": "Wyloguj",
-        "Password": "Hasło"
+        "Password": "Hasło",
+        "LoggedInto":"Pomyślnie zalogowano na konto",
+        "LogOut":"Wylogowanie",
+        "LoggedOut":"Pomyślnie wylogowano z konta"
     },
     "Allergy": {
         "Add": "Dodawanie alergii",
@@ -193,6 +197,10 @@
         "GiveHelp": "Udziel pierwszej pomocy",
         "WatchTutorials": "Przeglądaj liczne poradniki udzielania pierwszej pomocy i wykorzystaj nabytą wiedzę, żeby uratować czyjeś życie."
     },
+    "Cookies":{
+        "Info":"Ta strona używa plików cookies. Podejmij jedyną słuszną decyzję.",
+        "Agree":"Zgadzam się"
+    },
     "Amount": "Ilość",
     "Map": "Mapa",
     "Filters": "Filtry",
@@ -235,5 +243,10 @@
     "Role": "Rola",
     "Action": "Akcje",
     "From": "Od",
-    "To": "Do"
+    "To": "Do",
+    "Search":"Szukaj",
+    "PanelManager":"Panel Kierownika",
+    "PanelDispatcher":"Panel Dyspozytora",
+    "NoResults":"Brak wyników",
+    "Value":"Wartość"
 }

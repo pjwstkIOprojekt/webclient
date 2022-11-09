@@ -1,6 +1,7 @@
 import { Roles, getRoles, stringsToRoles, login, logout } from "../helpers/authHelper";
 import { createContext, useContext, useState } from "react";
 import { useNotificationsManager } from "./useNotify";
+import { useTranslation } from "react-i18next";
 
 // Default auth settings
 const defaultContext = {
@@ -20,6 +21,7 @@ export const useRoles = () => useAuth().roles;
 export const AuthProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
   const [roles, setRoles] = useState(getRoles() ?? Roles.None);
   const notifications = useNotificationsManager();
+  const { t } = useTranslation();
 
   const handleLogin = (token: string, roles: Readonly<string[]>, email: string) => {
     const usr = {
@@ -30,13 +32,13 @@ export const AuthProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
 
     setRoles(usr.roles);
     login(usr);
-    notifications.clear("Logowanie", "Pomyślnie zalogowano na konto");
+    notifications.clear(t("Login.Login"), t("Login.LoggedInto"));
   };
 
   const handleLogout = () => {
     setRoles(Roles.None);
     logout();
-    notifications.clear("Wylogowanie", "Pomyślnie wylogowano z konta");
+    notifications.clear(t("Login.LogOut"), t("Login.LoggedOut"));
   };
 
   return (

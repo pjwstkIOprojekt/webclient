@@ -86,7 +86,7 @@ const Register = () => {
           <NotBlank id="lastName" required onChange={e => setLastName(e.target.value)} value={lastName} className="mb-3 w-50" label={t("Person.LastName")} />
         </Row>
         <Row className="justify-content-center">
-          <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" />
+          <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label={t("Person.Email")} />
         </Row>
         <Row className="justify-content-center">
           <Past id="birthDate" required onChange={e => setBirthDate(e.target.value)} value={birthDate} className="mb-3 w-50" label={t("Person.Birthdate")} />

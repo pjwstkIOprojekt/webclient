@@ -43,13 +43,13 @@ const MenuBar = () => {
       {isDispositor(roles) ? (
         <NavLink to="/dispanel/reports">
           <FaNotesMedical />
-          <span className="px-1">Panel dyspozytora</span>
+          <span className="px-1">{t("PanelDispatcher")}</span>
         </NavLink>
       ) : ""}
       {isDirector(roles) ? (
         <NavLink to="/admpanel/ambulances">
           <FaToolbox />
-          <span className="px-1">Panel kierownika</span>
+          <span className="px-1">{t("PanelManager")}</span>
         </NavLink>
       ) : ""}
     </Nav>

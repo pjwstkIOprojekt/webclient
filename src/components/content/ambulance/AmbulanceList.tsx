@@ -40,13 +40,13 @@ const AmbulanceList = () => {
     { name: t("Ambulance.Kind"), property: "ambulanceClass", sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
     { name: t("Ambulance.Type"), property: "ambulanceType", sortBy: "ambulanceType", filterBy: "ambulanceType" },
     { name: t("Ambulance.State"), property: "peopleCapacity", sortBy: "peopleCapacity", filterBy: "peopleCapacity" },
-    { name: t("Ambulance.View"), property: (x: Readonly<AmbulanceResponse>) => <NavButton to={`hist/${x.licensePlate}`}>Historia</NavButton> },
+    { name: t("Ambulance.View"), property: (x: Readonly<AmbulanceResponse>) => <NavButton to={`hist/${x.licensePlate}`}>{t("Ambulance.History")}</NavButton> },
     { name: t("Ambulance.Delete"), property: (x: Readonly<AmbulanceResponse>) => <Button onClick={e => remove(x.licensePlate)}>X</Button> }
   ];
 
   return (
     <Container className="mt-3 justify-content-center text-center">
-      <h3>Karetki</h3>
+      <h3>{t("Ambulance.Ambulances")}</h3>
       <Row className="my-2 justify-content-end">
         <Col />
         <Col md="auto">
