@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useRoles, useAuth } from "../../../hooks/useAuth";
 import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
@@ -8,33 +9,35 @@ import { customLink } from "./sharedNavigationParams";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { useState } from "react";
-import i18n from "../../../i18n";
+import i18n, { langCookie } from "../../../i18n";
+import { setCookieValue } from "../../../helpers/cookieHelper";
 import NavDrop from "./NavDrop";
 import { IoMdPerson, IoIosPaper } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
 import { customTheme } from "../sharedParams";
 
 const MenuBar = () => {
+  const { t } = useTranslation();
   const roles = useRoles();
-
+  
   return (
     <Nav className="me-auto">
       <NavLink to="/">
         <FaHome />
-        <span className="px-1">Strona główna</span>
+        <span className="px-1">{t("MainPage.MainPage")}</span>
       </NavLink>
       <NavLink to="/newreport">
         <FaMedkit />
-        <span className="px-1">Zgłoszenie</span>
+        <span className="px-1">{t("Reports.Report")}</span>
       </NavLink>
       <NavLink to="/tutorial">
         <FaBook />
-        <span className="px-1">Poradniki</span>
+        <span className="px-1">{t("Tutorials")}</span>
       </NavLink>
       {isDispositor(roles) || isDirector(roles) ? (
         <NavLink to="/map">
           <FaMap />
-          <span className="px-1">Mapa</span>
+          <span className="px-1">{t("Map")}</span>
         </NavLink>
       ) : ""}
       {isDispositor(roles) ? (
@@ -56,13 +59,14 @@ const MenuBar = () => {
 const SideMenu = () => {
   const darkMode = useDarkModeManager();
   const roles = useRoles();
+  const { t } = useTranslation();
 
   return (
     <Nav>
       {isDispositor(roles) ? <CheckIn /> : ""}
       <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-${customLink(darkMode.isDark)}`}>
         <HiOutlineLightBulb />
-        <span className="px-1">Zmień motyw</span>
+        <span className="px-1">{t("Theme")}</span>
       </Nav.Link>
       <UserDropdown />
       <LangDropdown />
@@ -81,13 +85,14 @@ const LangDropdown = () => {
       }
 
       setLang(i18n.language);
+      setCookieValue(langCookie, i18n.language);
     });
   };
 
   return (
     <NavDropdown align="end" title={
       <span className="d-inline-flex align-items-center">
-        <span className="px-1">Język</span>
+        <span className="px-1">TEXT</span>
       </span>
     } className={`nav-${customLink(darkMode)}`}>
       <LangDrop display="Polski" lang="pl" current={lang} update={changeLang} />
@@ -116,6 +121,7 @@ const LangDrop = (props: Readonly<LangParams>) => {
 };
 
 const UserDropdown = () => {
+  const { t } = useTranslation();
   const darkMode = useDarkMode();
   const auth = useAuth();
   const roles = auth.roles;
@@ -124,22 +130,22 @@ const UserDropdown = () => {
     <NavDropdown align="end" title={
       <span className="d-inline-flex align-items-center">
         <FaUserCircle />
-        <span className="px-1">Konto</span>
+        <span className="px-1">{t("Account")}</span>
       </span>
     } className={`nav-${customLink(darkMode)}`}>
       {isAuth(roles) ? (
         <>
           <NavDrop to="/settings/userdata">
             <IoMdPerson />
-            <span className="px-1">Dane osobowe</span>
+            <span className="px-1">{t("userdata")}</span>
           </NavDrop>
           <NavDrop to="/settings/medicaldata">
             <FaNotesMedical />
-            <span className="px-1">Dane medyczne</span>
+            <span className="px-1">{t("MedicalData")}</span>
           </NavDrop>
           <NavDrop to="/settings/trustedperson">
             <FaUserSecret />
-            <span className="px-1">Osoba zaufana</span>
+            <span className="px-1">{t("Trustedperson")}</span>
           </NavDrop>
           <NavDropdown.Divider />
         </>
@@ -147,18 +153,18 @@ const UserDropdown = () => {
       {isAuth(roles) ? (
         <NavDropdown.Item onClick={auth.logout} className="d-inline-flex align-items-center">
           <BiLogIn />
-          <span className="px-1">Wyloguj</span>
+          <span className="px-1">{t("LogOff")}</span>
         </NavDropdown.Item>
       ) : (
         <NavDrop to="/login">
           <BiLogIn />
-          <span className="px-1">Zaloguj się</span>
+          <span className="px-1">{t("Sign in")}</span>
         </NavDrop>
       )}
       {isAuth(roles) ? "" : (
         <NavDrop to="/register">
           <IoIosPaper />
-          <span className="px-1">Zarejestruj się</span>
+          <span className="px-1">{t("Sign up")}</span>
         </NavDrop>
       )}
     </NavDropdown>

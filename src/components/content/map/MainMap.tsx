@@ -1,4 +1,5 @@
 import { accidentIcon, terroristIcon, fireIcon, ambulanceIcon, facilityIcon, policeIcon, alertIcon, covidIcon } from "./MapIcons";
+import { useTranslation } from "react-i18next";
 import { Container, Form } from "react-bootstrap";
 import FormCheck from "../../fragments/forms/FormCheck";
 import { useState, useEffect } from "react";
@@ -35,19 +36,21 @@ interface MapFormParams {
 }
 
 const MapForm = (props: Readonly<MapFormParams>) => {
+  const { t } = useTranslation();
+
   return (
     <Container>
-      <h1 className="mt-3">Mapa</h1>
-      <h3 className="mb-3">Filtry (pokaż):</h3>
+      <h1 className="mt-3">{t("Map")}</h1>
+      <h3 className="mb-3">{t("Filters")}:</h3>
       <Form className="w-50">
-        <FormCheck label="Zdarzenia" value={props.filters & MarkTypes.Incident} onChange={e => props.setFilters(props.filters ^ MarkTypes.Incident)} icon={accidentIcon} />
-        <FormCheck label="Ataki terrorystyczne" value={props.filters & MarkTypes.Terrorist} onChange={e => props.setFilters(props.filters ^ MarkTypes.Terrorist)} icon={terroristIcon} />
-        <FormCheck label="Pożary" value={props.filters & MarkTypes.Fire} onChange={e => props.setFilters(props.filters ^ MarkTypes.Fire)} icon={fireIcon} />
-        <FormCheck label="Karetki" value={props.filters & MarkTypes.Ambulance} onChange={e => props.setFilters(props.filters ^ MarkTypes.Ambulance)} icon={ambulanceIcon} />
-        <FormCheck label="Szpitale" value={props.filters & MarkTypes.Hospital} onChange={e => props.setFilters(props.filters ^ MarkTypes.Hospital)} icon={facilityIcon} />
-        <FormCheck label="Posterunki policji" value={props.filters & MarkTypes.Police} onChange={e => props.setFilters(props.filters ^ MarkTypes.Police)} icon={policeIcon} />
-        <FormCheck label="Alerty" value={props.filters & MarkTypes.Alert} onChange={e => props.setFilters(props.filters ^ MarkTypes.Alert)} icon={alertIcon} />
-        <FormCheck label="Ognisko Covid" value={props.filters & MarkTypes.Covid} onChange={e => props.setFilters(props.filters ^ MarkTypes.Covid)} icon={covidIcon} />
+        <FormCheck label={t("MainPage.Incidents")} value={props.filters & MarkTypes.Incident} onChange={e => props.setFilters(props.filters ^ MarkTypes.Incident)} icon={accidentIcon} />
+        <FormCheck label={t("Reports.TerroristAttacks")} value={props.filters & MarkTypes.Terrorist} onChange={e => props.setFilters(props.filters ^ MarkTypes.Terrorist)} icon={terroristIcon} />
+        <FormCheck label={t("Reports.Fires")} value={props.filters & MarkTypes.Fire} onChange={e => props.setFilters(props.filters ^ MarkTypes.Fire)} icon={fireIcon} />
+        <FormCheck label={t("Ambulance.Ambulances")} value={props.filters & MarkTypes.Ambulance} onChange={e => props.setFilters(props.filters ^ MarkTypes.Ambulance)} icon={ambulanceIcon} />
+        <FormCheck label={t("Reports.Hospitals")} value={props.filters & MarkTypes.Hospital} onChange={e => props.setFilters(props.filters ^ MarkTypes.Hospital)} icon={facilityIcon} />
+        <FormCheck label={t("Reports.Polices")} value={props.filters & MarkTypes.Police} onChange={e => props.setFilters(props.filters ^ MarkTypes.Police)} icon={policeIcon} />
+        <FormCheck label={t("Alert")} value={props.filters & MarkTypes.Alert} onChange={e => props.setFilters(props.filters ^ MarkTypes.Alert)} icon={alertIcon} />
+        <FormCheck label={t("Reports.CovidOutbreaks")} value={props.filters & MarkTypes.Covid} onChange={e => props.setFilters(props.filters ^ MarkTypes.Covid)} icon={covidIcon} />
       </Form>
     </Container>
   );
@@ -61,8 +64,6 @@ const MainMap = () => {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    console.log("Ambulances update");
-    console.log("Emergencies update");
     const timeout = setTimeout(() => setUpdate(!update), 15000);
 
     return () => {
@@ -71,7 +72,7 @@ const MainMap = () => {
   }, [update]);
 
   useEffect(() => {
-    console.log("Facilities update");
+    //
   }, []);
 
   const marks = [...positions].filter(p => p.type & filters).map((e: any) => {

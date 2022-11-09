@@ -1,5 +1,6 @@
 import { TableViewParams } from "../../sharedViewsParams";
 import { AllergyResponse } from "../../../../api/allergyCalls";
+import { useTranslation } from "react-i18next";
 import { deleteAllergy } from "../../../../api/allergyCalls";
 import Link from "../../../fragments/navigation/Link";
 import Enum from "../../../fragments/util/Enum";
@@ -9,8 +10,10 @@ import Table from "../../../fragments/util/Table";
 import NavButton from '../../../fragments/navigation/NavButton';
 
 const AllergyTable = (props: Readonly<TableViewParams<AllergyResponse>>) => {
+  const { t } = useTranslation();
+
   const remove = (x: Readonly<AllergyResponse>) => {
-    if (!window.confirm("Czy na pewno chcesz usunąć tą alergię?")) {
+    if (!window.confirm(t("Allergy.Remove"))) {
       return;
     }
 
@@ -23,17 +26,17 @@ const AllergyTable = (props: Readonly<TableViewParams<AllergyResponse>>) => {
 
   const cols = [
     { name: "#", property: (x: Readonly<AllergyResponse>) => <Link to={`allergy/${x.allergyId}`}>{x.allergyId}</Link>, filterBy: "allergyId", sortBy: "allergyId" },
-    { name: "Rodzaj alergii", property: (x: Readonly<AllergyResponse>) => <Enum enum={AllergyType} value={x.allergyType} />, filterBy: "allergyType", sortBy: "allergyType" },
-    { name: "Nazwa alergii", property: "allergyName", filterBy: "allergyName", sortBy: "allergyName" },
-    { name: "Dodatkowe informacje", property: "other", filterBy: "other", sortBy: "other" },
-    { name: "Usuń", property: (x: Readonly<AllergyResponse>) => <Button onClick={e => remove(x)}>X</Button> }
+    { name: t("Allergy.Type"), property: (x: Readonly<AllergyResponse>) => <Enum enum={AllergyType} value={x.allergyType} />, filterBy: "allergyType", sortBy: "allergyType" },
+    { name: t("Allergy.Name"), property: "allergyName", filterBy: "allergyName", sortBy: "allergyName" },
+    { name: t("Allergy.Other"), property: "other", filterBy: "other", sortBy: "other" },
+    { name: t("Remove"), property: (x: Readonly<AllergyResponse>) => <Button onClick={e => remove(x)}>X</Button> }
   ];
 
   return (
     <div className="mb-3">
-      <h3>Alergie</h3>
+      <h3>{t("Allergy.Allergies")}</h3>
       <Table columns={cols} data={props.data} isLoading={props.isLoading} />
-      <NavButton to="allergy">Dodaj</NavButton>
+      <NavButton to="allergy">{t("Add")}</NavButton>
     </div>
   )
 }

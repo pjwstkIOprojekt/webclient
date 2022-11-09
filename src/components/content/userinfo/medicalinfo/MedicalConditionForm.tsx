@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getDiseaseById, DiseaseResponse, createDisease, updateDisease } from "../../../../api/diseaseCalls";
+import { loadingError, userEmailError, unknownError, errorHeader } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
 import { Container, Alert } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
@@ -16,6 +18,7 @@ const MedicalConditionForm = () => {
   const [error, setError] = useState("");
   const { diseaseId } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (diseaseId !== undefined) {
@@ -25,11 +28,11 @@ const MedicalConditionForm = () => {
           setDescription(data.description);
           setShare(data.shareWithBand === true);
         } else {
-          setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
+          setError(loadingError);
         }
       }).catch(err => {
         console.error(err);
-        setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
+        setError(loadingError);
       });
     }
   }, [diseaseId]);
@@ -39,7 +42,7 @@ const MedicalConditionForm = () => {
     const email = getEmail();
 
     if (!email) {
-      console.error("User email is undefined. Check Session Storage and verify that user is actually logged in.");
+      console.error(userEmailError);
       return;
     }
 
@@ -55,27 +58,27 @@ const MedicalConditionForm = () => {
         navigate("../medicaldata");
       } else {
         console.log(res);
-        setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+        setError(unknownError);
       }
     }).catch(err => {
       console.error(err);
-      setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+      setError(unknownError);
     });
   };
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">{diseaseId === undefined ? "Dodawanie choroby" : "Edycja choroby"}</h1>
+      <h1 className="mb-3">{diseaseId === undefined ? t("AddDisease") : t("EditDisease")}</h1>
       <Form onSubmit={onSubmit}>
-        <NotBlank id="diseaseName" className="mb-3" label="Nazwa choroby" required value={diseaseName} onChange={e => setDiseaseName(e.target.value)} />
-        <NotBlank id="description" className="mb-3" label="Opis" required value={description} onChange={e => setDescription(e.target.value)} />
-        <FormCheck id="shareWithBand" className="mb-3" label="Dzielone z opaski?" value={share} onChange={e => setShare(!share)} />
-        <Button className="m-2" type="submit">{diseaseId === undefined ? "Dodaj chorobę" : "Zapisz zmiany"}</Button>
-        <NavButton to="../medicaldata">Anuluj</NavButton>
+        <NotBlank id="diseaseName" className="mb-3" label={t("Name")} required value={diseaseName} onChange={e => setDiseaseName(e.target.value)} />
+        <NotBlank id="description" className="mb-3" label={t("Reports.Description")} required value={description} onChange={e => setDescription(e.target.value)} />
+        <FormCheck id="shareWithBand" className="mb-3" label={t("FromBand")} value={share} onChange={e => setShare(!share)} />
+        <Button className="m-2" type="submit">{diseaseId === undefined ? t("Add") : t("Save")}</Button>
+        <NavButton to="../medicaldata">{t("Cancel")}</NavButton>
         {error ? (
           <Alert variant="danger" className="mt-3">
-            <Alert.Heading>Błąd</Alert.Heading>
-            <p>{error}</p>
+            <Alert.Heading>{t(errorHeader)}</Alert.Heading>
+            <p>{t(error)}</p>
           </Alert>
         ) : ""}
       </Form>

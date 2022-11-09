@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getAllergyById, AllergyResponse, createAllergy, updateAllergy } from "../../../../api/allergyCalls";
+import { loadingError, userEmailError, unknownError, errorHeader } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
 import { Container, Alert } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
@@ -17,6 +19,7 @@ const AllergyForm = () => {
   const [error, setError] = useState("");
   const { allergyId } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (allergyId !== undefined) {
@@ -26,11 +29,11 @@ const AllergyForm = () => {
           setAllergyName(data.allergyName);
           setOther(data.other);
         } else {
-          setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
+          setError(loadingError);
         }
       }).catch(err => {
         console.error(err);
-        setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
+        setError(loadingError);
       });
     }
   }, [allergyId]);
@@ -40,7 +43,7 @@ const AllergyForm = () => {
     const email = getEmail();
 
     if (!email) {
-      console.error("User email is undefined. Check Session Storage and verify that user is actually logged in.");
+      console.error(userEmailError);
       return;
     }
 
@@ -56,27 +59,27 @@ const AllergyForm = () => {
         navigate("../medicaldata");
       } else {
         console.log(res);
-        setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+        setError(unknownError);
       }
     }).catch(err => {
       console.error(err);
-      setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+      setError(unknownError);
     });
   };
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">{allergyId === undefined ? "Dodawanie alergii" : "Edycja alergii"}</h1>
+      <h1 className="mb-3">{allergyId === undefined ? t("Allergy.Add") : t("Allergy.Edit")}</h1>
       <Form onSubmit={onSubmit}>
-        <EnumSelect id="allergyType" className="mb-3" label="Rodzaj alergii" required enum={AllergyType} value={allergyType} onChange={e => setAllergyType(e.target.value)} />
-        <NotBlank id="allergyName" className="mb-3" label="Nazwa alergii" required value={allergyName} onChange={e => setAllergyName(e.target.value)} />
-        <NotBlank id="other" className="mb-3" label="Dodatkowe informacje" required value={other} onChange={e => setOther(e.target.value)} />
-        <Button className="m-2" type="submit">{allergyId === undefined ? "Dodaj alergię" : "Zapisz zmiany"}</Button>
-        <NavButton to="../medicaldata">Anuluj</NavButton>
+        <EnumSelect id="allergyType" className="mb-3" label={t("Allergy.Type")} required enum={AllergyType} value={allergyType} onChange={e => setAllergyType(e.target.value)} />
+        <NotBlank id="allergyName" className="mb-3" label={t("Allergy.Name")} required value={allergyName} onChange={e => setAllergyName(e.target.value)} />
+        <NotBlank id="other" className="mb-3" label={t("Allergy.Other")} required value={other} onChange={e => setOther(e.target.value)} />
+        <Button className="m-2" type="submit">{allergyId === undefined ? t("Add") : t("Save")}</Button>
+        <NavButton to="../medicaldata">{t("Cancel")}</NavButton>
         {error ? (
           <Alert variant="danger" className="mt-3">
-            <Alert.Heading>Błąd</Alert.Heading>
-            <p>{error}</p>
+            <Alert.Heading>{t(errorHeader)}</Alert.Heading>
+            <p>{t(error)}</p>
           </Alert>
         ) : ""}
       </Form>

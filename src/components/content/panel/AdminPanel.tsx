@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Container } from "react-bootstrap";
 import Navtab from "../../fragments/navigation/Navtab";
 import { Route, Routes } from "react-router-dom";
@@ -11,10 +12,12 @@ import StaffList from "../staff/StaffList";
 import StaffUserForm from "../staff/StaffUserForm";
 
 const AdminPanel = () => {
+  const { t } = useTranslation();
+
   const links = [
-    { to: "ambulances", text: "Karetki" },
-    { to: "victims", text: "Poszkodowani" },
-    { to: "staff", text: "Pracownicy" }
+    { to: "ambulances", text: t("Ambulance.Ambulances") },
+    { to: "victims", text: t("Person.Victims") },
+    { to: "staff", text: t("Person.Staff") }
   ];
 
   return (

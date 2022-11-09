@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Container } from "react-bootstrap";
 import Navtab from "../../fragments/navigation/Navtab";
 import { Routes, Route } from "react-router-dom";
@@ -9,10 +10,12 @@ import AllergyForm from "./medicalinfo/AllergyForm";
 import MedicalConditionForm from "./medicalinfo/MedicalConditionForm";
 
 const Settings = () => {
+  const { t } = useTranslation();
+
   const links = [
-    { to: "userdata", text: "Dane osobowe" },
-    { to: "medicaldata", text: "Dane medyczne" },
-    { to: "trustedperson", text: "Osoba zaufana" }
+    { to: "userdata", text: t("userdata") },
+    { to: "medicaldata", text: t("medicaldata") },
+    { to: "trustedperson", text: t("Person.Trustedperson") }
   ];
 
   return (

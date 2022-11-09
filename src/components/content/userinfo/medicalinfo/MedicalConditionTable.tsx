@@ -1,5 +1,6 @@
 import { TableViewParams } from "../../sharedViewsParams";
 import { DiseaseResponse } from "../../../../api/diseaseCalls";
+import { useTranslation } from "react-i18next";
 import { deleteDisease } from "../../../../api/diseaseCalls";
 import Link from "../../../fragments/navigation/Link";
 import Button from "../../../fragments/util/Button";
@@ -7,8 +8,10 @@ import Table from "../../../fragments/util/Table";
 import NavButton from "../../../fragments/navigation/NavButton";
 
 const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>) => {
+  const { t } = useTranslation();
+
   const remove = (x: Readonly<DiseaseResponse>) => {
-    if (!window.confirm("Czy na pewno chcesz usunąć tą chorobę?")) {
+    if (!window.confirm(t("RemoveDisease"))) {
       return;
     }
 
@@ -21,17 +24,17 @@ const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>
 
   const cols = [
     { name: "#", property: (x: Readonly<DiseaseResponse>) => <Link to={`disease/${x.diseaseId}`}>{x.diseaseId}</Link>, filterBy: "diseaseId", sortBy: "diseaseId" },
-    { name: "Nazwa", property: "diseaseName", filterBy: "diseaseName", sortBy: "diseaseName" },
-    { name: "Opis", property: "description", filterBy: "description", sortBy: "description" },
-    { name: "Udostępnij przy zagrożeniu", property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? "Tak" : "Nie" },
-    { name: "Usuń", property: (x: Readonly<DiseaseResponse>) => <Button onClick={e => remove(x)}>X</Button> }
+    { name: t("Name"), property: "diseaseName", filterBy: "diseaseName", sortBy: "diseaseName" },
+    { name: t("Reports.Description"), property: "description", filterBy: "description", sortBy: "description" },
+    { name: t("Share"), property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? t("Yes") : t("No") },
+    { name: t("Remove"), property: (x: Readonly<DiseaseResponse>) => <Button onClick={e => remove(x)}>X</Button> }
   ];
 
   return (
     <div>
-      <h3>Choroby</h3>
+      <h3>{t("Diseases")}</h3>
       <Table columns={cols} data={props.data} isLoading={props.isLoading} />
-      <NavButton to="disease">Dodaj</NavButton>
+      <NavButton to="disease">{t("Add")}</NavButton>
     </div>
   );
 };

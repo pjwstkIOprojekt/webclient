@@ -50,3 +50,14 @@ export const EmergencyType = {
   getter: () => get(`${enumBase}/emergency_type`),
   name: "EmergencyType"
 };
+
+// To fix
+export const FacilityType = {
+  getter: () => get(`${enumBase}/facility_type`),
+  name: "FacilityType"
+};
+
+export const RoleName = {
+  getter: () => get(`${enumBase}/roles`),
+  name: "RoleName"
+};

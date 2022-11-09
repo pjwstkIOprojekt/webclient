@@ -22,7 +22,7 @@ export interface AccidentReportRequest extends AccidentReportUpdateRequest {
   email: string
 }
 
-export interface Location {
+export interface AccidentLocation {
   longitude: number,
   latitude: number
 }
@@ -30,7 +30,7 @@ export interface Location {
 export interface AccidentReportResponse extends AccidentReportBase {
   accidentId: number,
   date: string,
-  location: Location
+  location: AccidentLocation
 }
 
 const accidentBase = "accident_report";
