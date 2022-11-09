@@ -10,7 +10,7 @@ const MapForm = (props: {val: number, call: (x: number) => void}) => {
 };
 
 const TestMap = () => {
-  const [coords, setCoords] = useState<[number, number]>([52.222, 21.015]);
+  const [coords] = useState<[number, number]>([52.222, 21.015]);
   const [progress, setProgress] = useState(0);
   const points: [number, number][] = [[52.222, 21.015], [51, 21], [50, 22]];
 

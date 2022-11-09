@@ -5,8 +5,8 @@ import Table from "../../fragments/util/Table";
 import { useTranslation } from "react-i18next";
 
 const StaffList = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [data] = useState([]);
+  const [isLoading] = useState(true);
   const { t } = useTranslation();
 
   useEffect(() => {

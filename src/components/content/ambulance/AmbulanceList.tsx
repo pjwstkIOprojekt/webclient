@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { AmbulanceResponse, getAmbulances, deleteAmbulance } from "../../../api/ambulanceCalls";
 import Link from "../../fragments/navigation/Link";
 import NavButton from "../../fragments/navigation/NavButton";
 import Button from "../../fragments/util/Button";
 import { Container, Row, Col } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
-import { useTranslation } from "react-i18next";
 
 
 const AmbulanceList = () => {
@@ -27,7 +27,7 @@ const AmbulanceList = () => {
   }, []);
 
   const remove = (plate: string) => {
-    if (!window.confirm(t('Ambulance.IsDelete'))) {
+    if (!window.confirm(t("Ambulance.IsDelete"))) {
       return;
     }
 
@@ -36,12 +36,12 @@ const AmbulanceList = () => {
   };
 
   const cols = [
-    { name: t('Ambulance.RegistrationNumber'), property: (x: Readonly<AmbulanceResponse>) => <Link to={`edit/${x.licensePlate}`}>{x.licensePlate}</Link>, sortBy: "licensePlate", filterBy: "licensePlate" },
-    { name: t('Ambulance.Kind'), property: "ambulanceClass", sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
-    { name: t('Ambulance.Type'), property: "ambulanceType", sortBy: "ambulanceType", filterBy: "ambulanceType" },
-    { name: t('Ambulance.State'), property: "peopleCapacity", sortBy: "peopleCapacity", filterBy: "peopleCapacity" },
-    { name: t('Ambulance.View'), property: (x: Readonly<AmbulanceResponse>) => <NavButton to={`hist/${x.licensePlate}`}>Historia</NavButton> },
-    { name: t('Ambulance.Delete'), property: (x: Readonly<AmbulanceResponse>) => <Button onClick={e => remove(x.licensePlate)}>X</Button> }
+    { name: t("Ambulance.RegistrationNumber"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`edit/${x.licensePlate}`}>{x.licensePlate}</Link>, sortBy: "licensePlate", filterBy: "licensePlate" },
+    { name: t("Ambulance.Kind"), property: "ambulanceClass", sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
+    { name: t("Ambulance.Type"), property: "ambulanceType", sortBy: "ambulanceType", filterBy: "ambulanceType" },
+    { name: t("Ambulance.State"), property: "peopleCapacity", sortBy: "peopleCapacity", filterBy: "peopleCapacity" },
+    { name: t("Ambulance.View"), property: (x: Readonly<AmbulanceResponse>) => <NavButton to={`hist/${x.licensePlate}`}>Historia</NavButton> },
+    { name: t("Ambulance.Delete"), property: (x: Readonly<AmbulanceResponse>) => <Button onClick={e => remove(x.licensePlate)}>X</Button> }
   ];
 
   return (

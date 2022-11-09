@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Container } from "react-bootstrap";
 import Navtab from "../../fragments/navigation/Navtab";
 import { Routes, Route } from "react-router-dom";
@@ -7,14 +8,14 @@ import TrustedPersonForm from "./trustedperson/TrustedPersonForm";
 import MedicalData from "./medicalinfo/MedicalData";
 import AllergyForm from "./medicalinfo/AllergyForm";
 import MedicalConditionForm from "./medicalinfo/MedicalConditionForm";
-import { useTranslation } from "react-i18next";
 
 const Settings = () => {
   const { t } = useTranslation();
+
   const links = [
-    { to: "userdata", text: t('userdata') },
-    { to: "medicaldata", text: t('medicaldata') },
-    { to: "trustedperson", text: t('Person.Trustedperson') }
+    { to: "userdata", text: t("userdata") },
+    { to: "medicaldata", text: t("medicaldata") },
+    { to: "trustedperson", text: t("Person.Trustedperson") }
   ];
 
   return (

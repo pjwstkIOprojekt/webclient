@@ -8,6 +8,7 @@ export const setCookieValue = (key: string, value: string) => {
 };
 
 export const removeCookieValue = (key: string) => localStorage.removeItem(key);
+export const hasCookieValue = (key: string) => localStorage.getItem(key) !== null;
 const cookieName = "cookieConsent";
 export const truth = "true";
 export const acceptCookies = () => localStorage.setItem(cookieName, truth);

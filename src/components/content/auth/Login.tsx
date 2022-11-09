@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { loginUser, JwtResponse } from "../../../api/authCalls";
 import { useLogin } from "../../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
+import { loginUser, JwtResponse } from "../../../api/authCalls";
+import { unknownError, errorHeader } from "../sharedStrings";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import Email from "../../fragments/forms/api/Email";
 import Password from "../../fragments/forms/api/Password";
 import Button from "../../fragments/util/Button";
-import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,10 +30,10 @@ const Login = () => {
         if (data.token && data.roles && data.email) {
           login(data.token, data.roles, data.email);
         } else {
-          setError(t('Error.UnknownError'));
+          setError(unknownError);
         }
       } else {
-        setError(t('Error.UnknownError'));
+        setError(unknownError);
       }
     }
     ).catch(err => {
@@ -43,22 +44,22 @@ const Login = () => {
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center">{t('Login.Login')}</h1>
+      <h1 className="text-center">{t("Login.Login")}</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
           <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" />
         </Row>
         <Row className="justify-content-center">
-          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t('Login.Password')} />
+          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Login.Password")} />
         </Row>
         <Row className="justify-content-center">
-          <Button className="my-3 w-25" type="submit">{t('Login.Sign in')}</Button>
+          <Button className="my-3 w-25" type="submit">{t("Login.Sign in")}</Button>
         </Row>
         {error ? (
           <Row className="justify-content-center mt-5">
             <Alert variant="danger" className="w-50">
-              <Alert.Heading>{t('Error.Error')}</Alert.Heading>
-              <p>{error}</p>
+              <Alert.Heading>{t(errorHeader)}</Alert.Heading>
+              <p>{t(error)}</p>
             </Alert>
           </Row>
         ) : ""}

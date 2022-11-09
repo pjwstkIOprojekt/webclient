@@ -1,7 +1,9 @@
 import { MapViewHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getAmbulanceByLicensePlate, AmbulanceResponse, createAmbulance, updateAmbulance } from "../../../api/ambulanceCalls";
+import { loadingError, unknownError, errorHeader } from "../sharedStrings";
 import { Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import Length from "../../fragments/forms/api/Length";
@@ -12,7 +14,6 @@ import Button from "../../fragments/util/Button";
 import L from "leaflet";
 import { ambulanceIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
-import { useTranslation } from "react-i18next";
 
 const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
   const [licensePlate, setLicensePlate] = useState("");
@@ -32,11 +33,11 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
           setAmbulanceClass(data.ambulanceClass);
           setAmbulanceType(data.ambulanceType);
         } else {
-          setError(t('Error.LoadingProblem'));
+          setError(loadingError);
         }
       }).catch(err => {
         console.error(err);
-        setError(t('Error.LoadingProblem'));
+        setError(loadingError);
       });
     }
   }, [ambulanceId]);
@@ -58,31 +59,31 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
         navigate("../ambulances");
       } else {
         console.log(res);
-        setError(t('Error.UnknownError'));
+        setError(unknownError);
       }
     }).catch(err => {
       console.error(err);
-      setError(t('Error.UnknownError'));
+      setError(unknownError);
     });
   };
 
   return (
     <Form onSubmit={onSubmit} className="w-50">
-      <h1 className="my-3 text-center">{ambulanceId === undefined ? t('AddAmbulance') : t('EditAmbulance')}</h1>
-      <Length length={8} id="licensePlate" className="mb-3" label={t('Ambulance.RegistrationNumber')} required value={licensePlate} onChange={e => setLicensePlate(e.target.value)} disabled={ambulanceId !== undefined} />
-      <EnumSelect id="ambulanceClass" className="mb-3" label={t('Ambulance.Kind')} required enum={AmbulanceClass} value={ambulanceClass} onChange={e => setAmbulanceClass(e.target.value)} />
-      <EnumSelect id="ambulanceType" className="mb-3" label={t('Ambulance.Type')} required enum={AmbulanceType} value={ambulanceType} onChange={e => setAmbulanceType(e.target.value)} />
-      <Number id="seats" className="mb-3" label={t('Ambulance.MaxAmount')} required value={seats} minValue="1" onChange={e => setSeats(parseInt(e.target.value))} />
-      <h4 className="text-center mb-3">{t('Reports.Location')}</h4>
+      <h1 className="my-3 text-center">{ambulanceId === undefined ? t("AddAmbulance") : t("EditAmbulance")}</h1>
+      <Length length={8} id="licensePlate" className="mb-3" label={t("Ambulance.RegistrationNumber")} required value={licensePlate} onChange={e => setLicensePlate(e.target.value)} disabled={ambulanceId !== undefined} />
+      <EnumSelect id="ambulanceClass" className="mb-3" label={t("Ambulance.Kind")} required enum={AmbulanceClass} value={ambulanceClass} onChange={e => setAmbulanceClass(e.target.value)} />
+      <EnumSelect id="ambulanceType" className="mb-3" label={t("Ambulance.Type")} required enum={AmbulanceType} value={ambulanceType} onChange={e => setAmbulanceType(e.target.value)} />
+      <Number id="seats" className="mb-3" label={t("Ambulance.MaxAmount")} required value={seats} minValue="1" onChange={e => setSeats(parseInt(e.target.value))} />
+      <h4 className="text-center mb-3">{t("Reports.Location")}</h4>
       <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update(parseFloat(e.target.value), props.lng)} />
       <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update(props.lat, parseFloat(e.target.value))} />
       <Row className="justify-content-center">
-        <Button className="mt-3 w-50" type="submit">{ambulanceId === undefined ? t('Ambulance.Add') : t('Save')}</Button>
+        <Button className="mt-3 w-75" type="submit">{ambulanceId === undefined ? t("Ambulance.Add") : t("Save")}</Button>
       </Row>
       {error ? (
         <Alert variant="danger" className="mt-3">
-          <Alert.Heading>{t('Error.Error')}</Alert.Heading>
-          <p>{error}</p>
+          <Alert.Heading>{t(errorHeader)}</Alert.Heading>
+          <p>{t(error)}</p>
         </Alert>
       ) : ""}
     </Form>

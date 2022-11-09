@@ -1,16 +1,15 @@
+import { useTranslation } from "react-i18next";
 import { Container } from "react-bootstrap";
 import Navtab from "../../fragments/navigation/Navtab";
 import { Route, Routes } from "react-router-dom";
 import ReportsList from "../report/ReportsList";
 import ReportForm from "../report/ReportForm";
-import AcceptReport from "../report/AcceptReport";
-import Report from "../incident/Report";
-import { useTranslation } from "react-i18next";
 
 const DispositorPanel = () => {
   const { t } = useTranslation();
+
   const links = [
-    { to: "reports", text: t('Reports.Reports') }
+    { to: "reports", text: t("Reports.Reports") }
   ];
 
   return (
