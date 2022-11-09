@@ -1,8 +1,9 @@
+import L from "leaflet";
 import { MarkGeocodeEventHandlerFn, MarkGeocodeEvent } from "leaflet-control-geocoder/dist/control";
 import Geocoder, { geocoders } from "leaflet-control-geocoder";
 import { MapContainer, TileLayer, Polyline, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 import { useState, useEffect } from "react";
-import L from "leaflet";
+import { useTranslation } from "react-i18next";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 
 export interface Position {
@@ -86,11 +87,12 @@ const ClickHandler = (props: Readonly<ClickParams>) => {
 
 const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
   const map = useMap();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const geocoder = new Geocoder({
-      placeholder: "Szukaj...",
-      errorMessage: "Brak wyników",
+      placeholder: t("Search"),
+      errorMessage: t("NoResults"),
       defaultMarkGeocode: false,
       geocoder: props.geocoder
     });

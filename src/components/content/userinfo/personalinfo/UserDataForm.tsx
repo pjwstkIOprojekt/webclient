@@ -51,7 +51,7 @@ const UserDataForm = () => {
           <FormControl id="lastName" required onChange={(e) => setLastName(e.target.value)} className="mb-3" value={lastName} label={t('Person.LastName')} disabled={readOnly} />
         </Row>
         <Row md={2}>
-          <FormControl id="email" required onChange={(e) => setEmail(e.target.value)} className="mb-3" value={email} label="Email" type="email" disabled={readOnly} />
+          <FormControl id="email" required onChange={(e) => setEmail(e.target.value)} className="mb-3" value={email} label={t("Person.Email")} type="email" disabled={readOnly} />
           <FormPhoneNumber id="phoneNumber" required onChange={(e) => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label={t('Person.PhoneNumber')} disabled={readOnly} />
         </Row>
         <FormControl id="username" required onChange={(e) => setUsername(e.target.value)} className="mb-3" value={username} label={t('Person.Nick')} disabled={readOnly} />

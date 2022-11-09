@@ -4,6 +4,7 @@ import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Table as Inner, Row, Col, Container } from "react-bootstrap";
 import Button from "./Button";
 import Spinner from "./Spinner";
+import { useTranslation } from "react-i18next";
 import FormControl from "../forms/FormControl";
 
 export interface TableColumnParams<T> {
@@ -127,13 +128,14 @@ interface Bind {
 
 const BindableControl = (props: Readonly<Bind>) => {
   const [value, setValue] = useState("");
+  const { t } = useTranslation();
 
   const change = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValue(e.target.value);
     props.callback(e);
   };
 
-  return <FormControl placeholder="Szukaj..." value={value} onChange={change} />;
+  return <FormControl placeholder={t("Search")} value={value} onChange={change} />;
 };
 
 export default Table;

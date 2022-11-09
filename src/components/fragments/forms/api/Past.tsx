@@ -13,7 +13,7 @@ const Past = (props: Readonly<DateControlParams>) => {
     const value = e.target.value;
     
     if (value && new Date(value) >= new Date(Date.now())) {
-      setError("Można podać tylko datę w przeszłości.");
+      setError(t("Error.Past"));
       return;      
     }
 
