@@ -151,7 +151,7 @@ const UserDropdown = () => {
           </NavDrop>
           <NavDrop to="/settings/trustedperson">
             <FaUserSecret />
-            <span className="px-1">{t("Trustedperson")}</span>
+            <span className="px-1">{t("Person.Trustedperson")}</span>
           </NavDrop>
           <NavDropdown.Divider />
         </>
@@ -159,7 +159,7 @@ const UserDropdown = () => {
       {isAuth(roles) ? (
         <NavDropdown.Item onClick={auth.logout} className="d-inline-flex align-items-center">
           <BiLogIn />
-          <span className="px-1">{t("LogOff")}</span>
+          <span className="px-1">{t("Login.LogOff")}</span>
         </NavDropdown.Item>
       ) : (
         <NavDrop to="/login">

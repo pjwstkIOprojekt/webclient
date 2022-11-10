@@ -42,7 +42,10 @@ const TrustedPersonForm = () => {
       }
     }).catch(err => {
       console.error(err);
-      setError(loadingError);
+      
+      if (!isNew) {
+        setError(loadingError);
+      }
     });
   }, [readOnly]);
 

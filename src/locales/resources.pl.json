@@ -162,7 +162,7 @@
         "RegistrationFailed": "Rejestracja nieudana. Spróbuj ponownie później.",
         "NoResponseServer": "Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.",
         "UnknownError": "Wystąpił nieznany błąd. Spróbuj ponownie później.",
-        "Incorrect.": "Nieprawidłowy email lub hasło.",
+        "Incorrect": "Nieprawidłowy email lub hasło.",
         "LoadingProblem": "Nastąpił problem z wczytaniem danych. Spróbuj ponownie.",
         "Powtórzone hasło różni się od oryginalnego.": "Powtórzone hasło różni się od oryginalnego.",
         "EmptyValue": "Ta wartość nie może być pusta.",

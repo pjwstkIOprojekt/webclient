@@ -8,18 +8,18 @@ export enum Roles {
 }
 
 const rolesTable: Record<string, Roles> = {
-  "USER": Roles.User,
-  "PARAMEDIC": Roles.Paramedic,
-  "DISPATCHER": Roles.Dispatcher,
-  "AMBULANCE_MANAGER": Roles.AmbulanceManager,
-  "ADMIN": Roles.Admin
+  "ROLE_USER": Roles.User,
+  "ROLE_PARAMEDIC": Roles.Paramedic,
+  "ROLE_DISPATCHER": Roles.Dispatcher,
+  "ROLE_AMBULANCE_MANAGER": Roles.AmbulanceManager,
+  "ROLE_ADMIN": Roles.Admin
 };
 
 export const stringsToRoles = (src: Readonly<string[]>) => {
   let res = Roles.None;
 
   for (const str in rolesTable) {
-    if (src.filter(r => r.toUpperCase().includes(str)).length > 0) {
+    if (src.includes(str)) {
       res |= rolesTable[str];
     }
   }
