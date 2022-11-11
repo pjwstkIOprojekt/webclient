@@ -350,6 +350,11 @@
     height: 20px;
 }
 
+.form-control[disabled]
+{
+    background-color: #afafaf;
+}
+
 @media (min-width: 768px)
 {
     .tutorial-grid

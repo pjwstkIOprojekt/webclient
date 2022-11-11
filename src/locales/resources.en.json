@@ -162,7 +162,7 @@
         "RegistrationFailed": "Registration failed. Try again.",
         "NoResponseServer": "The server response was corrupted or partially lost. Try again.",
         "UnknownError": "An unknown error has occurred. Please try again later.",
-        "Incorrect.": "Incorrect email or password.",
+        "Incorrect": "Incorrect email or password.",
         "LoadingProblem": "There was a problem loading the data. Try again.",
         "EmptyValue": "This value cannot be empty.",
         "Past": "Only a date in the past can be given."
