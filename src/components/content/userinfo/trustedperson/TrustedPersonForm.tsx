@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getEmail } from "../../../../helpers/authHelper";
-import { userEmailError, loadingError, unknownError, errorHeader } from "../../sharedStrings";
+import { userEmailError, unknownError, errorHeader } from "../../sharedStrings";
 import { getTrustedPersonByEmail, TrustedPersonResponse, createTrustedPerson, updateTrustedPerson } from "../../../../api/trustedPersonCalls";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
@@ -40,13 +40,7 @@ const TrustedPersonForm = () => {
         setPhoneNumber(data.phone);
         setIsNew(false);
       }
-    }).catch(err => {
-      console.error(err);
-      
-      if (!isNew) {
-        setError(loadingError);
-      }
-    });
+    }).catch(console.error);
   }, [readOnly]);
 
   const onSubmit = () => {
