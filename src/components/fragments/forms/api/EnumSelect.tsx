@@ -14,8 +14,15 @@ const EnumSelect = (props: Readonly<EnumSelectParams>) => {
   const getter = props.enum.getter;
 
   useEffect(() => {
-    getter().then(res => res.json()).then((data: string[]) => setValues(data)).catch(console.error);
-  }, [getter]);
+    getter().then(res => res.json()).then((data: string[]) => {
+      if (data) {
+        setValues(data);
+        //props.onLoaded(data[0]);
+      } else {
+        console.error(`Couldn't load enum values for ${props.enum.name}`);
+      }
+    }).catch(console.error);
+  }, [getter, props.enum.name]);
 
   return (
     <FormGroup controlId={props.id} className={props.className}>

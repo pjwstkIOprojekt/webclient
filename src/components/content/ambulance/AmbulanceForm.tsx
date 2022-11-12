@@ -54,9 +54,13 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
       latitude: props.lat
     };
 
+    console.log(ambulance);
+
     (ambulanceId === undefined ? createAmbulance(ambulance) : updateAmbulance(ambulance)).then(res => {
       if (res.status === 200) {
         navigate("../ambulances");
+      } else if (res.status === 409) {
+        setError("XD");
       } else {
         console.log(res);
         setError(unknownError);

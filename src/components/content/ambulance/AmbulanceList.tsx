@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { AmbulanceResponse, getAmbulances, deleteAmbulance } from "../../../api/ambulanceCalls";
 import Link from "../../fragments/navigation/Link";
+import Enum from "../../fragments/util/Enum";
+import { AmbulanceClass, AmbulanceType, AmbulanceState } from "../../../api/enumCalls";
 import NavButton from "../../fragments/navigation/NavButton";
 import Button from "../../fragments/util/Button";
 import { Container, Row, Col } from "react-bootstrap";
@@ -17,6 +19,7 @@ const AmbulanceList = () => {
     getAmbulances().then(res => res.json()).then((data: AmbulanceResponse[]) => {
       if (data) {
         setAmbulances(data);
+        console.log(data);
       }
 
       setIsLoading(false);
@@ -37,9 +40,9 @@ const AmbulanceList = () => {
 
   const cols = [
     { name: t("Ambulance.RegistrationNumber"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`edit/${x.licensePlate}`}>{x.licensePlate}</Link>, sortBy: "licensePlate", filterBy: "licensePlate" },
-    { name: t("Ambulance.Kind"), property: "ambulanceClass", sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
-    { name: t("Ambulance.Type"), property: "ambulanceType", sortBy: "ambulanceType", filterBy: "ambulanceType" },
-    { name: t("Ambulance.State"), property: "peopleCapacity", sortBy: "peopleCapacity", filterBy: "peopleCapacity" },
+    { name: t("Ambulance.Kind"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
+    { name: t("Ambulance.Type"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, sortBy: "ambulanceType", filterBy: "ambulanceType" },
+    { name: t("Ambulance.State"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, sortBy: "ambulanceStateType", filterBy: "ambulanceStateType" },
     { name: t("Ambulance.View"), property: (x: Readonly<AmbulanceResponse>) => <NavButton to={`hist/${x.licensePlate}`}>{t("Ambulance.History")}</NavButton> },
     { name: t("Ambulance.Delete"), property: (x: Readonly<AmbulanceResponse>) => <Button onClick={e => remove(x.licensePlate)}>X</Button> }
   ];

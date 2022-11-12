@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AmbulanceStateResponse, getAmbulanceHistory, AmbulanceHistoryResponse } from "../../../api/ambulanceCalls";
+import { getAmbulanceHistory, AmbulanceHistoryResponse } from "../../../api/ambulanceCalls";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { licensePlateError } from "../sharedStrings";
@@ -9,8 +9,14 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
+interface StoredState {
+  type: string,
+  start: string,
+  end: string
+}
+
 const AmbulanceHistory = () => {
-  const [states, setStates] = useState<AmbulanceStateResponse[]>([]);
+  const [states, setStates] = useState<StoredState[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
@@ -23,7 +29,11 @@ const AmbulanceHistory = () => {
     
     getAmbulanceHistory(ambulanceId).then(res => res.json()).then((data: AmbulanceHistoryResponse) => {
       if (data.ambulanceHistory) {
-        setStates(data.ambulanceHistory);
+        setStates(data.ambulanceHistory.map(s => ({
+          type: s.type,
+          start: s.timeWindow["start"],
+          end: s.timeWindow["end"]
+        })));
       }
 
       setIsLoading(false);
@@ -34,9 +44,9 @@ const AmbulanceHistory = () => {
   }, [ambulanceId]);
 
   const cols = [
-    { name: t("Ambulance.State"), property: (x: Readonly<AmbulanceStateResponse>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: "type", sortBy: "type" },
-    { name: t("From"), property: "timeWindow.start", filterBy: "timeWindow.start", sortBy: "timeWindow.start" },
-    { name: t("To"), property: "timeWindow.end", filterBy: "timeWindow.end", sortBy: "timeWindow.end" }
+    { name: t("Ambulance.State"), property: (x: Readonly<StoredState>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: "type", sortBy: "type" },
+    { name: t("From"), property: "start", filterBy: "start", sortBy: "start" },
+    { name: t("To"), property: "end", filterBy: "end", sortBy: "end" }
   ];
 
   return (

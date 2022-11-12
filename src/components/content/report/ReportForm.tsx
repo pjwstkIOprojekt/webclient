@@ -1,8 +1,10 @@
 import { MapViewHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useRoles } from "../../../hooks/useAuth";
 import { getAccidentById, AccidentReportResponse, updateAccident, createAccident } from "../../../api/accidentReportCalls";
 import { getEmail } from "../../../helpers/authHelper";
+import { isDispositor } from "../../../helpers/authHelper";
 import Form from "../../fragments/forms/Form";
 import { Row, Alert } from "react-bootstrap";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
@@ -23,6 +25,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
   const [error, setError] = useState("");
   const { reportId } = useParams();
   const navigate = useNavigate();
+  const roles = useRoles();
   const update = props.update;
 
   useEffect(() => {
@@ -55,18 +58,23 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
       bandCode: bandCode,
       emergencyType: type,
       victimCount: amountVictims,
-      consciousness: conscious,
       breathing: breathing,
       longitude: props.lng,
       latitude: props.lat,
     };
 
-    (reportId ? updateAccident(parseInt(reportId), report) : createAccident({
+    console.log(report);
+
+    (reportId ? updateAccident(parseInt(reportId), {
       ...report,
-      email: getEmail() ?? ""
+      consciousness: conscious
+    }) : createAccident({
+      ...report,
+      email: getEmail() ?? "",
+      concious: conscious
     })).then(res => {
       if (res.status === 200) {
-        navigate("/home");
+        navigate(isDispositor(roles) ? "/dispanel/reports" : "/home");
       } else {
         console.log(res);
         setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
