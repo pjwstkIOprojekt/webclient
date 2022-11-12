@@ -23,8 +23,8 @@ interface Mark extends Position {
   type: MarkTypes
 }
 
-const positions = [
-  { coords: [52.22, 21.01], desc: "Zdarzenie", type: MarkTypes.Incident, icon: accidentIcon },
+const positions: Mark[] = [
+  { coords: [52.22, 21.01], desc: "Zdarzenie", type: MarkTypes.Incident, icon: accidentIcon, to: "/newreport" },
   { coords: [52.23, 21.0], desc: "Atak terrorystyczny", type: MarkTypes.Terrorist, icon: terroristIcon },
   { coords: [52.21, 21.02], desc: "Pożar", type: MarkTypes.Fire, icon: fireIcon },
   { coords: [52.12, 21.05], desc: "Karetka", type: MarkTypes.Ambulance, icon: ambulanceIcon },
@@ -62,7 +62,7 @@ const MapForm = (props: Readonly<MapFormParams>) => {
 
 const MainMap = () => {
   //const [dynamic, setDynamic] = useState<Mark[]>([]);
-  const [fixed, setFixed] = useState<Mark[]>([]);
+  const [facilities, setFacilities] = useState<Mark[]>([]);
   const [filters, setFilters] = useState(255);
   const [update, setUpdate] = useState(false);
 
@@ -75,27 +75,24 @@ const MainMap = () => {
   }, [update]);
 
   useEffect(() => {
-    const res: Mark[] = [];
-
     getFacilities().then(res => res.json()).then((data: FacilityRequest[]) => {
       if (data) {
-        data.forEach(e => res.push({
+        setFacilities(data.map(e => ({
           coords: [e.latitude, e.longitude],
           desc: e.name,
           type: e.facilityType.toLowerCase().includes("h") ? MarkTypes.Hospital : MarkTypes.Police,
-          icon: e.facilityType.toLowerCase().includes("h") ? facilityIcon : policeIcon,
-        }));
-
-        setFixed(res);
+          icon: e.facilityType.toLowerCase().includes("h") ? facilityIcon : policeIcon
+        })));
       }
     }).catch(console.error);
   }, []);
 
-  const marks = [...positions, ...fixed].filter(p => p.type & filters).map((e: any) => {
+  const marks = [...positions, ...facilities].filter(p => p.type & filters).map((e: any) => {
     return {
       coords: e.coords,
       desc: e.desc,
-      icon: e.icon
+      icon: e.icon,
+      to: e.to
     };
   });
 

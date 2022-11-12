@@ -1,15 +1,18 @@
 import L from "leaflet";
+import { To } from "react-router-dom";
 import { MarkGeocodeEventHandlerFn, MarkGeocodeEvent } from "leaflet-control-geocoder/dist/control";
 import Geocoder, { geocoders } from "leaflet-control-geocoder";
 import { MapContainer, TileLayer, Polyline, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 import { useState, useEffect } from "react";
+import NavButton from "../navigation/NavButton";
 import { useTranslation } from "react-i18next";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 
 export interface Position {
   coords: [number, number],
   desc?: string,
-  icon?: L.Icon<L.IconOptions> | L.DivIcon
+  icon?: L.Icon<L.IconOptions> | L.DivIcon,
+  to?: To
 }
 
 export interface Path {
@@ -47,7 +50,11 @@ const Map = (props: Readonly<MapParams>) => {
       {props.paths ? props.paths.map((path, index) => <Polyline key={index} positions={path.points} color={path.color} />) : ""}
       {props.marks ? props.marks.map((pos, index) => (
         <Marker key={index} position={pos.coords} icon={pos.icon}>
-          {pos.desc ? <Popup>{pos.desc}</Popup> : ""}
+          {pos.desc ? (
+            <Popup>
+              {pos.to ? <NavButton to={pos.to}>{pos.desc}</NavButton> : pos.desc}
+            </Popup>
+          ) : ""}
         </Marker>
       )) : ""}
     </MapContainer>
