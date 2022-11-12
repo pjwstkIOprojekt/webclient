@@ -9,6 +9,7 @@ import EnumSelect from "../../fragments/forms/api/EnumSelect";
 import { EmergencyType } from "../../../api/enumCalls";
 import FormCheck from "../../fragments/forms/FormCheck";
 import Number from "../../fragments/forms/api/Number";
+import NotBlank from "../../fragments/forms/api/NotBlank";
 import Button from "../../fragments/util/Button";
 import { accidentIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
@@ -18,9 +19,11 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
   const [breathing, setBreathing] = useState(true);
   const [conscious, setConscious] = useState(true);
   const [amountVictims, setAmountVictims] = useState(1);
+  const [bandCode, setBandCode] = useState("");
   const [error, setError] = useState("");
   const { reportId } = useParams();
   const navigate = useNavigate();
+  const update = props.update;
 
   useEffect(() => {
     if (reportId !== undefined) {
@@ -30,7 +33,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
           setBreathing(data.breathing);
           setConscious(data.consciousness);
           setAmountVictims(data.victimCount);
-          props.update(data.location.latitude, data.location.longitude);
+          update([data.location.latitude, data.location.longitude]);
         } else {
           setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
         }
@@ -39,7 +42,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
         setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
       });
     }
-  }, [reportId]);
+  }, [reportId, update]);
 
   const handleSubmit = () => {
     if (reportId === undefined && !window.confirm("Czy na pewno chcesz zgłosić zdarzenie?")) {
@@ -49,7 +52,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
     setError("");
 
     const report = {
-      bandCode: "",
+      bandCode: bandCode,
       emergencyType: type,
       victimCount: amountVictims,
       consciousness: conscious,
@@ -89,12 +92,15 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
       <Row className="justify-content-center mb-3">
         <Number id="amountVictims" minValue={1} onChange={e => setAmountVictims(parseInt(e.target.value))} required value={amountVictims} label="Ilość poszkodowanych" />
       </Row>
+      <Row className="justify-content-center mb-3">
+        <NotBlank id="bandCode" onChange={e => setBandCode(e.target.value)} value={bandCode} label="Kod z opaski" />
+      </Row>
       <h4 className="text-center mt-3">Lokalizacja</h4>
       <Row className="justify-content-center mb-3">
-        <Number id="lat" onChange={e => props.update(parseFloat(e.target.value), props.lng)} required value={props.lat} />
+        <Number id="lat" onChange={e => props.update([parseFloat(e.target.value), props.lng])} required value={props.lat} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <Number id="lng" onChange={e => props.update(props.lat, parseFloat(e.target.value))} required value={props.lng} />
+        <Number id="lng" onChange={e => props.update([props.lat, parseFloat(e.target.value)])} required value={props.lng} />
       </Row>
       <Row className="justify-content-center mb-5">
         <Button className="mt-3 w-50" type="submit">{reportId ? "Zapisz zmiany" : "Zgłoś zdarzenie"}</Button>
@@ -112,8 +118,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
 const ReportForm = () => {
   const [coords, setCoords] = useState<[number, number]>([52.222, 21.015]);
   useEffect(() => navigator.geolocation.getCurrentPosition(pos => setCoords([pos.coords.latitude, pos.coords.longitude])), []);
-  const onUpdate = (lat: number, lng: number) => setCoords([lat, lng]);
-  const altUpdate = (x: L.LatLng) => onUpdate(x.lat, x.lng);
+  const update = (x: Readonly<L.LatLng>) => setCoords([x.lat, x.lng]);
 
   const mark = {
     coords: coords,
@@ -121,7 +126,7 @@ const ReportForm = () => {
     icon: accidentIcon
   };
 
-  return <MapView center={coords} initialZoom={12} element={<ReportView update={onUpdate} lat={coords[0]} lng={coords[1]} />} searchable clickable onClick={e => altUpdate(e)} onSearch={e => altUpdate(e.geocode.center)} marks={[mark]} />;
+  return <MapView center={coords} initialZoom={12} element={<ReportView update={setCoords} lat={coords[0]} lng={coords[1]} />} searchable clickable onClick={e => update(e)} onSearch={e => update(e.geocode.center)} marks={[mark]} />;
 };
 
 export default ReportForm;
