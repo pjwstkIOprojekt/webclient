@@ -355,6 +355,11 @@
     background-color: #afafaf;
 }
 
+.home-img
+{
+    height: 500px;
+}
+
 @media (min-width: 768px)
 {
     .tutorial-grid

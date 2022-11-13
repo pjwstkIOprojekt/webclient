@@ -12,8 +12,7 @@ const Home = () => {
   } else if (isDirector(roles)) {
     return <AdminHome />;
   } else {
-    //return <GuestHome />;
-    return <AdminHome />;
+    return <GuestHome />;
   }
 };
 

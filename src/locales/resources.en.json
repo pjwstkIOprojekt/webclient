@@ -195,7 +195,8 @@
         "ReportAccidentAnywhere": "Report an incident from anywhere",
         "ReportAccidentFromApp": "You can report an accident, terrorist attack or other incident anywhere via a browser or mobile application.",
         "GiveHelp": "Give first aid",
-        "WatchTutorials": "Browse through the numerous first aid guides and use the acquired knowledge to save someone's life."
+        "WatchTutorials": "Browse through the numerous first aid guides and use the acquired knowledge to save someone's life.",
+        "CallIncident": "Report an incident"
     },
     "Cookies": {
         "Info": "This site uses cookies. Make the only right decision.",
