@@ -28,11 +28,11 @@ export const AmbulanceState = {
   getter: () => get(`${enumBase}/ambulance_states`),
   name: "AmbulanceStateType",
   colors: {
-    "FAILURE": "red",
-    "MAINTENANCE": "orange",
-    "AVAILABLE": "green",
-    "IN_ACTION": "blue",
-    "CREW_BRAKE": "grey"
+    "FAILURE": "#ff0000",
+    "MAINTENANCE": "#dd9900",
+    "AVAILABLE": "#00aa00",
+    "IN_ACTION": "#447700",
+    "CREW_BRAKE": "#777777"
   }
 };
 

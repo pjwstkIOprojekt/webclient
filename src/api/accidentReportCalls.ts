@@ -8,18 +8,22 @@ interface AccidentReportBase {
 
   // Integer, Min = 1
   victimCount: number,
-  consciousness: boolean,
   breathing: boolean
 }
 
-export interface AccidentReportUpdateRequest extends AccidentReportBase {
+interface AccidentRequestBase extends AccidentReportBase {
   longitude: number,
   latitude: number
 }
 
-export interface AccidentReportRequest extends AccidentReportUpdateRequest {
+export interface AccidentReportUpdateRequest extends AccidentRequestBase {
+  consciousness: boolean
+}
+
+export interface AccidentReportRequest extends AccidentRequestBase {
   // Email
-  email: string
+  email: string,
+  concious: boolean
 }
 
 export interface AccidentLocation {
@@ -29,8 +33,9 @@ export interface AccidentLocation {
 
 export interface AccidentReportResponse extends AccidentReportBase {
   accidentId: number,
-  date: string,
-  location: AccidentLocation
+  date: Date,
+  location: AccidentLocation,
+  consciousness: boolean
 }
 
 const accidentBase = "accident_report";

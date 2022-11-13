@@ -29,7 +29,7 @@
         "MAINTENANCE": "Konserwacja",
         "AVAILABLE": "Dostępna",
         "IN_ACTION": "W akcji",
-        "CREW_BRAKE": "CREW_BRAKE"
+        "CREW_BRAKE": "Przerwa zespołu"
     },
     "AmbulanceClass": {
         "BASIC": "Podstawowa",
@@ -70,7 +70,8 @@
         "History": "Historia karetki",
         "IsDelete": "Czy na pewno chcesz usunąć tą karetkę?",
         "ChangeState": "Zmiana stanu karetki",
-        "ChangeState1": "Zmień stan karetki"
+        "ChangeState1": "Zmień stan karetki",
+        "Exists": "Karetka z tym numerem rejestracyjnym już istnieje."
     },
     "Reports": {
         "Reports": "Zgłoszenia",

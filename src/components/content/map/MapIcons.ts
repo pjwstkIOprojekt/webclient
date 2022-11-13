@@ -6,7 +6,7 @@ const smallAnchor: [number, number] = [13, 41];
 const bigAnchor: [number, number] = [17, 41];
 const smallPopup: [number, number] = [0, -40];
 const bigPopup: [number, number] = [1, -40];
-const bigShadow: [number, number] = [5, 41];
+const bigShadow: [number, number] = [12, 41];
 const shadow = "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png";
 
 export const accidentIcon = L.icon({

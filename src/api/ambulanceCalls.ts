@@ -37,7 +37,7 @@ export interface UpdateAmbulanceStateRequest {
 
 export interface AmbulanceStateResponse {
   type: string,
-  timeWindow: Record<string, Date>
+  timeWindow: Record<string, string>
 }
 
 export interface AmbulanceHistoryResponse extends LicensePlate {

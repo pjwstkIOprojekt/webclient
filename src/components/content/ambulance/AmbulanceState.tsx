@@ -47,9 +47,9 @@ const AmbulanceState = () => {
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">{t("Ambulance.ChangeState")}</h1>
+      <h1 className="mb-3">{t("Ambulance.ChangeState")} {ambulanceId}</h1>
       <Form onSubmit={onSubmit}>
-        <EnumSelect id="ambulanceState" className="mb-3" label={t("Ambulance.State")} required enum={StateEnum} value={ambulanceState} onChange={e => setAmbulanceState(e.target.value)} />
+        <EnumSelect id="ambulanceState" className="mb-3" label={t("Ambulance.State")} required enum={StateEnum} value={ambulanceState} onLoad={setAmbulanceState} onChange={e => setAmbulanceState(e.target.value)} />
         <Date id="start" className="mb-3" label={t("From")} required withTime value={start} onChange={e => setStart(e.target.value)} />
         <Date id="end" className="mb-3" label={t("From")} required withTime value={end} onChange={e => setEnd(e.target.value)} />
         <Button className="m-2" type="submit">{t("Ambulance.ChangeState1")}</Button>

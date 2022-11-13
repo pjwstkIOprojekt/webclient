@@ -3,7 +3,7 @@ import { AllergyResponse } from "../../../../api/allergyCalls";
 import { useTranslation } from "react-i18next";
 import { deleteAllergy } from "../../../../api/allergyCalls";
 import Link from "../../../fragments/navigation/Link";
-import Enum from "../../../fragments/util/Enum";
+import Enum from "../../../fragments/values/Enum";
 import { AllergyType } from "../../../../api/enumCalls";
 import Button from "../../../fragments/util/Button";
 import Table from "../../../fragments/util/Table";

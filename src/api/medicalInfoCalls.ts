@@ -22,9 +22,7 @@ export interface MedicalInfoResponse extends BloodBase {
 }
 
 const medicalInfoBase = "medical_info";
-export const getMedicalInfos = () => get(medicalInfoBase);
 export const getMedicalInfoByEmail = (email: string) => get(`${medicalInfoBase}/user/${email}`);
-export const getMedicalInfoById = (id: number) => get(`${medicalInfoBase}/${id}`);
 export const deleteMedicalInfo = (id: number) => del(`${medicalInfoBase}/${id}`);
 export const getBloodById = (id: number) => get(`${medicalInfoBase}/blood/${id}`);
 export const createBlood = (req: Readonly<BloodRequest>) => post(`${medicalInfoBase}/blood`, req);

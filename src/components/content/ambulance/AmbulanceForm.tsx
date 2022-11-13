@@ -57,6 +57,8 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
     (ambulanceId === undefined ? createAmbulance(ambulance) : updateAmbulance(ambulance)).then(res => {
       if (res.status === 200) {
         navigate("../ambulances");
+      } else if (res.status === 409) {
+        setError("Ambulance.Exists");
       } else {
         console.log(res);
         setError(unknownError);
@@ -71,12 +73,12 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
     <Form onSubmit={onSubmit} className="w-50">
       <h1 className="my-3 text-center">{ambulanceId === undefined ? t("AddAmbulance") : t("EditAmbulance")}</h1>
       <Length length={8} id="licensePlate" className="mb-3" label={t("Ambulance.RegistrationNumber")} required value={licensePlate} onChange={e => setLicensePlate(e.target.value)} disabled={ambulanceId !== undefined} />
-      <EnumSelect id="ambulanceClass" className="mb-3" label={t("Ambulance.Kind")} required enum={AmbulanceClass} value={ambulanceClass} onChange={e => setAmbulanceClass(e.target.value)} />
-      <EnumSelect id="ambulanceType" className="mb-3" label={t("Ambulance.Type")} required enum={AmbulanceType} value={ambulanceType} onChange={e => setAmbulanceType(e.target.value)} />
+      <EnumSelect id="ambulanceClass" className="mb-3" label={t("Ambulance.Kind")} required enum={AmbulanceClass} value={ambulanceClass} onLoad={setAmbulanceClass} onChange={e => setAmbulanceClass(e.target.value)} />
+      <EnumSelect id="ambulanceType" className="mb-3" label={t("Ambulance.Type")} required enum={AmbulanceType} value={ambulanceType} onLoad={setAmbulanceType} onChange={e => setAmbulanceType(e.target.value)} />
       <Number id="seats" className="mb-3" label={t("Ambulance.MaxAmount")} required value={seats} minValue="1" onChange={e => setSeats(parseInt(e.target.value))} />
       <h4 className="text-center mb-3">{t("Reports.Location")}</h4>
-      <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update(parseFloat(e.target.value), props.lng)} />
-      <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update(props.lat, parseFloat(e.target.value))} />
+      <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} />
+      <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update([props.lat, parseFloat(e.target.value)])} />
       <Row className="justify-content-center">
         <Button className="mt-3 w-75" type="submit">{ambulanceId === undefined ? t("Ambulance.Add") : t("Save")}</Button>
       </Row>
@@ -94,8 +96,7 @@ const AmbulanceForm = () => {
   const [coords, setCoords] = useState<[number, number]>([52.222, 21.015]);
   const { t } = useTranslation();
   useEffect(() => navigator.geolocation.getCurrentPosition(pos => setCoords([pos.coords.latitude, pos.coords.longitude])), []);
-  const onUpdate = (lat: number, lng: number) => setCoords([lat, lng]);
-  const altUpdate = (x: L.LatLng) => onUpdate(x.lat, x.lng);
+  const update = (x: Readonly<L.LatLng>) => setCoords([x.lat, x.lng]);
 
   const mark = {
     coords: coords,
@@ -103,7 +104,7 @@ const AmbulanceForm = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView center={coords} initialZoom={12} element={<AmbulanceFormView update={onUpdate} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => altUpdate(e)} marks={[mark]} />;
+  return <MapView center={coords} initialZoom={12} element={<AmbulanceFormView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} marks={[mark]} />;
 };
 
 export default AmbulanceForm;
