@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { AmbulanceResponse, getAmbulances, deleteAmbulance } from "../../../api/ambulanceCalls";
 import Link from "../../fragments/navigation/Link";
-import Enum from "../../fragments/util/Enum";
+import Enum from "../../fragments/values/Enum";
 import { AmbulanceClass, AmbulanceType, AmbulanceState } from "../../../api/enumCalls";
 import NavButton from "../../fragments/navigation/NavButton";
 import Button from "../../fragments/util/Button";
@@ -19,7 +19,6 @@ const AmbulanceList = () => {
     getAmbulances().then(res => res.json()).then((data: AmbulanceResponse[]) => {
       if (data) {
         setAmbulances(data);
-        console.log(data);
       }
 
       setIsLoading(false);

@@ -1,11 +1,12 @@
-export interface InnerHtmlParams {
-  content: string,
+import { ValueViewParams } from "../sharedParams";
+
+export interface InnerHtmlParams extends ValueViewParams {
   containerClass: string
 }
 
 const InnerHtml = (props: Readonly<InnerHtmlParams>) => {
   return <span className={props.containerClass} dangerouslySetInnerHTML={{
-    __html: props.content
+    __html: props.value
   }} />;
 };
 

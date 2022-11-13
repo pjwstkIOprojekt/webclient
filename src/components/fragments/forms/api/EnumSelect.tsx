@@ -5,24 +5,26 @@ import { useTranslation } from "react-i18next";
 import { FormGroup, Form } from "react-bootstrap";
 
 export interface EnumSelectParams extends SelectControlParams {
-  enum: EnumType
+  enum: EnumType,
+  onLoad: (val: string) => void
 }
 
 const EnumSelect = (props: Readonly<EnumSelectParams>) => {
   const [values, setValues] = useState<string[]>([]);
   const { t } = useTranslation();
   const getter = props.enum.getter;
+  const loaded = props.onLoad;
 
   useEffect(() => {
     getter().then(res => res.json()).then((data: string[]) => {
       if (data) {
         setValues(data);
-        //props.onLoaded(data[0]);
+        loaded(data[0]);
       } else {
         console.error(`Couldn't load enum values for ${props.enum.name}`);
       }
     }).catch(console.error);
-  }, [getter, props.enum.name]);
+  }, [getter, loaded, props.enum.name]);
 
   return (
     <FormGroup controlId={props.id} className={props.className}>

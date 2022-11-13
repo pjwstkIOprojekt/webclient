@@ -8,7 +8,7 @@ import { Container, Card, Row } from "react-bootstrap";
 import CustomCard from "../../fragments/util/Card";
 import ContentsGenerator from "../../fragments/util/ContentsGenerator";
 import ItemLink from "../../fragments/navigation/ItemLink";
-import InnerHtml from "../../fragments/util/InnerHtml";
+import InnerHtml from "../../fragments/values/InnerHtml";
 import Rating from "../../fragments/util/Rating";
 
 const Tutorial = () => {
@@ -42,7 +42,7 @@ const Tutorial = () => {
           </ul>
         </Card.Body>
       </CustomCard>
-      <InnerHtml content={data} containerClass="tutorial-content" />
+      <InnerHtml value={data} containerClass="tutorial-content" />
       <Row className="text-center">
         <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
         <span onClick={review}>

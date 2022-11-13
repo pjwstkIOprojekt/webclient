@@ -33,7 +33,7 @@ export interface AccidentLocation {
 
 export interface AccidentReportResponse extends AccidentReportBase {
   accidentId: number,
-  date: string,
+  date: Date,
   location: AccidentLocation,
   consciousness: boolean
 }

@@ -17,3 +17,7 @@ export interface ParentComponentParams extends ClassNameParam {
 
 export const customTheme = (darkMode: boolean) => darkMode ? dark : light;
 export const customVar = (darkMode: boolean) => `custom-${customTheme(darkMode)}`;
+
+export interface ValueViewParams {
+  value: string
+}

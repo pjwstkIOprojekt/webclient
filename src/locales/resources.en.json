@@ -68,8 +68,9 @@
         "Add": "Add ambulance",
         "History": "History of the ambulance",
         "IsDelete": "Are you sure you want to remove this carriage?",
-        "ChangeState": "Change in ambulance status",
-        "ChangeState1": "Change in ambulance status"
+        "ChangeState": "Change status in ambulance",
+        "ChangeState1": "Change ambulance status",
+        "Exists": "Ambulance with this license plate already exists."
     },
     "Reports": {
         "Reports": "Reports",

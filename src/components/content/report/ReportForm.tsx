@@ -63,8 +63,6 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
       latitude: props.lat,
     };
 
-    console.log(report);
-
     (reportId ? updateAccident(parseInt(reportId), {
       ...report,
       consciousness: conscious
@@ -89,7 +87,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
     <Form onSubmit={handleSubmit} className="w-50">
       <h1 className="text-center mt-3">Zgłoszenie</h1>
       <Row className="justify-content-center mb-3">
-        <EnumSelect id="emergencyType" enum={EmergencyType} onChange={e => setType(e.target.value)} required value={type} label="Rodzaj zdarzenia:" />
+        <EnumSelect id="emergencyType" enum={EmergencyType} onChange={e => setType(e.target.value)} required value={type} onLoad={setType} label="Rodzaj zdarzenia:" />
       </Row>
       <Row className="justify-content-center mb-3 ml-2">
         <FormCheck id="breathing" onChange={e => setBreathing(!breathing)} value={breathing} label="Czy ofiara oddycha?" />

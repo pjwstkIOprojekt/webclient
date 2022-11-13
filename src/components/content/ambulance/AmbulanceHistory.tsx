@@ -3,16 +3,17 @@ import { getAmbulanceHistory, AmbulanceHistoryResponse } from "../../../api/ambu
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { licensePlateError } from "../sharedStrings";
-import Enum from "../../fragments/util/Enum";
+import Enum from "../../fragments/values/Enum";
 import { AmbulanceState } from "../../../api/enumCalls";
+import DateDisplay from "../../fragments/values/DateDisplay";
 import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
 interface StoredState {
   type: string,
-  start: string,
-  end: string
+  start: Date,
+  end: Date
 }
 
 const AmbulanceHistory = () => {
@@ -31,8 +32,8 @@ const AmbulanceHistory = () => {
       if (data.ambulanceHistory) {
         setStates(data.ambulanceHistory.map(s => ({
           type: s.type,
-          start: s.timeWindow["start"],
-          end: s.timeWindow["end"]
+          start: new Date(s.timeWindow["start"]),
+          end: new Date(s.timeWindow["end"])
         })));
       }
 
@@ -45,8 +46,8 @@ const AmbulanceHistory = () => {
 
   const cols = [
     { name: t("Ambulance.State"), property: (x: Readonly<StoredState>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: "type", sortBy: "type" },
-    { name: t("From"), property: "start", filterBy: "start", sortBy: "start" },
-    { name: t("To"), property: "end", filterBy: "end", sortBy: "end" }
+    { name: t("From"), property: (x: Readonly<StoredState>) => <DateDisplay value={x.start} />, filterBy: "start", sortBy: "start" },
+    { name: t("To"), property: (x: Readonly<StoredState>) => <DateDisplay value={x.end} />, filterBy: "end", sortBy: "end" }
   ];
 
   return (
