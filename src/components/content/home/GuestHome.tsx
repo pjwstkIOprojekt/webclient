@@ -1,11 +1,8 @@
-import { useRoles } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
-import { isAuth } from "../../../helpers/authHelper";
 
 const GuestHome = () => {
-  const roles = useRoles();
   const { t } = useTranslation();
 
   return (
@@ -13,7 +10,7 @@ const GuestHome = () => {
       <h1>{t("MainPage.SaveLife")}</h1>
       <h2>{t("MainPage.Welcome")}</h2>
       <h3>{t("MainPage.SeeAccident")}</h3>
-      <NavButton to={isAuth(roles) ? "/newreport" : "/login"}>{t("MainPage.CallIncident")}</NavButton>
+      <NavButton to="/newreport">{t("MainPage.CallIncident")}</NavButton>
       <Row className="mt-5">
         <Col>
           <img src="/img/blood.png" alt="Obraz 1" className="home-img" />
