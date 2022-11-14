@@ -1,6 +1,6 @@
 {
     "RoleName": {
-        "ADMIN": "administrator",
+        "ADMIN": "Administrator",
         "USER": "User"
     },
     "RhType": {
@@ -14,7 +14,7 @@
         "AB": "AB"
     },
     "AllergyType": {
-        "SKIN_CONTACT": "Kontaktowa",
+        "SKIN_CONTACT": "Skin contact",
         "INGESTION": "Ingestion",
         "INJECTION": "Injection",
         "INHALATION": "Inhalation"
@@ -188,7 +188,7 @@
         "Incident2": "Incident 2",
         "OpenMap": "Open map",
         "SaveLife": "Help us save human lives now!",
-        "Welcome": "Witamy w GARY, w nowym najlepszym przyjacielu człowieka.",
+        "Welcome": "Welcome to GARY, man's new best friend.",
         "SeeAccident": "You see the accident? React right now!",
         "GARY": "GARY is your new best friend",
         "CreateAccount": "Creating an account is simple and takes only a few minutes, and access to the application can save your life.",

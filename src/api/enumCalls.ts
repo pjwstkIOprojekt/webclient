@@ -1,4 +1,3 @@
-
 import { get } from "./basicCalls";
 
 export interface EnumType {
@@ -33,7 +32,8 @@ export const AmbulanceState = {
     "AVAILABLE": "#00aa00",
     "IN_ACTION": "#447700",
     "CREW_BRAKE": "#777777"
-  }
+  },
+  available: "AVAILABLE"
 };
 
 export const AmbulanceClass = {
@@ -48,7 +48,16 @@ export const AmbulanceType = {
 
 export const EmergencyType = {
   getter: () => get(`${enumBase}/emergency_type`),
-  name: "EmergencyType"
+  name: "EmergencyType",
+  colors: {
+    "CAR_ACCIDENT": "#ff0000",
+    "FLOOD": "#dd9900",
+    "FIRE": "#00aa00",
+    "UNKNOWN": "#447700",
+    "HEART_ATTACK": "#777777",
+    "SUICIDE": "#777777",
+    "COVID": "#777777"
+  }
 };
 
 // To fix
