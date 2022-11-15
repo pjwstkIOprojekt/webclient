@@ -53,8 +53,8 @@ const AdminHome = () => {
     const tmp = {
       name: t(`${EmergencyType.name}.${eType}`),
       value: accidents.filter(a => a.date > yesterday && a.emergencyType === eType).length,
-      fill: (EmergencyType.colors as Record<string, string>)[eType],
-      fillDark: (EmergencyType.colors as Record<string, string>)[eType]
+      fill: EmergencyType.colors[eType].light,
+      fillDark: EmergencyType.colors[eType].dark
     };
 
     if (tmp.value > 0) {
