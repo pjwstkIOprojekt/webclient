@@ -1,10 +1,14 @@
-
 import { get } from "./basicCalls";
+
+export interface EnumColor {
+  dark: string,
+  light: string
+}
 
 export interface EnumType {
   getter: () => Promise<Response>,
   name: string,
-  colors?: Record<string, string>
+  colors?: Record<string, EnumColor>
 }
 
 const enumBase = "enum";
@@ -28,12 +32,28 @@ export const AmbulanceState = {
   getter: () => get(`${enumBase}/ambulance_states`),
   name: "AmbulanceStateType",
   colors: {
-    "FAILURE": "#ff0000",
-    "MAINTENANCE": "#dd9900",
-    "AVAILABLE": "#00aa00",
-    "IN_ACTION": "#447700",
-    "CREW_BRAKE": "#777777"
-  }
+    "FAILURE": {
+      dark: "#ff0000",
+      light: "#ff0000"
+    },
+    "MAINTENANCE": {
+      dark: "#dd9900",
+      light: "#dd9900"
+    },
+    "AVAILABLE": {
+      dark: "#00aa00",
+      light: "#00aa00"
+    },
+    "IN_ACTION": {
+      dark: "#447700",
+      light: "#447700"
+    },
+    "CREW_BRAKE": {
+      dark: "#777777",
+      light: "#777777"
+    }
+  },
+  available: "AVAILABLE"
 };
 
 export const AmbulanceClass = {
@@ -46,9 +66,39 @@ export const AmbulanceType = {
   name: "AmbulanceType"
 };
 
-export const EmergencyType = {
+export const EmergencyType: EnumType = {
   getter: () => get(`${enumBase}/emergency_type`),
-  name: "EmergencyType"
+  name: "EmergencyType",
+  colors: {
+    "CAR_ACCIDENT": {
+      dark: "#00aa00",
+      light: "#00aa00"
+    },
+    "FLOOD": {
+      dark: "#dd9900",
+      light: "#dd9900"
+    },
+    "FIRE": {
+      dark: "#ff0000",
+      light: "#ff0000"
+    },
+    "UNKNOWN": {
+      dark: "#777777",
+      light: "#777777"
+    },
+    "HEART_ATTACK": {
+      dark: "#447700",
+      light: "#447700"
+    },
+    "SUICIDE": {
+      dark: "#777777",
+      light: "#777777"
+    },
+    "COVID": {
+      dark: "#777777",
+      light: "#777777"
+    }
+  }
 };
 
 // To fix

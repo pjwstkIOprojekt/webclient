@@ -1,6 +1,6 @@
 {
     "RoleName": {
-        "ADMIN": "administrator",
+        "ADMIN": "Administrator",
         "USER": "User",
         "EMPLOYEE":"Employee",
         "PARAMEDIC":"Paramedic",
@@ -203,14 +203,15 @@
         "Incident2": "Incident 2",
         "OpenMap": "Open map",
         "SaveLife": "Help us save human lives now!",
-        "Welcome": "Welcome to GARY, to man's new best friend.",
+        "Welcome": "Welcome to GARY, man's new best friend.",
         "SeeAccident": "You see the accident? React right now!",
         "GARY": "GARY is your new best friend",
         "CreateAccount": "Creating an account is simple and takes only a few minutes, and access to the application can save your life.",
         "ReportAccidentAnywhere": "Report an incident from anywhere",
         "ReportAccidentFromApp": "You can report an accident, terrorist attack or other incident anywhere via a browser or mobile application.",
         "GiveHelp": "Give first aid",
-        "WatchTutorials": "Browse through the numerous first aid guides and use the acquired knowledge to save someone's life."
+        "WatchTutorials": "Browse through the numerous first aid guides and use the acquired knowledge to save someone's life.",
+        "CallIncident": "Report an incident"
     },
     "Cookies": {
         "Info": "This site uses cookies. Make the only right decision.",

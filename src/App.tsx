@@ -39,11 +39,9 @@ const App = () => {
           <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
           <Route path="/newreport" element={<ReportForm />} />
           <Route path="/map" element={<ConditionalRoute condition={isDispositor(roles) || isDirector(roles)} element={<MainMap />} />} />
-
           <Route path="/test" element={<TestMap />} />
           <Route path="/schedule" element={<ScheduleList />} />
           <Route path="/schedule/edit" element={<EditSchedule />} />
-
           <Route path="/dispanel/*" element={<ConditionalRoute condition={isDispositor(roles)} element={<DispositorPanel />} />} />
           <Route path="/admpanel/*" element={<ConditionalRoute condition={isDirector(roles)} element={<AdminPanel />} />} />
         </Routes>
