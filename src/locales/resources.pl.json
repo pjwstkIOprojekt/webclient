@@ -1,7 +1,15 @@
 {
     "RoleName": {
         "ADMIN": "Administrator",
-        "USER": "Użytkownik"
+        "USER": "Użytkownik",
+        "EMPLOYEE":"Pracownik",
+        "PARAMEDIC":"Ratownik",
+        "DISPATCHER":"Dyspozytor",
+        "AMBULANCE_MANAGER":"Kierownik karetki"
+    },
+    "EmployeeType":{
+        "DISPATCHER":"Dyspozytor",
+        "PARAMEDIC":"Ratownik"
     },
     "RhType": {
         "PLUS": "Plus",
@@ -36,6 +44,13 @@
         "SPECIAL": "Specjalna",
         "TRANSPORT": "Transportowa",
         "NEONATOLOGY": "Neonatologiczna"
+    },
+    "FacilityType":{
+        "HOSPITAL":"Szpital",
+        "POLICE_STATION":"Posterunk Policji",
+        "FIRE_UNIT":"Jednostka pożarna",
+        "GUARD_UNIT":"Jednostka wojskowa",
+        "AED":"AED"
     },
     "Ambulance": {
         "List": "Lista karetek",
@@ -165,7 +180,7 @@
         "UnknownError": "Wystąpił nieznany błąd. Spróbuj ponownie później.",
         "Incorrect": "Nieprawidłowy email lub hasło.",
         "LoadingProblem": "Nastąpił problem z wczytaniem danych. Spróbuj ponownie.",
-        "Powtórzone hasło różni się od oryginalnego.": "Powtórzone hasło różni się od oryginalnego.",
+        "Repeated": "Powtórzone hasło różni się od oryginalnego.",
         "EmptyValue": "Ta wartość nie może być pusta.",
         "Past": "Można podać tylko datę w przeszłości."
     },

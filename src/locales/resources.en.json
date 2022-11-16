@@ -1,7 +1,11 @@
 {
     "RoleName": {
         "ADMIN": "administrator",
-        "USER": "User"
+        "USER": "User",
+        "EMPLOYEE":"Employee",
+        "PARAMEDIC":"Paramedic",
+        "DISPATCHER":"Dispatcher",
+        "AMBULANCE_MANAGER":"Ambulane manager"
     },
     "RhType": {
         "PLUS": "Plus",
@@ -13,8 +17,12 @@
         "ZERO": "ZERO",
         "AB": "AB"
     },
+    "EmployeeType":{
+        "DISPATCHER":"Dispatcher",
+        "PARAMEDIC":"Paramedic"
+    },
     "AllergyType": {
-        "SKIN_CONTACT": "Kontaktowa",
+        "SKIN_CONTACT": "Skin contact",
         "INGESTION": "Ingestion",
         "INJECTION": "Injection",
         "INHALATION": "Inhalation"
@@ -36,6 +44,13 @@
         "SPECIAL": "Special",
         "TRANSPORT": "Transport",
         "NEONATOLOGY": "Neonatology"
+    },
+    "FacilityType":{
+        "HOSPITAL":"Hospital",
+        "POLICE_STATION":"Police station",
+        "FIRE_UNIT":"Fire unit",
+        "GUARD_UNIT":"Guard unit",
+        "AED":"AED"
     },
     "Ambulance": {
         "List": "Ambulance list",
@@ -188,7 +203,7 @@
         "Incident2": "Incident 2",
         "OpenMap": "Open map",
         "SaveLife": "Help us save human lives now!",
-        "Welcome": "Witamy w GARY, w nowym najlepszym przyjacielu człowieka.",
+        "Welcome": "Welcome to GARY, to man's new best friend.",
         "SeeAccident": "You see the accident? React right now!",
         "GARY": "GARY is your new best friend",
         "CreateAccount": "Creating an account is simple and takes only a few minutes, and access to the application can save your life.",
