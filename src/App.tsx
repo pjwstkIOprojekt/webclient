@@ -18,6 +18,10 @@ import AdminPanel from "./components/content/panel/AdminPanel";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
 import CookieConsent from "./components/fragments/cookies/CookieConsent";
 
+import TestMap from "./components/content/ambulance/TestMap";
+import ScheduleList from "./components/content/schedule/ScheduleList";
+import EditSchedule from "./components/content/schedule/EditSchedule";
+
 const App = () => {
   const roles = useRoles();
 
@@ -35,6 +39,9 @@ const App = () => {
           <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
           <Route path="/newreport" element={<ReportForm />} />
           <Route path="/map" element={<ConditionalRoute condition={isDispositor(roles) || isDirector(roles)} element={<MainMap />} />} />
+          <Route path="/test" element={<TestMap />} />
+          <Route path="/schedule" element={<ScheduleList />} />
+          <Route path="/schedule/edit" element={<EditSchedule />} />
           <Route path="/dispanel/*" element={<ConditionalRoute condition={isDispositor(roles)} element={<DispositorPanel />} />} />
           <Route path="/admpanel/*" element={<ConditionalRoute condition={isDirector(roles)} element={<AdminPanel />} />} />
         </Routes>
