@@ -108,6 +108,11 @@
     color: var(--dark-text);
 }
 
+.contents-dark
+{
+    border-right: var(--dark-text) 1px solid;
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -206,6 +211,11 @@
 {
     background-color: var(--light-button);
     color: var(--light-text);
+}
+
+.contents-light
+{
+    border-right: var(--light-text) 1px solid;
 }
 
 /* Shared */
@@ -338,7 +348,7 @@
     font-size: 20px;
 }
 
-.nav-tabs
+.nav-tabs, .contents
 {
     position: sticky;
     top: 72px;
@@ -383,7 +393,7 @@
 
 @media (min-width: 992px)
 {
-    .nav-tabs
+    .nav-tabs, .contents
     {
         top: 74px;
     }
