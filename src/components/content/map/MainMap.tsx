@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Container, Form } from "react-bootstrap";
 import FormCheck from "../../fragments/forms/FormCheck";
 import { useState, useEffect } from "react";
-import { getFacilities, FacilityRequest } from "../../../api/facilityCalls";
+import { getFacilities, FacilityResponse } from "../../../api/facilityCalls";
 import MapView from "../../fragments/map/MapView";
 
 enum MarkTypes {
@@ -75,10 +75,10 @@ const MainMap = () => {
   }, [update]);
 
   useEffect(() => {
-    getFacilities().then(res => res.json()).then((data: FacilityRequest[]) => {
+    getFacilities().then(res => res.json()).then((data: FacilityResponse[]) => {
       if (data) {
         setFacilities(data.map(e => ({
-          coords: [e.latitude, e.longitude],
+          coords: [e.location.latitude, e.location.longitude],
           desc: e.name,
           type: e.facilityType.toLowerCase().includes("h") ? MarkTypes.Hospital : MarkTypes.Police,
           icon: e.facilityType.toLowerCase().includes("h") ? facilityIcon : policeIcon
