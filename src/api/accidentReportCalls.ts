@@ -1,4 +1,4 @@
-import { get, post, put, del } from "./basicCalls";
+import { Location, get, post, put, del } from "./basicCalls";
 
 interface AccidentReportBase {
   bandCode: string,
@@ -8,7 +8,8 @@ interface AccidentReportBase {
 
   // Integer, Min = 1
   victimCount: number,
-  breathing: boolean
+  breathing: boolean,
+  description: string
 }
 
 interface AccidentRequestBase extends AccidentReportBase {
@@ -26,15 +27,10 @@ export interface AccidentReportRequest extends AccidentRequestBase {
   concious: boolean
 }
 
-export interface AccidentLocation {
-  longitude: number,
-  latitude: number
-}
-
 export interface AccidentReportResponse extends AccidentReportBase {
   accidentId: number,
   date: Date,
-  location: AccidentLocation,
+  location: Location,
   consciousness: boolean
 }
 

@@ -45,6 +45,7 @@ const ReportsList = () => {
     { name: "Liczba ofiar", property: "victimCount", filterBy: "victimCount", sortBy: "victimCount" },
     { name: t("Reports.Date"), property: (x: Readonly<AccidentReportResponse>) => <DateDisplay value={x.date} />, filterBy: "date", sortBy: "date" },
     { name: "Kod z opaski", property: "bandCode", filterBy: "bandCode", sortBy: "bandCode" },
+    { name: "Opis", property: "description", filterBy: "description", sortBy: "description" },
     { name: "Usuń", property: (x: Readonly<AccidentReportResponse>) => <Button onClick={e => remove(x.accidentId)}>X</Button> }
   ];
 

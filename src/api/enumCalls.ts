@@ -101,7 +101,6 @@ export const EmergencyType: EnumType = {
   }
 };
 
-// To fix
 export const FacilityType = {
   getter: () => get(`${enumBase}/facility_type`),
   name: "FacilityType"

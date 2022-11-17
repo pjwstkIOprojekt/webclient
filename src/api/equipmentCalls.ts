@@ -1,3 +1,4 @@
+/// To fix
 import { get, del, put } from "./basicCalls";
 
 export interface EquipmentRequest {
