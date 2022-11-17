@@ -1,13 +1,21 @@
-import { get, del, post, put } from "./basicCalls";
+import { Location, get, del, post, put } from "./basicCalls";
 
-export interface FacilityRequest {
+interface FacilityBase {
   // Not blank
   name: string,
 
   // Enum - FacilityType
-  facilityType: string,
+  facilityType: string
+}
+
+export interface FacilityRequest extends FacilityBase {
   longitude: number,
   latitude: number
+}
+
+export interface FacilityResponse extends FacilityBase {
+  facilityId: number,
+  location: Location
 }
 
 const facilityBase = "facility";

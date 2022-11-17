@@ -12,6 +12,7 @@ import { EmergencyType } from "../../../api/enumCalls";
 import FormCheck from "../../fragments/forms/FormCheck";
 import Number from "../../fragments/forms/api/Number";
 import NotBlank from "../../fragments/forms/api/NotBlank";
+import FormTextArea from "../../fragments/forms/FormTextArea";
 import Button from "../../fragments/util/Button";
 import { accidentIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
@@ -22,6 +23,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
   const [conscious, setConscious] = useState(true);
   const [amountVictims, setAmountVictims] = useState(1);
   const [bandCode, setBandCode] = useState("");
+  const [desc, setDesc] = useState("");
   const [error, setError] = useState("");
   const { reportId } = useParams();
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
           setBreathing(data.breathing);
           setConscious(data.consciousness);
           setAmountVictims(data.victimCount);
+          setDesc(data.description);
           update([data.location.latitude, data.location.longitude]);
         } else {
           setError("Nastąpił problem z wczytaniem danych. Spróbuj ponownie.");
@@ -61,6 +64,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
       breathing: breathing,
       longitude: props.lng,
       latitude: props.lat,
+      description: desc
     };
 
     (reportId ? updateAccident(parseInt(reportId), {
@@ -100,6 +104,9 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
       </Row>
       <Row className="justify-content-center mb-3">
         <NotBlank id="bandCode" onChange={e => setBandCode(e.target.value)} value={bandCode} label="Kod z opaski" />
+      </Row>
+      <Row className="justify-content-center mb-3">
+        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis" />
       </Row>
       <h4 className="text-center mt-3">Lokalizacja</h4>
       <Row className="justify-content-center mb-3">

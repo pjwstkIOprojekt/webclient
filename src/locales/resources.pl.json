@@ -2,14 +2,23 @@
     "RoleName": {
         "ADMIN": "Administrator",
         "USER": "Użytkownik",
-        "EMPLOYEE":"Pracownik",
-        "PARAMEDIC":"Ratownik",
-        "DISPATCHER":"Dyspozytor",
-        "AMBULANCE_MANAGER":"Kierownik karetki"
+        "EMPLOYEE": "Pracownik",
+        "PARAMEDIC": "Ratownik",
+        "DISPATCHER": "Dyspozytor",
+        "AMBULANCE_MANAGER": "Kierownik karetki"
     },
-    "EmployeeType":{
-        "DISPATCHER":"Dyspozytor",
-        "PARAMEDIC":"Ratownik"
+    "EmployeeType": {
+        "DISPATCHER": "Dyspozytor",
+        "PARAMEDIC": "Ratownik"
+    },
+    "EmergencyType": {
+        "CAR_ACCIDENT": "Wypadek samochodowy",
+        "FLOOD": "Powódź",
+        "FIRE": "Pożar",
+        "UNKNOWN": "Nieznane",
+        "HEART_ATTACK": "Zawał serca",
+        "SUICIDE": "Samobójstwo",
+        "COVID": "Covid"
     },
     "RhType": {
         "PLUS": "Plus",
@@ -45,12 +54,12 @@
         "TRANSPORT": "Transportowa",
         "NEONATOLOGY": "Neonatologiczna"
     },
-    "FacilityType":{
-        "HOSPITAL":"Szpital",
-        "POLICE_STATION":"Posterunk Policji",
-        "FIRE_UNIT":"Jednostka pożarna",
-        "GUARD_UNIT":"Jednostka wojskowa",
-        "AED":"AED"
+    "FacilityType": {
+        "HOSPITAL": "Szpital",
+        "POLICE_STATION": "Posterunk Policji",
+        "FIRE_UNIT": "Jednostka pożarna",
+        "GUARD_UNIT": "Jednostka wojskowa",
+        "AED": "AED"
     },
     "Ambulance": {
         "List": "Lista karetek",

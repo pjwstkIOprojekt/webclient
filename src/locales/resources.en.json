@@ -2,10 +2,10 @@
     "RoleName": {
         "ADMIN": "Administrator",
         "USER": "User",
-        "EMPLOYEE":"Employee",
-        "PARAMEDIC":"Paramedic",
-        "DISPATCHER":"Dispatcher",
-        "AMBULANCE_MANAGER":"Ambulane manager"
+        "EMPLOYEE": "Employee",
+        "PARAMEDIC": "Paramedic",
+        "DISPATCHER": "Dispatcher",
+        "AMBULANCE_MANAGER": "Ambulane manager"
     },
     "RhType": {
         "PLUS": "Plus",
@@ -17,9 +17,18 @@
         "ZERO": "ZERO",
         "AB": "AB"
     },
-    "EmployeeType":{
-        "DISPATCHER":"Dispatcher",
-        "PARAMEDIC":"Paramedic"
+    "EmployeeType": {
+        "DISPATCHER": "Dispatcher",
+        "PARAMEDIC": "Paramedic"
+    },
+    "EmergencyType": {
+        "CAR_ACCIDENT": "Car accident",
+        "FLOOD": "Flood",
+        "FIRE": "Fire",
+        "UNKNOWN": "Unknown",
+        "HEART_ATTACK": "Heart attack",
+        "SUICIDE": "Suicide",
+        "COVID": "Covid"
     },
     "AllergyType": {
         "SKIN_CONTACT": "Skin contact",
@@ -45,12 +54,12 @@
         "TRANSPORT": "Transport",
         "NEONATOLOGY": "Neonatology"
     },
-    "FacilityType":{
-        "HOSPITAL":"Hospital",
-        "POLICE_STATION":"Police station",
-        "FIRE_UNIT":"Fire unit",
-        "GUARD_UNIT":"Guard unit",
-        "AED":"AED"
+    "FacilityType": {
+        "HOSPITAL": "Hospital",
+        "POLICE_STATION": "Police station",
+        "FIRE_UNIT": "Fire unit",
+        "GUARD_UNIT": "Guard unit",
+        "AED": "AED"
     },
     "Ambulance": {
         "List": "Ambulance list",

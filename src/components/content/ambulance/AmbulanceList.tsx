@@ -9,7 +9,6 @@ import Button from "../../fragments/util/Button";
 import { Container, Row, Col } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
-
 const AmbulanceList = () => {
   const [ambulances, setAmbulances] = useState<AmbulanceResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);

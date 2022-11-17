@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { useTranslation } from "react-i18next";
+import { endShift, startShift } from "../../../api/employeeCalls";
 import { Nav } from "react-bootstrap";
 import { CgWorkAlt } from "react-icons/cg";
 
@@ -9,13 +10,14 @@ const CheckIn = () => {
   const darkMode = useDarkMode();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    // No endpoints?
-  }, []);
-
   const onToggle = () => {
-    setChecked(!checked);
-    // Nie ma końcówek?
+    (checked ? endShift() : startShift()).then(res => {
+      if (res.status === 200) {
+        setChecked(!checked);
+      } else {
+        console.log(res);
+      }
+    }).catch(console.error);
   };
 
   return (
