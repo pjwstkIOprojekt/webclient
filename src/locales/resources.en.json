@@ -21,6 +21,15 @@
         "DISPATCHER": "Dispatcher",
         "PARAMEDIC": "Paramedic"
     },
+    "EmergencyType": {
+        "CAR_ACCIDENT": "Car accident",
+        "FLOOD": "Flood",
+        "FIRE": "Fire",
+        "UNKNOWN": "Unknown",
+        "HEART_ATTACK": "Heart attack",
+        "SUICIDE": "Suicide",
+        "COVID": "Covid"
+    },
     "AllergyType": {
         "SKIN_CONTACT": "Skin contact",
         "INGESTION": "Ingestion",

@@ -11,6 +11,15 @@
         "DISPATCHER": "Dyspozytor",
         "PARAMEDIC": "Ratownik"
     },
+    "EmergencyType": {
+        "CAR_ACCIDENT": "Wypadek samochodowy",
+        "FLOOD": "Powódź",
+        "FIRE": "Pożar",
+        "UNKNOWN": "Nieznane",
+        "HEART_ATTACK": "Zawał serca",
+        "SUICIDE": "Samobójstwo",
+        "COVID": "Covid"
+    },
     "RhType": {
         "PLUS": "Plus",
         "MINUS": "Minus"
