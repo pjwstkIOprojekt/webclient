@@ -2,9 +2,12 @@ import { MapViewHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRoles } from "../../../hooks/useAuth";
+import { usePopup } from "../../../hooks/usePopup";
 import { getAccidentById, AccidentReportResponse, updateAccident, createAccident } from "../../../api/accidentReportCalls";
 import { getEmail } from "../../../helpers/authHelper";
+import { userEmailError } from "../sharedStrings";
 import { isDispositor } from "../../../helpers/authHelper";
+import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import Form from "../../fragments/forms/Form";
 import { Row, Alert } from "react-bootstrap";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
@@ -28,6 +31,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
   const { reportId } = useParams();
   const navigate = useNavigate();
   const roles = useRoles();
+  const popup = usePopup();
   const update = props.update;
 
   useEffect(() => {
@@ -51,11 +55,13 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
   }, [reportId, update]);
 
   const handleSubmit = () => {
-    if (reportId === undefined && !window.confirm("Czy na pewno chcesz zgłosić zdarzenie?")) {
+    setError("");
+    const email = getEmail();
+
+    if (!email) {
+      console.error(userEmailError);
       return;
     }
-
-    setError("");
 
     const report = {
       bandCode: bandCode,
@@ -72,7 +78,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
       consciousness: conscious
     }) : createAccident({
       ...report,
-      email: getEmail() ?? "",
+      email: email,
       concious: conscious
     })).then(res => {
       if (res.status === 200) {
@@ -87,8 +93,10 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
     })
   };
 
+  const onSubmit = () => popup(<ConfirmPopup text="Czy na pewno chcesz zgłosić zdarzenie?" onConfirm={handleSubmit} />);
+
   return (
-    <Form onSubmit={handleSubmit} className="w-50">
+    <Form onSubmit={onSubmit} className="w-50">
       <h1 className="text-center mt-3">Zgłoszenie</h1>
       <Row className="justify-content-center mb-3">
         <EnumSelect id="emergencyType" enum={EmergencyType} onChange={e => setType(e.target.value)} required value={type} onLoad={setType} label="Rodzaj zdarzenia:" />

@@ -64,7 +64,7 @@ const AdminHome = () => {
 
   return (
     <Container className="mt-5 justify-content-center text-center">
-      <h1 className="mb-3">{t("MainPage.MainPanel")}</h1>
+      <h1 className="mb-3">{t("MainPage.Admin")}</h1>
       <Row xs={2}>
         <CustomCard>
           <Card.Header>

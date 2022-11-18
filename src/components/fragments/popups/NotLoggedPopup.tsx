@@ -6,7 +6,7 @@ const NotLoggedPopup = () => {
   const { t } = useTranslation();
 
   return (
-    <Container className="mx-3 text-center">
+    <Container className="text-center">
       <Row className="mt-3">
         <p>{t("AllCapabilities")}</p>
       </Row>

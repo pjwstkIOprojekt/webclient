@@ -22,7 +22,7 @@ const ScheduleList = () => {
   for (let i = 0; i < 7; ++i) {
     const date = new Date();
     date.setDate(diff + i);
-    const dateString = `${formatDateNumber(date.getDate())}.${formatDateNumber(date.getMonth())}`;
+    const dateString = `${formatDateNumber(date.getDate())}-${formatDateNumber(date.getMonth())}-${date.getFullYear()}`;
     const val = Math.random() > 0.5;
     cols.push({ name: `${dateString} Zmiana 1`, property: (x: Readonly<any>) => <FormCheck value={val} disabled /> });
     cols.push({ name: `${dateString} Zmiana 2`, property: (x: Readonly<any>) => <FormCheck value={!val} disabled /> });
@@ -30,7 +30,7 @@ const ScheduleList = () => {
 
   return (
     <Container className="mb-2 text-center">
-      <h1>Grafik</h1>
+      <h1>Grafik ratowników</h1>
       <Table columns={cols} data={paramedics} />
       <NavButton className="mb-3 w-25" to="edit">Edytuj</NavButton>
     </Container>

@@ -221,7 +221,9 @@
         "ReportAccidentFromApp": "Możesz zgłosić wypadek, atak terrorystyczny lub inne zdarzenie w dowolnym miejscu przez przeglądarkę lub aplikację mobilną.",
         "GiveHelp": "Udziel pierwszej pomocy",
         "WatchTutorials": "Przeglądaj liczne poradniki udzielania pierwszej pomocy i wykorzystaj nabytą wiedzę, żeby uratować czyjeś życie.",
-        "CallIncident": "Zgłoś zdarzenie"
+        "CallIncident": "Zgłoś zdarzenie",
+        "Dispositor": "Strona główna dyspozytora",
+        "Admin": "Strona główna kierownika"
     },
     "Cookies": {
         "Info": "Ta strona używa plików cookies. Podejmij jedyną słuszną decyzję.",
@@ -276,5 +278,6 @@
     "NoResults": "Brak wyników",
     "Value": "Wartość",
     "Icon": "Ikona",
-    "Flag": "Flaga"
+    "Flag": "Flaga",
+    "Ok": "Ok"
 }

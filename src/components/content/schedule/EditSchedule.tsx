@@ -38,7 +38,7 @@ const CreateSchedule = () => {
   for (let i = 0; i < 7; ++i) {
     const date = new Date();
     date.setDate(diff + i);
-    const dateString = `${formatDateNumber(date.getDate())}.${formatDateNumber(date.getMonth())}`;
+    const dateString = `${formatDateNumber(date.getDate())}-${formatDateNumber(date.getMonth())}-${date.getFullYear()}`;
     cols.push({ name: `${dateString} Zmiana 1`, property: (x: Readonly<any>) => <FormCheck value={values[i * 2]} onChange={e => replace(i * 2)} /> });
     cols.push({ name: `${dateString} Zmiana 2`, property: (x: Readonly<any>) => <FormCheck value={values[i * 2 + 1]} onChange={e => replace(i * 2 + 1)} /> });
   }
@@ -48,7 +48,7 @@ const CreateSchedule = () => {
   return (
     <Container className="mb-2 text-center">
       <Form onSubmit={onSubmit}>
-        <h1>Grafik</h1>
+        <h1>Grafik ratownika</h1>
         <Table columns={cols} data={paramedics} />
         <Button type="submit" className="mb-3 w-25">Zapisz</Button>
       </Form>

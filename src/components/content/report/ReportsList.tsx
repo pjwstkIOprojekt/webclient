@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { usePopup } from "../../../hooks/usePopup";
 import { AccidentReportResponse, getAccidents, deleteAccident } from "../../../api/accidentReportCalls";
 import { useTranslation } from "react-i18next";
 import Link from "../../fragments/navigation/Link";
@@ -6,6 +7,7 @@ import Enum from "../../fragments/values/Enum";
 import { EmergencyType } from "../../../api/enumCalls";
 import DateDisplay from "../../fragments/values/DateDisplay";
 import Button from "../../fragments/util/Button";
+import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
@@ -13,6 +15,7 @@ const ReportsList = () => {
   const [reports, setReports] = useState<AccidentReportResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
+  const popup = usePopup();
 
   useEffect(() => {
     getAccidents().then(res => res.json()).then((data: AccidentReportResponse[]) => {
@@ -31,10 +34,6 @@ const ReportsList = () => {
   }, []);
 
   const remove = (id: number) => {
-    if (!window.confirm("Czy na pewno chcesz usunąć to zgłoszenie?")) {
-      return;
-    }
-
     setReports(reports.filter(r => r.accidentId !== id));
     deleteAccident(id);
   };
@@ -46,7 +45,7 @@ const ReportsList = () => {
     { name: t("Reports.Date"), property: (x: Readonly<AccidentReportResponse>) => <DateDisplay value={x.date} />, filterBy: "date", sortBy: "date" },
     { name: "Kod z opaski", property: "bandCode", filterBy: "bandCode", sortBy: "bandCode" },
     { name: "Opis", property: "description", filterBy: "description", sortBy: "description" },
-    { name: "Usuń", property: (x: Readonly<AccidentReportResponse>) => <Button onClick={e => remove(x.accidentId)}>X</Button> }
+    { name: "Usuń", property: (x: Readonly<AccidentReportResponse>) => <Button onClick={e => popup(<ConfirmPopup text="Czy na pewno chcesz usunąć to zgłoszenie?" onConfirm={() => remove(x.accidentId)} />)}>X</Button> }
   ];
 
   return (

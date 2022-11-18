@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 // Default popup settings
 const defaultContext = {
-  update: (el: Readonly<JSX.Element>) => {}
+  update: (el: Readonly<JSX.Element> | null) => {}
 };
 
 // Popup hooks
