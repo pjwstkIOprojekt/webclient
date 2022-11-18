@@ -69,7 +69,7 @@ const DispositorHome = () => {
 
   return (
     <Container className="mt-5">
-      <h1 className="mb-3 text-center">{t("MainPage.MainPanel")}</h1>
+      <h1 className="mb-3 text-center">{t("MainPage.Dispositor")}</h1>
       <Row xs={4} className="justify-content-around">
         <ProgressChart width={350} height={350} value={ambulances.all !== 0 ? (ambulances.available / ambulances.all) * 100 : 0} innerRadius="100" color={{
           r: 255,

@@ -33,12 +33,14 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Navigate replace to="/home" />} />
           <Route path="/login" element={<ConditionalRoute condition={!isAuth(roles)} element={<Login />} />} />
+          <Route path="/login/:redirect" element={<ConditionalRoute condition={!isAuth(roles)} element={<Login />} />} />
           <Route path="/register" element={<ConditionalRoute condition={!isAuth(roles)} element={<Register />} />} />
+          <Route path="/register/:redirect" element={<ConditionalRoute condition={!isAuth(roles)} element={<Register />} />} />
           <Route path="/settings/*" element={<ConditionalRoute condition={isAuth(roles)} element={<Settings />} />} />
           <Route path="/home" element={<Home />} />
           <Route path="/tutorial" element={<TutorialView />} />
           <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
-          <Route path="/newreport" element={<ReportForm />} />
+          <Route path="/newreport" element={<ConditionalRoute condition={isAuth(roles)} element={<ReportForm />} />} />
           <Route path="/map" element={<ConditionalRoute condition={isDispositor(roles) || isDirector(roles)} element={<MainMap />} />} />
 
           <Route path="/test" element={<TestMap />} />

@@ -1,4 +1,4 @@
-import { To, Navigate } from "react-router-dom";
+import { To, useParams, Navigate } from "react-router-dom";
 
 export interface ConditionalRouteParams {
   condition: boolean,
@@ -7,7 +7,8 @@ export interface ConditionalRouteParams {
 }
 
 const ConditionalRoute = (props: Readonly<ConditionalRouteParams>) => {
-  return props.condition ? props.element : <Navigate replace to={props.alt ?? "/"} />;
+  const { redirect } = useParams();
+  return props.condition ? props.element : <Navigate replace to={props.alt ?? (redirect ? `/${redirect}` : "/")} />;
 };
 
 export default ConditionalRoute;

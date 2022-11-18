@@ -4,7 +4,7 @@ import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
 import { FaHome, FaMedkit, FaBook, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
-import { isDispositor, isDirector, isAuth } from "../../../helpers/authHelper";
+import { isAuth, isDispositor, isDirector } from "../../../helpers/authHelper";
 import { customLink } from "./sharedNavigationParams";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
@@ -26,10 +26,12 @@ const MenuBar = () => {
         <FaHome />
         <span className="px-1">{t("MainPage.MainPage")}</span>
       </NavLink>
-      <NavLink to="/newreport">
-        <FaMedkit />
-        <span className="px-1">{t("Reports.Report")}</span>
-      </NavLink>
+      {isAuth(roles) ? (
+        <NavLink to="/newreport">
+          <FaMedkit />
+          <span className="px-1">{t("Reports.Report")}</span>
+        </NavLink>
+      ) : ""}
       <NavLink to="/tutorial">
         <FaBook />
         <span className="px-1">{t("Tutorials")}</span>

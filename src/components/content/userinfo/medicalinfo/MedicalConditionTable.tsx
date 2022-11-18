@@ -1,20 +1,19 @@
 import { TableViewParams } from "../../sharedViewsParams";
 import { DiseaseResponse } from "../../../../api/diseaseCalls";
 import { useTranslation } from "react-i18next";
+import { usePopup } from "../../../../hooks/usePopup";
 import { deleteDisease } from "../../../../api/diseaseCalls";
 import Link from "../../../fragments/navigation/Link";
 import Button from "../../../fragments/util/Button";
+import ConfirmPopup from "../../../fragments/popups/ConfirmPopup";
 import Table from "../../../fragments/util/Table";
 import NavButton from "../../../fragments/navigation/NavButton";
 
 const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>) => {
   const { t } = useTranslation();
+  const popup = usePopup();
 
   const remove = (x: Readonly<DiseaseResponse>) => {
-    if (!window.confirm(t("RemoveDisease"))) {
-      return;
-    }
-
     if (props.onRemove) {
       props.onRemove(x);
     }
@@ -27,7 +26,7 @@ const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>
     { name: t("Name"), property: "diseaseName", filterBy: "diseaseName", sortBy: "diseaseName" },
     { name: t("Reports.Description"), property: "description", filterBy: "description", sortBy: "description" },
     { name: t("Share"), property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? t("Yes") : t("No") },
-    { name: t("Remove"), property: (x: Readonly<DiseaseResponse>) => <Button onClick={e => remove(x)}>X</Button> }
+    { name: t("Remove"), property: (x: Readonly<DiseaseResponse>) => <Button onClick={e => popup(<ConfirmPopup text="RemoveDisease" onConfirm={() => remove(x)} />)}>X</Button> }
   ];
 
   return (
