@@ -18,20 +18,17 @@ export const accidentIcon = L.icon({
 });
 
 export const ambulanceIcon = L.icon({
-  iconSize: small,
-  iconAnchor: smallAnchor,
-  popupAnchor: smallPopup,
-  iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
-  shadowUrl: shadow
+  iconSize: big,
+  iconAnchor: [16, 21],
+  popupAnchor: [2, -10],
+  iconUrl: "/img/map/ambulance_icon.svg"
 });
 
-export const facilityIcon = L.icon({
+export const hospitalIcon = L.icon({
   iconSize: big,
-  iconAnchor: bigAnchor,
-  popupAnchor: bigPopup,
-  shadowAnchor: bigShadow,
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/8/8115.png?w=826&t=st=1666208765~exp=1666209365~hmac=e2449742142cbe00032697d49c7d236b48769e71bb872561825ba786688ddfc3",
-  shadowUrl: shadow
+  iconAnchor: [16, 21],
+  popupAnchor: [2, -12],
+  iconUrl: "/img/map/hospital_icon.svg"
 });
 
 export const terroristIcon = L.icon({
@@ -63,11 +60,9 @@ export const alertIcon = L.icon({
 
 export const policeIcon = L.icon({
   iconSize: big,
-  iconAnchor: bigAnchor,
-  popupAnchor: bigPopup,
-  shadowAnchor: bigShadow,
-  iconUrl: "https://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-20-512.png",
-  shadowUrl: shadow
+  iconAnchor: [16, 21],
+  popupAnchor: [2, -14],
+  iconUrl: "/img/map/police_icon.svg"
 });
 
 export const covidIcon = L.icon({
@@ -76,5 +71,14 @@ export const covidIcon = L.icon({
   popupAnchor: bigPopup,
   shadowAnchor: bigShadow,
   iconUrl: "https://img.icons8.com/cotton/344/coronavirus-hospital-map-pin--v2.png",
+  shadowUrl: shadow
+});
+
+export const fireDepIcon = L.icon({
+  iconSize: big,
+  iconAnchor: bigAnchor,
+  popupAnchor: bigPopup,
+  shadowAnchor: bigShadow,
+  iconUrl: "/img/map/fire_department_icon.svg",
   shadowUrl: shadow
 });

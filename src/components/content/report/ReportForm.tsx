@@ -114,7 +114,7 @@ const ReportView = (props: Readonly<MapViewHelperParams>) => {
         <NotBlank id="bandCode" onChange={e => setBandCode(e.target.value)} value={bandCode} label="Kod z opaski" />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis" />
+        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis" maxLength={100} />
       </Row>
       <h4 className="text-center mt-3">Lokalizacja</h4>
       <Row className="justify-content-center mb-3">

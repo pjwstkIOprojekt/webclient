@@ -436,11 +436,3 @@
         width: 83%;
     }
 }
-
-@media (min-width: 1700px)
-{
-    .leaflet-container
-    {
-        width: 85%;
-    }
-}
