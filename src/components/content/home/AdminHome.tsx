@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { AmbulanceResponse, getAmbulances } from "../../../api/ambulanceCalls";
 import { AccidentReportResponse, getAccidents } from "../../../api/accidentReportCalls";
 import { useTranslation } from "react-i18next";
+import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
 import { AmbulanceClass, AmbulanceType, AmbulanceState } from "../../../api/enumCalls";
 import { EmergencyType } from "../../../api/enumCalls";
-import { Container, Row, Card } from "react-bootstrap";
-import CustomCard from "../../fragments/util/Card";
+import { Container, Row } from "react-bootstrap";
 import PieChart from "../../fragments/charts/PieChart";
 import Table from "../../fragments/util/Table";
 
@@ -34,7 +34,7 @@ const AdminHome = () => {
   }, []);
 
   const cols = [
-    { name: t("Ambulance.RegistrationNumber"), property: "licensePlate", sortBy: "licensePlate", filterBy: "licensePlate" },
+    { name: t("Ambulance.RegistrationNumber"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`/admpanel/ambulances/edit/${x.licensePlate}`}>{x.licensePlate}</Link>, sortBy: "licensePlate", filterBy: "licensePlate" },
     { name: t("Ambulance.Kind"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
     { name: t("Ambulance.Type"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, sortBy: "ambulanceType", filterBy: "ambulanceType" },
     { name: t("Ambulance.State"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, filterBy: "ambulanceStateType", sortBy: "ambulanceStateType" }
@@ -62,28 +62,27 @@ const AdminHome = () => {
     }
   }
 
+  if (pieDat2.length < 1) {
+    pieDat2.push({
+      name: "",
+      value: 1,
+      fill: "#777777",
+      fillDark: "#777777"
+    });
+  }
+
   return (
     <Container className="mt-5 justify-content-center text-center">
       <h1 className="mb-3">{t("MainPage.Admin")}</h1>
-      <Row xs={2}>
-        <CustomCard>
-          <Card.Header>
-            <Card.Title>{t("Person.StateStaff")}</Card.Title>
-          </Card.Header>
-          <Card.Body>
-            <PieChart width={500} height={600} data={pieDat} label legend tooltip />
-          </Card.Body>
-        </CustomCard>
-        <CustomCard>
-          <Card.Header>
-            <Card.Title>{t("MainPage.Report24h")}</Card.Title>
-          </Card.Header>
-          <Card.Body>
-            <PieChart width={500} height={600} data={pieDat2} label legend tooltip />
-          </Card.Body>
-        </CustomCard>
+      <Row xs={2} className="justify-content-around">
+        <PieChart width={400} height={400} data={pieDat} label legend tooltip innerRadius="100" />
+        <PieChart width={400} height={400} data={pieDat2} label legend tooltip innerRadius="100" />
       </Row>
-      <h2 className="mt-5 mb-3">{t("Ambulance.Active")}</h2>
+      <Row xs={2} className="text-center">
+        <h3>{t("Person.StateStaff")}</h3>
+        <h3>{t("MainPage.Report24h")}</h3>
+      </Row>
+      <h2 className="my-3">{t("Ambulance.Ambulances")}</h2>
       <Table columns={cols} data={ambulances} isLoading={isLoading} />
     </Container>
   );

@@ -87,12 +87,12 @@ export const EmergencyType: EnumType = {
       light: "#777777"
     },
     "HEART_ATTACK": {
-      dark: "#447700",
-      light: "#447700"
+      dark: "#ff0000",
+      light: "#ff0000"
     },
     "SUICIDE": {
-      dark: "#777777",
-      light: "#777777"
+      dark: "#447700",
+      light: "#447700"
     },
     "COVID": {
       dark: "#777777",
