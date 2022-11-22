@@ -80,7 +80,7 @@ const TrustedPersonForm = () => {
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">{t("Person.Trusted")}</h1>
+      <h1 className="mb-3">{t("Person.TrustedPerson")}</h1>
       <Form onSubmit={onSubmit}>
         <Row md={2}>
           <NotBlank id="firstName" required onChange={e => setFirstName(e.target.value)} className="mb-3" value={firstName} label={t("Person.FirstName")} disabled={readOnly} />
@@ -90,8 +90,8 @@ const TrustedPersonForm = () => {
           <Email id="email" onChange={e => setEmail(e.target.value)} className="mb-3" value={email} label={t("Person.Email")} disabled={readOnly} />
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label={t("Person.PhoneNumber")} disabled={readOnly} />
         </Row>
-        <Button type="submit" className="mx-3">{readOnly ? t("Edit") : t("Save")}</Button>
-        {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)}>{t("Cancel")}</Button>}
+        <Button type="submit" className="mx-3">{readOnly ? t("Common.Edit") : t("Common.Save")}</Button>
+        {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)}>{t("Common.Cancel")}</Button>}
         {error ? (
           <Alert variant="danger" className="mt-3">
             <Alert.Heading>{t(errorHeader)}</Alert.Heading>

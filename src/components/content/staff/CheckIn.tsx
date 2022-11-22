@@ -23,7 +23,7 @@ const CheckIn = () => {
   return (
     <Nav.Link onClick={onToggle} className={`d-inline-flex align-items-center nav-link-${darkMode ? "dark" : "light"}`}>
       <CgWorkAlt />
-      <span className="px-1">{checked ? t("FinishDuty") : t("StartDuty")}</span>
+      <span className="px-1">{checked ? t("Person.FinishDuty") : t("Person.StartDuty")}</span>
     </Nav.Link>
   );
 };

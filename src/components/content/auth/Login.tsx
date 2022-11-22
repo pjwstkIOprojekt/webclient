@@ -50,10 +50,10 @@ const Login = () => {
           <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label={t("Person.Email")}/>
         </Row>
         <Row className="justify-content-center">
-          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Login.Password")} />
+          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Person.Password")} />
         </Row>
         <Row className="justify-content-center">
-          <Button className="my-3 w-25" type="submit">{t("Login.Sign in")}</Button>
+          <Button className="my-3 w-25" type="submit">{t("Login.SignIn")}</Button>
         </Row>
         {error ? (
           <Row className="justify-content-center mt-5">

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { usePopup } from "../../../hooks/usePopup";
+import { useTranslation } from "react-i18next";
 import { FacilityResponse, getFacilities, deleteFacility } from "../../../api/facilityCalls";
 import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
@@ -14,6 +15,7 @@ const FacilitiesList = () => {
   const [facilities, setFacilities] = useState<FacilityResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const popup = usePopup();
+  const { t } = useTranslation();
 
   useEffect(() => {
     getFacilities().then(res => res.json()).then((data: FacilityResponse[]) => {
@@ -34,19 +36,19 @@ const FacilitiesList = () => {
   };
 
   const cols = [
-    { name: "#", property: (x: Readonly<FacilityResponse>) => <Link to={`edit/${x.facilityId}`}>{x.facilityId}</Link>, sortBy: "facilityId", filterBy: "facilityId" },
-    { name: "Rodzaj placówki", property: (x: Readonly<FacilityResponse>) => <Enum enum={FacilityType} value={x.facilityType} />, sortBy: "facilityType", filterBy: "facilityType" },
-    { name: "Nazwa", property: "name", sortBy: "name", filterBy: "name" },
-    { name: "Usuń", property: (x: Readonly<FacilityResponse>) => <Button onClick={e => popup(<ConfirmPopup text="Czy na pewno chcesz usunąć tą placówkę?" onConfirm={() => remove(x.facilityId)} />)}>X</Button> }
+    { name: "#", property: (x: Readonly<FacilityResponse>) => <Link to={x.facilityId.toString()}>{x.facilityId}</Link>, sortBy: "facilityId", filterBy: "facilityId" },
+    { name: t("Facility.Type"), property: (x: Readonly<FacilityResponse>) => <Enum enum={FacilityType} value={x.facilityType} />, sortBy: "facilityType", filterBy: "facilityType" },
+    { name: t("Facility.Name"), property: "name", sortBy: "name", filterBy: "name" },
+    { name: t("Common.Remove"), property: (x: Readonly<FacilityResponse>) => <Button onClick={e => popup(<ConfirmPopup text={t("Facility.ConfirmRemove")} onConfirm={() => remove(x.facilityId)} />)}>X</Button> }
   ];
 
   return (
     <Container className="mt-3 justify-content-center text-center">
-      <h3>Lista placówek</h3>
+      <h3>{t("Facility.Facilities")}</h3>
       <Row className="my-2 justify-content-end">
         <Col />
         <Col md="auto">
-          <NavButton to="new">+</NavButton>
+          <NavButton to="/newfacility">+</NavButton>
         </Col>
       </Row>
       <Table columns={cols} data={facilities} isLoading={isLoading} />

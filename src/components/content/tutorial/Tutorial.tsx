@@ -5,7 +5,7 @@ import { useRoles } from "../../../hooks/useAuth";
 import { usePopup } from "../../../hooks/usePopup";
 import { isAuth } from "../../../helpers/authHelper";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
-import { Container, Row, Col, Nav } from "react-bootstrap";
+import { Container, Row, Col, Nav, NavDropdown } from "react-bootstrap";
 import { customTheme } from "../../fragments/sharedParams";
 import ContentsGenerator from "../../fragments/util/ContentsGenerator";
 import ItemLink from "../../fragments/navigation/ItemLink";
@@ -43,22 +43,29 @@ const Tutorial = () => {
   return (
     <Container className="my-5">
       <Row>
-        <Col xs={2}>
-          <Nav className={`col-md-12 d-none d-md-block lh-lg contents contents-${customTheme(darkMode)}`} onSelect={selectedKey => alert(`selected ${selectedKey}`)}>
-            <h1>Spis treści</h1>
-            <ContentsGenerator selector="h1, h3, h4" result={(ch, index) => (
-              <Nav.Item key={index}>
-                <ItemLink to={ch.id}>{processTitle(ch.textContent) ?? "???"}</ItemLink>
-              </Nav.Item>
-            )} update={data} />
-            <br />
-            <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
-            <span onClick={review}>
-              <Rating initialValue={0} disabled={!isAuth(roles)} />
+        <Col xs={2} className={`contents-${customTheme(darkMode)}`}>
+          <Nav className="col-md-12 d-none d-md-block lh-lg p-1 h-100">
+            <span className="contents">
+              <h1>Spis treści</h1>
+              <ContentsGenerator selector="h1, h3, h4" result={(ch, index) => (
+                <Nav.Item key={index}>
+                  <ItemLink to={ch.id}>{processTitle(ch.textContent) ?? "???"}</ItemLink>
+                </Nav.Item>
+              )} update={data} />
+              <br />
+              <NavDropdown.Divider />
+              <br />
+              <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
+              <span onClick={review}>
+                <Rating initialValue={0} disabled={!isAuth(roles)} />
+              </span>
             </span>
           </Nav>
         </Col>
         <Col xs={10}>
+          <Row className="text-end">
+            <Rating initialValue={0} disabled />
+          </Row>
           <InnerHtml value={data} containerClass="tutorial-content" />
         </Col>
       </Row>

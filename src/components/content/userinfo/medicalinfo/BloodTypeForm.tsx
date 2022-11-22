@@ -55,7 +55,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
     }
 
     if (!props.id) {
-      reset("Blood.Undefined");
+      reset("Blood is undefined. Check server responses for more info.");
       return;
     }
 
@@ -88,12 +88,12 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
   return (
     <Form onSubmit={onSubmit}>
       <div className="mb-3">
-        <h3>{t("Blood.Group")}</h3>
+        <h3>{t("Blood.Type")}</h3>
         <div>
-          <EnumRadio labelClass="p-3" label={t("Blood.Group")} required enum={BloodType} onChange={e => setGroup(e.target.value)} value={group} disabled={readOnly} error={getError(group)} />
+          <EnumRadio labelClass="p-3" label={t("Blood.Type")} required enum={BloodType} onChange={e => setGroup(e.target.value)} value={group} disabled={readOnly} error={getError(group)} />
         </div>
         <div>
-          <EnumRadio labelClass="p-3" label={t("Blood.Group Rh")} required enum={RhType} onChange={e => setRh(e.target.value)} value={rh} disabled={readOnly} error={getError(rh)} />
+          <EnumRadio labelClass="p-3" label={t("Blood.Rh")} required enum={RhType} onChange={e => setRh(e.target.value)} value={rh} disabled={readOnly} error={getError(rh)} />
         </div>
         {error ? (
           <Alert variant="danger" className="w-25">
@@ -101,8 +101,8 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
             <p>{t(error)}</p>
           </Alert>
         ) : ""}
-        <Button type="submit">{readOnly ? t("Edit") : t("Save")}</Button>
-        {readOnly ? "" : <Button type="button" onClick={e => reset()} className="mx-3">{t("Cancel")}</Button>}
+        <Button type="submit">{readOnly ? t("Common.Edit") : t("Common.Save")}</Button>
+        {readOnly ? "" : <Button type="button" onClick={e => reset()} className="mx-3">{t("Common.Cancel")}</Button>}
       </div>
     </Form>
   );

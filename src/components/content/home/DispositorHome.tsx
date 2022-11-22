@@ -3,6 +3,7 @@ import { AccidentReportResponse, getAccidents } from "../../../api/accidentRepor
 import { useTranslation } from "react-i18next";
 import { getAmbulances, AmbulanceResponse } from "../../../api/ambulanceCalls";
 import { AmbulanceState, EmergencyType } from "../../../api/enumCalls";
+import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
 import DateDisplay from "../../fragments/values/DateDisplay";
 import { Container, Row } from "react-bootstrap";
@@ -47,9 +48,10 @@ const DispositorHome = () => {
   }, []);
 
   const cols = [
-    { name: "Rodzaj zdarzenia", property: (x: Readonly<AccidentReportResponse>) => <Enum enum={EmergencyType} value={x.emergencyType} />, filterBy: "emergencyType", sortBy: "emergencyType" },
-    { name: t("Reports.Date"), property: (x: Readonly<AccidentReportResponse>) => <DateDisplay value={x.date} />, sortBy: "date", filterBy: "date" },
-    { name: "Liczba ofiar", property: "victimCount", filterBy: "victimCount", sortBy: "victimCount" }
+    { name: "#", property: (x: Readonly<AccidentReportResponse>) => <Link to={`/dispanel/reports/${x.accidentId}`}>{x.accidentId}</Link>, sortBy: "accidentId", filterBy: "accidentId" },
+    { name: t("Report.Type"), property: (x: Readonly<AccidentReportResponse>) => <Enum enum={EmergencyType} value={x.emergencyType} />, filterBy: "emergencyType", sortBy: "emergencyType" },
+    { name: t("Report.Date"), property: (x: Readonly<AccidentReportResponse>) => <DateDisplay value={x.date} />, sortBy: "date", filterBy: "date" },
+    { name: t("Report.VictimsCount"), property: "victimCount", filterBy: "victimCount", sortBy: "victimCount" }
   ];
 
   const chartData = [];
@@ -67,31 +69,41 @@ const DispositorHome = () => {
     }
   }
 
+  if (chartData.length < 1) {
+    chartData.push({
+      name: "",
+      value: 1,
+      fill: "#777777",
+      fillDark: "#777777"
+    });
+  }
+
   return (
     <Container className="mt-5">
-      <h1 className="mb-3 text-center">{t("MainPage.Dispositor")}</h1>
-      <Row xs={4} className="justify-content-around">
-        <ProgressChart width={350} height={350} value={ambulances.all !== 0 ? (ambulances.available / ambulances.all) * 100 : 0} innerRadius="100" color={{
+      <h1 className="mb-3 text-center">{t("HomePage.Dispositor")}</h1>
+      <Row xs={3} className="justify-content-around">
+        <ProgressChart width={350} height={350} value={ambulances.all !== 0 ? (ambulances.available / ambulances.all) * 100 : 0} innerRadius="100" label tooltip color={{
           r: 255,
           g: 162,
           b: 0
-        }} />
-        <PieChart width={350} height={350} data={chartData} innerRadius="90" legend tooltip />
-        <ProgressChart width={350} height={350} value={79} innerRadius="100" label color={{
+        }} full={t("HomePage.AmbulanceAvailable")} empty={t("HomePage.AmbulanceUnavailable")} />
+        <PieChart width={350} height={350} data={chartData} innerRadius="90" label legend tooltip />
+        <ProgressChart width={350} height={350} value={79} innerRadius="100" label tooltip color={{
           r: 0,
           g: 146,
           b: 255
-        }} />
+        }} full={t("HomePage.ReportAccepted")} empty={t("HomePage.ReportPending")} />
       </Row>
       <Row xs={3} className="text-center">
-        <h3>{t("Ambulance.Available")}</h3>
-        <h3>{t("MainPage.Incidents")}</h3>
-        <h3>{t("Reports.Accepted")}</h3>
+        <h3>{t("HomePage.AmbulancesAvailable")}</h3>
+        <h3>{t("HomePage.Incidents")}</h3>
+        <h3>{t("HomePage.ReportsAccepted")}</h3>
       </Row>
-      <Row className="mt-5 justify-content-center">
-        <NavButton to="/map" className="w-25">{t("MainPage.OpenMap")}</NavButton>
+      <Row className="my-3 justify-content-center">
+        <NavButton to="/map" className="w-25">{t("HomePage.OpenMap")}</NavButton>
       </Row>
-      <Row className="my-5">
+      <h2 className="text-center">{t("Report.Reports")}</h2>
+      <Row className="my-3">
         <Table columns={cols} data={accidents} isLoading={isLoading} />
       </Row>
     </Container>

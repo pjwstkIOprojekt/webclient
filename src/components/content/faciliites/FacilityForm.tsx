@@ -12,7 +12,7 @@ import { FacilityType } from "../../../api/enumCalls";
 import Number from "../../fragments/forms/api/Number";
 import Button from "../../fragments/util/Button";
 import L from "leaflet";
-import { facilityIcon } from "../map/MapIcons";
+import { hospitalIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
 const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
@@ -93,7 +93,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
     const mark = {
       coords: coords,
       desc: "Placówka",
-      icon: facilityIcon,
+      icon: hospitalIcon,
       to: "/home"
     };
   

@@ -3,7 +3,7 @@ import { useRoles, useAuth } from "../../../hooks/useAuth";
 import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
-import { FaHome, FaMedkit, FaBook, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
+import { FaHome, FaMedkit, FaBook, FaHospital, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
 import { isAuth, isDispositor, isDirector } from "../../../helpers/authHelper";
 import { customLink } from "./sharedNavigationParams";
 import CheckIn from "../../content/staff/CheckIn";
@@ -24,34 +24,40 @@ const MenuBar = () => {
     <Nav className="me-auto">
       <NavLink to="/">
         <FaHome />
-        <span className="px-1">{t("MainPage.MainPage")}</span>
+        <span className="px-1">{t("HomePage.HomePage")}</span>
       </NavLink>
       {isAuth(roles) ? (
         <NavLink to="/newreport">
           <FaMedkit />
-          <span className="px-1">{t("Reports.Report")}</span>
+          <span className="px-1">{t("Report.Report")}</span>
         </NavLink>
       ) : ""}
       <NavLink to="/tutorial">
         <FaBook />
-        <span className="px-1">{t("Tutorials")}</span>
+        <span className="px-1">{t("Tutorial.Tutorials")}</span>
       </NavLink>
+      {isAuth(roles) ? (
+        <NavLink to="/facilities">
+          <FaHospital />
+          <span className="px-1">{t("Facility.Facilities")}</span>
+        </NavLink>
+      ) : ""}
       {isDispositor(roles) || isDirector(roles) ? (
         <NavLink to="/map">
           <FaMap />
-          <span className="px-1">{t("Map")}</span>
+          <span className="px-1">{t("Map.Map")}</span>
         </NavLink>
       ) : ""}
       {isDispositor(roles) ? (
         <NavLink to="/dispanel/reports">
           <FaNotesMedical />
-          <span className="px-1">{t("PanelDispatcher")}</span>
+          <span className="px-1">{t("HomePage.DispositorPanel")}</span>
         </NavLink>
       ) : ""}
       {isDirector(roles) ? (
         <NavLink to="/admpanel/ambulances">
           <FaToolbox />
-          <span className="px-1">{t("PanelManager")}</span>
+          <span className="px-1">{t("HomePage.ManagerPanel")}</span>
         </NavLink>
       ) : ""}
     </Nav>
@@ -68,7 +74,7 @@ const SideMenu = () => {
       {isDispositor(roles) ? <CheckIn /> : ""}
       <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-${customLink(darkMode.isDark)}`}>
         <HiOutlineLightBulb />
-        <span className="px-1">{t("Theme")}</span>
+        <span className="px-1">{t("HomePage.ChangeTheme")}</span>
       </Nav.Link>
       <UserDropdown />
       <LangDropdown />
@@ -100,7 +106,7 @@ const LangDropdown = () => {
   return (
     <NavDropdown align="end" title={
       <span className="d-inline-flex align-items-center">
-        <span className="px-1"><img src={`/img/flags/${flags[lang]}.png`} className="lang-icon" alt={t("Flag")} /></span>
+        <span className="px-1"><img src={`/img/flags/${flags[lang]}.png`} className="lang-icon" alt={t("Common.Flag")} /></span>
       </span>
     } className={`nav-${customLink(darkMode)}`}>
       <LangDrop display="Polski" lang="pl" current={lang} update={changeLang} />
@@ -138,22 +144,22 @@ const UserDropdown = () => {
     <NavDropdown align="end" title={
       <span className="d-inline-flex align-items-center">
         <FaUserCircle />
-        <span className="px-1">{t("Account")}</span>
+        <span className="px-1">{t("Person.Account")}</span>
       </span>
     } className={`nav-${customLink(darkMode)}`}>
       {isAuth(roles) ? (
         <>
           <NavDrop to="/settings/userdata">
             <IoMdPerson />
-            <span className="px-1">{t("userdata")}</span>
+            <span className="px-1">{t("Person.UserData")}</span>
           </NavDrop>
           <NavDrop to="/settings/medicaldata">
             <FaNotesMedical />
-            <span className="px-1">{t("MedicalData")}</span>
+            <span className="px-1">{t("Person.MedicalData")}</span>
           </NavDrop>
           <NavDrop to="/settings/trustedperson">
             <FaUserSecret />
-            <span className="px-1">{t("Person.Trustedperson")}</span>
+            <span className="px-1">{t("Person.TrustedPerson")}</span>
           </NavDrop>
           <NavDropdown.Divider />
         </>
@@ -166,13 +172,13 @@ const UserDropdown = () => {
       ) : (
         <NavDrop to="/login">
           <BiLogIn />
-          <span className="px-1">{t("Login.Sign in")}</span>
+          <span className="px-1">{t("Login.SignIn")}</span>
         </NavDrop>
       )}
       {isAuth(roles) ? "" : (
         <NavDrop to="/register">
           <IoIosPaper />
-          <span className="px-1">{t("Login.Sign up")}</span>
+          <span className="px-1">{t("Login.SignUp")}</span>
         </NavDrop>
       )}
     </NavDropdown>

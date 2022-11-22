@@ -77,7 +77,7 @@ const Register = () => {
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center">{t("Login.Registration")}</h1>
+      <h1 className="text-center">{t("Login.Register")}</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
           <NotBlank id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label={t("Person.FirstName")} />
@@ -95,13 +95,13 @@ const Register = () => {
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="mb-3 w-50" label={t("Person.PhoneNumber")} />
         </Row>
         <Row className="justify-content-center">
-          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Login.Password")} />
+          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Person.Password")} />
         </Row>
         <Row className="justify-content-center">
           <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Check")} />
         </Row>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit">{t('Login.Sign up')}</Button>
+          <Button className="mt-3 w-25" type="submit">{t("Login.SignUp")}</Button>
         </Row>
         {error ? (
           <Row className="justify-content-center mt-5">
@@ -114,7 +114,7 @@ const Register = () => {
         <Row className="justify-content-center mt-3 mb-5">
           <CAlert className="w-50">
             <Alert.Heading>{t("Login.CollectData")}</Alert.Heading>
-            <p>{t("NecessaryData")}</p>
+            <p>{t("Login.NecessaryData")}</p>
           </CAlert>
         </Row>
       </Form>

@@ -1,5 +1,5 @@
 import { Position } from "../../fragments/map/Map";
-import { accidentIcon, terroristIcon, fireIcon, ambulanceIcon, facilityIcon, policeIcon, alertIcon, covidIcon } from "./MapIcons";
+import { accidentIcon, terroristIcon, fireIcon, ambulanceIcon, hospitalIcon, policeIcon, alertIcon, covidIcon } from "./MapIcons";
 import { useTranslation } from "react-i18next";
 import { Container, Form } from "react-bootstrap";
 import FormCheck from "../../fragments/forms/FormCheck";
@@ -44,14 +44,14 @@ const MapForm = (props: Readonly<MapFormParams>) => {
 
   return (
     <Container>
-      <h1 className="mt-3">{t("Map")}</h1>
-      <h3 className="mb-3">{t("Filters")}:</h3>
+      <h1 className="mt-3">{t("Map.Map")}</h1>
+      <h3 className="mb-3">{t("Map.Filters")}:</h3>
       <Form className="w-50">
         <FormCheck label={t("MainPage.Incidents")} value={props.filters & MarkTypes.Incident} onChange={e => props.setFilters(props.filters ^ MarkTypes.Incident)} icon={accidentIcon} />
         <FormCheck label={t("Reports.TerroristAttacks")} value={props.filters & MarkTypes.Terrorist} onChange={e => props.setFilters(props.filters ^ MarkTypes.Terrorist)} icon={terroristIcon} />
         <FormCheck label={t("Reports.Fires")} value={props.filters & MarkTypes.Fire} onChange={e => props.setFilters(props.filters ^ MarkTypes.Fire)} icon={fireIcon} />
         <FormCheck label={t("Ambulance.Ambulances")} value={props.filters & MarkTypes.Ambulance} onChange={e => props.setFilters(props.filters ^ MarkTypes.Ambulance)} icon={ambulanceIcon} />
-        <FormCheck label={t("Reports.Hospitals")} value={props.filters & MarkTypes.Hospital} onChange={e => props.setFilters(props.filters ^ MarkTypes.Hospital)} icon={facilityIcon} />
+        <FormCheck label={t("Reports.Hospitals")} value={props.filters & MarkTypes.Hospital} onChange={e => props.setFilters(props.filters ^ MarkTypes.Hospital)} icon={hospitalIcon} />
         <FormCheck label={t("Reports.Polices")} value={props.filters & MarkTypes.Police} onChange={e => props.setFilters(props.filters ^ MarkTypes.Police)} icon={policeIcon} />
         <FormCheck label={t("Alert")} value={props.filters & MarkTypes.Alert} onChange={e => props.setFilters(props.filters ^ MarkTypes.Alert)} icon={alertIcon} />
         <FormCheck label={t("Reports.CovidOutbreaks")} value={props.filters & MarkTypes.Covid} onChange={e => props.setFilters(props.filters ^ MarkTypes.Covid)} icon={covidIcon} />
@@ -81,7 +81,7 @@ const MainMap = () => {
           coords: [e.location.latitude, e.location.longitude],
           desc: e.name,
           type: e.facilityType.toLowerCase().includes("h") ? MarkTypes.Hospital : MarkTypes.Police,
-          icon: e.facilityType.toLowerCase().includes("h") ? facilityIcon : policeIcon
+          icon: e.facilityType.toLowerCase().includes("h") ? hospitalIcon : policeIcon
         })));
       }
     }).catch(console.error);

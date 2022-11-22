@@ -45,9 +45,9 @@ const AmbulanceHistory = () => {
   }, [ambulanceId]);
 
   const cols = [
-    { name: t("Ambulance.State"), property: (x: Readonly<StoredState>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: "type", sortBy: "type" },
-    { name: t("From"), property: (x: Readonly<StoredState>) => <DateDisplay value={x.start} />, filterBy: "start", sortBy: "start" },
-    { name: t("To"), property: (x: Readonly<StoredState>) => <DateDisplay value={x.end} />, filterBy: "end", sortBy: "end" }
+    { name: t("Ambulance.Status"), property: (x: Readonly<StoredState>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: "type", sortBy: "type" },
+    { name: t("Common.Since"), property: (x: Readonly<StoredState>) => <DateDisplay value={x.start} />, filterBy: "start", sortBy: "start" },
+    { name: t("Common.Until"), property: (x: Readonly<StoredState>) => <DateDisplay value={x.end} />, filterBy: "end", sortBy: "end" }
   ];
 
   return (

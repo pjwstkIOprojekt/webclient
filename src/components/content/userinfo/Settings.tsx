@@ -13,14 +13,14 @@ const Settings = () => {
   const { t } = useTranslation();
 
   const links = [
-    { to: "userdata", text: t("userdata") },
-    { to: "medicaldata", text: t("medicaldata") },
-    { to: "trustedperson", text: t("Person.Trustedperson") }
+    { to: "userdata", text: t("Person.UserData") },
+    { to: "medicaldata", text: t("Person.MedicalData") },
+    { to: "trustedperson", text: t("Person.TrustedPerson") }
   ];
 
   return (
     <Container className="my-3">
-      <h1><b>Moje dane</b></h1>
+      <h1><b>{t("Person.MyData")}</b></h1>
       <Navtab links={links}/>
       <Routes>
         <Route path="userdata" element={<UserDataForm />} />
