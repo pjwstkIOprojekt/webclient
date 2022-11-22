@@ -34,16 +34,16 @@ const AdminHome = () => {
   }, []);
 
   const cols = [
-    { name: t("Ambulance.RegistrationNumber"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`/admpanel/ambulances/edit/${x.licensePlate}`}>{x.licensePlate}</Link>, sortBy: "licensePlate", filterBy: "licensePlate" },
-    { name: t("Ambulance.Kind"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
+    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`/admpanel/ambulances/edit/${x.licensePlate}`}>{x.licensePlate}</Link>, sortBy: "licensePlate", filterBy: "licensePlate" },
+    { name: t("Ambulance.Class"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
     { name: t("Ambulance.Type"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, sortBy: "ambulanceType", filterBy: "ambulanceType" },
-    { name: t("Ambulance.State"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, filterBy: "ambulanceStateType", sortBy: "ambulanceStateType" }
+    { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, filterBy: "ambulanceStateType", sortBy: "ambulanceStateType" }
   ];
 
   const pieDat = [
-    { name: t('Person.ParamedicsInactive'), value: 4, fill: "#bbbb00", fillDark: "#5dbf62" },
-    { name: t('Person.ParamedicsOnStandby'), value: 24, fill: "#5dbf62", fillDark: "#c59812" },
-    { name: t('Person.ParamedicsInAction'), value: 11, fill: "#343489", fillDark: "#aaaa00" }
+    { name: "Nieaktywni", value: 4, fill: "#bbbb00", fillDark: "#5dbf62" },
+    { name: "Oczekujący", value: 24, fill: "#5dbf62", fillDark: "#c59812" },
+    { name: "W akcji", value: 11, fill: "#343489", fillDark: "#aaaa00" }
   ];
 
   const pieDat2 = [];
@@ -73,14 +73,14 @@ const AdminHome = () => {
 
   return (
     <Container className="mt-5 justify-content-center text-center">
-      <h1 className="mb-3">{t("MainPage.Admin")}</h1>
+      <h1 className="mb-3">{t("HomePage.Admin")}</h1>
       <Row xs={2} className="justify-content-around">
         <PieChart width={400} height={400} data={pieDat} label legend tooltip innerRadius="100" />
         <PieChart width={400} height={400} data={pieDat2} label legend tooltip innerRadius="100" />
       </Row>
       <Row xs={2} className="text-center">
-        <h3>{t("Person.StateStaff")}</h3>
-        <h3>{t("MainPage.Report24h")}</h3>
+        <h3>{t("HomePage.StaffState")}</h3>
+        <h3>{t("HomePage.Report24h")}</h3>
       </Row>
       <h2 className="my-3">{t("Ambulance.Ambulances")}</h2>
       <Table columns={cols} data={ambulances} isLoading={isLoading} />

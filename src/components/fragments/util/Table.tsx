@@ -135,7 +135,7 @@ const BindableControl = (props: Readonly<Bind>) => {
     props.callback(e);
   };
 
-  return <FormControl placeholder={t("Search")} value={value} onChange={change} />;
+  return <FormControl placeholder={t("Common.Search")} value={value} onChange={change} />;
 };
 
 export default Table;

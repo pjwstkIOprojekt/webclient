@@ -29,7 +29,7 @@ const RadialBarChart = (props: Readonly<RadialBarChartParams>) => {
       <RadialBar label={{
         fill: props.labelFill,
         position: "insideStart"
-      }} background={props.background} dataKey="value" name={t("Value")} />
+      }} background={props.background} dataKey="value" name={t("Common.Value")} />
       {props.tooltip ? <Tooltip wrapperClassName={`bg-${customTheme(darkMode)}`} itemStyle={{
         color: stroke
       }} cursor={{

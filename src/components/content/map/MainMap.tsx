@@ -44,8 +44,8 @@ const MapForm = (props: Readonly<MapFormParams>) => {
 
   return (
     <Container>
-      <h1 className="mt-3">{t("Map")}</h1>
-      <h3 className="mb-3">{t("Filters")}:</h3>
+      <h1 className="mt-3">{t("Map.Map")}</h1>
+      <h3 className="mb-3">{t("Map.Filters")}:</h3>
       <Form className="w-50">
         <FormCheck label={t("MainPage.Incidents")} value={props.filters & MarkTypes.Incident} onChange={e => props.setFilters(props.filters ^ MarkTypes.Incident)} icon={accidentIcon} />
         <FormCheck label={t("Reports.TerroristAttacks")} value={props.filters & MarkTypes.Terrorist} onChange={e => props.setFilters(props.filters ^ MarkTypes.Terrorist)} icon={terroristIcon} />

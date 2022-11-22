@@ -24,7 +24,7 @@ const ConfirmPopup = (props: Readonly<ConfirmParams>) => {
       </Row>
       <Row xs={2} className="my-3 justify-content-around">
         <Button className="w-25" onClick={conf}>{t("Ok")}</Button>
-        <Button className="w-25" onClick={() => popup(null)}>{t("Cancel")}</Button>
+        <Button className="w-25" onClick={() => popup(null)}>{t("Common.Cancel")}</Button>
       </Row>
     </Container>
   );

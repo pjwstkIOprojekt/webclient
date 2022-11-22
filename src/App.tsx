@@ -12,6 +12,8 @@ import Home from "./components/content/home/Home";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
 import ReportForm from "./components/content/report/ReportForm";
+import FacilitiesList from "./components/content/faciliites/FacilitiesList";
+import FacilityForm from "./components/content/faciliites/FacilityForm";
 import MainMap from "./components/content/map/MainMap";
 import DispositorPanel from "./components/content/panel/DispositorPanel";
 import AdminPanel from "./components/content/panel/AdminPanel";
@@ -41,6 +43,9 @@ const App = () => {
           <Route path="/tutorial" element={<TutorialView />} />
           <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
           <Route path="/newreport" element={<ConditionalRoute condition={isAuth(roles)} element={<ReportForm />} />} />
+          <Route path="/facilities" element={<ConditionalRoute condition={isAuth(roles)} element={<FacilitiesList />} />} />
+          <Route path="/newfacility" element={<ConditionalRoute condition={isDispositor(roles) || isDirector(roles)} element={<FacilityForm />} />} />
+          <Route path="/facilities/:facilityId" element={<ConditionalRoute condition={isAuth(roles)} element={<FacilityForm />} />} />
           <Route path="/map" element={<ConditionalRoute condition={isDispositor(roles) || isDirector(roles)} element={<MainMap />} />} />
 
           <Route path="/test" element={<TestMap />} />

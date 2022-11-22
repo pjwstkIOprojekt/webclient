@@ -28,14 +28,14 @@ const AllergyTable = (props: Readonly<TableViewParams<AllergyResponse>>) => {
     { name: t("Allergy.Type"), property: (x: Readonly<AllergyResponse>) => <Enum enum={AllergyType} value={x.allergyType} />, filterBy: "allergyType", sortBy: "allergyType" },
     { name: t("Allergy.Name"), property: "allergyName", filterBy: "allergyName", sortBy: "allergyName" },
     { name: t("Allergy.Other"), property: "other", filterBy: "other", sortBy: "other" },
-    { name: t("Remove"), property: (x: Readonly<AllergyResponse>) => <Button onClick={e => popup(<ConfirmPopup text="Allergy.Remove" onConfirm={() => remove(x)} />)}>X</Button> }
+    { name: t("Common.Remove"), property: (x: Readonly<AllergyResponse>) => <Button onClick={e => popup(<ConfirmPopup text="Allergy.ConfirmRemove" onConfirm={() => remove(x)} />)}>X</Button> }
   ];
 
   return (
     <div className="mb-3">
       <h3>{t("Allergy.Allergies")}</h3>
       <Table columns={cols} data={props.data} isLoading={props.isLoading} />
-      <NavButton to="allergy">{t("Add")}</NavButton>
+      <NavButton to="allergy">{t("Common.Add")}</NavButton>
     </div>
   )
 }

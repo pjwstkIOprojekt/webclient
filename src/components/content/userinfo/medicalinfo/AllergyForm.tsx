@@ -69,13 +69,13 @@ const AllergyForm = () => {
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">{allergyId === undefined ? t("Allergy.Add") : t("Allergy.Edit")}</h1>
+      <h1 className="mb-3">{allergyId === undefined ? t("Allergy.Adding") : t("Allergy.Editing")}</h1>
       <Form onSubmit={onSubmit}>
         <EnumSelect id="allergyType" className="mb-3" label={t("Allergy.Type")} required enum={AllergyType} value={allergyType} onLoad={setAllergyType} onChange={e => setAllergyType(e.target.value)} />
         <NotBlank id="allergyName" className="mb-3" label={t("Allergy.Name")} required value={allergyName} onChange={e => setAllergyName(e.target.value)} />
         <NotBlank id="other" className="mb-3" label={t("Allergy.Other")} required value={other} onChange={e => setOther(e.target.value)} />
-        <Button className="m-2" type="submit">{allergyId === undefined ? t("Add") : t("Save")}</Button>
-        <NavButton to="../medicaldata">{t("Cancel")}</NavButton>
+        <Button className="m-2" type="submit">{allergyId === undefined ? t("Common.Add") : t("Common.Save")}</Button>
+        <NavButton to="../medicaldata">{t("Common.Cancel")}</NavButton>
         {error ? (
           <Alert variant="danger" className="mt-3">
             <Alert.Heading>{t(errorHeader)}</Alert.Heading>

@@ -16,8 +16,8 @@ const AdminPanel = () => {
 
   const links = [
     { to: "ambulances", text: t("Ambulance.Ambulances") },
-    { to: "victims", text: t("Person.Victims") },
-    { to: "staff", text: t("Person.Staff") }
+    { to: "victims", text: "Poszkodowani" },
+    { to: "staff", text: "Personel" }
   ];
 
   return (

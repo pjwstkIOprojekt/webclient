@@ -54,7 +54,7 @@ const MedicalData = () => {
 
   return (
     <Container className="my-3">
-      <h1 className="mb-3">{t("MedicalData")}</h1>
+      <h1 className="mb-3">{t("Person.MedicalData")}</h1>
       <BloodTypeForm id={blood.id} bloodType={blood.bloodType} rhType={blood.rhType} />
       <AllergyTable data={allergies} isLoading={isloading} onRemove={removeAllergy} />
       <MedicalConditionTable data={conditions} isLoading={isloading} onRemove={removeDisease} />

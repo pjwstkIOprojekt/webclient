@@ -23,17 +23,17 @@ const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>
 
   const cols = [
     { name: "#", property: (x: Readonly<DiseaseResponse>) => <Link to={`disease/${x.diseaseId}`}>{x.diseaseId}</Link>, filterBy: "diseaseId", sortBy: "diseaseId" },
-    { name: t("Name"), property: "diseaseName", filterBy: "diseaseName", sortBy: "diseaseName" },
-    { name: t("Reports.Description"), property: "description", filterBy: "description", sortBy: "description" },
-    { name: t("Share"), property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? t("Yes") : t("No") },
-    { name: t("Remove"), property: (x: Readonly<DiseaseResponse>) => <Button onClick={e => popup(<ConfirmPopup text="RemoveDisease" onConfirm={() => remove(x)} />)}>X</Button> }
+    { name: t("Disease.Name"), property: "diseaseName", filterBy: "diseaseName", sortBy: "diseaseName" },
+    { name: t("Disease.Description"), property: "description", filterBy: "description", sortBy: "description" },
+    { name: t("Disease.ShareWithBand"), property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? t("Common.Yes") : t("Common.No") },
+    { name: t("Common.Remove"), property: (x: Readonly<DiseaseResponse>) => <Button onClick={e => popup(<ConfirmPopup text="Disease.ConfirmRemove" onConfirm={() => remove(x)} />)}>X</Button> }
   ];
 
   return (
     <div>
-      <h3>{t("Diseases")}</h3>
+      <h3>{t("Disease.Diseases")}</h3>
       <Table columns={cols} data={props.data} isLoading={props.isLoading} />
-      <NavButton to="disease">{t("Add")}</NavButton>
+      <NavButton to="disease">{t("Common.Add")}</NavButton>
     </div>
   );
 };

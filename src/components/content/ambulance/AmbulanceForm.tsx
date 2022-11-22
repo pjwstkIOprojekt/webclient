@@ -71,16 +71,16 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
 
   return (
     <Form onSubmit={onSubmit} className="w-50">
-      <h1 className="my-3 text-center">{ambulanceId === undefined ? t("AddAmbulance") : t("EditAmbulance")}</h1>
-      <Length length={8} id="licensePlate" className="mb-3" label={t("Ambulance.RegistrationNumber")} required value={licensePlate} onChange={e => setLicensePlate(e.target.value)} disabled={ambulanceId !== undefined} />
-      <EnumSelect id="ambulanceClass" className="mb-3" label={t("Ambulance.Kind")} required enum={AmbulanceClass} value={ambulanceClass} onLoad={setAmbulanceClass} onChange={e => setAmbulanceClass(e.target.value)} />
+      <h1 className="my-3 text-center">{ambulanceId === undefined ? t("Ambulance.Adding") : t("Ambulance.Editing")}</h1>
+      <Length length={8} id="licensePlate" className="mb-3" label={t("Ambulance.LicensePlate")} required value={licensePlate} onChange={e => setLicensePlate(e.target.value)} disabled={ambulanceId !== undefined} />
+      <EnumSelect id="ambulanceClass" className="mb-3" label={t("Ambulance.Class")} required enum={AmbulanceClass} value={ambulanceClass} onLoad={setAmbulanceClass} onChange={e => setAmbulanceClass(e.target.value)} />
       <EnumSelect id="ambulanceType" className="mb-3" label={t("Ambulance.Type")} required enum={AmbulanceType} value={ambulanceType} onLoad={setAmbulanceType} onChange={e => setAmbulanceType(e.target.value)} />
-      <Number id="seats" className="mb-3" label={t("Ambulance.MaxAmount")} required value={seats} minValue="1" onChange={e => setSeats(parseInt(e.target.value))} />
-      <h4 className="text-center mb-3">{t("Reports.Location")}</h4>
+      <Number id="seats" className="mb-3" label={t("Ambulance.Seats")} required value={seats} minValue="1" onChange={e => setSeats(parseInt(e.target.value))} />
+      <h4 className="text-center mb-3">{t("Map.Location")}</h4>
       <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} />
       <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update([props.lat, parseFloat(e.target.value)])} />
       <Row className="justify-content-center">
-        <Button className="mt-3 w-75" type="submit">{ambulanceId === undefined ? t("Ambulance.Add") : t("Save")}</Button>
+        <Button className="mt-3 w-75" type="submit">{ambulanceId === undefined ? t("Ambulance.Add") : t("Common.SaveChanges")}</Button>
       </Row>
       {error ? (
         <Alert variant="danger" className="mt-3">

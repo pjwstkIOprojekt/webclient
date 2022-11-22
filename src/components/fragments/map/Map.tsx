@@ -98,8 +98,8 @@ const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
 
   useEffect(() => {
     const geocoder = new Geocoder({
-      placeholder: t("Search"),
-      errorMessage: t("NoResults"),
+      placeholder: t("Common.Search"),
+      errorMessage: t("Common.NoResults"),
       defaultMarkGeocode: false,
       geocoder: props.geocoder
     });
