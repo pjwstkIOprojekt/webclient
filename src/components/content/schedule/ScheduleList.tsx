@@ -3,35 +3,69 @@ import Table, { TableColumnParams } from "../../fragments/util/Table";
 import FormCheck from "../../fragments/forms/FormCheck";
 import { Container } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import plLocale from '@fullcalendar/core/locales/pl';
 
 const ScheduleList = () => {
-  const [paramedics] = useState([
-    { id: 1, paramedic: "Jan Nowak" },
-    { id: 2, paramedic: "Adam Kowalski", }
+  const [events,setEvents] = useState([
+    {
+        id: '0',
+        title: 'Paramedic 1',
+        start: new Date('2022-11-22T08:00:00.000'),
+        end: new Date('2022-11-22T16:00:00.000'),
+
+    },
+    {
+      id: '1',
+      title: 'Paramedic 2',
+      start: new Date('2022-11-22T16:00:00.000'),
+      end: new Date('2022-11-22T24:00:00.000'),
+  },
+  {
+    id: '2',
+    title: 'Paramedic 3',
+    start: new Date('2022-11-22T24:00:00.000'),
+    end: new Date('2022-11-23T08:00:00.000'),
+
+},
+{
+  id: '3',
+  title: 'Paramedic 4',
+  start: new Date('2022-11-23T08:00:00.000'),
+  end: new Date('2022-11-23T16:00:00.000'),
+
+},
+{
+  id: '4',
+  title: 'Paramedic 5',
+  start: new Date('2022-11-22T24:00:00.000'),
+  end: new Date('2022-11-23T08:00:00.000'),
+
+}
   ]);
- 
-  const cols: TableColumnParams<any>[] = [
-    { name: "#", property: "id" },
-    { name: "Ratownik", property: "paramedic" }
-  ];
-
-  const today = new Date();
-  const diff = today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1);
-  const formatDateNumber = (x: number) => x < 10 ? `0${x}` : x.toString();
-
-  for (let i = 0; i < 7; ++i) {
-    const date = new Date();
-    date.setDate(diff + i);
-    const dateString = `${formatDateNumber(date.getDate())}-${formatDateNumber(date.getMonth())}-${date.getFullYear()}`;
-    const val = Math.random() > 0.5;
-    cols.push({ name: `${dateString} Zmiana 1`, property: (x: Readonly<any>) => <FormCheck value={val} disabled /> });
-    cols.push({ name: `${dateString} Zmiana 2`, property: (x: Readonly<any>) => <FormCheck value={!val} disabled /> });
-  }
 
   return (
     <Container className="mb-2 text-center">
-      <h1>Grafik ratowników</h1>
-      <Table columns={cols} data={paramedics} />
+      <FullCalendar
+        plugins={[dayGridPlugin,timeGridPlugin, listPlugin]}
+        initialView= 'listWeek'
+        displayEventTime
+        initialEvents={events}
+        firstDay={1}
+        expandRows={true}
+        locale={plLocale}
+        headerToolbar={{
+          left: "today prev next",
+          right: "dayGridMonth dayGridWeek listWeek",
+        }}
+        selectable={true}
+        selectMirror={true}
+        
+        
+      />
       <NavButton className="mb-3 w-25" to="edit">Edytuj</NavButton>
     </Container>
   );
