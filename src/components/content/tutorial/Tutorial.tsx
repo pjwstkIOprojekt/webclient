@@ -31,7 +31,7 @@ const Tutorial = () => {
       return null;
     }
 
-    return x.length > 20 ? x.substring(0, 20) + "..." : x;
+    return x.length > 30 ? x.substring(0, 30) + "..." : x;
   };
 
   const review = () => {
@@ -41,7 +41,7 @@ const Tutorial = () => {
   };
 
   return (
-    <Container className="my-5">
+    <Container fluid className="my-5">
       <Row>
         <Col xs={2} className={`contents-${customTheme(darkMode)}`}>
           <Nav className="col-md-12 d-none d-md-block lh-lg p-1 h-100">
@@ -56,9 +56,9 @@ const Tutorial = () => {
               <NavDropdown.Divider />
               <br />
               <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
-              <span onClick={review}>
+              <Row onClick={review} className="text-center">
                 <Rating initialValue={0} disabled={!isAuth(roles)} />
-              </span>
+              </Row>
             </span>
           </Nav>
         </Col>

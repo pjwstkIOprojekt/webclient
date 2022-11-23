@@ -45,7 +45,7 @@
         "FAILURE": "Awaria",
         "MAINTENANCE": "Konserwacja",
         "AVAILABLE": "Dostępna",
-        "IN_ACTION": "W akcji",
+        "ON_ACTION": "W akcji",
         "CREW_BRAKE": "Przerwa zespołu"
     },
     "AmbulanceClass": {
@@ -74,6 +74,7 @@
         "ChangingState": "Zmiana stanu karetki",
         "ChangeState": "Zmień stan karetki",
         "Exists": "Karetka z tym numerem rejestracyjnym już istnieje.",
+        "SameState": "Karetka jest już w tym stanie",
         "Adding": "Dodawanie karetki",
         "Editing": "Edycja karetki",
         "Add": "Dodaj karetkę"

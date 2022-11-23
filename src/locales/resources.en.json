@@ -45,7 +45,7 @@
         "FAILURE": "Failure",
         "MAINTENANCE": "Maintenance",
         "AVAILABLE": "Available",
-        "IN_ACTION": "In action",
+        "ON_ACTION": "In action",
         "CREW_BRAKE": "Crew brake"
     },
     "AmbulanceClass": {
@@ -74,6 +74,7 @@
         "ChangingState": "Change status in ambulance",
         "ChangeState": "Change ambulance status",
         "Exists": "Ambulance with this license plate already exists.",
+        "SameState": "This ambulance is already in this state",
         "Adding": "Add ambulance",
         "Editing": "Edit ambulance",
         "Add": "Add ambulance"

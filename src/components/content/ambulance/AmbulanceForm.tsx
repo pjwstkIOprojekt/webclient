@@ -2,7 +2,7 @@ import { MapViewHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { getAmbulanceByLicensePlate, AmbulanceResponse, createAmbulance, updateAmbulance } from "../../../api/ambulanceCalls";
+import { getAmbulanceByLicensePlate, AmbulanceResponse, createAmbulance, updateAmbulance, postAmbulanceLocation } from "../../../api/ambulanceCalls";
 import { loadingError, unknownError, errorHeader } from "../sharedStrings";
 import { Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
@@ -44,19 +44,38 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
 
   const onSubmit = () => {
     setError("");
+    const lng = props.lng;
+    const lat = props.lat;
 
     const ambulance = {
       licensePlate: licensePlate,
       ambulanceClass: ambulanceClass,
       ambulanceType: ambulanceType,
       seats: seats,
-      longitude: props.lng,
-      latitude: props.lat
+      longitude: lng,
+      latitude: lat
     };
 
     (ambulanceId === undefined ? createAmbulance(ambulance) : updateAmbulance(ambulance)).then(res => {
       if (res.status === 200) {
-        navigate("../ambulances");
+        if (ambulanceId === undefined) {
+          navigate("../ambulances");
+        } else {
+          postAmbulanceLocation(ambulanceId, {
+            longitude: lng,
+            latitude: lat
+          }).then(res => {
+            if (res.status === 200) {
+              navigate("../ambulances");
+            } else {
+              console.log(res);
+              setError(unknownError);
+            }
+          }).catch(err => {
+            console.error(err);
+            setError(unknownError);
+          });
+        }
       } else if (res.status === 409) {
         setError("Ambulance.Exists");
       } else {
