@@ -44,7 +44,7 @@ export const AmbulanceState = {
       dark: "#00aa00",
       light: "#00aa00"
     },
-    "IN_ACTION": {
+    "ON_ACTION": {
       dark: "#447700",
       light: "#447700"
     },

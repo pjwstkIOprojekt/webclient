@@ -1,3 +1,5 @@
+import { PathElement } from "../../api/basicCalls"
+
 export interface TableViewParams<T> {
   data: T[],
   isLoading: boolean,
@@ -8,4 +10,9 @@ export interface MapViewHelperParams {
   update: (x: [number, number]) => void,
   lat: number,
   lng: number
+}
+
+export interface MapPathHelperParams extends MapViewHelperParams {
+  path: PathElement[],
+  setPath: (x: PathElement[]) => void
 }

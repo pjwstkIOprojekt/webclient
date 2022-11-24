@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAmbulanceHistory, AmbulanceHistoryResponse } from "../../../api/ambulanceCalls";
+import { AmbulanceStateResponse, getAmbulanceHistory, AmbulanceHistoryResponse } from "../../../api/ambulanceCalls";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { licensePlateError } from "../sharedStrings";
@@ -10,14 +10,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
-interface StoredState {
-  type: string,
-  start: Date,
-  end: Date
-}
-
 const AmbulanceHistory = () => {
-  const [states, setStates] = useState<StoredState[]>([]);
+  const [states, setStates] = useState<AmbulanceStateResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
@@ -32,8 +26,7 @@ const AmbulanceHistory = () => {
       if (data.ambulanceHistory) {
         setStates(data.ambulanceHistory.map(s => ({
           type: s.type,
-          start: new Date(s.timeWindow["start"]),
-          end: new Date(s.timeWindow["end"])
+          timestamp: new Date(s.timestamp)
         })));
       }
 
@@ -45,9 +38,8 @@ const AmbulanceHistory = () => {
   }, [ambulanceId]);
 
   const cols = [
-    { name: t("Ambulance.Status"), property: (x: Readonly<StoredState>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: "type", sortBy: "type" },
-    { name: t("Common.Since"), property: (x: Readonly<StoredState>) => <DateDisplay value={x.start} />, filterBy: "start", sortBy: "start" },
-    { name: t("Common.Until"), property: (x: Readonly<StoredState>) => <DateDisplay value={x.end} />, filterBy: "end", sortBy: "end" }
+    { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceStateResponse>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: "type", sortBy: "type" },
+    { name: t("Common.Since"), property: (x: Readonly<AmbulanceStateResponse>) => <DateDisplay value={x.timestamp} />, filterBy: "timestamp", sortBy: "timestamp" }
   ];
 
   return (

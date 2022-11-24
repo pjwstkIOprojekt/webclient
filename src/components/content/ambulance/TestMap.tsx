@@ -20,7 +20,7 @@ const TestMap = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView center={coords} initialZoom={12} element={<MapForm val={progress} call={setProgress} />} marks={[mark]} paths={[{points: points, color: "blue"}]} />;
+  return <MapView isLoaded center={coords} initialZoom={12} element={<MapForm val={progress} call={setProgress} />} marks={[mark]} paths={[{points: points, color: "blue"}]} />;
 };
 
 export default TestMap;

@@ -45,7 +45,7 @@
         "FAILURE": "Failure",
         "MAINTENANCE": "Maintenance",
         "AVAILABLE": "Available",
-        "IN_ACTION": "In action",
+        "ON_ACTION": "In action",
         "CREW_BRAKE": "Crew brake"
     },
     "AmbulanceClass": {
@@ -61,6 +61,12 @@
         "GUARD_UNIT": "Guard unit",
         "AED": "AED"
     },
+    "IncidentStatusType": {
+        "NEW": "New",
+        "ASSIGNED": "Accepted",
+        "REJECTED": "Rejected",
+        "CLOSED": "Closed"
+    },
     "Ambulance": {
         "Ambulances": "Ambulances",
         "Ambulance": "Ambulance",
@@ -70,10 +76,12 @@
         "Type": "Type of ambulance",
         "Status": "Ambulance status",
         "History": "History of the ambulance",
+        "Path": "Ambulance path",
         "Confirm": "Are you sure you want to remove this carriage?",
         "ChangingState": "Change status in ambulance",
         "ChangeState": "Change ambulance status",
         "Exists": "Ambulance with this license plate already exists.",
+        "SameState": "This ambulance is already in this state",
         "Adding": "Add ambulance",
         "Editing": "Edit ambulance",
         "Add": "Add ambulance"

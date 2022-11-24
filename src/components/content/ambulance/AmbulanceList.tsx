@@ -40,7 +40,12 @@ const AmbulanceList = () => {
     { name: t("Ambulance.Class"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
     { name: t("Ambulance.Type"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, sortBy: "ambulanceType", filterBy: "ambulanceType" },
     { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, sortBy: "ambulanceStateType", filterBy: "ambulanceStateType" },
-    { name: t("Common.Details"), property: (x: Readonly<AmbulanceResponse>) => <NavButton to={`hist/${x.licensePlate}`}>{t("Ambulance.History")}</NavButton> },
+    { name: t("Common.Details"), property: (x: Readonly<AmbulanceResponse>) => (
+      <>
+        <NavButton to={`hist/${x.licensePlate}`} className="mb-1">{t("Ambulance.History")}</NavButton>
+        <NavButton to={`path/${x.licensePlate}`}>{t("Ambulance.Path")}</NavButton>
+      </>
+    ) },
     { name: t("Common.Remove"), property: (x: Readonly<AmbulanceResponse>) => <Button onClick={e => popup(<ConfirmPopup text="Ambulance.ConfirmRemove" onConfirm={() => remove(x.licensePlate)} />)}>X</Button> }
   ];
 

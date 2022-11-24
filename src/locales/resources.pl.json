@@ -45,7 +45,7 @@
         "FAILURE": "Awaria",
         "MAINTENANCE": "Konserwacja",
         "AVAILABLE": "Dostępna",
-        "IN_ACTION": "W akcji",
+        "ON_ACTION": "W akcji",
         "CREW_BRAKE": "Przerwa zespołu"
     },
     "AmbulanceClass": {
@@ -61,6 +61,12 @@
         "GUARD_UNIT": "Jednostka wojskowa",
         "AED": "AED"
     },
+    "IncidentStatusType": {
+        "NEW": "Nowe",
+        "ASSIGNED": "Przyjęte",
+        "REJECTED": "Odrzucone",
+        "CLOSED": "Zamknięte"
+    },
     "Ambulance": {
         "Ambulances": "Karetki",
         "Ambulance": "Karetka",
@@ -70,10 +76,12 @@
         "Type": "Typ karetki",
         "Status": "Status karetki",
         "History": "Historia karetki",
+        "Path": "Trasa karetki",
         "ConfirmRemove": "Czy na pewno chcesz usunąć tą karetkę?",
         "ChangingState": "Zmiana stanu karetki",
         "ChangeState": "Zmień stan karetki",
         "Exists": "Karetka z tym numerem rejestracyjnym już istnieje.",
+        "SameState": "Karetka jest już w tym stanie",
         "Adding": "Dodawanie karetki",
         "Editing": "Edycja karetki",
         "Add": "Dodaj karetkę"

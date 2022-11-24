@@ -5,6 +5,10 @@ export interface Location {
   latitude: number
 }
 
+export interface PathElement extends Location {
+  timestamp: Date
+}
+
 // Base url for requests, change to 'http://localhost:8080' if you want to test with local backend
 const baseUrl = "http://172.21.40.111:8080";
 
@@ -24,7 +28,7 @@ export const get = (path: string) => fetch(`${baseUrl}/${path}`, {
 });
 
 // Basic POST request
-export const post = (path: string, body: any) => fetch(`${baseUrl}/${path}`, {
+export const post = (path: string, body?: any) => fetch(`${baseUrl}/${path}`, {
   method: "POST",
   headers: addToken({
     "Content-type": "application/json; charset=UTF-8"
@@ -33,7 +37,7 @@ export const post = (path: string, body: any) => fetch(`${baseUrl}/${path}`, {
 });
 
 // Basic PUT request
-export const put = (path: string, body: any) => fetch(`${baseUrl}/${path}`, {
+export const put = (path: string, body?: any) => fetch(`${baseUrl}/${path}`, {
   method: "PUT",
   headers: addToken({
     "Content-type": "application/json; charset=UTF-8"
