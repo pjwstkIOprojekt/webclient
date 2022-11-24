@@ -61,6 +61,12 @@
         "GUARD_UNIT": "Guard unit",
         "AED": "AED"
     },
+    "IncidentStatusType": {
+        "NEW": "New",
+        "ASSIGNED": "Accepted",
+        "REJECTED": "Rejected",
+        "CLOSED": "Closed"
+    },
     "Ambulance": {
         "Ambulances": "Ambulances",
         "Ambulance": "Ambulance",

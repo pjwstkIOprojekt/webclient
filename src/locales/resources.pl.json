@@ -61,6 +61,12 @@
         "GUARD_UNIT": "Jednostka wojskowa",
         "AED": "AED"
     },
+    "IncidentStatusType": {
+        "NEW": "Nowe",
+        "ASSIGNED": "Przyjęte",
+        "REJECTED": "Odrzucone",
+        "CLOSED": "Zamknięte"
+    },
     "Ambulance": {
         "Ambulances": "Karetki",
         "Ambulance": "Karetka",
