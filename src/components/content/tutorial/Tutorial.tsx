@@ -43,7 +43,7 @@ const Tutorial = () => {
   return (
     <Container fluid className="my-5">
       <Row>
-        <Col xs={2} className={`contents-${customTheme(darkMode)}`}>
+        <Col xs={2} className={`contents-${customTheme(darkMode)} radius`}>
           <Nav className="col-md-12 d-none d-md-block lh-lg p-1 h-100">
             <span className="contents">
               <h1>Spis treści</h1>

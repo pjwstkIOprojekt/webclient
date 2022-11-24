@@ -1,5 +1,5 @@
 import { Position } from "../../fragments/map/Map";
-import { MarkTypes, EmergencyType } from "../../../api/enumCalls";
+import { MarkTypes, EmergencyType, FacilityType } from "../../../api/enumCalls";
 import { useTranslation } from "react-i18next";
 import FormCheck from "../../fragments/forms/FormCheck";
 import { Container, Form } from "react-bootstrap";
@@ -28,6 +28,12 @@ const MapForm = (props: Readonly<MapFormParams>) => {
     values.push(<FormCheck label={t(`${EmergencyType.name}.${key}`)} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
   }
 
+  for (const key in FacilityType.values) {
+    const vals = FacilityType.values[key];
+    const mark = vals.markType ?? MarkTypes.None;
+    values.push(<FormCheck label={t(`${FacilityType.name}.${key}`)} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
+  }
+
   return (
     <Container>
       <h1 className="mt-3">{t("Map.Map")}</h1>
@@ -44,6 +50,7 @@ const MainMap = () => {
   const [coords, setCoords] = useState<[number, number]>([0, 0]);
   const [loaded, setLoaded] = useState(false);
   const [positions, setPositions] = useState<Mark[]>([]);
+  const [facilities, setFacilities] = useState<Mark[]>([]);
   const [filters, setFilters] = useState(MarkTypes.All);
   const [update, setUpdate] = useState(false);
 
@@ -73,20 +80,19 @@ const MainMap = () => {
       setLoaded(true);
     }, err => setLoaded(true));
 
-    /*
     getFacilities().then(res => res.json()).then((data: FacilityResponse[]) => {
       if (data) {
-        setFacilities(data.map(e => ({
-          coords: [e.location.latitude, e.location.longitude],
-          desc: e.name,
-          type: e.facilityType.toLowerCase().includes("h") ? MarkTypes.Hospital : MarkTypes.Police,
-          icon: e.facilityType.toLowerCase().includes("h") ? hospitalIcon : policeIcon
+        setFacilities(data.map(f => ({
+          coords: [f.location.latitude, f.location.longitude],
+          desc: f.name,
+          type: FacilityType.values?.[f.facilityType].markType ?? MarkTypes.None,
+          icon: FacilityType.values?.[f.facilityType].icon
         })));
       }
-    }).catch(console.error);*/
+    }).catch(console.error);
   }, []);
 
-  const marks = positions.filter(p => p.type & filters).map(e => ({
+  const marks = [...positions, ...facilities].filter(p => p.type & filters).map(e => ({
     coords: e.coords,
     desc: e.desc,
     icon: e.icon,

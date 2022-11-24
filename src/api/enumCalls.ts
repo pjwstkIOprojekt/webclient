@@ -1,6 +1,6 @@
 import L from "leaflet";
 import { get } from "./basicCalls";
-import { accidentIcon, fireIcon } from "../components/content/map/MapIcons";
+import { accidentIcon } from "../components/content/map/MapIcons";
 
 export interface EnumValues {
   dark?: string,
@@ -25,7 +25,12 @@ export enum MarkTypes {
   HeartAttack = 32,
   Suicide = 64,
   Covid = 128,
-  All = 255
+  Hospital = 256,
+  PoliceStation = 512,
+  FireUnit = 1024,
+  GuardUnit = 2048,
+  Aed = 4096,
+  All = 8191
 }
 
 const enumBase = "enum";
@@ -132,9 +137,31 @@ export const EmergencyType: EnumType = {
   }
 };
 
-export const FacilityType = {
+export const FacilityType: EnumType = {
   getter: () => get(`${enumBase}/facility_type`),
-  name: "FacilityType"
+  name: "FacilityType",
+  values: {
+    "HOSPITAL": {
+      markType: MarkTypes.Hospital,
+      icon: accidentIcon
+    },
+    "POLICE_STATION": {
+      markType: MarkTypes.PoliceStation,
+      icon: accidentIcon
+    },
+    "FIRE_UNIT": {
+      markType: MarkTypes.FireUnit,
+      icon: accidentIcon
+    },
+    "GUARD_UNIT": {
+      markType: MarkTypes.GuardUnit,
+      icon: accidentIcon
+    },
+    "AED": {
+      markType: MarkTypes.Aed,
+      icon: accidentIcon
+    }
+  }
 };
 
 export const RoleName = {

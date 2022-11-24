@@ -205,7 +205,7 @@
 .popup-light
 {
     background-color: var(--light-popup);
-    border-color: var(--light-text);
+    border-color: var(--light-nav-hover);
 }
 
 .circle-light
@@ -253,6 +253,11 @@
 .d-contents
 {
     display: contents;
+}
+
+.radius
+{
+    border-radius: 2rem;
 }
 
 .navbar
