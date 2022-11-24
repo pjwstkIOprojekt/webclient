@@ -76,6 +76,7 @@
         "Type": "Type of ambulance",
         "Status": "Ambulance status",
         "History": "History of the ambulance",
+        "Path": "Ambulance path",
         "Confirm": "Are you sure you want to remove this carriage?",
         "ChangingState": "Change status in ambulance",
         "ChangeState": "Change ambulance status",

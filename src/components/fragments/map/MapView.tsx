@@ -1,11 +1,13 @@
 import { Container, Row, Col } from "react-bootstrap";
 import Map, { MapParams } from "./Map";
+import ViewLoader from "../util/ViewLoader";
 
 export interface MapViewParams extends MapParams {
+  isLoaded: boolean,
   element?: JSX.Element
 }
 
-const MapView = (props: Readonly<MapViewParams>) => {
+const MapLoadView = (props: Readonly<MapViewParams>) => {
   return (
     <Container fluid>
       <Row>
@@ -18,6 +20,10 @@ const MapView = (props: Readonly<MapViewParams>) => {
       </Row>
     </Container>
   );
+};
+
+const MapView = (props: Readonly<MapViewParams>) => {
+  return <ViewLoader isLoaded={props.isLoaded} element={<MapLoadView {...props} />} />;
 };
 
 export default MapView;

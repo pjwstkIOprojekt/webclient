@@ -66,14 +66,14 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
   
     return (
       <Form onSubmit={onSubmit} className="w-50">
-        <h1 className="my-3 text-center">{facilityId === undefined ? "Dodawanie placówki" : "Edycja placówki"}</h1>
-        <NotBlank id="name" className="mb-3" required value={name} onChange={e => setName(e.target.value)} label="Nazwa placówki" />
-        <EnumSelect id="facilityType" className="mb-3" required value={facilityType} onChange={e => setFacilityType(e.target.value)} enum={FacilityType} onLoad={setFacilityType} label="Rodzaj placówki" />
-        <h4 className="text-center mb-3">Lokalizacja</h4>
+        <h1 className="my-3 text-center">{facilityId === undefined ? t("Facility.Adding") : t("Facility.Editing")}</h1>
+        <NotBlank id="name" className="mb-3" required value={name} onChange={e => setName(e.target.value)} label={t("Facility.Name")} />
+        <EnumSelect id="facilityType" className="mb-3" required value={facilityType} onChange={e => setFacilityType(e.target.value)} enum={FacilityType} onLoad={setFacilityType} label={t("Facility.Type")} />
+        <h4 className="text-center mb-3">{t("Map.Location")}</h4>
         <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} />
         <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update([props.lat, parseFloat(e.target.value)])} />
         <Row className="justify-content-center">
-          <Button className="mt-3 w-75" type="submit">{facilityId === undefined ? "Dodaj placówkę" : t("Save")}</Button>
+          <Button className="mt-3 w-75" type="submit">{facilityId === undefined ? t("Facility.Add") : t("Common.SaveChanges")}</Button>
         </Row>
         {error ? (
           <Alert variant="danger" className="mt-3">
@@ -86,18 +86,24 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
   };
   
   const FacilityForm = () => {
-    const [coords, setCoords] = useState<[number, number]>([52.222, 21.015]);
-    useEffect(() => navigator.geolocation.getCurrentPosition(pos => setCoords([pos.coords.latitude, pos.coords.longitude])), []);
+    const [coords, setCoords] = useState<[number, number]>([0, 0]);
+    const [loaded, setLoaded] = useState(false);
+    const { t } = useTranslation();
+
+    useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
+      setCoords([pos.coords.latitude, pos.coords.longitude]);
+      setLoaded(true);
+    }, err => setLoaded(true)), []);
+
     const update = (x: Readonly<L.LatLng>) => setCoords([x.lat, x.lng]);
   
     const mark = {
       coords: coords,
-      desc: "Placówka",
-      icon: hospitalIcon,
-      to: "/home"
+      desc: t("Facility.Facility"),
+      icon: hospitalIcon
     };
   
-    return <MapView center={coords} initialZoom={12} element={<FacilityFormView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} marks={[mark]} />;
+    return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<FacilityFormView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} marks={[mark]} />;
   };
   
   export default FacilityForm;

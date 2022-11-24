@@ -76,6 +76,7 @@
         "Type": "Typ karetki",
         "Status": "Status karetki",
         "History": "Historia karetki",
+        "Path": "Trasa karetki",
         "ConfirmRemove": "Czy na pewno chcesz usunąć tą karetkę?",
         "ChangingState": "Zmiana stanu karetki",
         "ChangeState": "Zmień stan karetki",

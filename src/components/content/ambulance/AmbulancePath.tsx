@@ -1,26 +1,26 @@
-import { MapViewHelperParams } from "../sharedViewsParams";
+import { MapPathHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AmbulancePathResponse, getAmbulancePath, postAmbulanceLocation } from "../../../api/ambulanceCalls";
+import { getAmbulancePath, AmbulancePathResponse, postAmbulanceLocation } from "../../../api/ambulanceCalls";
 import { licensePlateError, loadingError, unknownError, errorHeader } from "../sharedStrings";
 import { Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
+import Range from "../../fragments/forms/Range";
 import Number from "../../fragments/forms/api/Number";
 import Button from "../../fragments/util/Button";
+import { PathElement } from "../../../api/basicCalls";
 import L from "leaflet";
 import { ambulanceIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
-const AmbulancePathView = (props: Readonly<MapViewHelperParams>) => {
-  const [path, setPath] = useState<AmbulancePathResponse>({
-    path: []
-  });
-
+const AmbulancePathView = (props: Readonly<MapPathHelperParams>) => {
+  const [offset, setOffset] = useState(0);
+  const [update, setUpdate] = useState(false);
   const [error, setError] = useState("");
   const { ambulanceId } = useParams();
-  const navigate = useNavigate();
   const { t } = useTranslation();
+  const setPath = props.setPath;
 
   useEffect(() => {
     if (ambulanceId === undefined) {
@@ -30,7 +30,7 @@ const AmbulancePathView = (props: Readonly<MapViewHelperParams>) => {
 
     getAmbulancePath(ambulanceId).then(res => res.json()).then((data: AmbulancePathResponse) => {
       if (data.path) {
-        setPath(data);
+        setPath(data.path);
       } else {
         setError(loadingError);
       }
@@ -38,7 +38,7 @@ const AmbulancePathView = (props: Readonly<MapViewHelperParams>) => {
       console.error(err);
       setError(loadingError);
     });
-  }, [ambulanceId]);
+  }, [ambulanceId, setPath, update]);
 
   const onSubmit = () => {
     if (ambulanceId === undefined) {
@@ -53,7 +53,7 @@ const AmbulancePathView = (props: Readonly<MapViewHelperParams>) => {
       latitude: props.lat
     }).then(res => {
       if (res.status === 200) {
-        navigate("../ambulances");
+        setUpdate(!update);
       } else {
         console.log(res);
         setError(unknownError);
@@ -64,9 +64,16 @@ const AmbulancePathView = (props: Readonly<MapViewHelperParams>) => {
     });
   };
 
+  const onMove = (x: number) => {
+    setOffset(x);
+    const value = props.path[x];
+    props.update([value.latitude, value.longitude]);
+  };
+
   return (
     <Form onSubmit={onSubmit} className="w-50">
-      <h1 className="my-3 text-center">{t("Ambulance.Editing")}</h1>
+      <h1 className="my-3 text-center">{t("Ambulance.Path")}</h1>
+      <Range id="timeline" className="mb-3" minValue="0" maxValue={props.path.length - 1} value={offset} onChange={e => onMove(parseInt(e.target.value))} />
       <h4 className="text-center mb-3">{t("Map.Location")}</h4>
       <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} />
       <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update([props.lat, parseFloat(e.target.value)])} />
@@ -84,9 +91,16 @@ const AmbulancePathView = (props: Readonly<MapViewHelperParams>) => {
 };
 
 const AmbulancePath = () => {
-  const [coords, setCoords] = useState<[number, number]>([52.222, 21.015]);
+  const [coords, setCoords] = useState<[number, number]>([0, 0]);
+  const [loaded, setLoaded] = useState(false);
+  const [path, setPath] = useState<PathElement[]>([]);
   const { t } = useTranslation();
-  useEffect(() => navigator.geolocation.getCurrentPosition(pos => setCoords([pos.coords.latitude, pos.coords.longitude])), []);
+
+  useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
+    setCoords([pos.coords.latitude, pos.coords.longitude]);
+    setLoaded(true);
+  }, err => setLoaded(true)), []);
+
   const update = (x: Readonly<L.LatLng>) => setCoords([x.lat, x.lng]);
 
   const mark = {
@@ -95,7 +109,10 @@ const AmbulancePath = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView center={coords} initialZoom={12} element={<AmbulancePathView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} marks={[mark]} />;
+  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<AmbulancePathView update={setCoords} lat={coords[0]} lng={coords[1]} path={path} setPath={setPath} />} paths={[{
+    points: path.map(p => [p.latitude, p.longitude]),
+    color: "red"
+  }]} clickable onClick={e => update(e)} marks={[mark]} />;
 };
 
 export default AmbulancePath;

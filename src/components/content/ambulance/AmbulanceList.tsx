@@ -43,7 +43,7 @@ const AmbulanceList = () => {
     { name: t("Common.Details"), property: (x: Readonly<AmbulanceResponse>) => (
       <>
         <NavButton to={`hist/${x.licensePlate}`} className="mb-1">{t("Ambulance.History")}</NavButton>
-        <NavButton to={`path/${x.licensePlate}`}>Loc</NavButton>
+        <NavButton to={`path/${x.licensePlate}`}>{t("Ambulance.Path")}</NavButton>
       </>
     ) },
     { name: t("Common.Remove"), property: (x: Readonly<AmbulanceResponse>) => <Button onClick={e => popup(<ConfirmPopup text="Ambulance.ConfirmRemove" onConfirm={() => remove(x.licensePlate)} />)}>X</Button> }

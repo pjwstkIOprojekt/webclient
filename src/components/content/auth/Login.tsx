@@ -38,7 +38,7 @@ const Login = () => {
     }
     ).catch(err => {
       console.error(err);
-      setError("Error.Incorrect");
+      setError("Error.IncorrectLogin");
     });
   };
 

@@ -61,7 +61,8 @@ const MapForm = (props: Readonly<MapFormParams>) => {
 };
 
 const MainMap = () => {
-  //const [dynamic, setDynamic] = useState<Mark[]>([]);
+  const [coords, setCoords] = useState<[number, number]>([0, 0]);
+  const [loaded, setLoaded] = useState(false);
   const [facilities, setFacilities] = useState<Mark[]>([]);
   const [filters, setFilters] = useState(255);
   const [update, setUpdate] = useState(false);
@@ -75,6 +76,11 @@ const MainMap = () => {
   }, [update]);
 
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition(pos => {
+      setCoords([pos.coords.latitude, pos.coords.longitude]);
+      setLoaded(true);
+    }, err => setLoaded(true));
+
     getFacilities().then(res => res.json()).then((data: FacilityResponse[]) => {
       if (data) {
         setFacilities(data.map(e => ({
@@ -96,7 +102,7 @@ const MainMap = () => {
     };
   });
 
-  return <MapView center={[52.222, 21.015]} initialZoom={10} element={<MapForm filters={filters} setFilters={setFilters} />} marks={marks} />;
+  return <MapView isLoaded={loaded} center={coords} initialZoom={10} element={<MapForm filters={filters} setFilters={setFilters} />} marks={marks} />;
 };
 
 export default MainMap;

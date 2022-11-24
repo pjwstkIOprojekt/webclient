@@ -112,9 +112,15 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
 };
 
 const AmbulanceForm = () => {
-  const [coords, setCoords] = useState<[number, number]>([52.222, 21.015]);
+  const [coords, setCoords] = useState<[number, number]>([0, 0]);
+  const [loaded, setLoaded] = useState(false);
   const { t } = useTranslation();
-  useEffect(() => navigator.geolocation.getCurrentPosition(pos => setCoords([pos.coords.latitude, pos.coords.longitude])), []);
+
+  useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
+    setCoords([pos.coords.latitude, pos.coords.longitude]);
+    setLoaded(true);
+  }, err => setLoaded(true)), []);
+
   const update = (x: Readonly<L.LatLng>) => setCoords([x.lat, x.lng]);
 
   const mark = {
@@ -123,7 +129,7 @@ const AmbulanceForm = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView center={coords} initialZoom={12} element={<AmbulanceFormView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} marks={[mark]} />;
+  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<AmbulanceFormView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} marks={[mark]} />;
 };
 
 export default AmbulanceForm;
