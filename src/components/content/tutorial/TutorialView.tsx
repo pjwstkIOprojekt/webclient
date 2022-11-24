@@ -29,7 +29,7 @@ const TutorialCard = (props: Readonly<TutorialCardParams>) => {
 };
 
 const TutorialView = () => {
-  const [items, setItems] = useState([]);
+  const [items] = useState([]);
 
   useEffect(() => {
     /*getTutorials().then(res => res.json()).then(data => {
