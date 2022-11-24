@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useLogin } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { registerEmployee } from "../../../api/adminCalls";
-import { loginUser, JwtResponse } from "../../../api/authCalls";
-import { unknownError, errorHeader } from "../sharedStrings";
+import { errorHeader } from "../sharedStrings";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
@@ -14,7 +12,6 @@ import Past from "../../fragments/forms/api/Past";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
 import Password from "../../fragments/forms/api/Password";
 import Button from "../../fragments/util/Button";
-import CAlert from "../../fragments/util/Alert";
 
 const RegisterWithRole = () => {
   const [role, setRole] = useState("");
@@ -26,7 +23,6 @@ const RegisterWithRole = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [error, setError] = useState("");
-  const login = useLogin();
   const { t } = useTranslation();
 
   const handleSubmit = () => {
@@ -34,9 +30,6 @@ const RegisterWithRole = () => {
       setError("Error.DiffrentPasswords");
       return;
     }
-
-    const mail = email;
-    const pass = password;
 
     registerEmployee(role, {
       firstName: firstName,
@@ -50,30 +43,6 @@ const RegisterWithRole = () => {
         setError("Error.RegistrationFailed");
         return;
       }
-
-      let status = -1;
-
-      loginUser({
-        email: mail,
-        password: pass
-      }).then(res => {
-        status = res.status;
-        return res.json();
-      }).then((data: JwtResponse) => {
-        if (status === 200) {
-          if (data.token && data.roles && data.email) {
-            console.log(data.roles);
-            login(data.token, data.roles, data.email);
-          } else {
-            setError("Error.NoResponseServer");
-          }
-        } else {
-          setError(unknownError);
-        }
-      }).catch(err => {
-        console.error(err);
-        setError(unknownError);
-      });
     }).catch(err => {
       console.error(err);
       setError("Error.RegistrationFailed");
@@ -85,7 +54,7 @@ const RegisterWithRole = () => {
       <h1 className="text-center">{t("Login.Registration")}</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
-          <EnumSelect id="role" required onChange={e => setRole(e.target.value)} onLoad={setRole} value={role} enum={RoleName} className="mb-3 w-50" label="Role" />
+          <EnumSelect id="role" required onChange={e => setRole(e.target.value)} onLoad={setRole} value={role} enum={RoleName} className="mb-3 w-50" label="Rola" />
         </Row>
         <Row className="justify-content-center">
           <NotBlank id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label={t("Person.FirstName")} />
@@ -109,7 +78,7 @@ const RegisterWithRole = () => {
           <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Check")} />
         </Row>
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit">{t('Login.Sign up')}</Button>
+          <Button className="mt-3 w-25" type="submit">Dodaj pracownika</Button>
         </Row>
         {error ? (
           <Row className="justify-content-center mt-5">
@@ -119,12 +88,6 @@ const RegisterWithRole = () => {
             </Alert>
           </Row>
         ) : ""}
-        <Row className="justify-content-center mt-3 mb-5">
-          <CAlert className="w-50">
-            <Alert.Heading>{t("Login.CollectData")}</Alert.Heading>
-            <p>{t("NecessaryData")}</p>
-          </CAlert>
-        </Row>
       </Form>
     </Container>
   );

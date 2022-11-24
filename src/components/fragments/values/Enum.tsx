@@ -12,7 +12,7 @@ const Enum = (props: Readonly<EnumParams>) => {
   const { t } = useTranslation();
   
   return <span style={{
-    color: props.enum.colors ? (darkMode ? props.enum.colors[props.value].dark : props.enum.colors[props.value].light) : undefined
+    color: props.enum.values ? (darkMode ? props.enum.values[props.value].dark : props.enum.values[props.value].light) : undefined
   }}>{t(`${props.enum.name}.${props.value}`)}</span>;
 };
 

@@ -1,4 +1,5 @@
 import { InnerClassParam } from "../sharedParams";
+import { useDarkMode, dark } from "../../../hooks/useDarkMode";
 import { Carousel as Inner } from "react-bootstrap";
 
 export interface CarouselItem {
@@ -17,8 +18,10 @@ export interface CarouselParams extends InnerClassParam {
 }
 
 const Carousel = (props: Readonly<CarouselParams>) => {
+  const darkMode = useDarkMode();
+
   return (
-    <Inner className={`bg-dark ${props.className}`}>
+    <Inner variant={darkMode ? undefined : dark} className={props.className}>
       {props.items.map((i, index) => (
         <Inner.Item className={props.itemClass} key={index}>
           <img src={i.img} alt={i.imgAlt} className={props.imgClass} />
