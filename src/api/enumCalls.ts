@@ -1,14 +1,31 @@
+import L from "leaflet";
 import { get } from "./basicCalls";
+import { accidentIcon, fireIcon } from "../components/content/map/MapIcons";
 
-export interface EnumColor {
-  dark: string,
-  light: string
+export interface EnumValues {
+  dark?: string,
+  light?: string,
+  markType?: MarkTypes,
+  icon?: L.Icon<L.IconOptions> | L.DivIcon
 }
 
 export interface EnumType {
   getter: () => Promise<Response>,
   name: string,
-  colors?: Record<string, EnumColor>
+  values?: Record<string, EnumValues>
+}
+
+export enum MarkTypes {
+  None = 0,
+  Ambulance = 1,
+  CarAccident = 2,
+  Flood = 4,
+  Fire = 8,
+  Unknown = 16,
+  HeartAttack = 32,
+  Suicide = 64,
+  Covid = 128,
+  All = 255
 }
 
 const enumBase = "enum";
@@ -31,7 +48,7 @@ export const BloodType = {
 export const AmbulanceState = {
   getter: () => get(`${enumBase}/ambulance_states`),
   name: "AmbulanceStateType",
-  colors: {
+  values: {
     "FAILURE": {
       dark: "#ff0000",
       light: "#ff0000"
@@ -69,34 +86,48 @@ export const AmbulanceType = {
 export const EmergencyType: EnumType = {
   getter: () => get(`${enumBase}/emergency_type`),
   name: "EmergencyType",
-  colors: {
+  values: {
     "CAR_ACCIDENT": {
       dark: "#00aa00",
-      light: "#00aa00"
+      light: "#00aa00",
+      markType: MarkTypes.CarAccident,
+      icon: accidentIcon
     },
     "FLOOD": {
       dark: "#dd9900",
-      light: "#dd9900"
+      light: "#dd9900",
+      markType: MarkTypes.Flood,
+      icon: accidentIcon
     },
     "FIRE": {
       dark: "#ff0000",
-      light: "#ff0000"
+      light: "#ff0000",
+      markType: MarkTypes.Fire,
+      icon: accidentIcon
     },
     "UNKNOWN": {
       dark: "#777777",
-      light: "#777777"
+      light: "#777777",
+      markType: MarkTypes.Unknown,
+      icon: accidentIcon
     },
     "HEART_ATTACK": {
       dark: "#ff0000",
-      light: "#ff0000"
+      light: "#ff0000",
+      markType: MarkTypes.HeartAttack,
+      icon: accidentIcon
     },
     "SUICIDE": {
       dark: "#447700",
-      light: "#447700"
+      light: "#447700",
+      markType: MarkTypes.Suicide,
+      icon: accidentIcon
     },
     "COVID": {
       dark: "#777777",
-      light: "#777777"
+      light: "#777777",
+      markType: MarkTypes.Covid,
+      icon: accidentIcon
     }
   }
 };

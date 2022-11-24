@@ -55,13 +55,14 @@ const DispositorHome = () => {
   ];
 
   const chartData = [];
+  const defColor = "#777777";
 
-  for (const eType in EmergencyType.colors) {
+  for (const eType in EmergencyType.values) {
     const tmp = {
       name: t(`${EmergencyType.name}.${eType}`),
       value: accidents.filter(a => a.emergencyType === eType).length,
-      fill: EmergencyType.colors[eType].light,
-      fillDark: EmergencyType.colors[eType].dark
+      fill: EmergencyType.values[eType].light ?? defColor,
+      fillDark: EmergencyType.values[eType].dark ?? defColor
     };
 
     if (tmp.value > 0) {
@@ -73,8 +74,8 @@ const DispositorHome = () => {
     chartData.push({
       name: "",
       value: 1,
-      fill: "#777777",
-      fillDark: "#777777"
+      fill: defColor,
+      fillDark: defColor
     });
   }
 

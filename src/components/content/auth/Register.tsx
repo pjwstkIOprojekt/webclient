@@ -37,8 +37,8 @@ const Register = () => {
     registerUser({
       firstName: firstName,
       lastName: lastName,
-      email: email,
-      password: password,
+      email: mail,
+      password: pass,
       birthDate: birthDate,
       phoneNumber: phoneNumber
     }).then(res => {

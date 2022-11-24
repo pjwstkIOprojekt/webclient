@@ -24,6 +24,7 @@ import TestMap from "./components/content/ambulance/TestMap";
 import ScheduleList from "./components/content/schedule/ScheduleList";
 import EditSchedule from "./components/content/schedule/EditSchedule";
 import RegisterWithRole from "./components/content/auth/RegisterWithRole";
+import IncidentsList from "./components/content/incident/IncidentsList";
 
 const App = () => {
   const roles = useRoles();
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="/schedule" element={<ScheduleList />} />
           <Route path="/schedule/edit" element={<EditSchedule />} />
           <Route path="/role" element={<RegisterWithRole />} />
+          <Route path="/inc" element={<IncidentsList />} />
           
           <Route path="/dispanel/*" element={<ConditionalRoute condition={isDispositor(roles)} element={<DispositorPanel />} />} />
           <Route path="/admpanel/*" element={<ConditionalRoute condition={isDirector(roles)} element={<AdminPanel />} />} />
