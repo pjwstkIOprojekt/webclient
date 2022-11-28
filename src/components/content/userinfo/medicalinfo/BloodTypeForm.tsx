@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { userEmailError, unknownError, errorHeader } from "../../sharedStrings";
+import { userEmailError, unknownError, networkError, errorHeader } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
 import { updateBlood } from "../../../../api/medicalInfoCalls";
 import Form from "../../../fragments/forms/Form";
@@ -71,7 +71,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
       bloodType: group,
       rhType: rh
     }).then(res => {
-      if (res.status === 200) {
+      if (res.ok) {
         setReadOnly(true);
       } else {
         console.log(res);
@@ -79,7 +79,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
       }
     }).catch(err => {
       console.error(err);
-      setError(unknownError);
+      setError(networkError);
     });
   };
 

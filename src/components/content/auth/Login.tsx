@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLogin } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { loginUser, JwtResponse } from "../../../api/authCalls";
-import { unknownError, errorHeader } from "../sharedStrings";
+import { missingDataError, networkError, errorHeader } from "../sharedStrings";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import Email from "../../fragments/forms/api/Email";
@@ -17,28 +17,30 @@ const Login = () => {
   const { t } = useTranslation();
 
   const handleSubmit = () => {
-    let status = -1;
+    setError("");
     
     loginUser({
       email: email,
       password: password,
     }).then(res => {
-      status = res.status;
-      return res.json();
-    }).then((data: JwtResponse) => {
-      if (status === 200) {
+      if (res.ok) {
+        return res.json();
+      }
+
+      setError("Error.IncorrectLogin");
+      return undefined;
+    }).then((data?: JwtResponse) => {
+      if (data) {
         if (data.token && data.roles && data.email) {
           login(data.token, data.roles, data.email);
         } else {
-          setError(unknownError);
+          setError(missingDataError);
         }
-      } else {
-        setError(unknownError);
       }
     }
     ).catch(err => {
       console.error(err);
-      setError("Error.IncorrectLogin");
+      setError(networkError);
     });
   };
 

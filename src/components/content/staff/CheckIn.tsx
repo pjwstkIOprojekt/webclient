@@ -12,7 +12,7 @@ const CheckIn = () => {
 
   const onToggle = () => {
     (checked ? endShift() : startShift()).then(res => {
-      if (res.status === 200) {
+      if (res.ok) {
         setChecked(!checked);
       } else {
         console.log(res);

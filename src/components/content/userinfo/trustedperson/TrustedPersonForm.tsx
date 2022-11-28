@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getEmail } from "../../../../helpers/authHelper";
-import { userEmailError, unknownError, errorHeader } from "../../sharedStrings";
+import { userEmailError, unknownError, networkError, errorHeader } from "../../sharedStrings";
 import { getTrustedPersonByEmail, TrustedPersonResponse, createTrustedPerson, updateTrustedPerson } from "../../../../api/trustedPersonCalls";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
@@ -66,7 +66,7 @@ const TrustedPersonForm = () => {
     };
 
     (isNew ? createTrustedPerson(person) : updateTrustedPerson(person)).then(res => {
-      if (res.status === 200) {
+      if (res.ok) {
         setReadOnly(true);
       } else {
         console.log(res);
@@ -74,7 +74,7 @@ const TrustedPersonForm = () => {
       }
     }).catch(err => {
       console.error(err);
-      setError(unknownError);
+      setError(networkError);
     });
   };
 

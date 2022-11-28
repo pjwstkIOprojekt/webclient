@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLogin } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { registerUser, loginUser, JwtResponse } from "../../../api/authCalls";
-import { unknownError, errorHeader } from "../sharedStrings";
+import { missingDataError, networkError, errorHeader } from "../sharedStrings";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import NotBlank from "../../fragments/forms/api/NotBlank";
@@ -22,10 +22,14 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [error, setError] = useState("");
+  const [innerError, setInnerError] = useState("");
   const login = useLogin();
   const { t } = useTranslation();
 
   const handleSubmit = () => {
+    setError("");
+    setInnerError("");
+
     if (password !== passwordCheck) {
       setError("Error.DiffrentPasswords");
       return;
@@ -42,36 +46,39 @@ const Register = () => {
       birthDate: birthDate,
       phoneNumber: phoneNumber
     }).then(res => {
-      if (res.status !== 200) {
+      if (!res.ok) {
         setError("Error.RegistrationFailed");
         return;
       }
-
-      let status = -1;
 
       loginUser({
         email: mail,
         password: pass
       }).then(res => {
-        status = res.status;
-        return res.json();
-      }).then((data: JwtResponse) => {
-        if (status === 200) {
+        if (res.ok) {
+          return res.json();
+        }
+  
+        setError("Error.PostRegisterFail");
+        setInnerError("Error.IncorrectLogin");
+        return undefined;
+      }).then((data?: JwtResponse) => {
+        if (data) {
           if (data.token && data.roles && data.email) {
             login(data.token, data.roles, data.email);
           } else {
-            setError("Error.NoResponseServer");
+            setError("Error.PostRegisterFail");
+            setInnerError(missingDataError);
           }
-        } else {
-          setError(unknownError);
         }
       }).catch(err => {
         console.error(err);
-        setError(unknownError);
+        setError("Error.PostRegisterFail");
+        setInnerError(networkError);
       });
     }).catch(err => {
       console.error(err);
-      setError("Error.RegistrationFailed");
+      setError(networkError);
     });
   };
 
@@ -108,6 +115,14 @@ const Register = () => {
             <Alert variant="danger" className="w-50">
               <Alert.Heading>{t(errorHeader)}</Alert.Heading>
               <p>{t(error)}</p>
+              {innerError ? (
+                <>
+                  <p>
+                    <b>{t("Login.Error")}</b>
+                  </p>
+                  <p>{t(innerError)}</p>
+                </>
+              ) : ""}
             </Alert>
           </Row>
         ) : ""}

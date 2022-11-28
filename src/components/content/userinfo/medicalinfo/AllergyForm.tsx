@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getAllergyById, AllergyResponse, createAllergy, updateAllergy } from "../../../../api/allergyCalls";
-import { loadingError, userEmailError, unknownError, errorHeader } from "../../sharedStrings";
+import { missingDataError, loadingError, userEmailError, unknownError, networkError, errorHeader } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
 import { Container, Alert } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
@@ -29,7 +29,7 @@ const AllergyForm = () => {
           setAllergyName(data.allergyName);
           setOther(data.other);
         } else {
-          setError(loadingError);
+          setError(missingDataError);
         }
       }).catch(err => {
         console.error(err);
@@ -55,7 +55,7 @@ const AllergyForm = () => {
     };
 
     (allergyId === undefined ? createAllergy(allergy) : updateAllergy(parseInt(allergyId), allergy)).then(res => {
-      if (res.status === 200) {
+      if (res.ok) {
         navigate("../medicaldata");
       } else {
         console.log(res);
@@ -63,7 +63,7 @@ const AllergyForm = () => {
       }
     }).catch(err => {
       console.error(err);
-      setError(unknownError);
+      setError(networkError);
     });
   };
 

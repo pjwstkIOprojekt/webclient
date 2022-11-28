@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useRoles } from "../../../hooks/useAuth";
 import { isDispositor, isDirector } from "../../../helpers/authHelper";
 import { getFacilityById, FacilityResponse, createFacility, updateFacility } from "../../../api/facilityCalls";
-import { loadingError, unknownError, errorHeader } from "../sharedStrings";
+import { missingDataError, loadingError, unknownError, networkError, errorHeader } from "../sharedStrings";
 import { Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import NotBlank from "../../fragments/forms/api/NotBlank";
@@ -36,7 +36,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
             setFacilityType(data.facilityType);
             update([data.location.latitude, data.location.longitude]);
           } else {
-            setError(loadingError);
+            setError(missingDataError);
           }
         }).catch(err => {
           console.error(err);
@@ -61,7 +61,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
       };
   
       (facilityId === undefined ? createFacility(facility) : updateFacility(parseInt(facilityId), facility)).then(res => {
-        if (res.status === 200) {
+        if (res.ok) {
           navigate("../facilities");
         } else {
           console.log(res);
@@ -69,7 +69,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
         }
       }).catch(err => {
         console.error(err);
-        setError(unknownError);
+        setError(networkError);
       });
     };
   

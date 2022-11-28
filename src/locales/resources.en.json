@@ -123,7 +123,8 @@
         "LoggedInto": "Successfully logged into the account",
         "LogOut": "Logout",
         "LoggedOut": "Successfully logged out of account",
-        "AllCapabilities": "Do you want to be able to use all the possibilities of our platform? Log in to your account now!"
+        "AllCapabilities": "Do you want to be able to use all the possibilities of our platform? Log in to your account now!",
+        "Error": "Login error"
     },
     "Allergy": {
         "Allergies": "Allergies",
@@ -152,7 +153,9 @@
         "IncorrectLogin": "Incorrect email or password.",
         "LoadingProblem": "There was a problem loading the data. Try again.",
         "EmptyValue": "This value cannot be empty.",
-        "Past": "Only a date in the past can be given."
+        "Past": "Only a date in the past can be given.",
+        "Network": "Cannot connect with the server. Check your Internet connection.",
+        "PostRegisterFail": "Registration was successful but an error has occured while logging in. Try to log in again."
     },
     "Blood": {
         "Type": "Blood type",
