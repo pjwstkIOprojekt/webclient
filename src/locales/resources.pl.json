@@ -63,7 +63,8 @@
     },
     "IncidentStatusType": {
         "NEW": "Nowe",
-        "ASSIGNED": "Przyjęte",
+        "ASSIGNED": "Przypisane",
+        "ACCEPTED": "Zaakceptowane",
         "REJECTED": "Odrzucone",
         "CLOSED": "Zamknięte"
     },

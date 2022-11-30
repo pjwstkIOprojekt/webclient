@@ -168,3 +168,8 @@ export const RoleName = {
   getter: () => get(`${enumBase}/roles`),
   name: "RoleName"
 };
+
+export const IncidentType = {
+  getter: () => get(`${enumBase}/incident_status`),
+  name: "IncidentStatusType"
+};
