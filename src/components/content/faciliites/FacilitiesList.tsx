@@ -59,12 +59,14 @@ const FacilitiesList = () => {
   return (
     <Container className="mt-3 justify-content-center text-center">
       <h3>{t("Facility.Facilities")}</h3>
-      <Row className="my-2 justify-content-end">
-        <Col />
-        <Col md="auto">
-          <NavButton to="/newfacility">+</NavButton>
-        </Col>
-      </Row>
+      {canRemove ? (
+        <Row className="my-2 justify-content-end">
+          <Col />
+          <Col md="auto">
+            <NavButton to="/newfacility">+</NavButton>
+          </Col>
+        </Row>
+      ) : ""}
       <Table columns={cols} data={facilities} isLoading={isLoading} />
     </Container>
   );

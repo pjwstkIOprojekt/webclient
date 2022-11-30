@@ -96,7 +96,10 @@
         "Description": "Opis",
         "Type": "Rodzaj zdarzenia",
         "VictimsCount": "Ilość poszkodowanych",
-        "ConfirmRemove": "Czy na pewno chcesz usunąć to zgłoszenie?"
+        "ConfirmRemove": "Czy na pewno chcesz usunąć to zgłoszenie?",
+        "DangerScale": "Skala zagrożenia",
+        "StatusType": "Status zgłoszenia",
+        "Justification": "Uzasadnienie"
     },
     "Person": {
         "FirstName": "Imię",
@@ -171,7 +174,7 @@
     "HomePage": {
         "HomePage": "Strona główna",
         "Report24h": "Zgłoszenia z ostatnich 24 godzin",
-        "Incidents": "Zdarzenia",
+        "Incidents": "Rodzaje zdarzeń",
         "OpenMap": "Otwórz mapę",
         "SaveLife": "Pomóż nam ratować ludzkie życia już teraz!",
         "Welcome": "Witamy w GARY, w nowym najlepszym przyjacielu człowieka.",

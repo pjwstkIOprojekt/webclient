@@ -66,6 +66,9 @@ const Tutorial = () => {
           <Row className="text-end">
             <Rating initialValue={0} disabled />
           </Row>
+          <Row className="justify-content-end mx-1">
+            Średnia ocena: 0
+          </Row>
           <InnerHtml value={data} containerClass="tutorial-content" />
         </Col>
       </Row>

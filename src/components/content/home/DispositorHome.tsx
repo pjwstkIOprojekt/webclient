@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { AccidentReportResponse, getAccidents } from "../../../api/accidentReportCalls";
+import { IncidentResponse, getIncidents } from "../../../api/incidentCalls";
 import { useTranslation } from "react-i18next";
 import { getAmbulances, AmbulanceResponse } from "../../../api/ambulanceCalls";
-import { AmbulanceState, EmergencyType } from "../../../api/enumCalls";
+import { AmbulanceState, EmergencyType, IncidentType } from "../../../api/enumCalls";
 import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
-import DateDisplay from "../../fragments/values/DateDisplay";
 import { Container, Row } from "react-bootstrap";
 import ProgressChart from "../../fragments/charts/ProgressChart";
 import PieChart from "../../fragments/charts/PieChart";
@@ -13,7 +12,7 @@ import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
 const DispositorHome = () => {
-  const [accidents, setAccidents] = useState<AccidentReportResponse[]>([]);
+  const [accidents, setAccidents] = useState<IncidentResponse[]>([]);
 
   const [ambulances, setAmbulances] = useState({
     available: 0,
@@ -24,14 +23,17 @@ const DispositorHome = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const accReq = getAccidents().then(res => res.json());
+    const accReq = getIncidents().then(res => res.json());
     const ambReq = getAmbulances().then(res => res.json());
 
-    Promise.all([accReq, ambReq]).then((data: [AccidentReportResponse[], AmbulanceResponse[]]) => {
+    Promise.all([accReq, ambReq]).then((data: [IncidentResponse[], AmbulanceResponse[]]) => {
       if (data) {
         setAccidents(data[0].map(d => ({
           ...d,
-          date: new Date(d.date)
+          accidentReport: {
+            ...d.accidentReport,
+            date: new Date(d.accidentReport.date)
+          }
         })));
 
         setAmbulances({
@@ -48,19 +50,20 @@ const DispositorHome = () => {
   }, []);
 
   const cols = [
-    { name: "#", property: (x: Readonly<AccidentReportResponse>) => <Link to={`/dispanel/reports/${x.accidentId}`}>{x.accidentId}</Link>, sortBy: "accidentId", filterBy: "accidentId" },
-    { name: t("Report.Type"), property: (x: Readonly<AccidentReportResponse>) => <Enum enum={EmergencyType} value={x.emergencyType} />, filterBy: "emergencyType", sortBy: "emergencyType" },
-    { name: t("Report.Date"), property: (x: Readonly<AccidentReportResponse>) => <DateDisplay value={x.date} />, sortBy: "date", filterBy: "date" },
-    { name: t("Report.VictimsCount"), property: "victimCount", filterBy: "victimCount", sortBy: "victimCount" }
+    { name: "#", property: (x: Readonly<IncidentResponse>) => <Link to={`/dispanel/reports/${x.incidentId}`}>{x.incidentId}</Link>, sortBy: "accidentId", filterBy: "accidentId" },
+    { name: t("Report.DangerScale"), property: "dangerScale", filterBy: "dangerScale", sortBy: "dangerScale" },
+    { name: t("Report.Justification"), property: "reactionJustification", sortBy: "reactionJustification", filterBy: "reactionJustification" },
+    { name: t("Report.StatusType"), property: (x: Readonly<IncidentResponse>) => <Enum enum={IncidentType} value={x.incidentStatusType} />, filterBy: "incidentStatusType", sortBy: "incidentStatusType" }
   ];
 
   const chartData = [];
   const defColor = "#777777";
+  const accepted = accidents.filter(a => a.incidentStatusType === IncidentType.accepted);
 
   for (const eType in EmergencyType.values) {
     const tmp = {
       name: t(`${EmergencyType.name}.${eType}`),
-      value: accidents.filter(a => a.emergencyType === eType).length,
+      value: accidents.filter(a => a.accidentReport.emergencyType === eType).length,
       fill: EmergencyType.values[eType].light ?? defColor,
       fillDark: EmergencyType.values[eType].dark ?? defColor
     };
@@ -89,7 +92,7 @@ const DispositorHome = () => {
           b: 0
         }} full={t("HomePage.AmbulanceAvailable")} empty={t("HomePage.AmbulanceUnavailable")} />
         <PieChart width={350} height={350} data={chartData} innerRadius="90" label legend tooltip />
-        <ProgressChart width={350} height={350} value={79} innerRadius="100" label tooltip color={{
+        <ProgressChart width={350} height={350} value={accidents.length !== 0 ? (accepted.length / accidents.length) * 100 : 0} innerRadius="100" label tooltip color={{
           r: 0,
           g: 146,
           b: 255

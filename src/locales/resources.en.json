@@ -96,7 +96,10 @@
         "Description": "Description",
         "Type": "Type of accident",
         "VictimsCount": "Amount of victims",
-        "ConfirmRemove": "Are you sure you want to delete this report?"
+        "ConfirmRemove": "Are you sure you want to delete this report?",
+        "DangerScale": "Danger scale",
+        "StatusType": "Incident status",
+        "Justification": "Justification"
     },
     "Person": {
         "FirstName": "First name",
@@ -171,7 +174,7 @@
     "HomePage": {
         "HomePage": "Home page",
         "Report24h": "Last 24 hours reports",
-        "Incidents": "Incidents",
+        "Incidents": "Accident types",
         "OpenMap": "Open map",
         "SaveLife": "Help us save human lives now!",
         "Welcome": "Welcome to GARY, man's new best friend.",

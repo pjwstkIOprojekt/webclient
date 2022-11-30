@@ -10,7 +10,7 @@ import Email from "../../fragments/forms/api/Email";
 import Past from "../../fragments/forms/api/Past";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
 import Password from "../../fragments/forms/api/Password";
-import Button from "../../fragments/util/Button";
+import Submit from "../../fragments/forms/Submit";
 import CAlert from "../../fragments/util/Alert";
 
 const Register = () => {
@@ -21,13 +21,13 @@ const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const [innerError, setInnerError] = useState("");
   const login = useLogin();
   const { t } = useTranslation();
 
   const handleSubmit = () => {
-    setError("");
+    setError(undefined);
     setInnerError("");
 
     if (password !== passwordCheck) {
@@ -107,8 +107,8 @@ const Register = () => {
         <Row className="justify-content-center">
           <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Check")} />
         </Row>
-        <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit">{t("Login.SignUp")}</Button>
+        <Row className="justify-content-center mt-3">
+          <Submit className="w-25" canSubmit={error !== undefined}>{t("Login.SignUp")}</Submit>
         </Row>
         {error ? (
           <Row className="justify-content-center mt-5">

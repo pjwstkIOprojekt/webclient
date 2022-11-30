@@ -171,5 +171,6 @@ export const RoleName = {
 
 export const IncidentType = {
   getter: () => get(`${enumBase}/incident_status`),
-  name: "IncidentStatusType"
+  name: "IncidentStatusType",
+  accepted: "ACCEPTED"
 };
