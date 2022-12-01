@@ -19,10 +19,10 @@ import DispositorPanel from "./components/content/panel/DispositorPanel";
 import AdminPanel from "./components/content/panel/AdminPanel";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
 import CookieConsent from "./components/fragments/cookies/CookieConsent";
-
+import ParamedicInfo from "./components/content/staff/ParamedicInfo"
 import TestMap from "./components/content/ambulance/TestMap";
 import ScheduleList from "./components/content/schedule/ScheduleList";
-import EditSchedule from "./components/content/schedule/EditSchedule";
+import ScheduleAdd from "./components/content/schedule/ScheduleAdd";
 import RegisterWithRole from "./components/content/auth/RegisterWithRole";
 import IncidentsList from "./components/content/incident/IncidentsList";
 
@@ -50,8 +50,9 @@ const App = () => {
           <Route path="/map" element={<ConditionalRoute condition={isDispositor(roles) || isDirector(roles)} element={<MainMap />} />} />
 
           <Route path="/test" element={<TestMap />} />
+          <Route path="/paramedicInfo" element={<ParamedicInfo />} />
           <Route path="/schedule" element={<ScheduleList />} />
-          <Route path="/schedule/edit" element={<EditSchedule />} />
+          <Route path="/schedule/add" element={<ScheduleAdd />} />
           <Route path="/role" element={<RegisterWithRole />} />
           <Route path="/inc" element={<IncidentsList />} />
           
