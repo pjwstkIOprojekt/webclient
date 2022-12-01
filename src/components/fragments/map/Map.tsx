@@ -25,6 +25,7 @@ export interface MapParams {
   initialZoom: number,
   marks?: Position[],
   paths?: Path[],
+  small?: boolean,
   searchable?: boolean,
   onSearch?: MarkGeocodeEventHandlerFn,
   clickable?: boolean,
@@ -43,7 +44,7 @@ const Map = (props: Readonly<MapParams>) => {
   }));
 
   return (
-    <MapContainer center={props.center} zoom={props.initialZoom}>
+    <MapContainer center={props.center} zoom={props.initialZoom} className={props.small ? "small-map" : "big-map"}>
       <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {props.searchable ? <GeocoderMenu geocoder={geocoder} onSearch={props.onSearch} /> : ""}
       {props.clickable ? <ClickHandler geocoder={geocoder} onClick={props.onClick} /> : ""}

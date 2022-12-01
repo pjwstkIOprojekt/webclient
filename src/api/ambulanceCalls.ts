@@ -25,17 +25,6 @@ export interface AmbulanceResponse extends AmbulanceBase {
   ambulanceId: number
 }
 
-export interface UpdateAmbulanceStateRequest {
-  // Enum - AmbulanceState
-  stateType: string,
-
-  // Datetime
-  start: string,
-
-  // Datetime
-  end: string
-}
-
 export interface PostAmbulanceLocationRequest {
   longitude: number,
   latitude: number

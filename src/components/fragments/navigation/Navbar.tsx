@@ -3,7 +3,7 @@ import { useRoles, useAuth } from "../../../hooks/useAuth";
 import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
-import { FaHome, FaMedkit, FaBook, FaHospital, FaUserCircle, FaMap, FaNotesMedical, FaToolbox, FaUserSecret } from "react-icons/fa";
+import { FaHome, FaMedkit, FaBook, FaHospital, FaUserCircle, FaMap, FaNotesMedical, FaAmbulance, FaUserSecret } from "react-icons/fa";
 import { isAuth, isDispositor, isDirector } from "../../../helpers/authHelper";
 import { customLink } from "./sharedNavigationParams";
 import CheckIn from "../../content/staff/CheckIn";
@@ -49,15 +49,15 @@ const MenuBar = () => {
         </NavLink>
       ) : ""}
       {isDispositor(roles) ? (
-        <NavLink to="/dispanel/reports">
+        <NavLink to="/reports">
           <FaNotesMedical />
-          <span className="px-1">{t("HomePage.DispositorPanel")}</span>
+          <span className="px-1">{t("Report.Reports")}</span>
         </NavLink>
       ) : ""}
       {isDirector(roles) ? (
-        <NavLink to="/admpanel/ambulances">
-          <FaToolbox />
-          <span className="px-1">{t("HomePage.ManagerPanel")}</span>
+        <NavLink to="/ambulances">
+          <FaAmbulance />
+          <span className="px-1">{t("Ambulance.Ambulances")}</span>
         </NavLink>
       ) : ""}
     </Nav>

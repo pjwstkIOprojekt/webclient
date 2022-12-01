@@ -268,12 +268,18 @@
     width: 100%;
 }
 
-.leaflet-container
+.big-map
 {
     position: fixed;
     height: 100%;
     right: 0;
     width: 75%;
+}
+
+.small-map
+{
+    width: 100%;
+    height: 200%;
 }
 
 .page-content
@@ -383,7 +389,7 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .leaflet-container
+    .big-map
     {
         width: 78%;
     }
@@ -418,7 +424,7 @@
         padding-right: 1rem;
     }
 
-    .leaflet-container
+    .big-map
     {
         width: 80%;
     }
@@ -437,7 +443,7 @@
         padding-right: 3rem;
     }
 
-    .leaflet-container
+    .big-map
     {
         width: 83%;
     }
