@@ -1,24 +1,19 @@
 import { useState } from "react";
-import Table, { TableColumnParams } from "../../fragments/util/Table";
-import FormCheck from "../../fragments/forms/FormCheck";
-import { Container, Modal } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
-import FullCalendar, { DateSelectArg, EventClickArg, EventContentArg } from '@fullcalendar/react';
+import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import plLocale from '@fullcalendar/core/locales/pl';
-import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
-import Link from "../../fragments/navigation/Link";
-import NavLink from "../../fragments/navigation/NavLink";
-import ItemLink from "../../fragments/navigation/ItemLink";
+import interactionPlugin from "@fullcalendar/interaction";
 import { useNavigate } from "react-router-dom";
 
 
 
 const ScheduleList = () => {
   const navigate = useNavigate();
-  const [events,setEvents] = useState([
+  const [events] = useState([
     {
         id: '0',
         title: 'Paramedic 1',
