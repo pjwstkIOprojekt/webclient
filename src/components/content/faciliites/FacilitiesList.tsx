@@ -8,13 +8,14 @@ import Table, {TableColumnParams} from "../../fragments/util/Table";
 import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
 import { FacilityType } from "../../../api/enumCalls";
-import Button from "../../fragments/util/Button";
+import Delete from "../../fragments/forms/Delete";
 import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 
 const FacilitiesList = () => {
   const [facilities, setFacilities] = useState<FacilityResponse[]>([]);
+  const [removed, setRemoved] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const popup = usePopup();
   const { t } = useTranslation();
@@ -38,9 +39,21 @@ const FacilitiesList = () => {
     if (!canRemove) {
       return;
     }
+
+    setRemoved([...removed, id]);
     
-    setFacilities(facilities.filter(f => f.facilityId !== id));
-    deleteFacility(id);
+    deleteFacility(id).then(res => {
+      if (res.ok) {
+        setFacilities(facilities.filter(f => f.facilityId !== id));
+      } else {
+        console.log(res);
+      }
+
+      setRemoved(removed.filter(i => i !== id));
+    }).catch(err => {
+      console.error(err);
+      setRemoved(removed.filter(i => i !== id));
+    });
   };
 
   const cols: TableColumnParams<FacilityResponse>[] = [
@@ -52,7 +65,7 @@ const FacilitiesList = () => {
   if (canRemove) {
     cols.push({
       name: t("Common.Remove"),
-      property: (x: Readonly<FacilityResponse>) => <Button onClick={e => popup(<ConfirmPopup text={t("Facility.ConfirmRemove")} onConfirm={() => remove(x.facilityId)} />)}>X</Button>
+      property: (x: Readonly<FacilityResponse>) => <Delete onClick={() => popup(<ConfirmPopup text={t("Facility.ConfirmRemove")} onConfirm={() => remove(x.facilityId)} />)} canDelete={!removed.includes(x.facilityId)} />
     });
   }
 

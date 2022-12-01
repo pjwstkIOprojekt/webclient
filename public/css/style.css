@@ -354,7 +354,7 @@
     font-size: 20px;
 }
 
-.nav-tabs, .contents
+.contents
 {
     position: sticky;
     top: 72px;
@@ -399,7 +399,7 @@
 
 @media (min-width: 992px)
 {
-    .nav-tabs, .contents
+    .contents
     {
         top: 74px;
     }

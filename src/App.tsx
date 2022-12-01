@@ -15,8 +15,6 @@ import ReportForm from "./components/content/report/ReportForm";
 import FacilitiesList from "./components/content/faciliites/FacilitiesList";
 import FacilityForm from "./components/content/faciliites/FacilityForm";
 import MainMap from "./components/content/map/MainMap";
-import DispositorPanel from "./components/content/panel/DispositorPanel";
-import AdminPanel from "./components/content/panel/AdminPanel";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
 import CookieConsent from "./components/fragments/cookies/CookieConsent";
 
@@ -25,6 +23,8 @@ import ScheduleList from "./components/content/schedule/ScheduleList";
 import EditSchedule from "./components/content/schedule/EditSchedule";
 import RegisterWithRole from "./components/content/auth/RegisterWithRole";
 import IncidentsList from "./components/content/incident/IncidentsList";
+import DispositorPanel from "./components/content/panel/DispositorPanel";
+import AdminPanel from "./components/content/panel/AdminPanel";
 
 const App = () => {
   const roles = useRoles();

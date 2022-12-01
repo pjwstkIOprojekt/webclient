@@ -4,30 +4,33 @@ import { useTranslation } from "react-i18next";
 import { getAllergyById, AllergyResponse, createAllergy, updateAllergy } from "../../../../api/allergyCalls";
 import { missingDataError, loadingError, userEmailError, unknownError, networkError, errorHeader } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
-import { Container, Alert } from "react-bootstrap";
+import { Container, Row, Col, Alert } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
 import EnumSelect from "../../../fragments/forms/api/EnumSelect";
 import { AllergyType } from "../../../../api/enumCalls";
 import NotBlank from "../../../fragments/forms/api/NotBlank";
-import Button from "../../../fragments/util/Button";
+import Submit from "../../../fragments/forms/Submit";
 import NavButton from "../../../fragments/navigation/NavButton";
 
 const AllergyForm = () => {
   const [allergyType, setAllergyType] = useState("");
   const [allergyName, setAllergyName] = useState("");
   const [other, setOther] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const { allergyId } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
     if (allergyId !== undefined) {
+      setError(undefined);
+
       getAllergyById(parseInt(allergyId)).then(res => res.json()).then((data: AllergyResponse) => {
         if (data.allergyType && data.allergyName && data.other) {
           setAllergyType(data.allergyType);
           setAllergyName(data.allergyName);
           setOther(data.other);
+          setError("");
         } else {
           setError(missingDataError);
         }
@@ -39,11 +42,12 @@ const AllergyForm = () => {
   }, [allergyId]);
 
   const onSubmit = () => {
-    setError("");
+    setError(undefined);
     const email = getEmail();
 
     if (!email) {
       console.error(userEmailError);
+      setError("");
       return;
     }
 
@@ -74,8 +78,15 @@ const AllergyForm = () => {
         <EnumSelect id="allergyType" className="mb-3" label={t("Allergy.Type")} required enum={AllergyType} value={allergyType} onLoad={setAllergyType} onChange={e => setAllergyType(e.target.value)} />
         <NotBlank id="allergyName" className="mb-3" label={t("Allergy.Name")} required value={allergyName} onChange={e => setAllergyName(e.target.value)} />
         <NotBlank id="other" className="mb-3" label={t("Allergy.Other")} required value={other} onChange={e => setOther(e.target.value)} />
-        <Button className="m-2" type="submit">{allergyId === undefined ? t("Common.Add") : t("Common.Save")}</Button>
-        <NavButton to="../medicaldata">{t("Common.Cancel")}</NavButton>
+        <Row>
+          <Col md="auto">
+            <Submit canSubmit={error !== undefined}>{allergyId === undefined ? t("Common.Add") : t("Common.Save")}</Submit>
+          </Col>
+          <Col md="auto">
+            <NavButton to="../medicaldata">{t("Common.Cancel")}</NavButton>
+          </Col>
+          <Col />
+        </Row>
         {error ? (
           <Alert variant="danger" className="mt-3">
             <Alert.Heading>{t(errorHeader)}</Alert.Heading>
