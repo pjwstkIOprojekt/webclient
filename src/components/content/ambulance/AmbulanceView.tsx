@@ -34,7 +34,7 @@ const AmbulanceView = () => {
           setError(missingDataError);
         }
       }).catch(err => {
-        console.error(error);
+        console.error(err);
         setError(loadingError);
       })
     }

@@ -68,6 +68,17 @@
         "REJECTED": "Odrzucone",
         "CLOSED": "Zamknięte"
     },
+    "ItemType": {
+        "SINGLE_USE": "Jednorazowe",
+        "MEDICAL": "Medyczne",
+        "MULTI_USE": "Wielorazowe",
+        "AMBULANCE_EQUIPMENT": "Wyposażenie karetki"
+    },
+    "TutorialType": {
+        "IN_CASE_OF_DEATH_EMERGENCY": "W przypadku bliskim śmierci",
+        "GENERAL": "Ogólne",
+        "COURSE": "Kurs"
+    },
     "Ambulance": {
         "Ambulances": "Karetki",
         "Ambulance": "Karetka",

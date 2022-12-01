@@ -1,10 +1,6 @@
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import {  Form, Row, Col, Container } from "react-bootstrap";
-import Table, { TableColumnParams } from "../../fragments/util/Table";
-import FormCheck from "../../fragments/forms/FormCheck";
-import ScheduleList from "./ScheduleList";
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
 import FormSelect from "../../fragments/forms/FormSelect";
 import Button from "../../fragments/util/Button";
 import { useNavigate } from "react-router-dom";
@@ -12,12 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 
 const ScheduleAdd = () => {
-    const [date, setDate] = useState<Date | null>(null);
+    const [, setDate] = useState<Date | null>(null);
     const [paramedic, setParamedic] = useState(0);
-    const [timeStart, setTimeStart] = useState('');
-    const [timeEnd, setTimeEnd] = useState('');
+    const [, setTimeStart] = useState('');
+    const [, setTimeEnd] = useState('');
     const navigate = useNavigate();
-    const format = 'HH:mm';
 
     const paramedics = [
       "Jan Nowak",

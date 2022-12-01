@@ -68,6 +68,17 @@
         "REJECTED": "Rejected",
         "CLOSED": "Closed"
     },
+    "ItemType": {
+        "SINGLE_USE": "Single use",
+        "MEDICAL": "Medical",
+        "MULTI_USE": "Multi use",
+        "AMBULANCE_EQUIPMENT": "Ambulance equipment"
+    },
+    "TutorialType": {
+        "IN_CASE_OF_DEATH_EMERGENCY": "In case of death emergency",
+        "GENERAL": "General",
+        "COURSE": "Course"
+    },
     "Ambulance": {
         "Ambulances": "Ambulances",
         "Ambulance": "Ambulance",

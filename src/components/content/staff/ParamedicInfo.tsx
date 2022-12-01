@@ -17,7 +17,7 @@ const ParamedicInfo = () => {
   const [email] = useState("jan.nowak@test.pl");
   const [ambulance] = useState("karetka 1");
   const navigate = useNavigate();
-  const [events,setEvents] = useState([
+  const [events] = useState([
     {
         id: '0',
         title: 'Jan Nowak',
