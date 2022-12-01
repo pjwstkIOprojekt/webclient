@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react";
-import { AmbulanceStateResponse, getAmbulanceHistory, AmbulanceHistoryResponse } from "../../../api/ambulanceCalls";
+import { AmbulanceStateResponse, getAmbulanceHistory, AmbulanceHistoryResponse, changeAmbulanceState } from "../../../api/ambulanceCalls";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { licensePlateError } from "../sharedStrings";
+import { unknownError, networkError, errorHeader } from "../sharedStrings";
 import Enum from "../../fragments/values/Enum";
 import { AmbulanceState } from "../../../api/enumCalls";
 import DateDisplay from "../../fragments/values/DateDisplay";
-import { Container, Row, Col } from "react-bootstrap";
-import NavButton from "../../fragments/navigation/NavButton";
+import { Container, Row, Col, Alert } from "react-bootstrap";
+import EnumSelect from "../../fragments/forms/api/EnumSelect";
+import Spinner from "../../fragments/util/Spinner";
+import Button from "../../fragments/util/Button";
 import Table from "../../fragments/util/Table";
 
 const AmbulanceHistory = () => {
   const [states, setStates] = useState<AmbulanceStateResponse[]>([]);
+  const [newState, setNewState] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const [isLoading, setIsLoading] = useState(true);
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
@@ -37,6 +42,36 @@ const AmbulanceHistory = () => {
     });
   }, [ambulanceId]);
 
+  const changeState = () => {
+    if (ambulanceId === undefined) {
+      console.error(licensePlateError);
+      return;
+    }
+
+    setError(undefined);
+    const state = newState;
+
+    changeAmbulanceState(ambulanceId, state).then(res => {
+      if (res.status === 200) {
+        setStates([...states, {
+          type: state,
+          timestamp: new Date()
+        }]);
+
+        setError("");
+      } else if (res.status === 204) {
+        console.log(res);
+        setError("Ambulance.SameState");
+      } else {
+        console.log(res);
+        setError(unknownError);
+      }
+    }).catch(err => {
+      console.error(err);
+      setError(networkError);
+    });
+  };
+
   const cols = [
     { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceStateResponse>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: "type", sortBy: "type" },
     { name: t("Common.Since"), property: (x: Readonly<AmbulanceStateResponse>) => <DateDisplay value={x.timestamp} />, filterBy: "timestamp", sortBy: "timestamp" }
@@ -44,13 +79,22 @@ const AmbulanceHistory = () => {
 
   return (
     <Container className="mt-3 justify-content-center text-center">
-      <h3>{t("Ambulance.History")} {ambulanceId}</h3>
-      <Row className="my-2 justify-content-end">
-        <Col />
+      <h3>{t("Ambulance.History")}</h3>
+      <h4 className="my-3">{t("Ambulance.ChangeState")}</h4>
+      <Row className="my-3 justify-content-end">
+        <Col>
+          <EnumSelect id="newState" enum={AmbulanceState} value={newState} onLoad={setNewState} onChange={e => setNewState(e.target.value)} />
+        </Col>
         <Col md="auto">
-          <NavButton to={`../ambulances/state/${ambulanceId}`}>+</NavButton>
+          {error === undefined ? <Spinner /> : <Button onClick={changeState}>+</Button>}
         </Col>
       </Row>
+      {error ? (
+        <Alert variant="danger" className="my-3">
+          <Alert.Heading>{t(errorHeader)}</Alert.Heading>
+          <p>{t(error)}</p>
+        </Alert>
+      ) : ""}
       <Table columns={cols} data={states} isLoading={isLoading} />
     </Container>
   );

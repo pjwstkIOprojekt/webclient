@@ -6,13 +6,14 @@ import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
 import { AmbulanceClass, AmbulanceType, AmbulanceState } from "../../../api/enumCalls";
 import NavButton from "../../fragments/navigation/NavButton";
-import Button from "../../fragments/util/Button";
+import Delete from "../../fragments/forms/Delete";
 import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import { Container, Row, Col } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
 const AmbulanceList = () => {
   const [ambulances, setAmbulances] = useState<AmbulanceResponse[]>([]);
+  const [removed, setRemoved] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
   const popup = usePopup();
@@ -31,22 +32,28 @@ const AmbulanceList = () => {
   }, []);
 
   const remove = (plate: string) => {
-    setAmbulances(ambulances.filter(a => a.licensePlate !== plate));
-    deleteAmbulance(plate);
+    setRemoved([...removed, plate]);
+    
+    deleteAmbulance(plate).then(res => {
+      if (res.ok) {
+        setAmbulances(ambulances.filter(a => a.licensePlate !== plate));
+      } else {
+        console.log(res);
+      }
+
+      setRemoved(removed.filter(p => p !== plate));
+    }).catch(err => {
+      console.error(err);
+      setRemoved(removed.filter(p => p !== plate));
+    });
   };
 
   const cols = [
-    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`edit/${x.licensePlate}`}>{x.licensePlate}</Link>, sortBy: "licensePlate", filterBy: "licensePlate" },
+    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`${x.licensePlate}/hist`}>{x.licensePlate}</Link>, sortBy: "licensePlate", filterBy: "licensePlate" },
     { name: t("Ambulance.Class"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
     { name: t("Ambulance.Type"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, sortBy: "ambulanceType", filterBy: "ambulanceType" },
     { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, sortBy: "ambulanceStateType", filterBy: "ambulanceStateType" },
-    { name: t("Common.Details"), property: (x: Readonly<AmbulanceResponse>) => (
-      <>
-        <NavButton to={`hist/${x.licensePlate}`} className="mb-1">{t("Ambulance.History")}</NavButton>
-        <NavButton to={`path/${x.licensePlate}`}>{t("Ambulance.Path")}</NavButton>
-      </>
-    ) },
-    { name: t("Common.Remove"), property: (x: Readonly<AmbulanceResponse>) => <Button onClick={e => popup(<ConfirmPopup text="Ambulance.ConfirmRemove" onConfirm={() => remove(x.licensePlate)} />)}>X</Button> }
+    { name: t("Common.Remove"), property: (x: Readonly<AmbulanceResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Ambulance.ConfirmRemove" onConfirm={() => remove(x.licensePlate)} />)} canDelete={!removed.includes(x.licensePlate)} /> }
   ];
 
   return (
@@ -55,7 +62,7 @@ const AmbulanceList = () => {
       <Row className="my-2 justify-content-end">
         <Col />
         <Col md="auto">
-          <NavButton to="new">+</NavButton>
+          <NavButton to="/newambulance">+</NavButton>
         </Col>
       </Row>
       <Table columns={cols} data={ambulances} isLoading={isLoading} />

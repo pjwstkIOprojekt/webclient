@@ -14,6 +14,8 @@ import L from "leaflet";
 import { ambulanceIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
+import FormSelect from "../../fragments/forms/FormSelect";
+
 const AmbulancePathView = (props: Readonly<MapPathHelperParams>) => {
   const [offset, setOffset] = useState(0);
   const [update, setUpdate] = useState(false);
@@ -73,6 +75,7 @@ const AmbulancePathView = (props: Readonly<MapPathHelperParams>) => {
   return (
     <Form onSubmit={onSubmit} className="w-50">
       <h1 className="my-3 text-center">{t("Ambulance.Path")}</h1>
+      <FormSelect className="my-3" options={["--Wybierz trasę--"]} />
       <Range id="timeline" className="mb-3" minValue="0" maxValue={props.path.length - 1} value={offset} onChange={e => onMove(parseInt(e.target.value))} />
       <h4 className="text-center mb-3">{t("Map.Location")}</h4>
       <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} />
@@ -109,7 +112,7 @@ const AmbulancePath = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<AmbulancePathView update={setCoords} lat={coords[0]} lng={coords[1]} path={path} setPath={setPath} />} paths={[{
+  return <MapView isLoaded={loaded} center={coords} initialZoom={12} small element={<AmbulancePathView update={setCoords} lat={coords[0]} lng={coords[1]} path={path} setPath={setPath} />} paths={[{
     points: path.map(p => [p.latitude, p.longitude]),
     color: "red"
   }]} clickable onClick={e => update(e)} marks={[mark]} />;
