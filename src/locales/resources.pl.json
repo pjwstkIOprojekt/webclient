@@ -63,7 +63,8 @@
     },
     "IncidentStatusType": {
         "NEW": "Nowe",
-        "ASSIGNED": "Przyjęte",
+        "ASSIGNED": "Przypisane",
+        "ACCEPTED": "Zaakceptowane",
         "REJECTED": "Odrzucone",
         "CLOSED": "Zamknięte"
     },
@@ -95,7 +96,10 @@
         "Description": "Opis",
         "Type": "Rodzaj zdarzenia",
         "VictimsCount": "Ilość poszkodowanych",
-        "ConfirmRemove": "Czy na pewno chcesz usunąć to zgłoszenie?"
+        "ConfirmRemove": "Czy na pewno chcesz usunąć to zgłoszenie?",
+        "DangerScale": "Skala zagrożenia",
+        "StatusType": "Status zgłoszenia",
+        "Justification": "Uzasadnienie"
     },
     "Person": {
         "FirstName": "Imię",
@@ -123,7 +127,8 @@
         "LoggedInto": "Pomyślnie zalogowano na konto",
         "LogOut": "Wylogowanie",
         "LoggedOut": "Pomyślnie wylogowano z konta",
-        "AllCapabilities": "Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!"
+        "AllCapabilities": "Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!",
+        "Error": "Błąd logowania"
     },
     "Allergy": {
         "Allergies": "Alergie",
@@ -152,7 +157,9 @@
         "IncorrectLogin": "Nieprawidłowy email lub hasło.",
         "LoadingProblem": "Nastąpił problem z wczytaniem danych. Spróbuj ponownie.",
         "EmptyValue": "Ta wartość nie może być pusta.",
-        "Past": "Można podać tylko datę w przeszłości."
+        "Past": "Można podać tylko datę w przeszłości.",
+        "Network": "Nie można się połączyć z serwerem. Sprawdź swoje połączenie z Internetem",
+        "PostRegisterFail": "Rejestracja się powiodła, ale nastąpił błąd przy logowaniu. Spróbuj się zalogować ponownie."
     },
     "Blood": {
         "Type": "Grupa krwi",
@@ -167,7 +174,7 @@
     "HomePage": {
         "HomePage": "Strona główna",
         "Report24h": "Zgłoszenia z ostatnich 24 godzin",
-        "Incidents": "Zdarzenia",
+        "Incidents": "Rodzaje zdarzeń",
         "OpenMap": "Otwórz mapę",
         "SaveLife": "Pomóż nam ratować ludzkie życia już teraz!",
         "Welcome": "Witamy w GARY, w nowym najlepszym przyjacielu człowieka.",

@@ -2,33 +2,36 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getDiseaseById, DiseaseResponse, createDisease, updateDisease } from "../../../../api/diseaseCalls";
-import { loadingError, userEmailError, unknownError, errorHeader } from "../../sharedStrings";
+import { missingDataError, loadingError, userEmailError, unknownError, networkError, errorHeader } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
-import { Container, Alert } from "react-bootstrap";
+import { Container, Row, Col, Alert } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
 import NotBlank from "../../../fragments/forms/api/NotBlank";
 import FormCheck from "../../../fragments/forms/FormCheck";
-import Button from "../../../fragments/util/Button";
+import Submit from "../../../fragments/forms/Submit";
 import NavButton from "../../../fragments/navigation/NavButton";
 
 const MedicalConditionForm = () => {
   const [diseaseName, setDiseaseName] = useState("");
   const [description, setDescription] = useState("");
   const [share, setShare] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const { diseaseId } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
     if (diseaseId !== undefined) {
+      setError(undefined);
+
       getDiseaseById(parseInt(diseaseId)).then(res => res.json()).then((data: DiseaseResponse) => {
         if (data.description && data.diseaseName) {
           setDiseaseName(data.diseaseName);
           setDescription(data.description);
           setShare(data.shareWithBand === true);
+          setError("");
         } else {
-          setError(loadingError);
+          setError(missingDataError);
         }
       }).catch(err => {
         console.error(err);
@@ -38,11 +41,12 @@ const MedicalConditionForm = () => {
   }, [diseaseId]);
 
   const onSubmit = () => {
-    setError("");
+    setError(undefined);
     const email = getEmail();
 
     if (!email) {
       console.error(userEmailError);
+      setError("");
       return;
     }
 
@@ -54,7 +58,7 @@ const MedicalConditionForm = () => {
     };
 
     (diseaseId === undefined ? createDisease(disease) : updateDisease(parseInt(diseaseId), disease)).then(res => {
-      if (res.status === 200) {
+      if (res.ok) {
         navigate("../medicaldata");
       } else {
         console.log(res);
@@ -62,7 +66,7 @@ const MedicalConditionForm = () => {
       }
     }).catch(err => {
       console.error(err);
-      setError(unknownError);
+      setError(networkError);
     });
   };
 
@@ -73,8 +77,15 @@ const MedicalConditionForm = () => {
         <NotBlank id="diseaseName" className="mb-3" label={t("Disease.Name")} required value={diseaseName} onChange={e => setDiseaseName(e.target.value)} />
         <NotBlank id="description" className="mb-3" label={t("Disease.Description")} required value={description} onChange={e => setDescription(e.target.value)} />
         <FormCheck id="shareWithBand" className="mb-3" label={t("Disease.ShareWithBand")} value={share} onChange={e => setShare(!share)} />
-        <Button className="m-2" type="submit">{diseaseId === undefined ? t("Common.Add") : t("Common.Save")}</Button>
-        <NavButton to="../medicaldata">{t("Common.Cancel")}</NavButton>
+        <Row>
+          <Col md="auto">
+            <Submit canSubmit={error !== undefined}>{diseaseId === undefined ? t("Common.Add") : t("Common.Save")}</Submit>
+          </Col>
+          <Col md="auto">
+            <NavButton to="../medicaldata">{t("Common.Cancel")}</NavButton>
+          </Col>
+          <Col />
+        </Row>
         {error ? (
           <Alert variant="danger" className="mt-3">
             <Alert.Heading>{t(errorHeader)}</Alert.Heading>

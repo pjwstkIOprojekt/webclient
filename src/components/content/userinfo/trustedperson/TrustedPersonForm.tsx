@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getEmail } from "../../../../helpers/authHelper";
-import { userEmailError, unknownError, errorHeader } from "../../sharedStrings";
+import { userEmailError, unknownError, networkError, errorHeader } from "../../sharedStrings";
 import { getTrustedPersonByEmail, TrustedPersonResponse, createTrustedPerson, updateTrustedPerson } from "../../../../api/trustedPersonCalls";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
 import NotBlank from "../../../fragments/forms/api/NotBlank";
 import Email from "../../../fragments/forms/api/Email";
 import FormPhoneNumber from "../../../fragments/forms/FormPhoneNumber";
+import Submit from "../../../fragments/forms/Submit";
 import Button from "../../../fragments/util/Button";
 
 const TrustedPersonForm = () => {
@@ -15,7 +16,7 @@ const TrustedPersonForm = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const [readOnly, setReadOnly] = useState(true);
   const [isNew, setIsNew] = useState(true);
   const { t } = useTranslation();
@@ -32,6 +33,8 @@ const TrustedPersonForm = () => {
       return;
     }
     
+    setError(undefined);
+
     getTrustedPersonByEmail(email).then(res => res.json()).then((data: TrustedPersonResponse) => {
       if (data.firstName && data.lastName && data.phone) {
         setFirstName(data.firstName);
@@ -39,8 +42,12 @@ const TrustedPersonForm = () => {
         setEmail(data.email ?? "");
         setPhoneNumber(data.phone);
         setIsNew(false);
+        setError("");
       }
-    }).catch(console.error);
+    }).catch(err => {
+      console.error(err);
+      setError("");
+    });
   }, [readOnly]);
 
   const onSubmit = () => {
@@ -49,11 +56,12 @@ const TrustedPersonForm = () => {
       return;
     }
 
-    setError("");
+    setError(undefined);
     const userEmail = getEmail();
 
     if (!userEmail) {
       console.error(userEmailError);
+      setError("");
       return;
     }
 
@@ -66,15 +74,16 @@ const TrustedPersonForm = () => {
     };
 
     (isNew ? createTrustedPerson(person) : updateTrustedPerson(person)).then(res => {
-      if (res.status === 200) {
+      if (res.ok) {
         setReadOnly(true);
+        setError("");
       } else {
         console.log(res);
         setError(unknownError);
       }
     }).catch(err => {
       console.error(err);
-      setError(unknownError);
+      setError(networkError);
     });
   };
 
@@ -90,8 +99,8 @@ const TrustedPersonForm = () => {
           <Email id="email" onChange={e => setEmail(e.target.value)} className="mb-3" value={email} label={t("Person.Email")} disabled={readOnly} />
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label={t("Person.PhoneNumber")} disabled={readOnly} />
         </Row>
-        <Button type="submit" className="mx-3">{readOnly ? t("Common.Edit") : t("Common.Save")}</Button>
-        {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)}>{t("Common.Cancel")}</Button>}
+        <Submit canSubmit={readOnly || error !== undefined}>{readOnly ? t("Common.Edit") : t("Common.Save")}</Submit>
+        {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)} className="mx-3">{t("Common.Cancel")}</Button>}
         {error ? (
           <Alert variant="danger" className="mt-3">
             <Alert.Heading>{t(errorHeader)}</Alert.Heading>

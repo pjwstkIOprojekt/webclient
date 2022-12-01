@@ -4,3 +4,5 @@ export const userEmailError = "User email is undefined. Check Session Storage an
 export const errorHeader = "Error.Error";
 export const loadingError = "Error.LoadingProblem";
 export const unknownError = "Error.UnknownError";
+export const networkError = "Error.Network";
+export const missingDataError = "Error.NoResponseServer";

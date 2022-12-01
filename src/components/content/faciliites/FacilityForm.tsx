@@ -5,14 +5,14 @@ import { useTranslation } from "react-i18next";
 import { useRoles } from "../../../hooks/useAuth";
 import { isDispositor, isDirector } from "../../../helpers/authHelper";
 import { getFacilityById, FacilityResponse, createFacility, updateFacility } from "../../../api/facilityCalls";
-import { loadingError, unknownError, errorHeader } from "../sharedStrings";
+import { missingDataError, loadingError, unknownError, networkError, errorHeader } from "../sharedStrings";
 import { Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import NotBlank from "../../fragments/forms/api/NotBlank";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
 import { FacilityType } from "../../../api/enumCalls";
 import Number from "../../fragments/forms/api/Number";
-import Button from "../../fragments/util/Button";
+import Submit from "../../fragments/forms/Submit";
 import L from "leaflet";
 import { hospitalIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
@@ -20,7 +20,7 @@ import MapView from "../../fragments/map/MapView";
 const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
     const [name, setName] = useState("");
     const [facilityType, setFacilityType] = useState("");
-    const [error, setError] = useState("");
+    const [error, setError] = useState<string | undefined>("");
     const { facilityId } = useParams();
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -30,13 +30,16 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
   
     useEffect(() => {
       if (facilityId !== undefined) {
+        setError(undefined);
+
         getFacilityById(parseInt(facilityId)).then(res => res.json()).then((data: FacilityResponse) => {
           if (data.name && data.facilityType && data.location) {
             setName(data.name);
             setFacilityType(data.facilityType);
             update([data.location.latitude, data.location.longitude]);
+            setError("");
           } else {
-            setError(loadingError);
+            setError(missingDataError);
           }
         }).catch(err => {
           console.error(err);
@@ -51,7 +54,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
         return;
       }
 
-      setError("");
+      setError(undefined);
   
       const facility = {
         name: name,
@@ -61,7 +64,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
       };
   
       (facilityId === undefined ? createFacility(facility) : updateFacility(parseInt(facilityId), facility)).then(res => {
-        if (res.status === 200) {
+        if (res.ok) {
           navigate("../facilities");
         } else {
           console.log(res);
@@ -69,7 +72,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
         }
       }).catch(err => {
         console.error(err);
-        setError(unknownError);
+        setError(networkError);
       });
     };
   
@@ -82,8 +85,8 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
         <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} disabled={!canEdit} />
         <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update([props.lat, parseFloat(e.target.value)])} disabled={!canEdit} />
         {canEdit ? (
-          <Row className="justify-content-center">
-            <Button className="mt-3 w-75" type="submit">{facilityId === undefined ? t("Facility.Add") : t("Common.SaveChanges")}</Button>
+          <Row className="justify-content-center mt-3">
+            <Submit className="w-75" canSubmit={error !== undefined}>{facilityId === undefined ? t("Facility.Add") : t("Common.SaveChanges")}</Submit>
           </Row>
         ) : ""}
         {error ? (

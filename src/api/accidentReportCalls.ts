@@ -31,7 +31,8 @@ export interface AccidentReportResponse extends AccidentReportBase {
   accidentId: number,
   date: Date,
   location: Location,
-  consciousness: boolean
+  consciousness: boolean,
+  address: string
 }
 
 const accidentBase = "accident_report";

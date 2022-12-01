@@ -63,7 +63,8 @@
     },
     "IncidentStatusType": {
         "NEW": "New",
-        "ASSIGNED": "Accepted",
+        "ASSIGNED": "Assigned",
+        "ACCEPTED": "Accepted",
         "REJECTED": "Rejected",
         "CLOSED": "Closed"
     },
@@ -95,7 +96,10 @@
         "Description": "Description",
         "Type": "Type of accident",
         "VictimsCount": "Amount of victims",
-        "ConfirmRemove": "Are you sure you want to delete this report?"
+        "ConfirmRemove": "Are you sure you want to delete this report?",
+        "DangerScale": "Danger scale",
+        "StatusType": "Incident status",
+        "Justification": "Justification"
     },
     "Person": {
         "FirstName": "First name",
@@ -123,7 +127,8 @@
         "LoggedInto": "Successfully logged into the account",
         "LogOut": "Logout",
         "LoggedOut": "Successfully logged out of account",
-        "AllCapabilities": "Do you want to be able to use all the possibilities of our platform? Log in to your account now!"
+        "AllCapabilities": "Do you want to be able to use all the possibilities of our platform? Log in to your account now!",
+        "Error": "Login error"
     },
     "Allergy": {
         "Allergies": "Allergies",
@@ -152,7 +157,9 @@
         "IncorrectLogin": "Incorrect email or password.",
         "LoadingProblem": "There was a problem loading the data. Try again.",
         "EmptyValue": "This value cannot be empty.",
-        "Past": "Only a date in the past can be given."
+        "Past": "Only a date in the past can be given.",
+        "Network": "Cannot connect with the server. Check your Internet connection.",
+        "PostRegisterFail": "Registration was successful but an error has occured while logging in. Try to log in again."
     },
     "Blood": {
         "Type": "Blood type",
@@ -167,7 +174,7 @@
     "HomePage": {
         "HomePage": "Home page",
         "Report24h": "Last 24 hours reports",
-        "Incidents": "Incidents",
+        "Incidents": "Accident types",
         "OpenMap": "Open map",
         "SaveLife": "Help us save human lives now!",
         "Welcome": "Welcome to GARY, man's new best friend.",

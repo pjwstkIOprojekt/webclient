@@ -2,43 +2,45 @@ import { useState } from "react";
 import { useLogin } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { loginUser, JwtResponse } from "../../../api/authCalls";
-import { unknownError, errorHeader } from "../sharedStrings";
+import { missingDataError, networkError, errorHeader } from "../sharedStrings";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import Email from "../../fragments/forms/api/Email";
 import Password from "../../fragments/forms/api/Password";
-import Button from "../../fragments/util/Button";
+import Submit from "../../fragments/forms/Submit";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const login = useLogin();
   const { t } = useTranslation();
 
   const handleSubmit = () => {
-    let status = -1;
+    setError(undefined);
     
     loginUser({
       email: email,
       password: password,
     }).then(res => {
-      status = res.status;
-      return res.json();
-    }).then((data: JwtResponse) => {
-      if (status === 200) {
+      if (res.ok) {
+        return res.json();
+      }
+
+      setError("Error.IncorrectLogin");
+      return undefined;
+    }).then((data?: JwtResponse) => {
+      if (data) {
         if (data.token && data.roles && data.email) {
           login(data.token, data.roles, data.email);
         } else {
-          setError(unknownError);
+          setError(missingDataError);
         }
-      } else {
-        setError(unknownError);
       }
     }
     ).catch(err => {
       console.error(err);
-      setError("Error.IncorrectLogin");
+      setError(networkError);
     });
   };
 
@@ -52,8 +54,8 @@ const Login = () => {
         <Row className="justify-content-center">
           <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Person.Password")} />
         </Row>
-        <Row className="justify-content-center">
-          <Button className="my-3 w-25" type="submit">{t("Login.SignIn")}</Button>
+        <Row className="justify-content-center my-3">
+          <Submit className="w-25" canSubmit={error !== undefined}>{t("Login.SignIn")}</Submit>
         </Row>
         {error ? (
           <Row className="justify-content-center mt-5">
