@@ -1,6 +1,6 @@
 import L from "leaflet";
 import { get } from "./basicCalls";
-import { accidentIcon } from "../components/content/map/MapIcons";
+import { accidentIcon, floodIcon, fireIcon, placeholderIcon, heartIcon, suicideIcon, covidIcon, hospitalIcon, policeIcon, fireUnitIcon, guardIcon, aedIcon } from "../components/content/map/MapIcons";
 
 export interface EnumValues {
   dark?: string,
@@ -102,37 +102,37 @@ export const EmergencyType: EnumType = {
       dark: "#dd9900",
       light: "#dd9900",
       markType: MarkTypes.Flood,
-      icon: accidentIcon
+      icon: floodIcon
     },
     "FIRE": {
       dark: "#ff0000",
       light: "#ff0000",
       markType: MarkTypes.Fire,
-      icon: accidentIcon
+      icon: fireIcon
     },
     "UNKNOWN": {
       dark: "#777777",
       light: "#777777",
       markType: MarkTypes.Unknown,
-      icon: accidentIcon
+      icon: placeholderIcon
     },
     "HEART_ATTACK": {
       dark: "#ff0000",
       light: "#ff0000",
       markType: MarkTypes.HeartAttack,
-      icon: accidentIcon
+      icon: heartIcon
     },
     "SUICIDE": {
       dark: "#447700",
       light: "#447700",
       markType: MarkTypes.Suicide,
-      icon: accidentIcon
+      icon: suicideIcon
     },
     "COVID": {
       dark: "#777777",
       light: "#777777",
       markType: MarkTypes.Covid,
-      icon: accidentIcon
+      icon: covidIcon
     }
   }
 };
@@ -143,23 +143,23 @@ export const FacilityType: EnumType = {
   values: {
     "HOSPITAL": {
       markType: MarkTypes.Hospital,
-      icon: accidentIcon
+      icon: hospitalIcon
     },
     "POLICE_STATION": {
       markType: MarkTypes.PoliceStation,
-      icon: accidentIcon
+      icon: policeIcon
     },
     "FIRE_UNIT": {
       markType: MarkTypes.FireUnit,
-      icon: accidentIcon
+      icon: fireUnitIcon
     },
     "GUARD_UNIT": {
       markType: MarkTypes.GuardUnit,
-      icon: accidentIcon
+      icon: guardIcon
     },
     "AED": {
       markType: MarkTypes.Aed,
-      icon: accidentIcon
+      icon: aedIcon
     }
   }
 };

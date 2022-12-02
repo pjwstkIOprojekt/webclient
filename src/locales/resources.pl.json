@@ -108,9 +108,13 @@
         "Type": "Rodzaj zdarzenia",
         "VictimsCount": "Ilość poszkodowanych",
         "ConfirmRemove": "Czy na pewno chcesz usunąć to zgłoszenie?",
+        "ConfirmCreate": "Czy na pewno chcesz zgłosić zdarzenie?",
         "DangerScale": "Skala zagrożenia",
         "StatusType": "Status zgłoszenia",
-        "Justification": "Uzasadnienie"
+        "Justification": "Uzasadnienie",
+        "BandCode": "Kod opaski",
+        "Create": "Zgłoś zdarzenie",
+        "Location": "Miejsce zdarzenia"
     },
     "Person": {
         "FirstName": "Imię",
@@ -240,7 +244,8 @@
         "Remove": "Usuń",
         "Cancel": "Anuluj",
         "Value": "Wartość",
-        "Details": "Szczegóły"
+        "Details": "Szczegóły",
+        "Contents": "Spis treści"
     },
     "Map": {
         "Map": "Mapa",
@@ -248,6 +253,8 @@
         "Location": "Lokalizacja"
     },
     "Tutorial": {
-        "Tutorials": "Poradniki"
+        "Tutorials": "Poradniki",
+        "Opinion": "Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.",
+        "Average": "Średnia ocena:"
     }
 }

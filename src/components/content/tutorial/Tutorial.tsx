@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { TutorialResponse, getTutorialById } from "../../../api/tutorialCalls";
 import { useDarkMode } from "../../../hooks/useDarkMode";
-import { useParams } from "react-router-dom";
 import { useRoles } from "../../../hooks/useAuth";
 import { usePopup } from "../../../hooks/usePopup";
+import { useTranslation } from "react-i18next";
 import { isAuth } from "../../../helpers/authHelper";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
 import { Container, Row, Col, Nav, NavDropdown } from "react-bootstrap";
@@ -11,20 +11,19 @@ import ContentsGenerator from "../../fragments/util/ContentsGenerator";
 import ItemLink from "../../fragments/navigation/ItemLink";
 import Rating from "../../fragments/util/Rating";
 import InnerHtml from "../../fragments/values/InnerHtml";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import ViewLoader from "../../fragments/util/ViewLoader";
 
-const Tutorial = () => {
-  const [data, setData] = useState("");
+interface TutorialPageParams {
+  tutorial: TutorialResponse
+}
+
+const TutorialPage = (props: Readonly<TutorialPageParams>) => {
   const darkMode = useDarkMode();
-  const { tutorialId } = useParams();
   const roles = useRoles();
   const popup = usePopup();
-
-  useEffect(() => {
-    setData("");
-    const tutorials = ["AtakEpilepsji", "Omdlenie", "Oparzenia", "PorazeniePradem", "RKO", "Udar1"];
-    const id = tutorialId ? parseInt(tutorialId) : 0;
-    fetch(`/tmp/${tutorials[id % tutorials.length]}.html`).then(res => res.text()).then(setData).catch(console.error);
-  }, [tutorialId]);
+  const { t } = useTranslation();
 
   const processTitle = (x: string | null) => {
     if (x === null) {
@@ -37,6 +36,7 @@ const Tutorial = () => {
   const review = () => {
     if (!isAuth(roles)) {
       popup(<NotLoggedPopup />);
+      return;
     }
   };
 
@@ -46,16 +46,16 @@ const Tutorial = () => {
         <Col xs={2} className={`contents-${customTheme(darkMode)} radius`}>
           <Nav className="col-md-12 d-none d-md-block lh-lg p-1 h-100">
             <span className="contents">
-              <h1>Spis treści</h1>
+              <h1>{t("Common.Contents")}</h1>
               <ContentsGenerator selector="h1, h3, h4" result={(ch, index) => (
                 <Nav.Item key={index}>
                   <ItemLink to={ch.id}>{processTitle(ch.textContent) ?? "???"}</ItemLink>
                 </Nav.Item>
-              )} update={data} />
+              )} update={props.tutorial.tutorialHTML} />
               <br />
               <NavDropdown.Divider />
               <br />
-              <p>Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.</p>
+              <p>{t("Tutorial.Opinion")}</p>
               <Row onClick={review} className="text-center">
                 <Rating initialValue={0} disabled={!isAuth(roles)} />
               </Row>
@@ -64,16 +64,42 @@ const Tutorial = () => {
         </Col>
         <Col xs={10}>
           <Row className="text-end">
-            <Rating initialValue={0} disabled />
+            <Rating initialValue={props.tutorial.avarageRating} disabled />
           </Row>
           <Row className="justify-content-end mx-1">
-            Średnia ocena: 0
+            {t("Tutorial.Average")} {props.tutorial.avarageRating}
           </Row>
-          <InnerHtml value={data} containerClass="tutorial-content" />
+          <InnerHtml value={props.tutorial.tutorialHTML ?? ""} containerClass="tutorial-content" />
         </Col>
       </Row>
     </Container>
   );
+};
+
+const Tutorial = () => {
+  const [tutorial, setTutorial] = useState<TutorialResponse>({
+    tutorialId: -1,
+    tutorialType: "",
+    tutorialHTML: null,
+    avarageRating: 0,
+    name: ""
+  });
+
+  const { tutorialId } = useParams();
+
+  useEffect(() => {
+    if (tutorialId === undefined) {
+      return;
+    }
+
+    getTutorialById(parseInt(tutorialId)).then(res => res.json()).then((data: TutorialResponse) => {
+      if (data.tutorialHTML) {
+        setTutorial(data);
+      }
+    }).catch(console.error);
+  }, [tutorialId]);
+
+  return <ViewLoader isLoaded={tutorial.tutorialId > 0} element={<TutorialPage tutorial={tutorial} />} />;
 };
 
 export default Tutorial;

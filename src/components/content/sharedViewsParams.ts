@@ -12,7 +12,7 @@ export interface MapViewHelperParams {
   lng: number
 }
 
-export interface MapPathHelperParams extends MapViewHelperParams {
-  path: PathElement[],
-  setPath: (x: PathElement[]) => void
+export interface MapDataHelperParams<T> extends MapViewHelperParams {
+  data: T,
+  setData: (x: T) => void
 }
