@@ -1,4 +1,5 @@
-import { MapPathHelperParams } from "../sharedViewsParams";
+import { MapDataHelperParams } from "../sharedViewsParams";
+import { PathElement } from "../../../api/basicCalls";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -9,20 +10,19 @@ import Form from "../../fragments/forms/Form";
 import Range from "../../fragments/forms/Range";
 import Number from "../../fragments/forms/api/Number";
 import Button from "../../fragments/util/Button";
-import { PathElement } from "../../../api/basicCalls";
 import L from "leaflet";
 import { ambulanceIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
 import FormSelect from "../../fragments/forms/FormSelect";
 
-const AmbulancePathView = (props: Readonly<MapPathHelperParams>) => {
+const AmbulancePathView = (props: Readonly<MapDataHelperParams<PathElement[]>>) => {
   const [offset, setOffset] = useState(0);
   const [update, setUpdate] = useState(false);
   const [error, setError] = useState("");
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
-  const setPath = props.setPath;
+  const setPath = props.setData;
 
   useEffect(() => {
     if (ambulanceId === undefined) {
@@ -68,7 +68,7 @@ const AmbulancePathView = (props: Readonly<MapPathHelperParams>) => {
 
   const onMove = (x: number) => {
     setOffset(x);
-    const value = props.path[x];
+    const value = props.data[x];
     props.update([value.latitude, value.longitude]);
   };
 
@@ -76,7 +76,7 @@ const AmbulancePathView = (props: Readonly<MapPathHelperParams>) => {
     <Form onSubmit={onSubmit} className="w-50">
       <h1 className="my-3 text-center">{t("Ambulance.Path")}</h1>
       <FormSelect className="my-3" options={["--Wybierz trasę--"]} />
-      <Range id="timeline" className="mb-3" minValue="0" maxValue={props.path.length - 1} value={offset} onChange={e => onMove(parseInt(e.target.value))} />
+      <Range id="timeline" className="mb-3" minValue="0" maxValue={props.data.length - 1} value={offset} onChange={e => onMove(parseInt(e.target.value))} />
       <h4 className="text-center mb-3">{t("Map.Location")}</h4>
       <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} />
       <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update([props.lat, parseFloat(e.target.value)])} />
@@ -112,7 +112,7 @@ const AmbulancePath = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView isLoaded={loaded} center={coords} initialZoom={12} small element={<AmbulancePathView update={setCoords} lat={coords[0]} lng={coords[1]} path={path} setPath={setPath} />} paths={[{
+  return <MapView isLoaded={loaded} center={coords} initialZoom={12} small element={<AmbulancePathView update={setCoords} lat={coords[0]} lng={coords[1]} data={path} setData={setPath} />} paths={[{
     points: path.map(p => [p.latitude, p.longitude]),
     color: "red"
   }]} clickable onClick={e => update(e)} marks={[mark]} />;

@@ -1,4 +1,4 @@
-import { MapViewHelperParams } from "../sharedViewsParams";
+import { MapDataHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -17,15 +17,15 @@ import L from "leaflet";
 import { hospitalIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
-const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
+const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     const [name, setName] = useState("");
-    const [facilityType, setFacilityType] = useState("");
     const [error, setError] = useState<string | undefined>("");
     const { facilityId } = useParams();
     const navigate = useNavigate();
     const { t } = useTranslation();
     const roles = useRoles();
     const update = props.update;
+    const setFacilityType = props.setData;
     const canEdit = isDispositor(roles) || isDirector(roles);
   
     useEffect(() => {
@@ -46,7 +46,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
           setError(loadingError);
         });
       }
-    }, [facilityId, update]);
+    }, [facilityId, setFacilityType, update]);
   
     const onSubmit = () => {
       if (!canEdit) {
@@ -58,7 +58,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
   
       const facility = {
         name: name,
-        facilityType: facilityType,
+        facilityType: props.data,
         longitude: props.lng,
         latitude: props.lat
       };
@@ -80,7 +80,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
       <Form onSubmit={onSubmit} className="w-50">
         <h1 className="my-3 text-center">{facilityId === undefined ? t("Facility.Adding") : (canEdit ? t("Facility.Editing") : t("Facility.Facility"))}</h1>
         <NotBlank id="name" className="mb-3" required value={name} onChange={e => setName(e.target.value)} label={t("Facility.Name")} disabled={!canEdit} />
-        <EnumSelect id="facilityType" className="mb-3" required value={facilityType} onChange={e => setFacilityType(e.target.value)} enum={FacilityType} onLoad={setFacilityType} label={t("Facility.Type")} disabled={!canEdit} />
+        <EnumSelect id="facilityType" className="mb-3" required value={props.data} onChange={e => props.setData(e.target.value)} enum={FacilityType} onLoad={props.setData} label={t("Facility.Type")} disabled={!canEdit} />
         <h4 className="text-center mb-3">{t("Map.Location")}</h4>
         <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} disabled={!canEdit} />
         <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update([props.lat, parseFloat(e.target.value)])} disabled={!canEdit} />
@@ -102,6 +102,7 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
   const FacilityForm = () => {
     const [coords, setCoords] = useState<[number, number]>([0, 0]);
     const [loaded, setLoaded] = useState(false);
+    const [facilityType, setFacilityType] = useState("");
     const { t } = useTranslation();
     const roles = useRoles();
     const canEdit = isDispositor(roles) || isDirector(roles);
@@ -116,10 +117,10 @@ const FacilityFormView = (props: Readonly<MapViewHelperParams>) => {
     const mark = {
       coords: coords,
       desc: t("Facility.Facility"),
-      icon: hospitalIcon
+      icon: FacilityType.values?.[facilityType]?.icon ?? hospitalIcon
     };
   
-    return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<FacilityFormView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable={canEdit} onClick={e => update(e)} marks={[mark]} />;
+    return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<FacilityFormView update={setCoords} lat={coords[0]} lng={coords[1]} data={facilityType} setData={setFacilityType} />} clickable={canEdit} onClick={e => update(e)} marks={[mark]} />;
   };
   
   export default FacilityForm;
