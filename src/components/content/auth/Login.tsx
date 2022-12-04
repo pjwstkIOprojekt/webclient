@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useLogin } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { loginUser, JwtResponse } from "../../../api/authCalls";
-import { missingDataError, networkError, errorHeader } from "../sharedStrings";
-import { Container, Row, Alert } from "react-bootstrap";
+import { missingDataError, networkError } from "../sharedStrings";
+import { Container, Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import Email from "../../fragments/forms/api/Email";
 import Password from "../../fragments/forms/api/Password";
 import Submit from "../../fragments/forms/Submit";
+import Error from "../../fragments/forms/Error";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -57,14 +58,9 @@ const Login = () => {
         <Row className="justify-content-center my-3">
           <Submit className="w-25" canSubmit={error !== undefined}>{t("Login.SignIn")}</Submit>
         </Row>
-        {error ? (
-          <Row className="justify-content-center mt-5">
-            <Alert variant="danger" className="w-50">
-              <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-              <p>{t(error)}</p>
-            </Alert>
-          </Row>
-        ) : ""}
+        <Row className="justify-content-center">
+          <Error className="mt-3 w-50" error={error} />
+        </Row>
       </Form>
     </Container>
   );

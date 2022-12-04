@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getAllergyById, AllergyResponse, createAllergy, updateAllergy } from "../../../../api/allergyCalls";
-import { missingDataError, loadingError, userEmailError, unknownError, networkError, errorHeader } from "../../sharedStrings";
+import { missingDataError, loadingError, userEmailError, unknownError, networkError } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
-import { Container, Row, Col, Alert } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
 import EnumSelect from "../../../fragments/forms/api/EnumSelect";
 import { AllergyType } from "../../../../api/enumCalls";
 import NotBlank from "../../../fragments/forms/api/NotBlank";
 import Submit from "../../../fragments/forms/Submit";
 import NavButton from "../../../fragments/navigation/NavButton";
+import Error from "../../../fragments/forms/Error";
 
 const AllergyForm = () => {
   const [allergyType, setAllergyType] = useState("");
@@ -87,12 +88,7 @@ const AllergyForm = () => {
           </Col>
           <Col />
         </Row>
-        {error ? (
-          <Alert variant="danger" className="mt-3">
-            <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-            <p>{t(error)}</p>
-          </Alert>
-        ) : ""}
+        <Error className="mt-3" error={error} />
       </Form>
     </Container>
   );

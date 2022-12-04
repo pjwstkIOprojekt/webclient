@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getEmail } from "../../../../helpers/authHelper";
-import { userEmailError, unknownError, networkError, errorHeader } from "../../sharedStrings";
+import { userEmailError, missingDataError, loadingError, unknownError, networkError } from "../../sharedStrings";
 import { getTrustedPersonByEmail, TrustedPersonResponse, createTrustedPerson, updateTrustedPerson } from "../../../../api/trustedPersonCalls";
-import { Container, Row, Alert } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
 import NotBlank from "../../../fragments/forms/api/NotBlank";
 import Email from "../../../fragments/forms/api/Email";
 import FormPhoneNumber from "../../../fragments/forms/FormPhoneNumber";
 import Submit from "../../../fragments/forms/Submit";
 import Button from "../../../fragments/util/Button";
+import Error from "../../../fragments/forms/Error";
 
 const TrustedPersonForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -43,16 +44,19 @@ const TrustedPersonForm = () => {
         setPhoneNumber(data.phone);
         setIsNew(false);
         setError("");
+      } else {
+        setError(missingDataError);
       }
     }).catch(err => {
       console.error(err);
-      setError("");
+      setError(loadingError);
     });
   }, [readOnly]);
 
   const onSubmit = () => {
     if (readOnly) {
       setReadOnly(false);
+      setError("");
       return;
     }
 
@@ -99,14 +103,9 @@ const TrustedPersonForm = () => {
           <Email id="email" onChange={e => setEmail(e.target.value)} className="mb-3" value={email} label={t("Person.Email")} disabled={readOnly} />
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label={t("Person.PhoneNumber")} disabled={readOnly} />
         </Row>
-        <Submit canSubmit={readOnly || error !== undefined}>{readOnly ? t("Common.Edit") : t("Common.Save")}</Submit>
+        <Submit canSubmit={error !== undefined}>{readOnly ? t("Common.Edit") : t("Common.Save")}</Submit>
         {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)} className="mx-3">{t("Common.Cancel")}</Button>}
-        {error ? (
-          <Alert variant="danger" className="mt-3">
-            <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-            <p>{t(error)}</p>
-          </Alert>
-        ) : ""}
+        <Error className="mt-3" error={error} />
       </Form>
     </Container>
   );

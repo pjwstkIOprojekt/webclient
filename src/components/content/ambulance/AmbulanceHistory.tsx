@@ -3,14 +3,15 @@ import { AmbulanceStateResponse, getAmbulanceHistory, AmbulanceHistoryResponse, 
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { licensePlateError } from "../sharedStrings";
-import { unknownError, networkError, errorHeader } from "../sharedStrings";
+import { unknownError, networkError } from "../sharedStrings";
 import Enum from "../../fragments/values/Enum";
 import { AmbulanceState } from "../../../api/enumCalls";
 import DateDisplay from "../../fragments/values/DateDisplay";
-import { Container, Row, Col, Alert } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
 import Spinner from "../../fragments/util/Spinner";
 import Button from "../../fragments/util/Button";
+import Error from "../../fragments/forms/Error";
 import Table from "../../fragments/util/Table";
 
 const AmbulanceHistory = () => {
@@ -78,9 +79,9 @@ const AmbulanceHistory = () => {
   ];
 
   return (
-    <Container className="mt-3 justify-content-center text-center">
-      <h3>{t("Ambulance.History")}</h3>
-      <h4 className="my-3">{t("Ambulance.ChangeState")}</h4>
+    <Container className="mt-3 justify-content-center">
+      <h3 className="text-center">{t("Ambulance.History")}</h3>
+      <h4 className="my-3 text-center">{t("Ambulance.ChangeState")}</h4>
       <Row className="my-3 justify-content-end">
         <Col>
           <EnumSelect id="newState" enum={AmbulanceState} value={newState} onLoad={setNewState} onChange={e => setNewState(e.target.value)} />
@@ -89,12 +90,7 @@ const AmbulanceHistory = () => {
           {error === undefined ? <Spinner /> : <Button onClick={changeState}>+</Button>}
         </Col>
       </Row>
-      {error ? (
-        <Alert variant="danger" className="my-3">
-          <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-          <p>{t(error)}</p>
-        </Alert>
-      ) : ""}
+      <Error className="my-3" error={error} />
       <Table columns={cols} data={states} isLoading={isLoading} />
     </Container>
   );

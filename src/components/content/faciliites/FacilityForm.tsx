@@ -5,14 +5,15 @@ import { useTranslation } from "react-i18next";
 import { useRoles } from "../../../hooks/useAuth";
 import { isDispositor, isDirector } from "../../../helpers/authHelper";
 import { getFacilityById, FacilityResponse, createFacility, updateFacility } from "../../../api/facilityCalls";
-import { missingDataError, loadingError, unknownError, networkError, errorHeader } from "../sharedStrings";
-import { Row, Alert } from "react-bootstrap";
+import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
+import { Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import NotBlank from "../../fragments/forms/api/NotBlank";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
 import { FacilityType } from "../../../api/enumCalls";
 import Number from "../../fragments/forms/api/Number";
 import Submit from "../../fragments/forms/Submit";
+import Error from "../../fragments/forms/Error";
 import L from "leaflet";
 import { hospitalIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
@@ -89,12 +90,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
             <Submit className="w-75" canSubmit={error !== undefined}>{facilityId === undefined ? t("Facility.Add") : t("Common.SaveChanges")}</Submit>
           </Row>
         ) : ""}
-        {error ? (
-          <Alert variant="danger" className="mt-3">
-            <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-            <p>{t(error)}</p>
-          </Alert>
-        ) : ""}
+        <Error className="mt-3" error={error} />
       </Form>
     );
   };
@@ -120,7 +116,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
       icon: FacilityType.values?.[facilityType]?.icon ?? hospitalIcon
     };
   
-    return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<FacilityFormView update={setCoords} lat={coords[0]} lng={coords[1]} data={facilityType} setData={setFacilityType} />} clickable={canEdit} onClick={e => update(e)} marks={[mark]} />;
+    return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<FacilityFormView update={setCoords} lat={coords[0]} lng={coords[1]} data={facilityType} setData={setFacilityType} />} clickable={canEdit} onClick={e => update(e)} searchable onSearch={e => update(e.geocode.center)} marks={[mark]} />;
   };
   
   export default FacilityForm;

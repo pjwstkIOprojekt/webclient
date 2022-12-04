@@ -6,10 +6,10 @@ import { useTranslation } from "react-i18next";
 import { createAccident } from "../../../api/accidentReportCalls";
 import { getEmail } from "../../../helpers/authHelper";
 import { userEmailError } from "../sharedStrings";
-import { unknownError, networkError, errorHeader } from "../sharedStrings";
+import { unknownError, networkError } from "../sharedStrings";
 import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import Form from "../../fragments/forms/Form";
-import { Row, Alert } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
 import { EmergencyType } from "../../../api/enumCalls";
 import FormCheck from "../../fragments/forms/FormCheck";
@@ -17,6 +17,7 @@ import Number from "../../fragments/forms/api/Number";
 import NotBlank from "../../fragments/forms/api/NotBlank";
 import FormTextArea from "../../fragments/forms/FormTextArea";
 import Submit from "../../fragments/forms/Submit";
+import Error from "../../fragments/forms/Error";
 import { accidentIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
@@ -97,12 +98,7 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
       <Row className="justify-content-center mb-5 mt-3">
         <Submit className="w-50" canSubmit={error !== undefined}>{t("Report.Create")}</Submit>
       </Row>
-      {error ? (
-        <Alert variant="danger" className="mt-3">
-          <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-          <p>{t(error)}</p>
-        </Alert>
-      ) : ""}
+      <Error className="mt-3" error={error} />
     </Form>
   );
 };
