@@ -1,28 +1,24 @@
 import { get, post } from "./basicCalls";
 
-export interface AbstractItemRequest {
+export interface ItemRequest {
   // Enum - ItemType
-  itemType: string | null
+  itemType: string,
+
+  // Not blank
+  name?: string,
+
+  // Not blank
+  description?: string,
+
+  // Not blank
+  manufacturer?: string,
+
+  // Datetime
+  expiration_date?: Date
 }
 
-export interface SingleUseItemRequest extends AbstractItemRequest {
-  name: string | null,
-  description: string | null
-}
-
-export interface MedicineItemRequest extends SingleUseItemRequest {
-  manufacturer: string | null,
-  expiration_date: Date | null
-}
-
-export interface AbstractItemResponse {
-  itemId: number,
-  itemType: string
-}
-
-export interface SingleUseItemResponse extends AbstractItemResponse {
-  name: string,
-  description: string
+export interface ItemResponse extends ItemRequest {
+  itemId: number
 }
 
 export interface ItemContainer {
@@ -31,17 +27,12 @@ export interface ItemContainer {
   updatedAt: Date
 }
 
-export interface MedicineItemResponse extends SingleUseItemResponse {
-  manufacturer: string,
-  expirationDate: Date
-}
-
-export interface EquipmentResponse<T extends AbstractItemResponse> {
-  item: T,
+export interface EquipmentResponse {
+  item: ItemResponse,
   itemData: ItemContainer
 }
 
 const itemBase = "item";
 export const getItems = () => get(itemBase);
 export const getItemById = (id: number) => get(`${itemBase}/${id}`);
-export const createItem = <T extends AbstractItemRequest>(req: Readonly<T>) => post(`${itemBase}/create`, req);
+export const createItem = (req: Readonly<ItemRequest>) => post(`${itemBase}/create`, req);

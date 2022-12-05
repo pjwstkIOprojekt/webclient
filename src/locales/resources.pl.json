@@ -256,5 +256,16 @@
         "Tutorials": "Poradniki",
         "Opinion": "Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.",
         "Average": "Średnia ocena:"
+    },
+    "Equipment": {
+        "Equipment": "Wyposażenie",
+        "Ambulance": "Wyposażenie w karetce",
+        "Adding": "Dodawanie wyposażenia",
+        "Add": "Dodaj wyposażenie",
+        "Type": "Rodzaj wyposażenia",
+        "Name": "Nazwa wyposażenia",
+        "Description": "Opis",
+        "Manufacturer": "Producent",
+        "Expiration": "Data ważności"
     }
 }

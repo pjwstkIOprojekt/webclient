@@ -174,3 +174,10 @@ export const IncidentType = {
   name: "IncidentStatusType",
   accepted: "ACCEPTED"
 };
+
+export const ItemType = {
+  getter: () => get(`${enumBase}/`),
+  name: "ItemType",
+  singleUse: "SINGLE_USE",
+  medical: "MEDICAL"
+};

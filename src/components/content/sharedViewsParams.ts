@@ -1,5 +1,3 @@
-import { PathElement } from "../../api/basicCalls"
-
 export interface TableViewParams<T> {
   data: T[],
   isLoading: boolean,

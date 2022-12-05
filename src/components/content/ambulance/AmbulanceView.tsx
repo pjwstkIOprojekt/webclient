@@ -15,6 +15,8 @@ import Navtab from "../../fragments/navigation/Navtab";
 import { Routes, Route } from "react-router-dom";
 import AmbulanceHistory from "./AmbulanceHistory";
 import AmbulancePath from "./AmbulancePath";
+import AmbulanceEquipment from "./AmbulanceEquipment";
+import EquipmentForm from "./EquipmentForm";
 
 const AmbulanceView = () => {
   const [ambulanceClass, setAmbulanceClass] = useState("");
@@ -80,7 +82,8 @@ const AmbulanceView = () => {
 
   const links = [
     { to: "hist", text: t("Ambulance.History") },
-    { to: "path", text: t("Ambulance.Path") }
+    { to: "path", text: t("Ambulance.Path") },
+    { to: "equip", text: t("Equipment.Equipment") }
   ];
 
   return (
@@ -102,6 +105,8 @@ const AmbulanceView = () => {
       <Routes>
         <Route path="hist" element={<AmbulanceHistory />} />
         <Route path="path" element={<AmbulancePath />} />
+        <Route path="equip" element={<AmbulanceEquipment />} />
+        <Route path="equip/new" element={<EquipmentForm />} />
       </Routes>
     </Container>
   );

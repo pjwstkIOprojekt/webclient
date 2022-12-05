@@ -32,7 +32,7 @@ const Register = () => {
     setInnerError("");
 
     if (password !== passwordCheck) {
-      setError("Error.DiffrentPasswords");
+      setError("Error.DifferentPasswords");
       return;
     }
 
@@ -111,8 +111,8 @@ const Register = () => {
         <Row className="justify-content-center mt-3">
           <Submit className="w-25" canSubmit={error !== undefined}>{t("Login.SignUp")}</Submit>
         </Row>
-        <Row className="justify-content-center">
-          <Error className="mt-3 w-50" error={error} innerLabel="Login.Error" innerError={innerError} />
+        <Row className="justify-content-center m-3">
+          <Error className="w-50" error={error} innerLabel="Login.Error" innerError={innerError} />
         </Row>
         <Row className="justify-content-center m-3">
           <CAlert className="w-50">

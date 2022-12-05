@@ -256,5 +256,16 @@
         "Tutorials": "Tutorials",
         "Opinion": "Was this tutorial helpful? Share your opinion.",
         "Average": "Average score:"
+    },
+    "Equipment": {
+        "Equipment": "Equipment",
+        "Ambulance": "Ambulance equipment",
+        "Adding": "Add equipment item",
+        "Add": "Add equipment item",
+        "Type": "Item type",
+        "Name": "Item name",
+        "Description": "Description",
+        "Manufacturer": "Manufacturer",
+        "Expiration": "Expiration Date"
     }
 }
