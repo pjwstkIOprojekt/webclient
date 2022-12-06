@@ -48,11 +48,16 @@ const AmbulanceList = () => {
     });
   };
 
+  const licenseField = "licensePlate";
+  const classField = "ambulanceClass";
+  const typeField = "ambulanceType";
+  const stateField = "ambulanceStateType";
+
   const cols = [
-    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`${x.licensePlate}/hist`}>{x.licensePlate}</Link>, sortBy: "licensePlate", filterBy: "licensePlate" },
-    { name: t("Ambulance.Class"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, sortBy: "ambulanceClass", filterBy: "ambulanceClass" },
-    { name: t("Ambulance.Type"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, sortBy: "ambulanceType", filterBy: "ambulanceType" },
-    { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, sortBy: "ambulanceStateType", filterBy: "ambulanceStateType" },
+    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`${x.licensePlate}/hist`}>{x.licensePlate}</Link>, sortBy: licenseField, filterBy: licenseField },
+    { name: t("Ambulance.Class"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, sortBy: classField, filterBy: classField },
+    { name: t("Ambulance.Type"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, sortBy: typeField, filterBy: typeField },
+    { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, sortBy: stateField, filterBy: stateField },
     { name: t("Common.Remove"), property: (x: Readonly<AmbulanceResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Ambulance.ConfirmRemove" onConfirm={() => remove(x.licensePlate)} />)} canDelete={!removed.includes(x.licensePlate)} /> }
   ];
 

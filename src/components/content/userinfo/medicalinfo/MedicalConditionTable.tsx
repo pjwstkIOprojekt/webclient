@@ -34,10 +34,14 @@ const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>
     });
   };
 
+  const idField = "diseaseId";
+  const nameField = "diseaseName";
+  const descField = "description";
+
   const cols = [
-    { name: "#", property: (x: Readonly<DiseaseResponse>) => <Link to={`disease/${x.diseaseId}`}>{x.diseaseId}</Link>, filterBy: "diseaseId", sortBy: "diseaseId" },
-    { name: t("Disease.Name"), property: "diseaseName", filterBy: "diseaseName", sortBy: "diseaseName" },
-    { name: t("Disease.Description"), property: "description", filterBy: "description", sortBy: "description" },
+    { name: "#", property: (x: Readonly<DiseaseResponse>) => <Link to={`disease/${x.diseaseId}`}>{x.diseaseId}</Link>, filterBy: idField, sortBy: idField },
+    { name: t("Disease.Name"), property: nameField, filterBy: nameField, sortBy: nameField },
+    { name: t("Disease.Description"), property: descField, filterBy: descField, sortBy: descField },
     { name: t("Disease.ShareWithBand"), property: (x: Readonly<DiseaseResponse>) => x.shareWithBand ? t("Common.Yes") : t("Common.No") },
     { name: t("Common.Remove"), property: (x: Readonly<DiseaseResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Disease.ConfirmRemove" onConfirm={() => remove(x)} />)} canDelete={!removed.includes(x.diseaseId)} /> }
   ];

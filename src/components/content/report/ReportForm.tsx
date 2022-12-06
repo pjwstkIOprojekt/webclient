@@ -1,12 +1,12 @@
 import { MapDataHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { usePopup } from "../../../hooks/usePopup";
 import { useTranslation } from "react-i18next";
-import { createAccident } from "../../../api/accidentReportCalls";
+import { getAccidentById, AccidentReportResponse, createAccident, updateAccident } from "../../../api/accidentReportCalls";
+import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import { getEmail } from "../../../helpers/authHelper";
 import { userEmailError } from "../sharedStrings";
-import { unknownError, networkError } from "../sharedStrings";
 import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import Form from "../../fragments/forms/Form";
 import { Row } from "react-bootstrap";
@@ -29,8 +29,36 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
   const [desc, setDesc] = useState("");
   const [error, setError] = useState<string | undefined>("");
   const navigate = useNavigate();
+  const { reportId } = useParams();
   const popup = usePopup();
   const { t } = useTranslation();
+  const update = props.update;
+
+  useEffect(() => {
+    if (reportId === undefined) {
+      return;
+    }
+
+    setError(undefined);
+
+    getAccidentById(parseInt(reportId)).then(res => res.json()).then((data: AccidentReportResponse) => {
+      if (data.location && data.victimCount !== undefined) {
+        setBreathing(data.breathing);
+        setConscious(data.consciousness);
+        setAmountVictims(data.victimCount);
+        setBandCode(data.bandCode);
+        setDesc(data.description);
+        update([data.location.latitude, data.location.longitude]);
+        setError("");
+      } else {
+        console.log(data);
+        setError(missingDataError);
+      }
+    }).catch(err => {
+      console.error(err);
+      setError(loadingError);
+    });
+  }, [reportId, update]);
 
   const handleSubmit = () => {
     setError(undefined);
@@ -42,17 +70,24 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
       return;
     }
 
-    createAccident({
+    const report = {
       bandCode: bandCode,
       emergencyType: props.data,
       victimCount: amountVictims,
       breathing: breathing,
       longitude: props.lng,
       latitude: props.lat,
-      description: desc,
-      email: email,
-      concious: conscious
-    }).then(res => {
+      description: desc
+    };
+
+    (reportId === undefined ? createAccident({
+      ...report,
+      concious: conscious,
+      email: email
+    }) : updateAccident(parseInt(reportId), {
+      ...report,
+      consciousness: conscious
+    })).then(res => {
       if (res.ok) {
         navigate("/home");
       } else {
@@ -65,7 +100,7 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
     })
   };
 
-  const onSubmit = () => popup(<ConfirmPopup text="Report.ConfirmCreate" onConfirm={handleSubmit} />);
+  const onSubmit = () => popup(<ConfirmPopup text={`Report.Confirm${reportId === undefined ? "Create" : "Edit"}`} onConfirm={handleSubmit} />);
 
   return (
     <Form onSubmit={onSubmit} className="w-50">
@@ -96,7 +131,7 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
         <Number id="lng" onChange={e => props.update([props.lat, parseFloat(e.target.value)])} required value={props.lng} />
       </Row>
       <Row className="justify-content-center mb-5 mt-3">
-        <Submit className="w-50" canSubmit={error !== undefined}>{t("Report.Create")}</Submit>
+        <Submit className="w-50" canSubmit={error !== undefined}>{reportId === undefined ? t("Report.Create") : t("Common.SaveChanges")}</Submit>
       </Row>
       <Error className="mt-3" error={error} />
     </Form>

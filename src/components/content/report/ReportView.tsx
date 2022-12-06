@@ -1,128 +1,112 @@
-import { MapViewHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { usePopup } from "../../../hooks/usePopup";
-import { createAccident } from "../../../api/accidentReportCalls";
-import { getEmail } from "../../../helpers/authHelper";
-import { userEmailError } from "../sharedStrings";
-import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
+import { AccidentReportResponse } from "../../../api/accidentReportCalls";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { getIncidentById, IncidentResponse, updateIncident } from "../../../api/incidentCalls";
+import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
+import { Container, Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
-import { Row, Alert } from "react-bootstrap";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
-import { EmergencyType } from "../../../api/enumCalls";
-import FormCheck from "../../fragments/forms/FormCheck";
+import { IncidentType } from "../../../api/enumCalls";
 import Number from "../../fragments/forms/api/Number";
 import NotBlank from "../../fragments/forms/api/NotBlank";
-import FormTextArea from "../../fragments/forms/FormTextArea";
 import Submit from "../../fragments/forms/Submit";
-import { accidentIcon } from "../map/MapIcons";
-import MapView from "../../fragments/map/MapView";
+import Button from "../../fragments/util/Button";
+import Error from "../../fragments/forms/Error";
+import Navtab from "../../fragments/navigation/Navtab";
+import { Routes, Route } from "react-router-dom";
+import ReportData from "./ReportData";
+import AssignAmbulance from "./AssignAmbulance";
 
-const ReportView = (props: Readonly<MapViewHelperParams>) => {
-  const [type, setType] = useState("");
-  const [breathing, setBreathing] = useState(true);
-  const [conscious, setConscious] = useState(true);
-  const [amountVictims, setAmountVictims] = useState(1);
-  const [bandCode, setBandCode] = useState("");
-  const [desc, setDesc] = useState("");
+const ReportView = () => {
+  const [statusType, setStatusType] = useState("");
+  const [dangerScale, setDangerScale] = useState(1);
+  const [reaction, setReaction] = useState("");
+  const [accidentData, setAccidentData] = useState<AccidentReportResponse | null>(null);
   const [error, setError] = useState<string | undefined>("");
-  const navigate = useNavigate();
-  const popup = usePopup();
+  const [readOnly, setReadOnly] = useState(true);
+  const { reportId } = useParams();
+  const { t } = useTranslation();
 
-  const handleSubmit = () => {
-    setError(undefined);
-    const email = getEmail();
+  useEffect(() => {
+    if (reportId !== undefined && readOnly) {
+      setError(undefined);
 
-    if (!email) {
-      console.error(userEmailError);
+      getIncidentById(parseInt(reportId)).then(res => res.json()).then((data: IncidentResponse) => {
+        if (data.incidentStatusType && data.dangerScale && data.accidentReport) {
+          setStatusType(data.incidentStatusType);
+          setDangerScale(data.dangerScale);
+          setReaction(data.reactionJustification);
+          setAccidentData(data.accidentReport);
+          setError("");
+        } else {
+          setError(missingDataError);
+        }
+      }).catch(err => {
+        console.error(err);
+        setError(loadingError);
+      })
+    }
+  }, [reportId, readOnly]);
+
+  const onSubmit = () => {
+    if (reportId === undefined) {
+      return;
+    }
+
+    if (readOnly) {
+      setReadOnly(false);
       setError("");
       return;
     }
 
-    createAccident({
-      bandCode: bandCode,
-      emergencyType: type,
-      victimCount: amountVictims,
-      breathing: breathing,
-      longitude: props.lng,
-      latitude: props.lat,
-      description: desc,
-      email: email,
-      concious: conscious
+    setError(undefined);
+
+    updateIncident(parseInt(reportId), {
+      incidentStatusType: statusType,
+      dangerScale: dangerScale,
+      reactionJustification: reaction
     }).then(res => {
-      if (res.status === 200) {
-        navigate("/home");
+      if (res.ok) {
+        setReadOnly(true);
+        setError("");
       } else {
         console.log(res);
-        setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
+        setError(unknownError);
       }
     }).catch(err => {
       console.error(err);
-      setError("Wystąpił nieznany błąd. Spróbuj ponownie.");
-    })
+      setError(networkError);
+    });
   };
 
-  const onSubmit = () => popup(<ConfirmPopup text="Czy na pewno chcesz zgłosić zdarzenie?" onConfirm={handleSubmit} />);
+  const links = [
+    { to: "data", text: t("Common.Details") },
+    { to: "ass", text: t("Report.Assign") }
+  ];
 
   return (
-    <Form onSubmit={onSubmit} className="w-50">
-      <h1 className="text-center mt-3">Zgłoszenie</h1>
-      <Row className="justify-content-center mb-3">
-        <EnumSelect id="emergencyType" enum={EmergencyType} onChange={e => setType(e.target.value)} required value={type} onLoad={setType} label="Rodzaj zdarzenia:" />
+    <Container fluid className="my-3">
+      <h1 className="text-center">{t("Report.Report")}</h1>
+      <Row className="justify-content-center">
+        <Form onSubmit={onSubmit} className="w-50">
+          <EnumSelect id="statusType" className="mb-3" label={t("Report.StatusType")} required enum={IncidentType} value={statusType} onChange={e => setStatusType(e.target.value)} onLoad={setStatusType} disabled={readOnly} />
+          <Number id="dangerScale" className="mb-3" label={t("Report.DangerScale")} required value={dangerScale} onChange={e => setDangerScale(parseInt(e.target.value))} minValue="1" maxValue="10" disabled={readOnly} />
+          <NotBlank id="reaction" className="mb-3" label={t("Report.Justification")} required value={reaction} onChange={e => setReaction(e.target.value)} disabled={readOnly} />
+          <Row xs="2" className="justify-content-center my-3">
+            <Submit className="w-25" canSubmit={error !== undefined}>{readOnly ? t("Common.Edit") : t("Common.Save")}</Submit>
+            {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)} className="mx-3 w-25">{t("Common.Cancel")}</Button>}
+          </Row>
+          <Error className="mb-3" error={error} />
+        </Form>
       </Row>
-      <Row className="justify-content-center mb-3 ml-2">
-        <FormCheck id="breathing" onChange={e => setBreathing(!breathing)} value={breathing} label="Czy ofiara oddycha?" />
-      </Row>
-      <Row className="justify-content-center mb-3 ml-2">
-        <FormCheck id="conscious" onChange={e => setConscious(!conscious)} value={conscious} label="Czy ofiara jest przytomna?" />
-      </Row>
-      <Row className="justify-content-center mb-3">
-        <Number id="amountVictims" minValue={1} onChange={e => setAmountVictims(parseInt(e.target.value))} required value={amountVictims} label="Ilość poszkodowanych" />
-      </Row>
-      <Row className="justify-content-center mb-3">
-        <NotBlank id="bandCode" onChange={e => setBandCode(e.target.value)} value={bandCode} label="Kod z opaski" />
-      </Row>
-      <Row className="justify-content-center mb-3">
-        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label="Opis" maxLength={100} />
-      </Row>
-      <h4 className="text-center mt-3">Lokalizacja</h4>
-      <Row className="justify-content-center mb-3">
-        <Number id="lat" onChange={e => props.update([parseFloat(e.target.value), props.lng])} required value={props.lat} />
-      </Row>
-      <Row className="justify-content-center mb-3">
-        <Number id="lng" onChange={e => props.update([props.lat, parseFloat(e.target.value)])} required value={props.lng} />
-      </Row>
-      <Row className="justify-content-center mb-5 mt-3">
-        <Submit className="w-50" canSubmit={error !== undefined}>Zgłoś zdarzenie</Submit>
-      </Row>
-      {error ? (
-        <Alert variant="danger" className="mt-3">
-          <Alert.Heading>Błąd</Alert.Heading>
-          <p>{error}</p>
-        </Alert>
-      ) : ""}
-    </Form>
+      <Navtab links={links} />
+      <Routes>
+        <Route path="data" element={<ReportData data={accidentData} />} />
+        <Route path="ass" element={<AssignAmbulance />} />
+      </Routes>
+    </Container>
   );
 };
 
-const ReportForm = () => {
-  const [coords, setCoords] = useState<[number, number]>([0, 0]);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
-    setCoords([pos.coords.latitude, pos.coords.longitude]);
-    setLoaded(true);
-  }, err => setLoaded(true)), []);
-
-  const update = (x: Readonly<L.LatLng>) => setCoords([x.lat, x.lng]);
-
-  const mark = {
-    coords: coords,
-    desc: "Miejsce zdarzenia",
-    icon: accidentIcon
-  };
-
-  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<ReportView update={setCoords} lat={coords[0]} lng={coords[1]} />} searchable clickable onClick={e => update(e)} onSearch={e => update(e.geocode.center)} marks={[mark]} />;
-};
-
-export default ReportForm;
+export default ReportView;

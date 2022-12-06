@@ -109,12 +109,16 @@
         "VictimsCount": "Ilość poszkodowanych",
         "ConfirmRemove": "Czy na pewno chcesz usunąć to zgłoszenie?",
         "ConfirmCreate": "Czy na pewno chcesz zgłosić zdarzenie?",
+        "ConfirmEdit": "Czy na pewno chcesz zapisać te zmiany?",
         "DangerScale": "Skala zagrożenia",
         "StatusType": "Status zgłoszenia",
         "Justification": "Uzasadnienie",
         "BandCode": "Kod opaski",
         "Create": "Zgłoś zdarzenie",
-        "Location": "Miejsce zdarzenia"
+        "Location": "Miejsce zdarzenia",
+        "Address": "Adres",
+        "Assign": "Przypisz karetkę",
+        "Assigned": "Przypisane"
     },
     "Person": {
         "FirstName": "Imię",

@@ -36,12 +36,17 @@ const AllergyTable = (props: Readonly<TableViewParams<AllergyResponse>>) => {
     });
   };
 
+  const idField = "allergyId";
+  const typeField = "allergyType";
+  const nameField = "allergyName";
+  const otherField = "other";
+
   const cols = [
-    { name: "#", property: (x: Readonly<AllergyResponse>) => <Link to={`allergy/${x.allergyId}`}>{x.allergyId}</Link>, filterBy: "allergyId", sortBy: "allergyId" },
-    { name: t("Allergy.Type"), property: (x: Readonly<AllergyResponse>) => <Enum enum={AllergyType} value={x.allergyType} />, filterBy: "allergyType", sortBy: "allergyType" },
-    { name: t("Allergy.Name"), property: "allergyName", filterBy: "allergyName", sortBy: "allergyName" },
-    { name: t("Allergy.Other"), property: "other", filterBy: "other", sortBy: "other" },
-    { name: t("Common.Remove"), property: (x: Readonly<AllergyResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Allergy.ConfirmRemove" onConfirm={() => remove(x)} />)} canDelete={!removed.includes(x.allergyId)}/> }
+    { name: "#", property: (x: Readonly<AllergyResponse>) => <Link to={`allergy/${x.allergyId}`}>{x.allergyId}</Link>, filterBy: idField, sortBy: idField },
+    { name: t("Allergy.Type"), property: (x: Readonly<AllergyResponse>) => <Enum enum={AllergyType} value={x.allergyType} />, filterBy: typeField, sortBy: typeField },
+    { name: t("Allergy.Name"), property: nameField, filterBy: nameField, sortBy: nameField },
+    { name: t("Allergy.Other"), property: otherField, filterBy: otherField, sortBy: otherField },
+    { name: t("Common.Remove"), property: (x: Readonly<AllergyResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Allergy.ConfirmRemove" onConfirm={() => remove(x)} />)} canDelete={!removed.includes(x.allergyId)} /> }
   ];
 
   return (

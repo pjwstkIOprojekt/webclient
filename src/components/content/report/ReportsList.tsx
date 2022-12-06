@@ -1,29 +1,26 @@
 import { useState, useEffect } from "react";
 import { usePopup } from "../../../hooks/usePopup";
-import { AccidentReportResponse, getAccidents, deleteAccident } from "../../../api/accidentReportCalls";
+import { IncidentResponse, getIncidents, deleteIncident } from "../../../api/incidentCalls";
 import { useTranslation } from "react-i18next";
 import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
-import { EmergencyType } from "../../../api/enumCalls";
-import DateDisplay from "../../fragments/values/DateDisplay";
-import Button from "../../fragments/util/Button";
+import { IncidentType } from "../../../api/enumCalls";
+import Delete from "../../fragments/forms/Delete";
 import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
 const ReportsList = () => {
-  const [reports, setReports] = useState<AccidentReportResponse[]>([]);
+  const [reports, setReports] = useState<IncidentResponse[]>([]);
+  const [removed, setRemoved] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
   const popup = usePopup();
 
   useEffect(() => {
-    getAccidents().then(res => res.json()).then((data: AccidentReportResponse[]) => {
+    getIncidents().then(res => res.json()).then((data: IncidentResponse[]) => {
       if (data) {
-        setReports(data.map(d => ({
-          ...d,
-          date: new Date(d.date)
-        })));
+        setReports(data);
       }
 
       setIsLoading(false);
@@ -34,23 +31,38 @@ const ReportsList = () => {
   }, []);
 
   const remove = (id: number) => {
-    setReports(reports.filter(r => r.accidentId !== id));
-    deleteAccident(id);
+    setRemoved([...removed, id]);
+    
+    deleteIncident(id).then(res => {
+      if (res.ok) {
+        setReports(reports.filter(r => r.incidentId !== id));
+      } else {
+        console.log(res);
+      }
+
+      setRemoved(removed.filter(i => i !== id));
+    }).catch(err => {
+      console.error(err);
+      setRemoved(removed.filter(i => i !== id));
+    });
   };
 
+  const idField = "incidentId";
+  const statusField = "incidentStatusType";
+  const dangerField = "dangerScale";
+  const reactionField = "reactionJustification";
+
   const cols = [
-    { name: "#", property: (x: Readonly<AccidentReportResponse>) => <Link to={x.accidentId.toString()}>{x.accidentId}</Link>, filterBy: "accidentId", sortBy: "accidentId" },
-    { name: "Rodzaj zdarzenia", property: (x: Readonly<AccidentReportResponse>) => <Enum enum={EmergencyType} value={x.emergencyType} />, filterBy: "emergencyType", sortBy: "emergencyType" },
-    { name: "Liczba ofiar", property: "victimCount", filterBy: "victimCount", sortBy: "victimCount" },
-    { name: t("Reports.Date"), property: (x: Readonly<AccidentReportResponse>) => <DateDisplay value={x.date} />, filterBy: "date", sortBy: "date" },
-    { name: "Kod z opaski", property: "bandCode", filterBy: "bandCode", sortBy: "bandCode" },
-    { name: "Opis", property: "description", filterBy: "description", sortBy: "description" },
-    { name: "Usuń", property: (x: Readonly<AccidentReportResponse>) => <Button onClick={e => popup(<ConfirmPopup text="Czy na pewno chcesz usunąć to zgłoszenie?" onConfirm={() => remove(x.accidentId)} />)}>X</Button> }
+    { name: "#", property: (x: Readonly<IncidentResponse>) => <Link to={`${x.incidentId}/data`}>{x.incidentId}</Link>, filterBy: idField, sortBy: idField },
+    { name: t("Report.StatusType"), property: (x: Readonly<IncidentResponse>) => <Enum enum={IncidentType} value={x.incidentStatusType} />, filterBy: statusField, sortBy: statusField },
+    { name: t("Report.DangerScale"), property: dangerField, filterBy: dangerField, sortBy: dangerField },
+    { name: t("Report.Justification"), property: reactionField, filterBy: reactionField, sortBy: reactionField },
+    { name: t("Common.Remove"), property: (x: Readonly<IncidentResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Report.ConfirmRemove" onConfirm={() => remove(x.incidentId)} />)} canDelete={!removed.includes(x.incidentId)} /> }
   ];
 
   return (
     <Container className="mt-3 justify-content-center text-center">
-      <h1>Zgłoszenia</h1>
+      <h1>{t("Report.Reports")}</h1>
       <Table columns={cols} data={reports} isLoading={isLoading} />
     </Container>
   );

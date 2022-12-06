@@ -73,9 +73,12 @@ const AmbulanceHistory = () => {
     });
   };
 
+  const typeField = "type";
+  const timestampField = "timestamp";
+
   const cols = [
-    { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceStateResponse>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: "type", sortBy: "type" },
-    { name: t("Common.Since"), property: (x: Readonly<AmbulanceStateResponse>) => <DateDisplay value={x.timestamp} />, filterBy: "timestamp", sortBy: "timestamp" }
+    { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceStateResponse>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: typeField, sortBy: typeField },
+    { name: t("Common.Since"), property: (x: Readonly<AmbulanceStateResponse>) => <DateDisplay value={x.timestamp} />, filterBy: timestampField, sortBy: timestampField }
   ];
 
   return (
