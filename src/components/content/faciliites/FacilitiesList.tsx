@@ -56,10 +56,14 @@ const FacilitiesList = () => {
     });
   };
 
+  const idField = "facilityId";
+  const typeField = "facilityType";
+  const nameField = "name";
+
   const cols: TableColumnParams<FacilityResponse>[] = [
-    { name: "#", property: (x: Readonly<FacilityResponse>) => <Link to={x.facilityId.toString()}>{x.facilityId}</Link>, sortBy: "facilityId", filterBy: "facilityId" },
-    { name: t("Facility.Type"), property: (x: Readonly<FacilityResponse>) => <Enum enum={FacilityType} value={x.facilityType} />, sortBy: "facilityType", filterBy: "facilityType" },
-    { name: t("Facility.Name"), property: "name", sortBy: "name", filterBy: "name" }
+    { name: "#", property: (x: Readonly<FacilityResponse>) => <Link to={x.facilityId.toString()}>{x.facilityId}</Link>, sortBy: idField, filterBy: idField },
+    { name: t("Facility.Type"), property: (x: Readonly<FacilityResponse>) => <Enum enum={FacilityType} value={x.facilityType} />, sortBy: typeField, filterBy: typeField },
+    { name: t("Facility.Name"), property: nameField, sortBy: nameField, filterBy: nameField }
   ];
 
   if (canRemove) {

@@ -109,12 +109,16 @@
         "VictimsCount": "Amount of victims",
         "ConfirmRemove": "Are you sure you want to delete this report?",
         "ConfirmCreate": "Are you sure you want to report incident?",
+        "ConfirmEdit": "Are you sure you want to save those changes?",
         "DangerScale": "Danger scale",
         "StatusType": "Incident status",
         "Justification": "Justification",
         "BandCode": "Band code",
         "Create": "Report incident",
-        "Location": "Incident location"
+        "Location": "Incident location",
+        "Address": "Address",
+        "Assign": "Assign ambulance",
+        "Assigned": "Assigned"
     },
     "Person": {
         "FirstName": "First name",
@@ -256,5 +260,16 @@
         "Tutorials": "Tutorials",
         "Opinion": "Was this tutorial helpful? Share your opinion.",
         "Average": "Average score:"
+    },
+    "Equipment": {
+        "Equipment": "Equipment",
+        "Ambulance": "Ambulance equipment",
+        "Adding": "Add equipment item",
+        "Add": "Add equipment item",
+        "Type": "Item type",
+        "Name": "Item name",
+        "Description": "Description",
+        "Manufacturer": "Manufacturer",
+        "Expiration": "Expiration Date"
     }
 }

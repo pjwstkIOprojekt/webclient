@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { registerEmployee } from "../../../api/adminCalls";
-import { errorHeader } from "../sharedStrings";
-import { Container, Row, Alert } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
 import { RoleName } from "../../../api/enumCalls";
@@ -12,6 +11,7 @@ import Past from "../../fragments/forms/api/Past";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
 import Password from "../../fragments/forms/api/Password";
 import Button from "../../fragments/util/Button";
+import Error from "../../fragments/forms/Error";
 
 const RegisterWithRole = () => {
   const [role, setRole] = useState("");
@@ -80,14 +80,9 @@ const RegisterWithRole = () => {
         <Row className="justify-content-center">
           <Button className="mt-3 w-25" type="submit">Dodaj pracownika</Button>
         </Row>
-        {error ? (
-          <Row className="justify-content-center mt-5">
-            <Alert variant="danger" className="w-50">
-              <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-              <p>{t(error)}</p>
-            </Alert>
-          </Row>
-        ) : ""}
+        <Row className="justify-content-center">
+          <Error className="mt-3 w-50" error={error} />
+        </Row>
       </Form>
     </Container>
   );

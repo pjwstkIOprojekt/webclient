@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLogin } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { registerUser, loginUser, JwtResponse } from "../../../api/authCalls";
-import { missingDataError, networkError, errorHeader } from "../sharedStrings";
+import { missingDataError, networkError } from "../sharedStrings";
 import { Container, Row, Alert } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import NotBlank from "../../fragments/forms/api/NotBlank";
@@ -11,6 +11,7 @@ import Past from "../../fragments/forms/api/Past";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
 import Password from "../../fragments/forms/api/Password";
 import Submit from "../../fragments/forms/Submit";
+import Error from "../../fragments/forms/Error";
 import CAlert from "../../fragments/util/Alert";
 
 const Register = () => {
@@ -31,7 +32,7 @@ const Register = () => {
     setInnerError("");
 
     if (password !== passwordCheck) {
-      setError("Error.DiffrentPasswords");
+      setError("Error.DifferentPasswords");
       return;
     }
 
@@ -110,23 +111,10 @@ const Register = () => {
         <Row className="justify-content-center mt-3">
           <Submit className="w-25" canSubmit={error !== undefined}>{t("Login.SignUp")}</Submit>
         </Row>
-        {error ? (
-          <Row className="justify-content-center mt-5">
-            <Alert variant="danger" className="w-50">
-              <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-              <p>{t(error)}</p>
-              {innerError ? (
-                <>
-                  <p>
-                    <b>{t("Login.Error")}</b>
-                  </p>
-                  <p>{t(innerError)}</p>
-                </>
-              ) : ""}
-            </Alert>
-          </Row>
-        ) : ""}
-        <Row className="justify-content-center mt-3 mb-5">
+        <Row className="justify-content-center m-3">
+          <Error className="w-50" error={error} innerLabel="Login.Error" innerError={innerError} />
+        </Row>
+        <Row className="justify-content-center m-3">
           <CAlert className="w-50">
             <Alert.Heading>{t("Login.CollectData")}</Alert.Heading>
             <p>{t("Login.NecessaryData")}</p>

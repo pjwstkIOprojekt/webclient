@@ -6,7 +6,7 @@ import { FormGroup, Form } from "react-bootstrap";
 
 export interface EnumSelectParams extends SelectControlParams {
   enum: EnumType,
-  onLoad: (val: string) => void
+  onLoad?: (val: string) => void
 }
 
 const EnumSelect = (props: Readonly<EnumSelectParams>) => {
@@ -19,7 +19,10 @@ const EnumSelect = (props: Readonly<EnumSelectParams>) => {
     getter().then(res => res.json()).then((data: string[]) => {
       if (data) {
         setValues(data);
-        loaded(data[0]);
+        
+        if (loaded) {
+          loaded(data[0]);
+        }
       } else {
         console.error(`Couldn't load enum values for ${props.enum.name}`);
       }

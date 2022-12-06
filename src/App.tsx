@@ -27,7 +27,6 @@ import ParamedicInfo from "./components/content/staff/ParamedicInfo"
 import ScheduleList from "./components/content/schedule/ScheduleList";
 import ScheduleAdd from "./components/content/schedule/ScheduleAdd";
 import RegisterWithRole from "./components/content/auth/RegisterWithRole";
-import IncidentsList from "./components/content/incident/IncidentsList";
 
 const App = () => {
   const roles = useRoles();
@@ -51,6 +50,7 @@ const App = () => {
           <Route path="/tutorial" element={<TutorialView />} />
           <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
           <Route path="/newreport" element={<ConditionalRoute condition={auth} element={<ReportForm />} />} />
+          <Route path="/newreport/:reportId" element={<ConditionalRoute condition={dis} element={<ReportForm />} />} />
           <Route path="/facilities" element={<ConditionalRoute condition={auth} element={<FacilitiesList />} />} />
           <Route path="/newfacility" element={<ConditionalRoute condition={dis || admin} element={<FacilityForm />} />} />
           <Route path="/facilities/:facilityId" element={<ConditionalRoute condition={auth} element={<FacilityForm />} />} />
@@ -66,7 +66,6 @@ const App = () => {
           <Route path="/schedule" element={<ScheduleList />} />
           <Route path="/schedule/add" element={<ScheduleAdd />} />
           <Route path="/role" element={<RegisterWithRole />} />
-          <Route path="/inc" element={<IncidentsList />} />
         </Routes>
         <NotificationArea />
       </Container>

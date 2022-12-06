@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { userEmailError, unknownError, networkError, errorHeader } from "../../sharedStrings";
+import { userEmailError, unknownError, networkError } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
 import { updateBlood } from "../../../../api/medicalInfoCalls";
 import Form from "../../../fragments/forms/Form";
 import EnumRadio from "../../../fragments/forms/api/EnumRadio";
 import { BloodType, RhType } from "../../../../api/enumCalls";
+import Error from "../../../fragments/forms/Error";
 import Submit from "../../../fragments/forms/Submit";
 import Button from "../../../fragments/util/Button";
-import { Alert } from "react-bootstrap";
 
 export interface Blood {
   id?: number,
@@ -102,12 +102,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
         <div>
           <EnumRadio labelClass="p-3" label={t("Blood.Rh")}  enum={RhType} onChange={e => setRh(e.target.value)} value={rh} disabled={readOnly} error={getError(rh)} />
         </div>
-        {error ? (
-          <Alert variant="danger" className="w-25">
-            <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-            <p>{t(error)}</p>
-          </Alert>
-        ) : ""}
+        <Error className="w-25" error={error} />
         <Submit canSubmit={readOnly || error !== undefined}>{readOnly ? t("Common.Edit") : t("Common.Save")}</Submit>
         {readOnly ? "" : <Button type="button" onClick={e => reset()} className="mx-3">{t("Common.Cancel")}</Button>}
       </div>

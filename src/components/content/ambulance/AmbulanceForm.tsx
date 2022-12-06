@@ -3,14 +3,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { createAmbulance } from "../../../api/ambulanceCalls";
-import { unknownError, networkError, errorHeader } from "../sharedStrings";
-import { Row, Alert } from "react-bootstrap";
+import { unknownError, networkError } from "../sharedStrings";
+import { Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import Length from "../../fragments/forms/api/Length";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
 import { AmbulanceClass, AmbulanceType } from "../../../api/enumCalls";
 import Number from "../../fragments/forms/api/Number";
 import Submit from "../../fragments/forms/Submit";
+import Error from "../../fragments/forms/Error";
 import L from "leaflet";
 import { ambulanceIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
@@ -64,12 +65,7 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
       <Row className="justify-content-center mt-3">
         <Submit className="w-75" canSubmit={error !== undefined}>{t("Ambulance.Add")}</Submit>
       </Row>
-      {error ? (
-        <Alert variant="danger" className="mt-3">
-          <Alert.Heading>{t(errorHeader)}</Alert.Heading>
-          <p>{t(error)}</p>
-        </Alert>
-      ) : ""}
+      <Error className="mt-3" error={error} />
     </Form>
   );
 };
@@ -92,7 +88,7 @@ const AmbulanceForm = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<AmbulanceFormView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} marks={[mark]} />;
+  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<AmbulanceFormView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} searchable onSearch={e => update(e.geocode.center)} marks={[mark]} />;
 };
 
 export default AmbulanceForm;

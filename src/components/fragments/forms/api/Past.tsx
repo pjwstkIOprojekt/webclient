@@ -8,24 +8,28 @@ const Past = (props: Readonly<DateControlParams>) => {
   const { t } = useTranslation();
 
   const onUpdate = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    
+    if (!props.onChange) {
+      return;
+    }
+
     setError(props.error);
     const value = e.target.value;
     
-    if (value && new Date(value) >= new Date(Date.now())) {
+    if (value && new Date(value) >= new Date()) {
       setError(t("Error.Past"));
       return;      
     }
 
-    if (props.onChange) {
-      props.onChange(e);
-    }
+    props.onChange(e);
   };
 
-  const args = {...props};
+  const args = {
+    ...props,
+    onChange: onUpdate
+  };
+
   delete args.error;
-  delete args.onChange;
-  return <Dat error={error} onChange={onUpdate} {...args} />;
+  return <Dat error={error} {...args} />;
 };
 
 export default Past;
