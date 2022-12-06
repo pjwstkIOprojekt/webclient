@@ -59,10 +59,10 @@ const MainMap = () => {
       if (data) {
         setPositions(data.map(a => ({
           coords: [a.location.latitude, a.location.longitude],
-          desc: a.accidentId.toString(),
+          desc: a.address,
           type: EmergencyType.values?.[a.emergencyType].markType ?? MarkTypes.None,
           icon: EmergencyType.values?.[a.emergencyType].icon,
-          to: `/dispanel/reports/${a.accidentId}`
+          to: `/reports/${a.accidentId}`
         })));
       }
     }).catch(console.error);
@@ -86,7 +86,8 @@ const MainMap = () => {
           coords: [f.location.latitude, f.location.longitude],
           desc: f.name,
           type: FacilityType.values?.[f.facilityType].markType ?? MarkTypes.None,
-          icon: FacilityType.values?.[f.facilityType].icon
+          icon: FacilityType.values?.[f.facilityType].icon,
+          to: `/facilities/${f.facilityId}`
         })));
       }
     }).catch(console.error);

@@ -78,7 +78,7 @@ const AssignAmbulance = () => {
 
   const cols = [
     { name: t("Report.Assigned"), property: (x: Readonly<Ambulance>) => <FormCheck value={x.assigned} onChange={e => assign(x)} disabled={isProcessing} /> },
-    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<Ambulance>) => <Link to={`/ambulances/${x.licensePlate}/hist`}>{x.licensePlate}</Link>, filterBy: licenseField, sortBy: licenseField },
+    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<Ambulance>) => <Link to={`/ambulances/${x.licensePlate}`}>{x.licensePlate}</Link>, filterBy: licenseField, sortBy: licenseField },
     { name: t("Ambulance.Class"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, filterBy: classField, sortBy: classField },
     { name: t("Ambulance.Type"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, filterBy: typeField, sortBy: typeField }
   ];

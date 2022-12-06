@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getAmbulanceByLicensePlate, AmbulanceResponse, updateAmbulance } from "../../../api/ambulanceCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
@@ -103,6 +103,7 @@ const AmbulanceView = () => {
       </Row>
       <Navtab links={links} />
       <Routes>
+        <Route path="" element={<Navigate replace to="hist" />} />
         <Route path="hist" element={<AmbulanceHistory />} />
         <Route path="path" element={<AmbulancePath />} />
         <Route path="equip" element={<AmbulanceEquipment />} />

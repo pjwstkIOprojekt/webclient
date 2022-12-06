@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AccidentReportResponse } from "../../../api/accidentReportCalls";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getIncidentById, IncidentResponse, updateIncident } from "../../../api/incidentCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
@@ -102,6 +102,7 @@ const ReportView = () => {
       </Row>
       <Navtab links={links} />
       <Routes>
+        <Route path="" element={<Navigate replace to="data" />} />
         <Route path="data" element={<ReportData data={accidentData} />} />
         <Route path="ass" element={<AssignAmbulance />} />
       </Routes>
