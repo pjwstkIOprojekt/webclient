@@ -103,7 +103,7 @@ const AmbulanceView = () => {
       </Row>
       <Navtab links={links} />
       <Routes>
-        <Route path="" element={<Navigate replace to="hist" />} />
+
         <Route path="hist" element={<AmbulanceHistory />} />
         <Route path="path" element={<AmbulancePath />} />
         <Route path="equip" element={<AmbulanceEquipment />} />

@@ -22,11 +22,12 @@ import AmbulanceForm from "./components/content/ambulance/AmbulanceForm";
 import AmbulanceView from "./components/content/ambulance/AmbulanceView";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
 import CookieConsent from "./components/fragments/cookies/CookieConsent";
-
+import ParamedicView from "./components/content/staff/ParamedicView";
 import ParamedicInfo from "./components/content/staff/ParamedicInfo"
 import ScheduleList from "./components/content/schedule/ScheduleList";
 import ScheduleAdd from "./components/content/schedule/ScheduleAdd";
 import RegisterWithRole from "./components/content/auth/RegisterWithRole";
+
 
 const App = () => {
   const roles = useRoles();
@@ -62,7 +63,8 @@ const App = () => {
           <Route path="/newambulance" element={<ConditionalRoute condition={admin} element={<AmbulanceForm />} />} />
           <Route path="/ambulances/:ambulanceId/*" element={<ConditionalRoute condition={admin} element={<AmbulanceView />} />} />
 
-          <Route path="/paramedicInfo" element={<ParamedicInfo />} />
+          <Route path="/paramedic/:paramedicId/*" element={<ParamedicView />} />
+          <Route path="/paramedic" element={<ParamedicInfo />} />
           <Route path="/schedule" element={<ScheduleList />} />
           <Route path="/schedule/add" element={<ScheduleAdd />} />
           <Route path="/role" element={<RegisterWithRole />} />
