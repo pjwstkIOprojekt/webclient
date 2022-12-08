@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import NavButton from "../../fragments/navigation/NavButton";
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -16,24 +15,24 @@ const ScheduleList = () => {
   const [events] = useState([
     {
         id: '0',
-        title: 'Paramedic 1',
-        start: new Date('2022-11-22T08:00:00.000'),
-        end: new Date('2022-11-22T16:00:00.000'),
-        url:'/paramedicInfo'
+        title: 'Jan Nowak',
+        start: new Date('2022-12-08T08:00:00.000'),
+        end: new Date('2022-12-08T16:00:00.000'),
+        url:'/paramedic/1'
     },
     {
       id: '1',
-      title: 'Paramedic 2',
-      start: new Date('2022-11-22T16:00:00.000'),
-      end: new Date('2022-11-22T24:00:00.000'),
-      url:'/paramedicInfo'
+      title: 'Jan Nowak',
+      start: new Date('2022-12-09T16:00:00.000'),
+      end: new Date('2022-12-09T24:00:00.000'),
+      url:'/paramedic/1'
   },
   {
     id: '2',
     title: 'Paramedic 3',
     start: new Date('2022-11-22T24:00:00.000'),
     end: new Date('2022-11-23T08:00:00.000'),
-    url:'/paramedicInfo'
+    url:'/paramedic/1'
 
 },
 {
@@ -41,7 +40,7 @@ const ScheduleList = () => {
   title: 'Paramedic 4',
   start: new Date('2022-11-23T08:00:00.000'),
   end: new Date('2022-11-23T16:00:00.000'),
-  url:'/paramedicInfo'
+  url:'/paramedic/1'
 
 },
 {
@@ -49,7 +48,7 @@ const ScheduleList = () => {
   title: 'Paramedic 5',
   start: new Date('2022-11-22T24:00:00.000'),
   end: new Date('2022-11-23T08:00:00.000'),
-  url:'/paramedicInfo'
+  url:'/paramedic/1'
 
 }
 
@@ -59,14 +58,15 @@ const handleDateSelect=()=>{
 }
   return (
     <Container className="mb-2 text-center">
-      <h1>Grafik pracowników</h1>
+      <h1>Grafik</h1>
       <FullCalendar
         plugins={[dayGridPlugin,timeGridPlugin, listPlugin, interactionPlugin]}
-        initialView= 'dayGridMonth'
+        initialView= 'dayGridWeek'
         displayEventTime
         dateClick={handleDateSelect }
         selectable={true}
         editable={true}
+        displayEventEnd={true}
         initialEvents={events}
         firstDay={1}
         expandRows={true}
@@ -82,7 +82,7 @@ const handleDateSelect=()=>{
         
         
       />
-      <NavButton className="mb-3 w-25" to="./add">Edytuj</NavButton>
+      
     </Container>
   );
 };
