@@ -5,12 +5,14 @@ import { useTranslation } from "react-i18next";
 import { getAmbulances } from "../../../api/ambulanceCalls";
 import { AmbulanceState, AmbulanceClass, AmbulanceType } from "../../../api/enumCalls";
 import { addAmbulances } from "../../../api/incidentCalls";
+import { unknownError, networkError } from "../sharedStrings";
 import FormCheck from "../../fragments/forms/FormCheck";
 import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
 import { Container } from "react-bootstrap";
 import Spinner from "../../fragments/util/Spinner";
 import Button from "../../fragments/util/Button";
+import Error from "../../fragments/forms/Error";
 import Table from "../../fragments/util/Table";
 
 interface Ambulance extends AmbulanceResponse {
@@ -20,7 +22,7 @@ interface Ambulance extends AmbulanceResponse {
 const AssignAmbulance = () => {
   const [ambulances, setAmbulances] = useState<Ambulance[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState<string | undefined>("");
   const { reportId } = useParams();
   const { t } = useTranslation();
 
@@ -45,25 +47,25 @@ const AssignAmbulance = () => {
       return;
     }
 
-    setIsProcessing(true);
+    setError(undefined);
     const toAdd = ambulances.filter(a => a.assigned).map(a => a.licensePlate);
 
     if (toAdd.length < 1) {
-      setIsProcessing(false);
+      setError("");
       return;
     }
 
     addAmbulances(parseInt(reportId), toAdd).then(res => {
       if (res.ok) {
         setAmbulances(ambulances.filter(a => !a.assigned));
+        setError("");
       } else {
         console.log(res);
+        setError(unknownError);
       }
-
-      setIsProcessing(false);
     }).catch(err => {
       console.error(err);
-      setIsProcessing(false);
+      setError(networkError);
     });
   };
 
@@ -77,16 +79,17 @@ const AssignAmbulance = () => {
   }) : a));
 
   const cols = [
-    { name: t("Report.Assigned"), property: (x: Readonly<Ambulance>) => <FormCheck value={x.assigned} onChange={e => assign(x)} disabled={isProcessing} /> },
+    { name: t("Report.Assigned"), property: (x: Readonly<Ambulance>) => <FormCheck value={x.assigned} onChange={e => assign(x)} disabled={error === undefined} /> },
     { name: t("Ambulance.LicensePlate"), property: (x: Readonly<Ambulance>) => <Link to={`/ambulances/${x.licensePlate}`}>{x.licensePlate}</Link>, filterBy: licenseField, sortBy: licenseField },
     { name: t("Ambulance.Class"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, filterBy: classField, sortBy: classField },
     { name: t("Ambulance.Type"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, filterBy: typeField, sortBy: typeField }
   ];
 
   return (
-    <Container className="mt-3 justify-content-center text-center">
+    <Container className="my-3 justify-content-center text-center">
       <h1>{t("HomePage.AmbulancesAvailable")}</h1>
-      {isLoading || isProcessing ? <Spinner className="my-3" /> : <Button onClick={submit} className="my-3">{t("Report.Assign")}</Button>}
+      {isLoading || error === undefined ? <Spinner className="my-3" /> : <Button onClick={submit} className="my-3">{t("Report.Assign")}</Button>}
+      <Error className="mb-3 text-start" error={error} />
       <Table columns={cols} data={ambulances} isLoading={isLoading} />
     </Container>
   );
