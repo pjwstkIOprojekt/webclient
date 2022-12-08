@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { licensePlateError } from "../sharedStrings";
-import { getItems as getAmbulanceItems } from "../../../api/ambulanceCalls";
+import { getItems as getAmbulanceItems, addItem, removeItem } from "../../../api/ambulanceCalls";
+import EquipmentAmount from "./EquipmentAmount";
 import Enum from "../../fragments/values/Enum";
 import { ItemType } from "../../../api/enumCalls";
 import { Container, Row, Col } from "react-bootstrap";
@@ -16,8 +17,14 @@ interface ItemData extends ItemResponse {
 }
 
 const AmbulanceEquipment = () => {
-  const [items, setItems] = useState<ItemData[]>([]);
+  const [items, setItems] = useState<ItemData[]>([{ itemId: 1, itemType: "", amount: 3, unit: "cm"}, { itemId: 2, itemType: "", amount: 4, unit: "cm"}]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [update, setUpdate] = useState({
+    item: null as number | null,
+    processing: false
+  });
+
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
 
@@ -52,12 +59,54 @@ const AmbulanceEquipment = () => {
     });
   }, [ambulanceId]);
 
+  const onUpdate = (itemId: number, diff?: number) => {
+    if (ambulanceId === undefined) {
+      return;
+    }
+
+    if (diff === undefined) {
+      setUpdate({
+        item: update.item === itemId ? null : itemId,
+        processing: false
+      });
+      return;
+    }
+
+    setUpdate({
+      item: itemId,
+      processing: true
+    });
+
+    (diff < 0 ? removeItem(ambulanceId, itemId, -diff) : addItem(ambulanceId, itemId, diff)).then(res => {
+      if (res.ok) {
+        setItems(items.map(i => i.itemId === itemId ? ({
+          ...i,
+          amount: i.amount + diff
+        }) : i));
+      } else {
+        console.log(res);
+      }
+
+      setUpdate({
+        item: null,
+        processing: false
+      });
+    }).catch(err => {
+      console.error(err);
+      
+      setUpdate({
+        item: null,
+        processing: false
+      });
+    });
+  };
+
   const nameField = "name";
   const typeField = "itemType";
   const descField = "description";
 
   const cols = [
-    { name: t("Report.Assigned"), property: (x: Readonly<ItemData>) => <></> },
+    { name: t("Report.Assigned"), property: (x: Readonly<ItemData>) => <EquipmentAmount amount={x.amount} unit={x.unit} editing={update.item === x.itemId} processing={update.processing} update={diff => onUpdate(x.itemId, diff)} /> },
     { name: t("Equipment.Name"), property: nameField, filterBy: nameField, sortBy: nameField },
     { name: t("Equipment.Type"), property: (x: Readonly<ItemData>) => <Enum enum={ItemType} value={x.itemType} />, filterBy: typeField, sortBy: typeField },
     { name: t("Equipment.Description"), property: descField, filterBy: descField, sortBy: descField }

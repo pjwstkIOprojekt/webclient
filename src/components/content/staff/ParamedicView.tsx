@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  Navigate, useNavigate } from "react-router-dom";
+import {  Navigate } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import Navtab from "../../fragments/navigation/Navtab";
@@ -13,7 +13,7 @@ import FormControl from "../../fragments/forms/FormControl";
 const ParamedicView = () => {
     const [firstName] = useState("Jan");
     const [lastName] = useState("Nowak");
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
   
 
