@@ -39,7 +39,7 @@ const AdminHome = () => {
   const stateField = "ambulanceStateType";
 
   const cols = [
-    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`/admpanel/ambulances/edit/${x.licensePlate}`}>{x.licensePlate}</Link>, sortBy: licenseField, filterBy: licenseField },
+    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<AmbulanceResponse>) => <Link to={`/ambulances/${x.licensePlate}`}>{x.licensePlate}</Link>, sortBy: licenseField, filterBy: licenseField },
     { name: t("Ambulance.Class"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, sortBy: classField, filterBy: classField },
     { name: t("Ambulance.Type"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, sortBy: typeField, filterBy: typeField },
     { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, filterBy: stateField, sortBy: stateField }

@@ -38,7 +38,7 @@ const MapForm = (props: Readonly<MapFormParams>) => {
     <Container>
       <h1 className="mt-3">{t("Map.Map")}</h1>
       <h3 className="mb-3">{t("Map.Filters")}:</h3>
-      <Form className="w-50">
+      <Form className="w-75">
         <FormCheck label={t("Ambulance.Ambulance")} value={props.filters & MarkTypes.Ambulance} onChange={e => props.setFilters(props.filters ^ MarkTypes.Ambulance)} icon={ambulanceIcon} />
         {values}
       </Form>
