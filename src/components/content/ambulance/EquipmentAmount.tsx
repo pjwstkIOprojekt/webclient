@@ -19,8 +19,10 @@ const EquipmentAmount = (props: Readonly<AmountParams>) => {
   const { t } = useTranslation();
 
 	useEffect(() => {
-    setNewAmount(props.amount);
-  }, [props.amount]);
+    if (!props.editing) {
+      setNewAmount(props.amount);
+    }
+  }, [props.amount, props.editing]);
 
   const onSubmit = () => {
     if (!props.editing || newAmount === props.amount) {

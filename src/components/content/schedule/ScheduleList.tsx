@@ -58,7 +58,7 @@ const handleDateSelect=()=>{
 }
   return (
     <Container className="mb-2 text-center">
-      <h1>Grafik</h1>
+      <h1>Grafik ratowników</h1>
       <FullCalendar
         plugins={[dayGridPlugin,timeGridPlugin, listPlugin, interactionPlugin]}
         initialView= 'dayGridWeek'
