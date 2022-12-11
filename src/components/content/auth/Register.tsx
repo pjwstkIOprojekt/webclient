@@ -66,7 +66,7 @@ const Register = () => {
       }).then((data?: JwtResponse) => {
         if (data) {
           if (data.token && data.roles && data.email) {
-            login(data.token, data.roles, data.email);
+            login(data.token, data.roles, data.email, data.userId);
           } else {
             setError("Error.PostRegisterFail");
             setInnerError(missingDataError);

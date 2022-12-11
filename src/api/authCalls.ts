@@ -26,6 +26,7 @@ export interface JwtResponse {
   token: string,
   email: string,
   type: string,
+  userId: number,
   roles: string[]
 }
 

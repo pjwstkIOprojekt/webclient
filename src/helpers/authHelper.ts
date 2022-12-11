@@ -30,7 +30,8 @@ export const stringsToRoles = (src: Readonly<string[]>) => {
 export interface User {
   token: string,
   roles: Roles,
-  email: string
+  email: string,
+  userId: number
 }
 
 const userCookie = "usr";
@@ -40,6 +41,7 @@ export const getUser = () => JSON.parse(sessionStorage.getItem(userCookie) ?? "n
 export const getToken = () => getUser()?.token;
 export const getRoles = () => getUser()?.roles;
 export const getEmail = () => getUser()?.email;
+export const getUserId = () => getUser()?.userId;
 export const isAuth = (roles: Roles) => (roles & Roles.User) !== Roles.None;
 export const isDispositor = (roles: Roles) => (roles & Roles.User) !== Roles.None;
 export const isDirector = (roles: Roles) => (roles & Roles.User) !== Roles.None;

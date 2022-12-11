@@ -19,7 +19,7 @@
     },
     "EmployeeType": {
         "DISPATCHER": "Dyspozytor",
-        "PARAMEDIC": "Ratownik"
+        "MEDIC": "Ratownik"
     },
     "EmergencyType": {
         "CAR_ACCIDENT": "Wypadek samochodowy",

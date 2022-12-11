@@ -2,18 +2,22 @@ import { get, post } from "./basicCalls";
 
 export interface ItemRequest {
   // Enum - ItemType
-  itemType: string,
+  type: string,
 
   // Not blank
+  // All
   name?: string,
 
   // Not blank
+  // Not in MULTI_USE
   description?: string,
 
   // Not blank
+  // Not in SINGLE_USE and MULTI_USE
   manufacturer?: string,
 
   // Datetime
+  // Only in MEDICAL
   expiration_date?: Date
 }
 

@@ -11,7 +11,7 @@ interface TutorialBase {
 
 export interface TutorialRequest extends TutorialBase {
   // Integer
-  tutorialId: number | null
+  tutorialId?: number
 }
 
 export interface TutorialResponse extends TutorialBase {
@@ -20,8 +20,8 @@ export interface TutorialResponse extends TutorialBase {
 }
 
 export interface ReviewRequest {
-  value: number | null,
-  discription: string | null
+  value: number,
+  discription: string
 }
 
 const tutorialBase = "tutorial";

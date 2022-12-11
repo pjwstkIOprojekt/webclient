@@ -37,9 +37,16 @@ const RegisterWithRole = () => {
       email: email,
       password: password,
       birthDate: birthDate,
-      phoneNumber: phoneNumber
+      phoneNumber: phoneNumber,
+      workSchedule: {
+        "MONDAY": { start: "", end: "" },
+        "TUESDAY": { start: "", end: "" },
+        "WEDNESDAY": { start: "", end: "" },
+        "THURSDAY": { start: "", end: "" },
+        "FRIDAY": { start: "", end: "" }
+      }
     }).then(res => {
-      if (res.status !== 200) {
+      if (!res.ok) {
         setError("Error.RegistrationFailed");
         return;
       }

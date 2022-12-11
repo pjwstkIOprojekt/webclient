@@ -33,7 +33,7 @@ const Login = () => {
     }).then((data?: JwtResponse) => {
       if (data) {
         if (data.token && data.roles && data.email) {
-          login(data.token, data.roles, data.email);
+          login(data.token, data.roles, data.email, data.userId);
         } else {
           setError(missingDataError);
         }

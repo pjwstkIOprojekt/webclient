@@ -176,8 +176,9 @@ export const IncidentType = {
 };
 
 export const ItemType = {
-  getter: () => get(`${enumBase}/`),
+  getter: () => get(`${enumBase}/item_types`),
   name: "ItemType",
   singleUse: "SINGLE_USE",
+  multiUse: "MULTI_USE",
   medical: "MEDICAL"
 };

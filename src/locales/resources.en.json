@@ -19,7 +19,7 @@
     },
     "EmployeeType": {
         "DISPATCHER": "Dispatcher",
-        "PARAMEDIC": "Paramedic"
+        "MEDIC": "Paramedic"
     },
     "EmergencyType": {
         "CAR_ACCIDENT": "Car accident",

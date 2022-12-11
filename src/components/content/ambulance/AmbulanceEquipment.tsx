@@ -17,7 +17,7 @@ interface ItemData extends ItemResponse {
 }
 
 const AmbulanceEquipment = () => {
-  const [items, setItems] = useState<ItemData[]>([{ itemId: 1, itemType: "", amount: 3, unit: "cm"}, { itemId: 2, itemType: "", amount: 4, unit: "cm"}]);
+  const [items, setItems] = useState<ItemData[]>([{ itemId: 1, type: "", amount: 3, unit: "cm"}, { itemId: 2, type: "", amount: 4, unit: "cm"}]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [update, setUpdate] = useState({
@@ -102,13 +102,13 @@ const AmbulanceEquipment = () => {
   };
 
   const nameField = "name";
-  const typeField = "itemType";
+  const typeField = "type";
   const descField = "description";
 
   const cols = [
     { name: t("Report.Assigned"), property: (x: Readonly<ItemData>) => <EquipmentAmount amount={x.amount} unit={x.unit} editing={update.item === x.itemId} processing={update.processing} update={diff => onUpdate(x.itemId, diff)} /> },
     { name: t("Equipment.Name"), property: nameField, filterBy: nameField, sortBy: nameField },
-    { name: t("Equipment.Type"), property: (x: Readonly<ItemData>) => <Enum enum={ItemType} value={x.itemType} />, filterBy: typeField, sortBy: typeField },
+    { name: t("Equipment.Type"), property: (x: Readonly<ItemData>) => <Enum enum={ItemType} value={x.type} />, filterBy: typeField, sortBy: typeField },
     { name: t("Equipment.Description"), property: descField, filterBy: descField, sortBy: descField }
   ];
 
