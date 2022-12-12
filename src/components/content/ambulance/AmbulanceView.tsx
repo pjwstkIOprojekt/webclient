@@ -32,9 +32,10 @@ const AmbulanceView = () => {
       setError(undefined);
 
       getAmbulanceByLicensePlate(ambulanceId).then(res => res.json()).then((data: AmbulanceResponse) => {
-        if (data.ambulanceClass && data.ambulanceType) {
+        if (data.ambulanceClass && data.ambulanceType && data.seats > 0) {
           setAmbulanceClass(data.ambulanceClass);
           setAmbulanceType(data.ambulanceType);
+          setSeats(data.seats);
           setError("");
         } else {
           setError(missingDataError);

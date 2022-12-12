@@ -6,6 +6,7 @@ import { Container, Form } from "react-bootstrap";
 import { ambulanceIcon } from "./MapIcons";
 import { useState, useEffect } from "react";
 import { getAccidents, AccidentReportResponse } from "../../../api/accidentReportCalls";
+import { getAmbulances, AmbulanceResponse } from "../../../api/ambulanceCalls";
 import { getFacilities, FacilityResponse } from "../../../api/facilityCalls";
 import MapView from "../../fragments/map/MapView";
 
@@ -55,15 +56,24 @@ const MainMap = () => {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    getAccidents().then(res => res.json()).then((data: AccidentReportResponse[]) => {
+    const accReq = getAccidents().then(res => res.json());
+    const ambReq = getAmbulances().then(res => res.json());
+
+    Promise.all([accReq, ambReq]).then((data: [AccidentReportResponse[], AmbulanceResponse[]]) => {
       if (data) {
-        setPositions(data.map(a => ({
-          coords: [a.location.latitude, a.location.longitude],
+        setPositions([...data[0].map(a => ({
+          coords: [a.location.latitude, a.location.longitude] as [number, number],
           desc: a.address,
           type: EmergencyType.values?.[a.emergencyType].markType ?? MarkTypes.None,
           icon: EmergencyType.values?.[a.emergencyType].icon,
           to: `/reports/${a.accidentId}`
-        })));
+        })), ...data[1].map(a => ({
+          coords: [a.currentLocation.latitude, a.currentLocation.longitude] as [number, number],
+          desc: a.licensePlate,
+          type: MarkTypes.Ambulance,
+          icon: ambulanceIcon,
+          to: `/ambulances/${a.licensePlate}`
+        }))]);
       }
     }).catch(console.error);
 

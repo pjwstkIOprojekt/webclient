@@ -37,7 +37,7 @@ const EquipmentAmount = (props: Readonly<AmountParams>) => {
 		<Form onSubmit={onSubmit}>
 			<Row xs="2" className="justify-content-center">
 				{props.editing && !props.processing ? <Number required value={newAmount} onChange={e => setNewAmount(parseFloat(e.target.value))} minValue="0" /> : props.amount}
-        {props.unit}
+         {props.unit}
 			</Row>
       <Row xs="2" className="justify-content-center">
         <Submit className="my-3 w-25" canSubmit={!props.processing}>{t(`Common.${props.editing ? "SaveChanges" : "Edit"}`)}</Submit>
