@@ -30,7 +30,9 @@ const AmbulancePathView = (props: Readonly<MapDataHelperParams<[number, number][
       return;
     }
 
-    getAmbulancePath(ambulanceId).then(res => res.json()).then((data: AmbulancePathResponse) => {
+    const abort = new AbortController();
+
+    getAmbulancePath(ambulanceId, abort).then(res => res.json()).then((data: AmbulancePathResponse) => {
       if (data.path) {
         setOri(data.path.map(p => ({
           ...p,
@@ -44,9 +46,15 @@ const AmbulancePathView = (props: Readonly<MapDataHelperParams<[number, number][
         setError(missingDataError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setError(loadingError);
     });
+
+    return () => abort.abort();
   }, [ambulanceId, setPath]);
 
   const onMove = (x: number) => {

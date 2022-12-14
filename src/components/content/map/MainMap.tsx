@@ -26,13 +26,13 @@ const MapForm = (props: Readonly<MapFormParams>) => {
   for (const key in EmergencyType.values) {
     const vals = EmergencyType.values[key];
     const mark = vals.markType ?? MarkTypes.None;
-    values.push(<FormCheck label={t(`${EmergencyType.name}.${key}`)} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
+    values.push(<FormCheck label={t(`${EmergencyType.name}.${key}`)} key={key} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
   }
 
   for (const key in FacilityType.values) {
     const vals = FacilityType.values[key];
     const mark = vals.markType ?? MarkTypes.None;
-    values.push(<FormCheck label={t(`${FacilityType.name}.${key}`)} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
+    values.push(<FormCheck label={t(`${FacilityType.name}.${key}`)} key={key} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
   }
 
   return (
@@ -56,8 +56,9 @@ const MainMap = () => {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    const accReq = getAccidents().then(res => res.json());
-    const ambReq = getAmbulances().then(res => res.json());
+    const abort = new AbortController();
+    const accReq = getAccidents(abort).then(res => res.json());
+    const ambReq = getAmbulances(abort).then(res => res.json());
 
     Promise.all([accReq, ambReq]).then((data: [AccidentReportResponse[], AmbulanceResponse[]]) => {
       if (data) {
@@ -75,12 +76,17 @@ const MainMap = () => {
           to: `/ambulances/${a.licensePlate}`
         }))]);
       }
-    }).catch(console.error);
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
 
     const timeout = setTimeout(() => setUpdate(!update), 15000);
 
     return () => {
       clearTimeout(timeout);
+      abort.abort();
     };
   }, [update]);
 
@@ -90,7 +96,9 @@ const MainMap = () => {
       setLoaded(true);
     }, err => setLoaded(true));
 
-    getFacilities().then(res => res.json()).then((data: FacilityResponse[]) => {
+    const abort = new AbortController();
+
+    getFacilities(abort).then(res => res.json()).then((data: FacilityResponse[]) => {
       if (data) {
         setFacilities(data.map(f => ({
           coords: [f.location.latitude, f.location.longitude],
@@ -100,7 +108,13 @@ const MainMap = () => {
           to: `/facilities/${f.facilityId}`
         })));
       }
-    }).catch(console.error);
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
+
+    return () => abort.abort();
   }, []);
 
   const marks = [...positions, ...facilities].filter(p => p.type & filters).map(e => ({

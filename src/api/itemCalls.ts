@@ -37,6 +37,6 @@ export interface EquipmentResponse {
 }
 
 const itemBase = "item";
-export const getItems = () => get(itemBase);
-export const getItemById = (id: number) => get(`${itemBase}/${id}`);
-export const createItem = (req: Readonly<ItemRequest>) => post(`${itemBase}/create`, req);
+export const getItems = (abort: AbortController) => get(itemBase, abort);
+export const getItemById = (id: number, abort: AbortController) => get(`${itemBase}/${id}`, abort);
+export const createItem = (req: Readonly<ItemRequest>, abort: AbortController) => post(`${itemBase}/create`, req, abort);

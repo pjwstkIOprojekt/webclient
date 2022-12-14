@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AllergyResponse } from "../../../../api/allergyCalls";
 import { useTranslation } from "react-i18next";
 import { usePopup } from "../../../../hooks/usePopup";
+import { useAbort } from "../../../../hooks/useAbort";
 import { deleteAllergy } from "../../../../api/allergyCalls";
 import Link from "../../../fragments/navigation/Link";
 import Enum from "../../../fragments/values/Enum";
@@ -16,11 +17,12 @@ const AllergyTable = (props: Readonly<TableViewParams<AllergyResponse>>) => {
   const [removed, setRemoved] = useState<number[]>([]);
   const { t } = useTranslation();
   const popup = usePopup();
+  const abort = useAbort();
 
   const remove = (x: Readonly<AllergyResponse>) => {
     setRemoved([...removed, x.allergyId]);
 
-    deleteAllergy(x.allergyId).then(res => {
+    deleteAllergy(x.allergyId, abort).then(res => {
       if (res.ok) {
         if (props.onRemove) {
           props.onRemove(x);
@@ -31,6 +33,10 @@ const AllergyTable = (props: Readonly<TableViewParams<AllergyResponse>>) => {
 
       setRemoved(removed.filter(i => i !== x.allergyId));
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setRemoved(removed.filter(i => i !== x.allergyId));
     });

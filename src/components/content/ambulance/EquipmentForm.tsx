@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useAbort } from "../../../hooks/useAbort";
 import { ItemType } from "../../../api/enumCalls";
 import { ItemRequest, createItem } from "../../../api/itemCalls";
 import { unknownError, networkError } from "../sharedStrings";
@@ -21,6 +22,7 @@ const EquipmentForm = () => {
 	const [error, setError] = useState<string | undefined>("");
 	const { t } = useTranslation();
 	const navigate = useNavigate();
+  const abort = useAbort();
 	const single = type === ItemType.singleUse;
   const multi = type === ItemType.multiUse;
 	const medical = type === ItemType.medical;
@@ -46,7 +48,7 @@ const EquipmentForm = () => {
       item.expiration_date = new Date(exp);
     }
 
-		createItem(item).then(res => {
+		createItem(item, abort).then(res => {
 			if (res.ok) {
 				navigate("../equip");
 			} else {
@@ -54,6 +56,10 @@ const EquipmentForm = () => {
 				setError(unknownError);
 			}
 		}).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
 			console.error(err);
 			setError(networkError);
 		});

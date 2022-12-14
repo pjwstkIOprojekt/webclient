@@ -23,8 +23,9 @@ const DispositorHome = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const accReq = getIncidents().then(res => res.json());
-    const ambReq = getAmbulances().then(res => res.json());
+    const abort = new AbortController();
+    const accReq = getIncidents(abort).then(res => res.json());
+    const ambReq = getAmbulances(abort).then(res => res.json());
 
     Promise.all([accReq, ambReq]).then((data: [IncidentResponse[], AmbulanceResponse[]]) => {
       if (data) {
@@ -44,9 +45,15 @@ const DispositorHome = () => {
 
       setIsLoading(false);
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abort.abort();
   }, []);
 
   const idField = "incidentId";

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopup } from "../../../hooks/usePopup";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { getAccidentById, AccidentReportResponse, createAccident, updateAccident } from "../../../api/accidentReportCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import { getEmail } from "../../../helpers/authHelper";
@@ -32,6 +33,7 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
   const { reportId } = useParams();
   const popup = usePopup();
   const { t } = useTranslation();
+  const abort = useAbort();
   const update = props.update;
 
   useEffect(() => {
@@ -40,8 +42,9 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
     }
 
     setError(undefined);
+    const abortUpdate = new AbortController();
 
-    getAccidentById(parseInt(reportId)).then(res => res.json()).then((data: AccidentReportResponse) => {
+    getAccidentById(parseInt(reportId), abortUpdate).then(res => res.json()).then((data: AccidentReportResponse) => {
       if (data.location && data.victimCount !== undefined) {
         setBreathing(data.breathing);
         setConscious(data.consciousness);
@@ -55,9 +58,15 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
         setError(missingDataError);
       }
     }).catch(err => {
+      if (abortUpdate.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setError(loadingError);
     });
+
+    return () => abortUpdate.abort();
   }, [reportId, update]);
 
   const handleSubmit = () => {
@@ -84,10 +93,10 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
       ...report,
       concious: conscious,
       email: email
-    }) : updateAccident(parseInt(reportId), {
+    }, abort) : updateAccident(parseInt(reportId), {
       ...report,
       consciousness: conscious
-    })).then(res => {
+    }, abort)).then(res => {
       if (res.ok) {
         navigate("/home");
       } else {
@@ -95,6 +104,10 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setError(networkError);
     })

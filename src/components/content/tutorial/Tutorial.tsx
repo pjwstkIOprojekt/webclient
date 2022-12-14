@@ -92,11 +92,19 @@ const Tutorial = () => {
       return;
     }
 
-    getTutorialById(parseInt(tutorialId)).then(res => res.json()).then((data: TutorialResponse) => {
+    const abort = new AbortController();
+
+    getTutorialById(parseInt(tutorialId), abort).then(res => res.json()).then((data: TutorialResponse) => {
       if (data.tutorialHTML) {
         setTutorial(data);
       }
-    }).catch(console.error);
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
+
+    return () => abort.abort();
   }, [tutorialId]);
 
   return <ViewLoader isLoaded={tutorial.tutorialId > 0} element={<TutorialPage tutorial={tutorial} />} />;

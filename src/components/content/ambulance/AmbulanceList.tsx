@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { usePopup } from "../../../hooks/usePopup";
+import { useAbort } from "../../../hooks/useAbort";
 import { AmbulanceResponse, getAmbulances, deleteAmbulance } from "../../../api/ambulanceCalls";
 import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
@@ -12,29 +13,38 @@ import { Container, Row, Col } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
 const AmbulanceList = () => {
-  const [ambulances, setAmbulances] = useState<AmbulanceResponse[]>([]);
+  const [ambulances, setAmbulances] = useState<AmbulanceResponse[]>([]); 
   const [removed, setRemoved] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
   const popup = usePopup();
+  const abort = useAbort();
 
   useEffect(() => {
-    getAmbulances().then(res => res.json()).then((data: AmbulanceResponse[]) => {
+    const abortUpdate = new AbortController();
+
+    getAmbulances(abortUpdate).then(res => res.json()).then((data: AmbulanceResponse[]) => {
       if (data) {
         setAmbulances(data);
       }
 
       setIsLoading(false);
     }).catch(err => {
+      if (abortUpdate.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abortUpdate.abort();
   }, []);
 
   const remove = (plate: string) => {
     setRemoved([...removed, plate]);
     
-    deleteAmbulance(plate).then(res => {
+    deleteAmbulance(plate, abort).then(res => {
       if (res.ok) {
         setAmbulances(ambulances.filter(a => a.licensePlate !== plate));
       } else {
@@ -43,6 +53,10 @@ const AmbulanceList = () => {
 
       setRemoved(removed.filter(p => p !== plate));
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setRemoved(removed.filter(p => p !== plate));
     });

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLogin } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { loginUser, JwtResponse } from "../../../api/authCalls";
 import { missingDataError, networkError } from "../sharedStrings";
 import { Container, Row } from "react-bootstrap";
@@ -16,6 +17,7 @@ const Login = () => {
   const [error, setError] = useState<string | undefined>("");
   const login = useLogin();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   const handleSubmit = () => {
     setError(undefined);
@@ -23,7 +25,7 @@ const Login = () => {
     loginUser({
       email: email,
       password: password,
-    }).then(res => {
+    }, abort).then(res => {
       if (res.ok) {
         return res.json();
       }
@@ -40,6 +42,10 @@ const Login = () => {
       }
     }
     ).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError(networkError);
     });

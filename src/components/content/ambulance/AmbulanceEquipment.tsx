@@ -2,6 +2,7 @@ import { ItemResponse, getItems, EquipmentResponse } from "../../../api/itemCall
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { licensePlateError } from "../sharedStrings";
 import { getItems as getAmbulanceItems, addItem, removeItem } from "../../../api/ambulanceCalls";
 import EquipmentAmount from "./EquipmentAmount";
@@ -27,6 +28,7 @@ const AmbulanceEquipment = () => {
 
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
     if (ambulanceId === undefined) {
@@ -34,8 +36,9 @@ const AmbulanceEquipment = () => {
       return;
     }
 
-    const itemsReq = getItems().then(res => res.json());
-    const ambReq = getAmbulanceItems(ambulanceId).then(res => res.json());
+    const abortUpdate = new AbortController();
+    const itemsReq = getItems(abortUpdate).then(res => res.json());
+    const ambReq = getAmbulanceItems(ambulanceId, abortUpdate).then(res => res.json());
 
     Promise.all([itemsReq, ambReq]).then((data: [ItemResponse[], EquipmentResponse[]]) => {
       if (data) {
@@ -54,9 +57,15 @@ const AmbulanceEquipment = () => {
 
       setIsLoading(false);
     }).catch(err => {
+      if (abortUpdate.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abortUpdate.abort();
   }, [ambulanceId]);
 
   const onUpdate = (itemId: number, diff?: number) => {
@@ -77,7 +86,7 @@ const AmbulanceEquipment = () => {
       processing: true
     });
 
-    (diff < 0 ? removeItem(ambulanceId, itemId, -diff) : addItem(ambulanceId, itemId, diff)).then(res => {
+    (diff < 0 ? removeItem(ambulanceId, itemId, abort, -diff) : addItem(ambulanceId, itemId, abort, diff)).then(res => {
       if (res.ok) {
         setItems(items.map(i => i.itemId === itemId ? ({
           ...i,
@@ -92,6 +101,10 @@ const AmbulanceEquipment = () => {
         processing: false
       });
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       
       setUpdate({

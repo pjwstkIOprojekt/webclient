@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { registerEmployee } from "../../../api/adminCalls";
 import { Container, Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
@@ -24,6 +25,7 @@ const RegisterWithRole = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [error, setError] = useState("");
   const { t } = useTranslation();
+  const abort = useAbort();
 
   const handleSubmit = () => {
     if (password !== passwordCheck) {
@@ -45,12 +47,16 @@ const RegisterWithRole = () => {
         "THURSDAY": { start: "", end: "" },
         "FRIDAY": { start: "", end: "" }
       }
-    }).then(res => {
+    }, abort).then(res => {
       if (!res.ok) {
         setError("Error.RegistrationFailed");
         return;
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError("Error.RegistrationFailed");
     });

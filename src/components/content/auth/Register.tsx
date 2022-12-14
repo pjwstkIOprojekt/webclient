@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLogin } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { registerUser, loginUser, JwtResponse } from "../../../api/authCalls";
 import { missingDataError, networkError } from "../sharedStrings";
 import { Container, Row, Alert } from "react-bootstrap";
@@ -26,6 +27,7 @@ const Register = () => {
   const [innerError, setInnerError] = useState("");
   const login = useLogin();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   const handleSubmit = () => {
     setError(undefined);
@@ -46,7 +48,7 @@ const Register = () => {
       password: pass,
       birthDate: birthDate,
       phoneNumber: phoneNumber
-    }).then(res => {
+    }, abort).then(res => {
       if (!res.ok) {
         setError("Error.RegistrationFailed");
         return;
@@ -55,7 +57,7 @@ const Register = () => {
       loginUser({
         email: mail,
         password: pass
-      }).then(res => {
+      }, abort).then(res => {
         if (res.ok) {
           return res.json();
         }
@@ -73,11 +75,19 @@ const Register = () => {
           }
         }
       }).catch(err => {
+        if (abort.signal.aborted) {
+          return;
+        }
+
         console.error(err);
         setError("Error.PostRegisterFail");
         setInnerError(networkError);
       });
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError(networkError);
     });

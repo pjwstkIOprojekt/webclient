@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { usePopup } from "../../../hooks/usePopup";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "../../../hooks/useAuth";
+import { useAbort } from "../../../hooks/useAbort";
 import { isDispositor, isDirector } from "../../../helpers/authHelper";
 import { FacilityResponse, getFacilities, deleteFacility } from "../../../api/facilityCalls";
 import Table, {TableColumnParams} from "../../fragments/util/Table";
@@ -20,19 +21,28 @@ const FacilitiesList = () => {
   const popup = usePopup();
   const { t } = useTranslation();
   const roles = useRoles();
+  const abort = useAbort();
   const canRemove = isDispositor(roles) || isDirector(roles);
 
   useEffect(() => {
-    getFacilities().then(res => res.json()).then((data: FacilityResponse[]) => {
+    const abortUpdate = new AbortController();
+
+    getFacilities(abortUpdate).then(res => res.json()).then((data: FacilityResponse[]) => {
       if (data) {
         setFacilities(data);
       }
 
       setIsLoading(false);
     }).catch(err => {
+      if (abortUpdate.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abortUpdate.abort();
   }, []);
 
   const remove = (id: number) => {
@@ -42,7 +52,7 @@ const FacilitiesList = () => {
 
     setRemoved([...removed, id]);
     
-    deleteFacility(id).then(res => {
+    deleteFacility(id, abort).then(res => {
       if (res.ok) {
         setFacilities(facilities.filter(f => f.facilityId !== id));
       } else {
@@ -51,6 +61,10 @@ const FacilitiesList = () => {
 
       setRemoved(removed.filter(i => i !== id));
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setRemoved(removed.filter(i => i !== id));
     });

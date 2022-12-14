@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { endShift, startShift } from "../../../api/employeeCalls";
 import { Nav, Spinner } from "react-bootstrap";
 import { CgWorkAlt } from "react-icons/cg";
@@ -10,6 +11,7 @@ const CheckIn = () => {
   const [processing, setProcessing] = useState(false);
   const darkMode = useDarkMode();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   const onToggle = () => {
     if (processing) {
@@ -18,7 +20,7 @@ const CheckIn = () => {
 
     setProcessing(true);
 
-    (checked ? endShift() : startShift()).then(res => {
+    (checked ? endShift(abort) : startShift(abort)).then(res => {
       if (res.ok) {
         setChecked(!checked);
       } else {
@@ -27,6 +29,10 @@ const CheckIn = () => {
 
       setProcessing(false);
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setProcessing(false);
     });

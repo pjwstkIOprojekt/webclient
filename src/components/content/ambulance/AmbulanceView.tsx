@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { getAmbulanceByLicensePlate, AmbulanceResponse, updateAmbulance } from "../../../api/ambulanceCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import { Container, Row } from "react-bootstrap";
@@ -26,12 +27,14 @@ const AmbulanceView = () => {
   const [readOnly, setReadOnly] = useState(true);
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
     if (ambulanceId !== undefined && readOnly) {
       setError(undefined);
+      const abortUpdate = new AbortController();
 
-      getAmbulanceByLicensePlate(ambulanceId).then(res => res.json()).then((data: AmbulanceResponse) => {
+      getAmbulanceByLicensePlate(ambulanceId, abortUpdate).then(res => res.json()).then((data: AmbulanceResponse) => {
         if (data.ambulanceClass && data.ambulanceType && data.seats > 0) {
           setAmbulanceClass(data.ambulanceClass);
           setAmbulanceType(data.ambulanceType);
@@ -43,7 +46,9 @@ const AmbulanceView = () => {
       }).catch(err => {
         console.error(err);
         setError(loadingError);
-      })
+      });
+
+      return () => abortUpdate.abort();
     }
   }, [ambulanceId, readOnly]);
 
@@ -67,7 +72,7 @@ const AmbulanceView = () => {
       seats: seats,
       longitude: 0,
       latitude: 0
-    }).then(res => {
+    }, abort).then(res => {
       if (res.ok) {
         setReadOnly(true);
         setError("");
@@ -76,6 +81,10 @@ const AmbulanceView = () => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setError(networkError);
     });

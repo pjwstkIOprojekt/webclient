@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../../hooks/useAbort";
 import { getAllergyById, AllergyResponse, createAllergy, updateAllergy } from "../../../../api/allergyCalls";
 import { missingDataError, loadingError, userEmailError, unknownError, networkError } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
@@ -21,12 +22,14 @@ const AllergyForm = () => {
   const { allergyId } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
     if (allergyId !== undefined) {
       setError(undefined);
+      const abortUpdate = new AbortController();
 
-      getAllergyById(parseInt(allergyId)).then(res => res.json()).then((data: AllergyResponse) => {
+      getAllergyById(parseInt(allergyId), abortUpdate).then(res => res.json()).then((data: AllergyResponse) => {
         if (data.allergyType && data.allergyName && data.other) {
           setAllergyType(data.allergyType);
           setAllergyName(data.allergyName);
@@ -36,9 +39,15 @@ const AllergyForm = () => {
           setError(missingDataError);
         }
       }).catch(err => {
+        if (abortUpdate.signal.aborted) {
+          return;
+        }
+
         console.error(err);
         setError(loadingError);
       });
+
+      return () => abortUpdate.abort();
     }
   }, [allergyId]);
 
@@ -59,7 +68,7 @@ const AllergyForm = () => {
       other: other
     };
 
-    (allergyId === undefined ? createAllergy(allergy) : updateAllergy(parseInt(allergyId), allergy)).then(res => {
+    (allergyId === undefined ? createAllergy(allergy, abort) : updateAllergy(parseInt(allergyId), allergy, abort)).then(res => {
       if (res.ok) {
         navigate("../medicaldata");
       } else {
@@ -67,6 +76,10 @@ const AllergyForm = () => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError(networkError);
     });

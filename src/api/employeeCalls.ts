@@ -10,7 +10,7 @@ export interface ScheduleResponse {
 }
 
 const employeeBase = "employee";
-export const startShift = () => get(`${employeeBase}/shift/start`);
-export const endShift = () => get(`${employeeBase}/shift/end`);
-export const updateSchedule = (req: Readonly<UpdateScheduleRequest>) => post(`${employeeBase}/schedule/update`, req);
-export const getAssignedAmbulance = () => get(`${employeeBase}/medic/assigned-to`);
+export const startShift = (abort: AbortController) => get(`${employeeBase}/shift/start`, abort);
+export const endShift = (abort: AbortController) => get(`${employeeBase}/shift/end`, abort);
+export const updateSchedule = (req: Readonly<UpdateScheduleRequest>, abort: AbortController) => post(`${employeeBase}/schedule/update`, req, abort);
+export const getAssignedAmbulance = (abort: AbortController) => get(`${employeeBase}/medic/assigned-to`, abort);

@@ -16,4 +16,4 @@ export interface RegisterEmployeeRequest extends SignupRequest {
 }
 
 const adminBase = "admin";
-export const registerEmployee = (employeeType: string, req: Readonly<RegisterEmployeeRequest>) => post(`${adminBase}/register/employee/${employeeType}`, req);
+export const registerEmployee = (employeeType: string, req: Readonly<RegisterEmployeeRequest>, abort: AbortController) => post(`${adminBase}/register/employee/${employeeType}`, req, abort);

@@ -36,16 +36,24 @@ const TutorialView = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    getTutorials().then(res => res.json()).then((data: TutorialResponse[]) => {
+    const abort = new AbortController();
+
+    getTutorials(abort).then(res => res.json()).then((data: TutorialResponse[]) => {
       if (data) {
         setItems(data);
       }
 
       setIsLoading(false);
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abort.abort();
   }, []);
   
   return (

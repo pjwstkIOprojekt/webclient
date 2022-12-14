@@ -25,11 +25,11 @@ export interface ReviewRequest {
 }
 
 const tutorialBase = "tutorial";
-export const getTutorials = () => get(tutorialBase);
-export const getTutorialById = (id: number) => get(`${tutorialBase}/${id}`);
-export const createTutorial = (req: Readonly<TutorialRequest>) => post(tutorialBase, req);
-export const updateTutorial = (req: Readonly<TutorialRequest>) => put(tutorialBase, req);
-export const deleteTutorial = (id: number) => del(`${tutorialBase}/${id}`);
-export const addReview = (id: number, user: number, req: Readonly<ReviewRequest>) => post(`${tutorialBase}/${id}/${user}`, req);
-export const deleteReview = (id: number, user: number, review: number) => del(`${tutorialBase}/${id}/${user}/${review}`);
-export const updateReview = (id: number, req: Readonly<ReviewRequest>) => put(`${tutorialBase}/${id}`, req);
+export const getTutorials = (abort: AbortController) => get(tutorialBase, abort);
+export const getTutorialById = (id: number, abort: AbortController) => get(`${tutorialBase}/${id}`, abort);
+export const createTutorial = (req: Readonly<TutorialRequest>, abort: AbortController) => post(tutorialBase, req, abort);
+export const updateTutorial = (req: Readonly<TutorialRequest>, abort: AbortController) => put(tutorialBase, req, abort);
+export const deleteTutorial = (id: number, abort: AbortController) => del(`${tutorialBase}/${id}`, abort);
+export const addReview = (id: number, user: number, req: Readonly<ReviewRequest>, abort: AbortController) => post(`${tutorialBase}/${id}/${user}`, req, abort);
+export const deleteReview = (id: number, user: number, review: number, abort: AbortController) => del(`${tutorialBase}/${id}/${user}/${review}`, abort);
+export const updateReview = (id: number, req: Readonly<ReviewRequest>, abort: AbortController) => put(`${tutorialBase}/${id}`, req, abort);

@@ -2,6 +2,7 @@ import { AmbulanceResponse } from "../../../api/ambulanceCalls";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { getAmbulances } from "../../../api/ambulanceCalls";
 import { AmbulanceState, AmbulanceClass, AmbulanceType } from "../../../api/enumCalls";
 import { addAmbulances } from "../../../api/incidentCalls";
@@ -25,9 +26,12 @@ const AssignAmbulance = () => {
   const [error, setError] = useState<string | undefined>("");
   const { reportId } = useParams();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
-    getAmbulances().then(res => res.json()).then((data: AmbulanceResponse[]) => {
+    const abortUpdate = new AbortController();
+
+    getAmbulances(abortUpdate).then(res => res.json()).then((data: AmbulanceResponse[]) => {
       if (data) {
         setAmbulances(data.filter(a => a.ambulanceStateType === AmbulanceState.available).map(a => ({
           ...a,
@@ -37,9 +41,15 @@ const AssignAmbulance = () => {
 
       setIsLoading(false);
     }).catch(err => {
+      if (abortUpdate.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abortUpdate.abort();
   }, []);
 
   const submit = () => {
@@ -55,7 +65,7 @@ const AssignAmbulance = () => {
       return;
     }
 
-    addAmbulances(parseInt(reportId), toAdd).then(res => {
+    addAmbulances(parseInt(reportId), toAdd, abort).then(res => {
       if (res.ok) {
         setAmbulances(ambulances.filter(a => !a.assigned));
         setError("");
@@ -64,6 +74,10 @@ const AssignAmbulance = () => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setError(networkError);
     });
