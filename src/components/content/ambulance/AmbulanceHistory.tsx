@@ -97,17 +97,16 @@ const AmbulanceHistory = () => {
 
   return (
     <Container className="mt-3 justify-content-center">
-      <h3 className="text-center">{t("Ambulance.History")}</h3>
-      <h4 className="my-3 text-center">{t("Ambulance.ChangeState")}</h4>
       <Row className="my-3 justify-content-end">
         <Col>
-          <EnumSelect id="newState" enum={AmbulanceState} value={newState} onLoad={setNewState} onChange={e => setNewState(e.target.value)} />
+          <EnumSelect id="newState" enum={AmbulanceState} value={newState} onLoad={setNewState} label={t("Ambulance.ChangeState")} onChange={e => setNewState(e.target.value)} />
         </Col>
         <Col md="auto">
           {error === undefined ? <Spinner /> : <Button onClick={changeState}>+</Button>}
         </Col>
       </Row>
       <Error className="my-3" error={error} />
+      <h3 className="text-center">{t("Ambulance.History")}</h3>
       <Table columns={cols} data={states} isLoading={isLoading} />
     </Container>
   );

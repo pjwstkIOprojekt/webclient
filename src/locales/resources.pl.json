@@ -3,7 +3,7 @@
         "ADMIN": "Administrator",
         "USER": "Użytkownik",
         "EMPLOYEE": "Pracownik",
-        "PARAMEDIC": "Ratownik",
+        "MEDIC": "Ratownik",
         "DISPATCHER": "Dyspozytor",
         "AMBULANCE_MANAGER": "Kierownik karetki"
     },
@@ -91,7 +91,7 @@
         "Path": "Trasa karetki",
         "ConfirmRemove": "Czy na pewno chcesz usunąć tą karetkę?",
         "ChangingState": "Zmiana stanu karetki",
-        "ChangeState": "Zmień stan karetki",
+        "ChangeState": "Zmień status karetki",
         "Exists": "Karetka z tym numerem rejestracyjnym już istnieje.",
         "SameState": "Karetka jest już w tym stanie",
         "Adding": "Dodawanie karetki",
@@ -181,7 +181,8 @@
         "EmptyValue": "Ta wartość nie może być pusta.",
         "Past": "Można podać tylko datę w przeszłości.",
         "Network": "Nie można się połączyć z serwerem. Sprawdź swoje połączenie z Internetem",
-        "PostRegisterFail": "Rejestracja się powiodła, ale nastąpił błąd przy logowaniu. Spróbuj się zalogować ponownie."
+        "PostRegisterFail": "Rejestracja się powiodła, ale nastąpił błąd przy logowaniu. Spróbuj się zalogować ponownie.",
+        "NoDispatcherFound": "Nie znaleziono dostępnego dyspozytora."
     },
     "Blood": {
         "Type": "Grupa krwi",

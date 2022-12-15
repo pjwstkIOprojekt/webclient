@@ -3,7 +3,7 @@
         "ADMIN": "Administrator",
         "USER": "User",
         "EMPLOYEE": "Employee",
-        "PARAMEDIC": "Paramedic",
+        "MEDIC": "Paramedic",
         "DISPATCHER": "Dispatcher",
         "AMBULANCE_MANAGER": "Ambulance manager"
     },
@@ -181,7 +181,8 @@
         "EmptyValue": "This value cannot be empty.",
         "Past": "Only a date in the past can be given.",
         "Network": "Cannot connect with the server. Check your Internet connection.",
-        "PostRegisterFail": "Registration was successful but an error has occured while logging in. Try to log in again."
+        "PostRegisterFail": "Registration was successful but an error has occured while logging in. Try to log in again.",
+        "NoDispatcherFound": "No available dispatcher found."
     },
     "Blood": {
         "Type": "Blood type",
