@@ -82,7 +82,8 @@ const Tutorial = () => {
     tutorialType: "",
     tutorialHTML: null,
     avarageRating: 0,
-    name: ""
+    name: "",
+    thumbnail: ""
   });
 
   const { tutorialId } = useParams();

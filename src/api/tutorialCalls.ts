@@ -6,7 +6,8 @@ interface TutorialBase {
 
   // Enum - TutorialType
   tutorialType: string,
-  tutorialHTML: string | null
+  tutorialHTML: string | null,
+  thumbnail: string
 }
 
 export interface TutorialRequest extends TutorialBase {

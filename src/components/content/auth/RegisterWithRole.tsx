@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { useAbort } from "../../../hooks/useAbort";
 import { registerEmployee } from "../../../api/adminCalls";
 import { Container, Row } from "react-bootstrap";
@@ -11,7 +12,8 @@ import Email from "../../fragments/forms/api/Email";
 import Past from "../../fragments/forms/api/Past";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
 import Password from "../../fragments/forms/api/Password";
-import Button from "../../fragments/util/Button";
+import Calendar from "../../fragments/util/Calendar";
+import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
 
 const RegisterWithRole = () => {
@@ -23,15 +25,18 @@ const RegisterWithRole = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const abort = useAbort();
 
   const handleSubmit = () => {
     if (password !== passwordCheck) {
-      setError("Error.DiffrentPasswords");
+      setError("Error.DifferentPasswords");
       return;
     }
+
+    setError(undefined);
 
     registerEmployee(role, {
       firstName: firstName,
@@ -48,9 +53,11 @@ const RegisterWithRole = () => {
         "FRIDAY": { start: "", end: "" }
       }
     }, abort).then(res => {
-      if (!res.ok) {
+      if (res.ok) {
+        navigate("/");
+      } else {
+        console.log(res);
         setError("Error.RegistrationFailed");
-        return;
       }
     }).catch(err => {
       if (abort.signal.aborted) {
@@ -64,10 +71,10 @@ const RegisterWithRole = () => {
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center">{t("Login.Registration")}</h1>
+      <h1 className="text-center">{t("Person.Adding")}</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
-          <EnumSelect id="role" required onChange={e => setRole(e.target.value)} onLoad={setRole} value={role} enum={RoleName} className="mb-3 w-50" label="Rola" />
+          <EnumSelect id="role" required onChange={e => setRole(e.target.value)} onLoad={setRole} value={role} enum={RoleName} className="mb-3 w-50" label={t("Person.Role")} />
         </Row>
         <Row className="justify-content-center">
           <NotBlank id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label={t("Person.FirstName")} />
@@ -85,16 +92,18 @@ const RegisterWithRole = () => {
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="mb-3 w-50" label={t("Person.PhoneNumber")} />
         </Row>
         <Row className="justify-content-center">
-          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Login.Password")} />
+          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Person.Password")} />
         </Row>
         <Row className="justify-content-center">
           <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Check")} />
         </Row>
+        <h1 className="text-center">Grafik</h1>
+        <Calendar />
         <Row className="justify-content-center">
-          <Button className="mt-3 w-25" type="submit">Dodaj pracownika</Button>
+          <Submit className="my-3 w-25" canSubmit={error !== undefined}>{t("Person.Add")}</Submit>
         </Row>
         <Row className="justify-content-center">
-          <Error className="mt-3 w-50" error={error} />
+          <Error className="mb-3 w-50" error={error} />
         </Row>
       </Form>
     </Container>

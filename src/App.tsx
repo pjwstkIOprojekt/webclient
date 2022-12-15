@@ -8,6 +8,7 @@ import ConditionalRoute from "./components/fragments/navigation/ConditionalRoute
 import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
 import Settings from "./components/content/userinfo/Settings";
+import RegisterWithRole from "./components/content/auth/RegisterWithRole";
 import Home from "./components/content/home/Home";
 import TutorialView from "./components/content/tutorial/TutorialView";
 import Tutorial from "./components/content/tutorial/Tutorial";
@@ -22,12 +23,11 @@ import AmbulanceForm from "./components/content/ambulance/AmbulanceForm";
 import AmbulanceView from "./components/content/ambulance/AmbulanceView";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
 import CookieConsent from "./components/fragments/cookies/CookieConsent";
+
 import ParamedicView from "./components/content/staff/ParamedicView";
 import ParamedicInfo from "./components/content/staff/ParamedicInfo"
 import ScheduleList from "./components/content/schedule/ScheduleList";
 import ScheduleAdd from "./components/content/schedule/ScheduleAdd";
-import RegisterWithRole from "./components/content/auth/RegisterWithRole";
-
 
 const App = () => {
   const roles = useRoles();
@@ -46,6 +46,7 @@ const App = () => {
           <Route path="/register" element={<ConditionalRoute condition={!auth} element={<Register />} />} />
           <Route path="/register/:redirect" element={<ConditionalRoute condition={!auth} element={<Register />} />} />
           <Route path="/settings/*" element={<ConditionalRoute condition={auth} element={<Settings />} />} />
+          <Route path="/newuser" element={<ConditionalRoute condition={dis || admin} element={<RegisterWithRole />} />} />
 
           <Route path="/home" element={<Home />} />
           <Route path="/tutorial" element={<TutorialView />} />
@@ -67,7 +68,6 @@ const App = () => {
           <Route path="/paramedic" element={<ParamedicInfo />} />
           <Route path="/schedule" element={<ScheduleList />} />
           <Route path="/schedule/add" element={<ScheduleAdd />} />
-          <Route path="/role" element={<RegisterWithRole />} />
         </Routes>
         <NotificationArea />
       </Container>

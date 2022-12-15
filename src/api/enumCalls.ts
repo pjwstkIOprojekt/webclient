@@ -182,3 +182,8 @@ export const ItemType = {
   multiUse: "MULTI_USE",
   medical: "MEDICAL"
 };
+
+export const TutorialType = {
+  getter: (abort: AbortController) => get(`${enumBase}/tutorial_type`, abort),
+  name: "TutorialType"
+};

@@ -133,7 +133,10 @@
         "StartDuty": "Rozpocznij zmianę",
         "FinishDuty": "Zakończ zmianę",
         "Account": "Konto",
-        "MyData": "Moje dane"
+        "MyData": "Moje dane",
+        "Add": "Dodaj pracownika",
+        "Adding": "Dodawanie pracownika",
+        "Role": "Rola"
     },
     "Login": {
         "Login": "Logowanie",
@@ -249,7 +252,8 @@
         "Cancel": "Anuluj",
         "Value": "Wartość",
         "Details": "Szczegóły",
-        "Contents": "Spis treści"
+        "Contents": "Spis treści",
+        "Thumbnail": "Miniaturka"
     },
     "Map": {
         "Map": "Mapa",
@@ -271,5 +275,9 @@
         "Description": "Opis",
         "Manufacturer": "Producent",
         "Expiration": "Data ważności"
+    },
+    "Medic": {
+        "Medics": "Medycy",
+        "Assigned": "Przypisani medycy"
     }
 }

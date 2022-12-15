@@ -133,7 +133,10 @@
         "StartDuty": "Start duty",
         "FinishDuty": "Finish duty",
         "Account": "Account",
-        "MyData": "My data"
+        "MyData": "My data",
+        "Add": "Add employee",
+        "Adding": "Add employee",
+        "Role": "Role"
     },
     "Login": {
         "Login": "Login",
@@ -249,7 +252,8 @@
         "Cancel": "Cancel",
         "Value": "Value",
         "Details": "Details",
-        "Contents": "Contents"
+        "Contents": "Contents",
+        "Thumbnail": "Thumbnail"
     },
     "Map": {
         "Map": "Map",
@@ -271,5 +275,9 @@
         "Description": "Description",
         "Manufacturer": "Manufacturer",
         "Expiration": "Expiration Date"
+    },
+    "Medic": {
+        "Medics": "Medics",
+        "Assigned": "Assigned medics"
     }
 }

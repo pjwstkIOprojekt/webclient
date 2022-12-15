@@ -60,7 +60,10 @@ const AmbulancePathView = (props: Readonly<MapDataHelperParams<[number, number][
   const onMove = (x: number) => {
     setOffset(x);
     const value = props.data[x];
-    props.update(value);
+
+    if (value) {
+      props.update(value);
+    }
   };
 
   const changeDay = (x: number) => {

@@ -3,7 +3,7 @@ import { useRoles, useAuth } from "../../../hooks/useAuth";
 import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
-import { FaHome, FaMedkit, FaBook, FaHospital, FaUserCircle, FaMap, FaNotesMedical, FaAmbulance, FaUserSecret } from "react-icons/fa";
+import { FaHome, FaMedkit, FaBook, FaHospital, FaUserCircle, FaMap, FaNotesMedical, FaAmbulance, FaUserSecret, FaPlusCircle } from "react-icons/fa";
 import { isAuth, isDispositor, isDirector } from "../../../helpers/authHelper";
 import { customLink } from "./sharedNavigationParams";
 import CheckIn from "../../content/staff/CheckIn";
@@ -160,6 +160,15 @@ const UserDropdown = () => {
           <NavDrop to="/settings/trustedperson">
             <FaUserSecret />
             <span className="px-1">{t("Person.TrustedPerson")}</span>
+          </NavDrop>
+          <NavDropdown.Divider />
+        </>
+      ) : ""}
+      {isDispositor(roles) || isDirector(roles) ? (
+        <>
+          <NavDrop to="/newuser">
+            <FaPlusCircle />
+            <span className="px-1">{t("Person.Add")}</span>
           </NavDrop>
           <NavDropdown.Divider />
         </>
