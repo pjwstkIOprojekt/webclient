@@ -5,7 +5,7 @@ import { useNotificationsManager } from "./useNotify";
 // Default auth settings
 const defaultContext = {
   roles: Roles.None,
-  login: (token: string, roles: Readonly<string[]>, email: string) => {},
+  login: (token: string, roles: Readonly<string[]>, email: string, userId: number) => {},
   logout: () => {}
 };
 
@@ -21,11 +21,12 @@ export const AuthProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
   const [roles, setRoles] = useState(getRoles() ?? Roles.None);
   const notifications = useNotificationsManager();
 
-  const handleLogin = (token: string, roles: Readonly<string[]>, email: string) => {
+  const handleLogin = (token: string, roles: Readonly<string[]>, email: string, userId: number) => {
     const usr = {
       token: token,
       roles: stringsToRoles(roles),
-      email: email
+      email: email,
+      userId: userId
     };
 
     setRoles(usr.roles);

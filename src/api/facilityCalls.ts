@@ -19,8 +19,8 @@ export interface FacilityResponse extends FacilityBase {
 }
 
 const facilityBase = "facility";
-export const getFacilities = () => get(facilityBase);
-export const getFacilityById = (id: number) => get(`${facilityBase}/${id}`);
-export const deleteFacility = (id: number) => del(`${facilityBase}/${id}`);
-export const createFacility = (req: Readonly<FacilityRequest>) => post(facilityBase, req);
-export const updateFacility = (id: number, req: Readonly<FacilityRequest>) => put(`${facilityBase}/${id}`, req);
+export const getFacilities = (abort: AbortController) => get(facilityBase, abort);
+export const getFacilityById = (id: number, abort: AbortController) => get(`${facilityBase}/${id}`, abort);
+export const deleteFacility = (id: number, abort: AbortController) => del(`${facilityBase}/${id}`, abort);
+export const createFacility = (req: Readonly<FacilityRequest>, abort: AbortController) => post(facilityBase, req, abort);
+export const updateFacility = (id: number, req: Readonly<FacilityRequest>, abort: AbortController) => put(`${facilityBase}/${id}`, req, abort);

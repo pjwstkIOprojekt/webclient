@@ -2,6 +2,7 @@ import { MapViewHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { createAmbulance } from "../../../api/ambulanceCalls";
 import { unknownError, networkError } from "../sharedStrings";
 import { Row } from "react-bootstrap";
@@ -24,6 +25,7 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
   const [error, setError] = useState<string | undefined>("");
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   const onSubmit = () => {
     setError(undefined);
@@ -37,7 +39,7 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
       seats: seats,
       longitude: lng,
       latitude: lat
-    }).then(res => {
+    }, abort).then(res => {
       if (res.ok) {
         navigate("/ambulances");
       } else if (res.status === 409) {
@@ -47,6 +49,10 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError(networkError);
     });
@@ -55,7 +61,7 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
   return (
     <Form onSubmit={onSubmit} className="w-50">
       <h1 className="my-3 text-center">{t("Ambulance.Adding")}</h1>
-      <Length length={8} id="licensePlate" className="mb-3" label={t("Ambulance.LicensePlate")} required value={licensePlate} onChange={e => setLicensePlate(e.target.value)} />
+      <Length minLength={3} length={8} id="licensePlate" className="mb-3" label={t("Ambulance.LicensePlate")} required value={licensePlate} onChange={e => setLicensePlate(e.target.value)} />
       <EnumSelect id="ambulanceClass" className="mb-3" label={t("Ambulance.Class")} required enum={AmbulanceClass} value={ambulanceClass} onLoad={setAmbulanceClass} onChange={e => setAmbulanceClass(e.target.value)} />
       <EnumSelect id="ambulanceType" className="mb-3" label={t("Ambulance.Type")} required enum={AmbulanceType} value={ambulanceType} onLoad={setAmbulanceType} onChange={e => setAmbulanceType(e.target.value)} />
       <Number id="seats" className="mb-3" label={t("Ambulance.Seats")} required value={seats} minValue="1" onChange={e => setSeats(parseInt(e.target.value))} />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../../hooks/useAbort";
 import { getEmail } from "../../../../helpers/authHelper";
 import { userEmailError, missingDataError, loadingError, unknownError, networkError } from "../../sharedStrings";
 import { getTrustedPersonByEmail, TrustedPersonResponse, createTrustedPerson, updateTrustedPerson } from "../../../../api/trustedPersonCalls";
@@ -21,6 +22,7 @@ const TrustedPersonForm = () => {
   const [readOnly, setReadOnly] = useState(true);
   const [isNew, setIsNew] = useState(true);
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
     if (!readOnly) {
@@ -35,8 +37,9 @@ const TrustedPersonForm = () => {
     }
     
     setError(undefined);
+    const abortUpdate = new AbortController();
 
-    getTrustedPersonByEmail(email).then(res => res.json()).then((data: TrustedPersonResponse) => {
+    getTrustedPersonByEmail(email, abortUpdate).then(res => res.json()).then((data: TrustedPersonResponse) => {
       if (data.firstName && data.lastName && data.phone) {
         setFirstName(data.firstName);
         setLastName(data.lastName);
@@ -48,9 +51,15 @@ const TrustedPersonForm = () => {
         setError(missingDataError);
       }
     }).catch(err => {
+      if (abortUpdate.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError(loadingError);
     });
+
+    return () => abortUpdate.abort();
   }, [readOnly]);
 
   const onSubmit = () => {
@@ -77,7 +86,7 @@ const TrustedPersonForm = () => {
       phone: phoneNumber
     };
 
-    (isNew ? createTrustedPerson(person) : updateTrustedPerson(person)).then(res => {
+    (isNew ? createTrustedPerson(person, abort) : updateTrustedPerson(person, abort)).then(res => {
       if (res.ok) {
         setReadOnly(true);
         setError("");
@@ -86,6 +95,10 @@ const TrustedPersonForm = () => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setError(networkError);
     });

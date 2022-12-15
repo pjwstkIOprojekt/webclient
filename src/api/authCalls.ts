@@ -26,9 +26,10 @@ export interface JwtResponse {
   token: string,
   email: string,
   type: string,
+  userId: number,
   roles: string[]
 }
 
 const authBase = "auth";
-export const loginUser = (req: Readonly<LoginRequest>) => post(`${authBase}/login`, req);
-export const registerUser = (req: Readonly<SignupRequest>) => post(`${authBase}/signup`, req);
+export const loginUser = (req: Readonly<LoginRequest>, abort: AbortController) => post(`${authBase}/login`, req, abort);
+export const registerUser = (req: Readonly<SignupRequest>, abort: AbortController) => post(`${authBase}/signup`, req, abort);

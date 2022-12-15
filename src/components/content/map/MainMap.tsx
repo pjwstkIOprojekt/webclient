@@ -6,6 +6,7 @@ import { Container, Form } from "react-bootstrap";
 import { ambulanceIcon } from "./MapIcons";
 import { useState, useEffect } from "react";
 import { getAccidents, AccidentReportResponse } from "../../../api/accidentReportCalls";
+import { getAmbulances, AmbulanceResponse } from "../../../api/ambulanceCalls";
 import { getFacilities, FacilityResponse } from "../../../api/facilityCalls";
 import MapView from "../../fragments/map/MapView";
 
@@ -25,13 +26,13 @@ const MapForm = (props: Readonly<MapFormParams>) => {
   for (const key in EmergencyType.values) {
     const vals = EmergencyType.values[key];
     const mark = vals.markType ?? MarkTypes.None;
-    values.push(<FormCheck label={t(`${EmergencyType.name}.${key}`)} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
+    values.push(<FormCheck label={t(`${EmergencyType.name}.${key}`)} key={key} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
   }
 
   for (const key in FacilityType.values) {
     const vals = FacilityType.values[key];
     const mark = vals.markType ?? MarkTypes.None;
-    values.push(<FormCheck label={t(`${FacilityType.name}.${key}`)} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
+    values.push(<FormCheck label={t(`${FacilityType.name}.${key}`)} key={key} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
   }
 
   return (
@@ -55,22 +56,37 @@ const MainMap = () => {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    getAccidents().then(res => res.json()).then((data: AccidentReportResponse[]) => {
+    const abort = new AbortController();
+    const accReq = getAccidents(abort).then(res => res.json());
+    const ambReq = getAmbulances(abort).then(res => res.json());
+
+    Promise.all([accReq, ambReq]).then((data: [AccidentReportResponse[], AmbulanceResponse[]]) => {
       if (data) {
-        setPositions(data.map(a => ({
-          coords: [a.location.latitude, a.location.longitude],
+        setPositions([...data[0].map(a => ({
+          coords: [a.location.latitude, a.location.longitude] as [number, number],
           desc: a.address,
           type: EmergencyType.values?.[a.emergencyType].markType ?? MarkTypes.None,
           icon: EmergencyType.values?.[a.emergencyType].icon,
           to: `/reports/${a.accidentId}`
-        })));
+        })), ...data[1].map(a => ({
+          coords: [a.currentLocation.latitude, a.currentLocation.longitude] as [number, number],
+          desc: a.licensePlate,
+          type: MarkTypes.Ambulance,
+          icon: ambulanceIcon,
+          to: `/ambulances/${a.licensePlate}`
+        }))]);
       }
-    }).catch(console.error);
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
 
     const timeout = setTimeout(() => setUpdate(!update), 15000);
 
     return () => {
       clearTimeout(timeout);
+      abort.abort();
     };
   }, [update]);
 
@@ -80,7 +96,9 @@ const MainMap = () => {
       setLoaded(true);
     }, err => setLoaded(true));
 
-    getFacilities().then(res => res.json()).then((data: FacilityResponse[]) => {
+    const abort = new AbortController();
+
+    getFacilities(abort).then(res => res.json()).then((data: FacilityResponse[]) => {
       if (data) {
         setFacilities(data.map(f => ({
           coords: [f.location.latitude, f.location.longitude],
@@ -90,7 +108,13 @@ const MainMap = () => {
           to: `/facilities/${f.facilityId}`
         })));
       }
-    }).catch(console.error);
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
+
+    return () => abort.abort();
   }, []);
 
   const marks = [...positions, ...facilities].filter(p => p.type & filters).map(e => ({

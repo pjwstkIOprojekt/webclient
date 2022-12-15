@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useAbort } from "../../../hooks/useAbort";
 import { ItemType } from "../../../api/enumCalls";
 import { ItemRequest, createItem } from "../../../api/itemCalls";
 import { unknownError, networkError } from "../sharedStrings";
@@ -21,7 +22,9 @@ const EquipmentForm = () => {
 	const [error, setError] = useState<string | undefined>("");
 	const { t } = useTranslation();
 	const navigate = useNavigate();
-	const single = type === ItemType.singleUse || type === ItemType.medical;
+  const abort = useAbort();
+	const single = type === ItemType.singleUse;
+  const multi = type === ItemType.multiUse;
 	const medical = type === ItemType.medical;
 
 	const onSubmit = () => {
@@ -29,20 +32,23 @@ const EquipmentForm = () => {
 		const tp = type;
 
 		const item: ItemRequest = {
-			itemType: tp
+			type: tp,
+			name: name
 		};
 
-		if (single) {
-			item.name = name;
-			item.description = desc;
+    if (!multi) {
+      item.description = desc;
 
-			if (medical) {
-				item.manufacturer = manu;
-				item.expiration_date = new Date(exp);
-			}
-		}
+      if (!single) {
+        item.manufacturer = manu;
+      }
+    }
 
-		createItem(item).then(res => {
+		if (medical) {
+      item.expiration_date = new Date(exp);
+    }
+
+		createItem(item, abort).then(res => {
 			if (res.ok) {
 				navigate("../equip");
 			} else {
@@ -50,6 +56,10 @@ const EquipmentForm = () => {
 				setError(unknownError);
 			}
 		}).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
 			console.error(err);
 			setError(networkError);
 		});
@@ -59,16 +69,16 @@ const EquipmentForm = () => {
 		<Form onSubmit={onSubmit} className="my-3">
 			<h3 className="text-center">{t("Equipment.Adding")}</h3>
 			<Row className="justify-content-center">
-				<EnumSelect id="itemType" label={t("Equipment.Type")} className="my-3 w-50" enum={ItemType} required value={type} onChange={e => setType(e.target.value)} onLoad={setType} />
+				<EnumSelect id="type" label={t("Equipment.Type")} className="my-3 w-50" enum={ItemType} required value={type} onChange={e => setType(e.target.value)} onLoad={setType} />
 			</Row>
 			<Row className="justify-content-center">
-				<NotBlank id="name" label={t("Equipment.Name")} className="mb-3 w-50" required value={name} onChange={e => setName(e.target.value)} disabled={!single} />
+				<NotBlank id="name" label={t("Equipment.Name")} className="mb-3 w-50" required value={name} onChange={e => setName(e.target.value)} />
 			</Row>
 			<Row className="justify-content-center">
-				<NotBlank id="description" label={t("Equipment.Description")} className="mb-3 w-50" required value={desc} onChange={e => setDesc(e.target.value)} disabled={!single} />
+				<NotBlank id="description" label={t("Equipment.Description")} className="mb-3 w-50" required value={desc} onChange={e => setDesc(e.target.value)} disabled={multi} />
 			</Row>
 			<Row className="justify-content-center">
-				<NotBlank id="manufacturer" label={t("Equipment.Manufacturer")} className="mb-3 w-50" required value={manu} onChange={e => setManu(e.target.value)} disabled={!medical} />
+				<NotBlank id="manufacturer" label={t("Equipment.Manufacturer")} className="mb-3 w-50" required value={manu} onChange={e => setManu(e.target.value)} disabled={single || multi} />
 			</Row>
 			<Row className="justify-content-center">
 				<InDate id="expirationDate" label={t("Equipment.Expiration")} className="mb-3 w-50" required value={exp} onChange={e => setExp(e.target.value)} disabled={!medical} />

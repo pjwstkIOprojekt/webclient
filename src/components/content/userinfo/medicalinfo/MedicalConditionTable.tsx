@@ -3,6 +3,7 @@ import { useState } from "react";
 import { DiseaseResponse } from "../../../../api/diseaseCalls";
 import { useTranslation } from "react-i18next";
 import { usePopup } from "../../../../hooks/usePopup";
+import { useAbort } from "../../../../hooks/useAbort";
 import { deleteDisease } from "../../../../api/diseaseCalls";
 import Link from "../../../fragments/navigation/Link";
 import Delete from "../../../fragments/forms/Delete";
@@ -14,11 +15,12 @@ const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>
   const [removed, setRemoved] = useState<number[]>([]);
   const { t } = useTranslation();
   const popup = usePopup();
+  const abort = useAbort();
 
   const remove = (x: Readonly<DiseaseResponse>) => {
     setRemoved([...removed, x.diseaseId]);
 
-    deleteDisease(x.diseaseId).then(res => {
+    deleteDisease(x.diseaseId, abort).then(res => {
       if (res.ok) {
         if (props.onRemove) {
           props.onRemove(x);
@@ -29,6 +31,10 @@ const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>
 
       setRemoved(removed.filter(i => i !== x.diseaseId));
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setRemoved(removed.filter(i => i !== x.diseaseId));
     });

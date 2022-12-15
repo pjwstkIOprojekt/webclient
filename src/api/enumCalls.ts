@@ -10,7 +10,7 @@ export interface EnumValues {
 }
 
 export interface EnumType {
-  getter: () => Promise<Response>,
+  getter: (abort: AbortController) => Promise<Response>,
   name: string,
   values?: Record<string, EnumValues>
 }
@@ -36,22 +36,22 @@ export enum MarkTypes {
 const enumBase = "enum";
 
 export const AllergyType = {
-  getter: () => get(`${enumBase}/allergy_type`),
+  getter: (abort: AbortController) => get(`${enumBase}/allergy_type`, abort),
   name: "AllergyType"
 };
 
 export const RhType = {
-  getter: () => get(`${enumBase}/rh_type`),
+  getter: (abort: AbortController) => get(`${enumBase}/rh_type`, abort),
   name: "RhType"
 };
 
 export const BloodType = {
-  getter: () => get(`${enumBase}/blood_type`),
+  getter: (abort: AbortController) => get(`${enumBase}/blood_type`, abort),
   name: "BloodType"
 };
 
 export const AmbulanceState = {
-  getter: () => get(`${enumBase}/ambulance_states`),
+  getter: (abort: AbortController) => get(`${enumBase}/ambulance_states`, abort),
   name: "AmbulanceStateType",
   values: {
     "FAILURE": {
@@ -79,17 +79,17 @@ export const AmbulanceState = {
 };
 
 export const AmbulanceClass = {
-  getter: () => get(`${enumBase}/ambulance_classes`),
+  getter: (abort: AbortController) => get(`${enumBase}/ambulance_classes`, abort),
   name: "AmbulanceClass"
 };
 
 export const AmbulanceType = {
-  getter: () => get(`${enumBase}/ambulance_types`),
+  getter: (abort: AbortController) => get(`${enumBase}/ambulance_types`, abort),
   name: "AmbulanceType"
 };
 
 export const EmergencyType: EnumType = {
-  getter: () => get(`${enumBase}/emergency_type`),
+  getter: (abort: AbortController) => get(`${enumBase}/emergency_type`, abort),
   name: "EmergencyType",
   values: {
     "CAR_ACCIDENT": {
@@ -138,7 +138,7 @@ export const EmergencyType: EnumType = {
 };
 
 export const FacilityType: EnumType = {
-  getter: () => get(`${enumBase}/facility_type`),
+  getter: (abort: AbortController) => get(`${enumBase}/facility_type`, abort),
   name: "FacilityType",
   values: {
     "HOSPITAL": {
@@ -165,19 +165,20 @@ export const FacilityType: EnumType = {
 };
 
 export const RoleName = {
-  getter: () => get(`${enumBase}/roles`),
+  getter: (abort: AbortController) => get(`${enumBase}/roles`, abort),
   name: "RoleName"
 };
 
 export const IncidentType = {
-  getter: () => get(`${enumBase}/incident_status`),
+  getter: (abort: AbortController) => get(`${enumBase}/incident_status`, abort),
   name: "IncidentStatusType",
   accepted: "ACCEPTED"
 };
 
 export const ItemType = {
-  getter: () => get(`${enumBase}/`),
+  getter: (abort: AbortController) => get(`${enumBase}/item_types`, abort),
   name: "ItemType",
   singleUse: "SINGLE_USE",
+  multiUse: "MULTI_USE",
   medical: "MEDICAL"
 };

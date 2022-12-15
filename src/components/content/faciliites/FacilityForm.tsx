@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "../../../hooks/useAuth";
+import { useAbort } from "../../../hooks/useAbort";
 import { isDispositor, isDirector } from "../../../helpers/authHelper";
 import { getFacilityById, FacilityResponse, createFacility, updateFacility } from "../../../api/facilityCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
@@ -25,6 +26,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const roles = useRoles();
+    const abort = useAbort();
     const update = props.update;
     const setFacilityType = props.setData;
     const canEdit = isDispositor(roles) || isDirector(roles);
@@ -32,8 +34,9 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     useEffect(() => {
       if (facilityId !== undefined) {
         setError(undefined);
+        const abortUpdate = new AbortController();
 
-        getFacilityById(parseInt(facilityId)).then(res => res.json()).then((data: FacilityResponse) => {
+        getFacilityById(parseInt(facilityId), abortUpdate).then(res => res.json()).then((data: FacilityResponse) => {
           if (data.name && data.facilityType && data.location) {
             setName(data.name);
             setFacilityType(data.facilityType);
@@ -43,9 +46,15 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
             setError(missingDataError);
           }
         }).catch(err => {
+          if (abortUpdate.signal.aborted) {
+            return;
+          }
+
           console.error(err);
           setError(loadingError);
         });
+
+        return () => abortUpdate.abort();
       }
     }, [facilityId, setFacilityType, update]);
   
@@ -64,7 +73,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
         latitude: props.lat
       };
   
-      (facilityId === undefined ? createFacility(facility) : updateFacility(parseInt(facilityId), facility)).then(res => {
+      (facilityId === undefined ? createFacility(facility, abort) : updateFacility(parseInt(facilityId), facility, abort)).then(res => {
         if (res.ok) {
           navigate("../facilities");
         } else {
@@ -72,6 +81,10 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
           setError(unknownError);
         }
       }).catch(err => {
+        if (abort.signal.aborted) {
+          return;
+        }
+
         console.error(err);
         setError(networkError);
       });

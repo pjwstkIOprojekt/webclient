@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../../hooks/useAbort";
 import { getDiseaseById, DiseaseResponse, createDisease, updateDisease } from "../../../../api/diseaseCalls";
 import { missingDataError, loadingError, userEmailError, unknownError, networkError } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
@@ -20,12 +21,14 @@ const MedicalConditionForm = () => {
   const { diseaseId } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
     if (diseaseId !== undefined) {
       setError(undefined);
+      const abortUpdate = new AbortController();
 
-      getDiseaseById(parseInt(diseaseId)).then(res => res.json()).then((data: DiseaseResponse) => {
+      getDiseaseById(parseInt(diseaseId), abortUpdate).then(res => res.json()).then((data: DiseaseResponse) => {
         if (data.description && data.diseaseName) {
           setDiseaseName(data.diseaseName);
           setDescription(data.description);
@@ -35,9 +38,15 @@ const MedicalConditionForm = () => {
           setError(missingDataError);
         }
       }).catch(err => {
+        if (abortUpdate.signal.aborted) {
+          return;
+        }
+
         console.error(err);
         setError(loadingError);
       });
+
+      return () => abortUpdate.abort();
     }
   }, [diseaseId]);
 
@@ -58,7 +67,7 @@ const MedicalConditionForm = () => {
       shareWithBand: share
     };
 
-    (diseaseId === undefined ? createDisease(disease) : updateDisease(parseInt(diseaseId), disease)).then(res => {
+    (diseaseId === undefined ? createDisease(disease, abort) : updateDisease(parseInt(diseaseId), disease, abort)).then(res => {
       if (res.ok) {
         navigate("../medicaldata");
       } else {
@@ -66,6 +75,10 @@ const MedicalConditionForm = () => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError(networkError);
     });

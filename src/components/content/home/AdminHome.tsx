@@ -17,8 +17,9 @@ const AdminHome = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const ambReq = getAmbulances().then(res => res.json());
-    const accReq = getAccidents().then(res => res.json());
+    const abort = new AbortController();
+    const ambReq = getAmbulances(abort).then(res => res.json());
+    const accReq = getAccidents(abort).then(res => res.json());
 
     Promise.all([ambReq, accReq]).then((data: [AmbulanceResponse[], AccidentReportResponse[]]) => {
       if (data) {
@@ -28,9 +29,15 @@ const AdminHome = () => {
 
       setIsLoading(false);
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abort.abort();
   }, []);
 
   const licenseField = "licensePlate";

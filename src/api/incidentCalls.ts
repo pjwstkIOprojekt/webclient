@@ -18,10 +18,10 @@ export interface IncidentResponse extends IncidentRequest {
 }
 
 const incidentBase = "incident";
-export const getIncidents = () => get(incidentBase);
-export const getIncidentById = (id: number) => get(`${incidentBase}/${id}`);
-export const getIncidentByStatus = (incidentStatusType: string) => get(`${incidentBase}/status/${incidentStatusType}`);
-export const updateIncident = (id: number, req: Readonly<IncidentRequest>) => put(`${incidentBase}/${id}`, req);
-export const deleteIncident = (id: number) => del(`${incidentBase}/${id}`);
-export const addAmbulances = (id: number, licensePlates: string[]) => put(`${incidentBase}/${id}/ambulance`, licensePlates);
-export const changeIncidentStatus = (id: number, incidentStatusType: string) => post(`${incidentBase}/${id}/status/${incidentStatusType}`);
+export const getIncidents = (abort: AbortController) => get(incidentBase, abort);
+export const getIncidentById = (id: number, abort: AbortController) => get(`${incidentBase}/${id}`, abort);
+export const getIncidentByStatus = (incidentStatusType: string, abort: AbortController) => get(`${incidentBase}/status/${incidentStatusType}`, abort);
+export const updateIncident = (id: number, req: Readonly<IncidentRequest>, abort: AbortController) => put(`${incidentBase}/${id}`, req, abort);
+export const deleteIncident = (id: number, abort: AbortController) => del(`${incidentBase}/${id}`, abort);
+export const addAmbulances = (id: number, licensePlates: Readonly<string[]>, abort: AbortController) => put(`${incidentBase}/${id}/ambulance`, licensePlates, abort);
+export const changeIncidentStatus = (id: number, incidentStatusType: string, abort: AbortController) => post(`${incidentBase}/${id}/status/${incidentStatusType}`, undefined, abort);

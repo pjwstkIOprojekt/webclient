@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AccidentReportResponse } from "../../../api/accidentReportCalls";
 import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { getIncidentById, IncidentResponse, updateIncident } from "../../../api/incidentCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import { Container, Row } from "react-bootstrap";
@@ -27,12 +28,14 @@ const ReportView = () => {
   const [readOnly, setReadOnly] = useState(true);
   const { reportId } = useParams();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
     if (reportId !== undefined && readOnly) {
       setError(undefined);
+      const abortUpdate = new AbortController();
 
-      getIncidentById(parseInt(reportId)).then(res => res.json()).then((data: IncidentResponse) => {
+      getIncidentById(parseInt(reportId), abortUpdate).then(res => res.json()).then((data: IncidentResponse) => {
         if (data.incidentStatusType && data.dangerScale && data.accidentReport) {
           setStatusType(data.incidentStatusType);
           setDangerScale(data.dangerScale);
@@ -43,9 +46,15 @@ const ReportView = () => {
           setError(missingDataError);
         }
       }).catch(err => {
+        if (abortUpdate.signal.aborted) {
+          return;
+        }
+
         console.error(err);
         setError(loadingError);
       })
+
+      return () => abortUpdate.abort();
     }
   }, [reportId, readOnly]);
 
@@ -66,7 +75,7 @@ const ReportView = () => {
       incidentStatusType: statusType,
       dangerScale: dangerScale,
       reactionJustification: reaction
-    }).then(res => {
+    }, abort).then(res => {
       if (res.ok) {
         setReadOnly(true);
         setError("");
@@ -75,6 +84,10 @@ const ReportView = () => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError(networkError);
     });

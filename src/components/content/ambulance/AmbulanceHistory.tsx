@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AmbulanceStateResponse, getAmbulanceHistory, AmbulanceHistoryResponse, changeAmbulanceState } from "../../../api/ambulanceCalls";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { licensePlateError } from "../sharedStrings";
 import { unknownError, networkError } from "../sharedStrings";
 import Enum from "../../fragments/values/Enum";
@@ -21,14 +22,17 @@ const AmbulanceHistory = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
     if (ambulanceId === undefined) {
       console.error(licensePlateError);
       return;
     }
+
+    const abortUpdate = new AbortController();
     
-    getAmbulanceHistory(ambulanceId).then(res => res.json()).then((data: AmbulanceHistoryResponse) => {
+    getAmbulanceHistory(ambulanceId, abortUpdate).then(res => res.json()).then((data: AmbulanceHistoryResponse) => {
       if (data.ambulanceHistory) {
         setStates(data.ambulanceHistory.map(s => ({
           type: s.type,
@@ -38,9 +42,15 @@ const AmbulanceHistory = () => {
 
       setIsLoading(false);
     }).catch(err => {
+      if (abortUpdate.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abortUpdate.abort();
   }, [ambulanceId]);
 
   const changeState = () => {
@@ -52,7 +62,7 @@ const AmbulanceHistory = () => {
     setError(undefined);
     const state = newState;
 
-    changeAmbulanceState(ambulanceId, state).then(res => {
+    changeAmbulanceState(ambulanceId, state, abort).then(res => {
       if (res.status === 200) {
         setStates([...states, {
           type: state,
@@ -68,6 +78,10 @@ const AmbulanceHistory = () => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError(networkError);
     });

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../../hooks/useAbort";
 import { userEmailError, unknownError, networkError } from "../../sharedStrings";
 import { getEmail } from "../../../../helpers/authHelper";
 import { updateBlood } from "../../../../api/medicalInfoCalls";
@@ -22,6 +23,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
   const [readOnly, setReadOnly] = useState(true);
   const [error, setError] = useState<string | undefined>("");
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
     setGroup(props.bloodType);
@@ -77,7 +79,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
       userEmail: email,
       bloodType: group,
       rhType: rh
-    }).then(res => {
+    }, abort).then(res => {
       if (res.ok) {
         switchMode(true);
       } else {
@@ -85,6 +87,10 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
         setError(unknownError);
       }
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setError(networkError);
     });

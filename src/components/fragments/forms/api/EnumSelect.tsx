@@ -16,7 +16,9 @@ const EnumSelect = (props: Readonly<EnumSelectParams>) => {
   const loaded = props.onLoad;
 
   useEffect(() => {
-    getter().then(res => res.json()).then((data: string[]) => {
+    const abort = new AbortController();
+
+    getter(abort).then(res => res.json()).then((data: string[]) => {
       if (data) {
         setValues(data);
         
@@ -26,7 +28,13 @@ const EnumSelect = (props: Readonly<EnumSelectParams>) => {
       } else {
         console.error(`Couldn't load enum values for ${props.enum.name}`);
       }
-    }).catch(console.error);
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
+
+    return () => abort.abort();
   }, [getter, loaded, props.enum.name]);
 
   return (

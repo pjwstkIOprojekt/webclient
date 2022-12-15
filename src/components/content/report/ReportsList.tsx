@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { usePopup } from "../../../hooks/usePopup";
+import { useAbort } from "../../../hooks/useAbort";
 import { IncidentResponse, getIncidents, deleteIncident } from "../../../api/incidentCalls";
 import { useTranslation } from "react-i18next";
 import Link from "../../fragments/navigation/Link";
@@ -16,24 +17,33 @@ const ReportsList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
   const popup = usePopup();
+  const abort = useAbort();
 
   useEffect(() => {
-    getIncidents().then(res => res.json()).then((data: IncidentResponse[]) => {
+    const abortUpdate = new AbortController();
+
+    getIncidents(abortUpdate).then(res => res.json()).then((data: IncidentResponse[]) => {
       if (data) {
         setReports(data);
       }
 
       setIsLoading(false);
     }).catch(err => {
+      if (abortUpdate.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abortUpdate.abort();
   }, []);
 
   const remove = (id: number) => {
     setRemoved([...removed, id]);
     
-    deleteIncident(id).then(res => {
+    deleteIncident(id, abort).then(res => {
       if (res.ok) {
         setReports(reports.filter(r => r.incidentId !== id));
       } else {
@@ -42,6 +52,10 @@ const ReportsList = () => {
 
       setRemoved(removed.filter(i => i !== id));
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
       setRemoved(removed.filter(i => i !== id));
     });

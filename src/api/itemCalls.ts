@@ -2,18 +2,22 @@ import { get, post } from "./basicCalls";
 
 export interface ItemRequest {
   // Enum - ItemType
-  itemType: string,
+  type: string,
 
   // Not blank
+  // All
   name?: string,
 
   // Not blank
+  // Not in MULTI_USE
   description?: string,
 
   // Not blank
+  // Not in SINGLE_USE and MULTI_USE
   manufacturer?: string,
 
   // Datetime
+  // Only in MEDICAL
   expiration_date?: Date
 }
 
@@ -33,6 +37,6 @@ export interface EquipmentResponse {
 }
 
 const itemBase = "item";
-export const getItems = () => get(itemBase);
-export const getItemById = (id: number) => get(`${itemBase}/${id}`);
-export const createItem = (req: Readonly<ItemRequest>) => post(`${itemBase}/create`, req);
+export const getItems = (abort: AbortController) => get(itemBase, abort);
+export const getItemById = (id: number, abort: AbortController) => get(`${itemBase}/${id}`, abort);
+export const createItem = (req: Readonly<ItemRequest>, abort: AbortController) => post(`${itemBase}/create`, req, abort);

@@ -25,7 +25,9 @@ const MedicalData = () => {
       return;
     }
 
-    getMedicalInfoByEmail(email).then(res => res.json()).then((data: MedicalInfoResponse) => {
+    const abort = new AbortController();
+
+    getMedicalInfoByEmail(email, abort).then(res => res.json()).then((data: MedicalInfoResponse) => {
       if (data.medicalInfoId) {
         setBlood({
           id: data.medicalInfoId,
@@ -44,9 +46,15 @@ const MedicalData = () => {
 
       setIsLoading(false);
     }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setIsLoading(false);
     });
+
+    return () => abort.abort();
   }, []);
 
   const removeAllergy = (x: Readonly<AllergyResponse>) => setAllergies(allergies.filter(a => a.allergyId !== x.allergyId));

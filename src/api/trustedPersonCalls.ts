@@ -24,8 +24,8 @@ export interface TrustedPersonResponse extends TrustedPersonBase {
 }
 
 const trustedBase = "trusted";
-export const getTrustedPersons = () => get(trustedBase);
-export const getTrustedPersonByEmail = (email: string) => get(`${trustedBase}/${email}`);
-export const deleteTrustedPerson = (email: string) => del(`${trustedBase}/${email}`);
-export const createTrustedPerson = (req: Readonly<TrustedPersonRequest>) => post(trustedBase, req);
-export const updateTrustedPerson = (req: Readonly<TrustedPersonRequest>) => put(trustedBase, req);
+export const getTrustedPersons = (abort: AbortController) => get(trustedBase, abort);
+export const getTrustedPersonByEmail = (email: string, abort: AbortController) => get(`${trustedBase}/${email}`, abort);
+export const deleteTrustedPerson = (email: string, abort: AbortController) => del(`${trustedBase}/${email}`, abort);
+export const createTrustedPerson = (req: Readonly<TrustedPersonRequest>, abort: AbortController) => post(trustedBase, req, abort);
+export const updateTrustedPerson = (req: Readonly<TrustedPersonRequest>, abort: AbortController) => put(trustedBase, req, abort);

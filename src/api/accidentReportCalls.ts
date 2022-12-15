@@ -36,9 +36,9 @@ export interface AccidentReportResponse extends AccidentReportBase {
 }
 
 const accidentBase = "accident_report";
-export const getAccidents = () => get(accidentBase);
-export const getAccidentById = (id: number) => get(`${accidentBase}/${id}`);
-export const getAccidentsByUser = (email: string) => get(`${accidentBase}/user/${email}`);
-export const createAccident = (req: Readonly<AccidentReportRequest>) => post(accidentBase, req);
-export const updateAccident = (id: number, req: Readonly<AccidentReportUpdateRequest>) => put(`${accidentBase}/${id}`, req);
-export const deleteAccident = (id: number) => del(`${accidentBase}/${id}`);
+export const getAccidents = (abort: AbortController) => get(accidentBase, abort);
+export const getAccidentById = (id: number, abort: AbortController) => get(`${accidentBase}/${id}`, abort);
+export const getAccidentsByUser = (email: string, abort: AbortController) => get(`${accidentBase}/user/${email}`, abort);
+export const createAccident = (req: Readonly<AccidentReportRequest>, abort: AbortController) => post(accidentBase, req, abort);
+export const updateAccident = (id: number, req: Readonly<AccidentReportUpdateRequest>, abort: AbortController) => put(`${accidentBase}/${id}`, req, abort);
+export const deleteAccident = (id: number, abort: AbortController) => del(`${accidentBase}/${id}`, abort);
