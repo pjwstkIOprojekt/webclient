@@ -63,14 +63,14 @@ const MainMap = () => {
     Promise.all([accReq, ambReq]).then((data: [AccidentReportResponse[], AmbulanceResponse[]]) => {
       if (data) {
         setPositions([...data[0].map(a => ({
-          coords: [a.location.longitude, a.location.latitude] as [number, number],
-          desc: a.address,
+          coords: [a.location.latitude, a.location.longitude] as [number, number],
+          desc: [a.address],
           type: EmergencyType.values?.[a.emergencyType].markType ?? MarkTypes.None,
           icon: EmergencyType.values?.[a.emergencyType].icon,
           to: `/reports/${a.accidentId}`
         })), ...data[1].map(a => ({
-          coords: [a.currentLocation.longitude, a.currentLocation.latitude] as [number, number],
-          desc: a.licensePlate,
+          coords: [a.currentLocation.latitude, a.currentLocation.longitude] as [number, number],
+          desc: [a.licensePlate],
           type: MarkTypes.Ambulance,
           icon: ambulanceIcon,
           to: `/ambulances/${a.licensePlate}`
@@ -101,8 +101,8 @@ const MainMap = () => {
     getFacilities(abort).then(res => res.json()).then((data: FacilityResponse[]) => {
       if (data) {
         setFacilities(data.map(f => ({
-          coords: [f.location.longitude, f.location.latitude],
-          desc: f.name,
+          coords: [f.location.latitude, f.location.longitude],
+          desc: [f.name],
           type: FacilityType.values?.[f.facilityType].markType ?? MarkTypes.None,
           icon: FacilityType.values?.[f.facilityType].icon,
           to: `/facilities/${f.facilityId}`
