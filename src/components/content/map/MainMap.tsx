@@ -54,6 +54,7 @@ const MainMap = () => {
   const [facilities, setFacilities] = useState<Mark[]>([]);
   const [filters, setFilters] = useState(MarkTypes.All);
   const [update, setUpdate] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const abort = new AbortController();
@@ -64,13 +65,13 @@ const MainMap = () => {
       if (data) {
         setPositions([...data[0].map(a => ({
           coords: [a.location.latitude, a.location.longitude] as [number, number],
-          desc: [a.address],
+          desc: [t("Report.Report"), t(`EmergencyType.${a.emergencyType}`), a.address],
           type: EmergencyType.values?.[a.emergencyType].markType ?? MarkTypes.None,
           icon: EmergencyType.values?.[a.emergencyType].icon,
           to: `/reports/${a.accidentId}`
         })), ...data[1].map(a => ({
           coords: [a.currentLocation.latitude, a.currentLocation.longitude] as [number, number],
-          desc: [a.licensePlate],
+          desc: [t("Ambulance.Ambulance"), a.licensePlate],
           type: MarkTypes.Ambulance,
           icon: ambulanceIcon,
           to: `/ambulances/${a.licensePlate}`
@@ -88,7 +89,7 @@ const MainMap = () => {
       clearTimeout(timeout);
       abort.abort();
     };
-  }, [update]);
+  }, [update, t]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos => {
@@ -102,7 +103,7 @@ const MainMap = () => {
       if (data) {
         setFacilities(data.map(f => ({
           coords: [f.location.latitude, f.location.longitude],
-          desc: [f.name],
+          desc: [t("Facility.Facility"), f.name],
           type: FacilityType.values?.[f.facilityType].markType ?? MarkTypes.None,
           icon: FacilityType.values?.[f.facilityType].icon,
           to: `/facilities/${f.facilityId}`
@@ -115,7 +116,7 @@ const MainMap = () => {
     });
 
     return () => abort.abort();
-  }, []);
+  }, [t]);
 
   const marks = [...positions, ...facilities].filter(p => p.type & filters).map(e => ({
     coords: e.coords,

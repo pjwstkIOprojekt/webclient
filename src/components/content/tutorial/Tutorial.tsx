@@ -30,7 +30,7 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
       return null;
     }
 
-    return x.length > 30 ? x.substring(0, 30) + "..." : x;
+    return x.length > 33 ? x.substring(0, 30) + "..." : x;
   };
 
   const review = () => {

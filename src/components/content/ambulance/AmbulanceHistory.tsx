@@ -97,7 +97,7 @@ const AmbulanceHistory = () => {
 
   return (
     <Container className="mt-3 justify-content-center">
-      <Row className="my-3 justify-content-end">
+      <Row className="my-3 justify-content-end align-items-end">
         <Col>
           <EnumSelect id="newState" enum={AmbulanceState} value={newState} onLoad={setNewState} label={t("Ambulance.ChangeState")} onChange={e => setNewState(e.target.value)} />
         </Col>
