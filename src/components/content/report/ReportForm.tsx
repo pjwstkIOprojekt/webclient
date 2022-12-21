@@ -99,6 +99,8 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
     }, abort)).then(res => {
       if (res.ok) {
         navigate("/home");
+      } else if (res.status === 406) {
+        setError("Error.NoDispatcherFound");
       } else {
         console.log(res);
         setError(unknownError);

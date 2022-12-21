@@ -1,10 +1,12 @@
 import { TutorialResponse, getTutorials } from "../../../api/tutorialCalls";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import CustomCard from "../../fragments/util/Card";
 import { Card } from "react-bootstrap";
+import Enum from "../../fragments/values/Enum";
+import { TutorialType } from "../../../api/enumCalls";
 import Rating from "../../fragments/util/Rating";
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import ViewLoader from "../../fragments/util/ViewLoader";
 
 interface TutorialCardParams {
@@ -12,19 +14,22 @@ interface TutorialCardParams {
 }
 
 const TutorialCards = (props: Readonly<TutorialCardParams>) => {
+  const { t } = useTranslation();
+  const processTitle = (x: string) => x.length > 30 ? x.substring(0, 27) + "..." : x;
+  
   return (
     <div className="tutorial-grid">
       {props.items.map(item => (
-        <Link to={`/tutorial/${item.tutorialId}`} className="mt-0 text-decoration-none text-reset" key={item.tutorialId}>
-          <CustomCard className="col tutorial-card">
-            <Card.Img variant="top" src="/img/thumbnail.jpg" className="img" />
+        <CustomCard className="col tutorial-card" key={item.tutorialId}>
+          <Link to={`/tutorial/${item.tutorialId}`} className="w-100 h-100 text-decoration-none text-reset" key={item.tutorialId}>
+            <Card.Img variant="top" src={item.thumbnail} alt={t("Common.Thumbnail")} className="img" />
             <Card.Body>
-              <Card.Title>{item.name}</Card.Title>
-              <p>{item.tutorialType}</p>
+              <Card.Title>{processTitle(item.name)}</Card.Title>
+              <p><Enum enum={TutorialType} value={item.tutorialType} /></p>
               <Rating initialValue={item.avarageRating} disabled />
             </Card.Body>
-          </CustomCard>
-        </Link>
+          </Link>
+        </CustomCard>
       ))}
     </div>
   );

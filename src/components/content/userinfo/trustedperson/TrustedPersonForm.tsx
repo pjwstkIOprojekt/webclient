@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../../hooks/useAbort";
 import { getEmail } from "../../../../helpers/authHelper";
-import { userEmailError, missingDataError, loadingError, unknownError, networkError } from "../../sharedStrings";
+import { userEmailError, missingDataError, unknownError, networkError } from "../../sharedStrings";
 import { getTrustedPersonByEmail, TrustedPersonResponse, createTrustedPerson, updateTrustedPerson } from "../../../../api/trustedPersonCalls";
 import { Container, Row } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
@@ -51,12 +51,8 @@ const TrustedPersonForm = () => {
         setError(missingDataError);
       }
     }).catch(err => {
-      if (abortUpdate.signal.aborted) {
-        return;
-      }
-      
       console.error(err);
-      setError(loadingError);
+      setError("");
     });
 
     return () => abortUpdate.abort();

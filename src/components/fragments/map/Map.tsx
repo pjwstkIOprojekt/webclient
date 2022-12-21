@@ -2,15 +2,16 @@ import L from "leaflet";
 import { To } from "react-router-dom";
 import { MarkGeocodeEventHandlerFn, MarkGeocodeEvent } from "leaflet-control-geocoder/dist/control";
 import Geocoder, { geocoders } from "leaflet-control-geocoder";
-import { MapContainer, TileLayer, Polyline, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
-import { useState, useEffect } from "react";
-import NavButton from "../navigation/NavButton";
 import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Polyline, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
+import { Row } from "react-bootstrap";
+import NavButton from "../navigation/NavButton";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 
 export interface Position {
   coords: [number, number],
-  desc?: string,
+  desc?: string | string[],
   icon?: L.Icon<L.IconOptions> | L.DivIcon,
   to?: To
 }
@@ -43,6 +44,8 @@ const Map = (props: Readonly<MapParams>) => {
     }
   }));
 
+  const { t } = useTranslation();
+
   return (
     <MapContainer center={props.center} zoom={props.initialZoom} className={props.small ? "small-map" : "big-map"}>
       <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -51,9 +54,10 @@ const Map = (props: Readonly<MapParams>) => {
       {props.paths ? props.paths.map((path, index) => <Polyline key={index} positions={path.points} color={path.color} />) : ""}
       {props.marks ? props.marks.map((pos, index) => (
         <Marker key={index} position={pos.coords} icon={pos.icon}>
-          {pos.desc ? (
+          {pos.desc || pos.to ? (
             <Popup>
-              {pos.to ? <NavButton to={pos.to}>{pos.desc}</NavButton> : pos.desc}
+              {pos.desc ? (typeof(pos.desc) === "string" ? <p className="text-center">{pos.desc}</p> : pos.desc.map((d, index) => <p key={index} className="text-center">{d}</p>)) : ""}
+              {pos.to ? <Row className="justify-content-center"><NavButton to={pos.to}>{t("Common.Details")}</NavButton></Row> : ""}
             </Popup>
           ) : ""}
         </Marker>

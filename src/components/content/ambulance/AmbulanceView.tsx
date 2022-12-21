@@ -18,6 +18,8 @@ import AmbulanceHistory from "./AmbulanceHistory";
 import AmbulancePath from "./AmbulancePath";
 import AmbulanceEquipment from "./AmbulanceEquipment";
 import EquipmentForm from "./EquipmentForm";
+import AssignedMedics from "./AssignedMedics";
+import AssignMedics from "./AssignMedics";
 
 const AmbulanceView = () => {
   const [ambulanceClass, setAmbulanceClass] = useState("");
@@ -93,7 +95,8 @@ const AmbulanceView = () => {
   const links = [
     { to: "hist", text: t("Ambulance.History") },
     { to: "path", text: t("Ambulance.Path") },
-    { to: "equip", text: t("Equipment.Equipment") }
+    { to: "equip", text: t("Equipment.Equipment") },
+    { to: "medics", text: t("Medic.Assigned") }
   ];
 
   return (
@@ -118,6 +121,8 @@ const AmbulanceView = () => {
         <Route path="path" element={<AmbulancePath />} />
         <Route path="equip" element={<AmbulanceEquipment />} />
         <Route path="equip/new" element={<EquipmentForm />} />
+        <Route path="medics" element={<AssignedMedics />} />
+        <Route path="medics/add" element={<AssignMedics />} />
       </Routes>
     </Container>
   );

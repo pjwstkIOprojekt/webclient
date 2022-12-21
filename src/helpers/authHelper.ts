@@ -9,7 +9,8 @@ export enum Roles {
 
 const rolesTable: Record<string, Roles> = {
   "ROLE_USER": Roles.User,
-  "ROLE_PARAMEDIC": Roles.Paramedic,
+  "ROLE_EMPLOYEE": Roles.User,
+  "ROLE_MEDIC": Roles.Paramedic,
   "ROLE_DISPATCHER": Roles.Dispatcher,
   "ROLE_AMBULANCE_MANAGER": Roles.AmbulanceManager,
   "ROLE_ADMIN": Roles.Admin
