@@ -114,6 +114,21 @@
     background-color: var(--dark-bg);
 }
 
+.calendar-dark .fc-col-header-cell-cushion, .calendar-dark .fc-daygrid-event, .calendar-dark .fc-daygrid-event:hover, .calendar-dark .fc-daygrid-day-number
+{
+    color: var(--dark-button);
+}
+
+.calendar-dark .fc-daygrid-event:hover
+{
+    background-color: var(--dark-bg);
+}
+
+.calendar-dark .fc-daygrid-event-dot
+{
+    border-color: var(--dark-button);
+}
+
 /* Light themes */
 .btn-custom-light
 {
@@ -219,10 +234,25 @@
     background-color: var(--light-bg);
 }
 
+.calendar-light .fc-col-header-cell-cushion, .calendar-light .fc-daygrid-event, .calendar-light .fc-daygrid-event:hover, .calendar-light .fc-daygrid-day-number
+{
+    color: var(--light-nav);
+}
+
+.calendar-light .fc-daygrid-event-dot
+{
+    border-color: var(--light-nav);
+}
+
 /* Shared */
 .btn-custom-dark:focus, .btn-outline-custom-dark:focus, .btn-custom-light:focus, .btn-outline-custom-light:focus
 {
     box-shadow: none;
+}
+
+.calendar-dark .fc-col-header-cell-cushion, .calendar-light .fc-col-header-cell-cushion, .calendar-dark .fc-daygrid-day-number, .calendar-light .fc-daygrid-day-number
+{
+    text-decoration: none;
 }
 
 /* Custom styles */
