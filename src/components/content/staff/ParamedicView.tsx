@@ -19,7 +19,7 @@ const ParamedicView = () => {
 
   const links = [
     { to: "data", text: "Dane ratownika" },
-    { to: "ambulances/1", text: "Karetka ratownika" },
+    { to: "/ambulances/1", text: "Karetka ratownika" },
     { to: "schedule", text: "Dyżur ratownika" }
   ];
 
@@ -56,7 +56,7 @@ const ParamedicView = () => {
       <Routes>
         <Route path="" element={<Navigate replace to="data" />} />
         <Route path="data" element={<ParamedicInfo />} />
-        <Route path="ambulances/1" element={<AmbulanceView />} />
+        <Route path="/ambulances/1" element={<AmbulanceView />} />
         <Route path="schedule" element={<ScheduleList />} />
 
       </Routes>
