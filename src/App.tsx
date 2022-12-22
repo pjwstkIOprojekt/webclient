@@ -21,6 +21,8 @@ import ReportView from "./components/content/report/ReportView";
 import AmbulanceList from "./components/content/ambulance/AmbulanceList";
 import AmbulanceForm from "./components/content/ambulance/AmbulanceForm";
 import AmbulanceView from "./components/content/ambulance/AmbulanceView";
+import EquipmentList from "./components/content/equipment/EquipmentList";
+import EquipmentForm from "./components/content/equipment/EquipmentForm";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
 import CookieConsent from "./components/fragments/cookies/CookieConsent";
 
@@ -63,6 +65,9 @@ const App = () => {
           <Route path="/ambulances" element={<ConditionalRoute condition={admin} element={<AmbulanceList />} />} />
           <Route path="/newambulance" element={<ConditionalRoute condition={admin} element={<AmbulanceForm />} />} />
           <Route path="/ambulances/:ambulanceId/*" element={<ConditionalRoute condition={admin} element={<AmbulanceView />} />} />
+          <Route path="/equipments" element={<ConditionalRoute condition={admin} element={<EquipmentList />} />} />
+          <Route path="/equipments/:itemId" element={<ConditionalRoute condition={admin} element={<EquipmentForm />} />} />
+          <Route path="/newequipment" element={<ConditionalRoute condition={admin} element={<EquipmentForm />} />} />
 
           <Route path="/paramedic/:paramedicId/*" element={<ParamedicView />} />
           <Route path="/paramedic" element={<ParamedicInfo />} />
