@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {  Form, Row, Col, Container } from "react-bootstrap";
-import TextField from '@mui/material/TextField';
+import TextField from "../../fragments/forms/FormControl";
 import FormSelect from "../../fragments/forms/FormSelect";
 import Button from "../../fragments/util/Button";
 import { useNavigate } from "react-router-dom";
@@ -32,9 +32,8 @@ const ScheduleAdd = () => {
               id="date"
               label="Data rozpoczęcia"
               type="date"
-              defaultValue="2022-11-30"
+              value="2022-11-30"
               onChange={()=>setDateStart}
-              sx={{ width: 300 }}
             />
             </Col>
           </Row>
@@ -45,9 +44,8 @@ const ScheduleAdd = () => {
               id="time"
               label="Godzina rozpoczęcia"
               type="time"
-              defaultValue="07:30"
+              value="07:30"
               onChange={()=>setTimeStart}
-              sx={{ width: 300 }}
             />
               </Col>
           </Row>
@@ -60,9 +58,8 @@ const ScheduleAdd = () => {
               id="date"
               label="Data zakończenia"
               type="date"
-              defaultValue="2022-11-30"
+              value="2022-11-30"
               onChange={()=>setDateEnd}
-              sx={{ width: 300 }}
             />
             </Col>
           </Row>
@@ -73,9 +70,8 @@ const ScheduleAdd = () => {
                 id="time"
                 label="Godzina zakończenia"
                 type="time"
-                defaultValue="17:30"
+                value="17:30"
                 onChange={()=>setTimeEnd}
-                sx={{ width: 300 }}
               />
             </Col>
           </Row>

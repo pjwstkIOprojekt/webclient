@@ -1,4 +1,4 @@
-import FullCalendar, { EventSourceInput } from "@fullcalendar/react";
+import FullCalendar, { EventSourceInput, EventClickArg } from "@fullcalendar/react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { useTranslation } from "react-i18next";
 import { customTheme } from "../sharedParams";
@@ -11,7 +11,9 @@ import enLocale from "@fullcalendar/core/locales/en-gb";
 export interface CalendarParams {
   editable?: boolean,
   events?: EventSourceInput,
-  onClick?: (x: DateClickArg) => void
+  onClick?: (x: DateClickArg) => void,
+  onSelect?: (x: EventClickArg) => void,
+  toggle?: boolean
 }
 
 const Calendar = (props: Readonly<CalendarParams>) => {
@@ -21,10 +23,10 @@ const Calendar = (props: Readonly<CalendarParams>) => {
   return (
     <span className={`calendar-${customTheme(darkMode)}`}>
       <FullCalendar plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]} initialView="dayGridWeek" displayEventTime displayEventEnd headerToolbar={{
-        left: "today prev next",
-        center: "title",
-        right: "dayGridMonth dayGridWeek",
-      }} selectable editable={props.editable} initialEvents={props.events} firstDay={1} expandRows locale={i18n.language === "pl" ? plLocale : enLocale} dateClick={props.onClick} />
+        left: props.toggle ? "today prev next" : "",
+        center: props.toggle ? "title" : "",
+        right: props.toggle ? "dayGridMonth dayGridWeek" : "",
+      }} selectable editable={props.editable} initialEvents={props.events} firstDay={1} expandRows locale={i18n.language === "pl" ? plLocale : enLocale} dateClick={props.onClick} eventClick={props.onSelect} />
   </span>
   );
 };

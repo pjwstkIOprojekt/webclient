@@ -182,7 +182,8 @@
         "Past": "Only a date in the past can be given.",
         "Network": "Cannot connect with the server. Check your Internet connection.",
         "PostRegisterFail": "Registration was successful but an error has occured while logging in. Try to log in again.",
-        "NoDispatcherFound": "No available dispatcher found."
+        "NoDispatcherFound": "No available dispatcher found.",
+        "ScheduleEnd": "Selected hour must be greater that the first."
     },
     "Blood": {
         "Type": "Blood type",
@@ -280,5 +281,15 @@
     "Medic": {
         "Medics": "Medics",
         "Assigned": "Assigned medics"
+    },
+    "Schedule": {
+        "Schedule": "Schedule",
+        "Date": "Date",
+        "SetEvent": "Setting time",
+        "Day1": "Mon.",
+        "Day2": "Tue.",
+        "Day3": "Wed.",
+        "Day4": "Thu.",
+        "Day5": "Fri."
     }
 }

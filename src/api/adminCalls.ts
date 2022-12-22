@@ -10,9 +10,18 @@ export interface ScheduleDto {
 }
 
 export type ScheduleKey = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY";
+export type Schedule = Record<ScheduleKey, ScheduleDto>;
+
+export const scheduleKeyFromNum: Record<number, ScheduleKey> = {
+  1: "MONDAY",
+  2: "TUESDAY",
+  3: "WEDNESDAY",
+  4: "THURSDAY",
+  5: "FRIDAY"
+};
 
 export interface RegisterEmployeeRequest extends SignupRequest {
-  workSchedule: Record<ScheduleKey, ScheduleDto>
+  workSchedule: Schedule
 }
 
 const adminBase = "admin";
