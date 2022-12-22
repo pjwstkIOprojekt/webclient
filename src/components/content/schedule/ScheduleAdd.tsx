@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 
 const ScheduleAdd = () => {
-    const [, setDate] = useState<Date | null>(null);
+    const [, setDateStart] = useState<Date | null>(null);
+    const [, setDateEnd] = useState<Date | null>(null);
     const [paramedic, setParamedic] = useState(0);
     const [, setTimeStart] = useState('');
     const [, setTimeEnd] = useState('');
@@ -25,46 +26,61 @@ const ScheduleAdd = () => {
         <h1 className="mb-2 text-center">Ustal grafik</h1>
         <Form className="mt-3 me-1">
         <FormSelect className="justify-content-center mb-4 w-25" id="type" onChange={e => setParamedic(parseInt(e.target.value))} value={paramedic} label={'Ratownik'} options={paramedics} />
-          <Row className="justify-content-center mb-4" >
+          <Row className="justify-content-center mb-3" >
             <Col>
             <TextField
               id="date"
-              label="Data"
+              label="Data rozpoczęcia"
               type="date"
               defaultValue="2022-11-30"
-              onChange={()=>setDate}
+              onChange={()=>setDateStart}
               sx={{ width: 300 }}
             />
             </Col>
           </Row>
 
-      <Row className="justify-content-center mb-4" >
-      <Col>
-      <TextField
-        id="time"
-        label="Godzina rozpoczęcia"
-        type="time"
-        defaultValue="07:30"
-        onChange={()=>setTimeStart}
-        sx={{ width: 300 }}
-      />
-        </Col>
-      </Row>
+          <Row className="justify-content-center mb-5" >
+            <Col>
+            <TextField
+              id="time"
+              label="Godzina rozpoczęcia"
+              type="time"
+              defaultValue="07:30"
+              onChange={()=>setTimeStart}
+              sx={{ width: 300 }}
+            />
+              </Col>
+          </Row>
 
-      <Row className="justify-content-center mb-4">
-      <Col>
-      <TextField
-        id="time"
-        label="Godzina zakończenia"
-        type="time"
-        defaultValue="17:30"
-        onChange={()=>setTimeEnd}
-        sx={{ width: 300 }}
-      />
-      </Col>
-      </Row>
+
+
+          <Row className="justify-content-center mb-3" >
+            <Col>
+            <TextField
+              id="date"
+              label="Data zakończenia"
+              type="date"
+              defaultValue="2022-11-30"
+              onChange={()=>setDateEnd}
+              sx={{ width: 300 }}
+            />
+            </Col>
+          </Row>
+
+          <Row className="justify-content-center mb-4">
+            <Col>
+              <TextField
+                id="time"
+                label="Godzina zakończenia"
+                type="time"
+                defaultValue="17:30"
+                onChange={()=>setTimeEnd}
+                sx={{ width: 300 }}
+              />
+            </Col>
+          </Row>
       <Row className=" mb-2">
-        <Button className="mt-3 w-25" type="submit" >Dodaj</Button>
+        <Button className="mt-3 w-25" type="submit" onClick={e => navigate("/schedule")}>Dodaj</Button>
         
       </Row>
       <Row className="">
