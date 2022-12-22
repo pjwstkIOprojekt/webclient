@@ -182,7 +182,8 @@
         "Past": "Można podać tylko datę w przeszłości.",
         "Network": "Nie można się połączyć z serwerem. Sprawdź swoje połączenie z Internetem",
         "PostRegisterFail": "Rejestracja się powiodła, ale nastąpił błąd przy logowaniu. Spróbuj się zalogować ponownie.",
-        "NoDispatcherFound": "Nie znaleziono dostępnego dyspozytora."
+        "NoDispatcherFound": "Nie znaleziono dostępnego dyspozytora.",
+        "ScheduleEnd": "Podana godzina musi być większa od godziny rozpoczęcia."
     },
     "Blood": {
         "Type": "Grupa krwi",
@@ -280,5 +281,15 @@
     "Medic": {
         "Medics": "Medycy",
         "Assigned": "Przypisani medycy"
+    },
+    "Schedule": {
+        "Schedule": "Grafik",
+        "Date": "Data",
+        "SetEvent": "Ustawianie czasu",
+        "Day1": "Pon.",
+        "Day2": "Wto.",
+        "Day3": "Śro.",
+        "Day4": "Czw.",
+        "Day5": "Pią."
     }
 }

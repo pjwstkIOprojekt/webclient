@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { Schedule, registerEmployee, scheduleKeyFromNum } from "../../../api/adminCalls";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { usePopup } from "../../../hooks/usePopup";
 import { useAbort } from "../../../hooks/useAbort";
-import { registerEmployee } from "../../../api/adminCalls";
+import Button from "../../fragments/util/Button";
+import SchedulePopup from "../../fragments/popups/SchedulePopup";
 import { Container, Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
@@ -12,7 +15,7 @@ import Email from "../../fragments/forms/api/Email";
 import Past from "../../fragments/forms/api/Past";
 import FormPhoneNumber from "../../fragments/forms/FormPhoneNumber";
 import Password from "../../fragments/forms/api/Password";
-import Calendar from "../../fragments/util/Calendar";
+import Table from "../../fragments/util/Table";
 import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
 
@@ -25,9 +28,19 @@ const RegisterWithRole = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
+
+  const [events, setEvents] = useState<Schedule>({
+    "MONDAY": { start: "", end: "" },
+    "TUESDAY": { start: "", end: "" },
+    "WEDNESDAY": { start: "", end: "" },
+    "THURSDAY": { start: "", end: "" },
+    "FRIDAY": { start: "", end: "" }
+  });
+
   const [error, setError] = useState<string | undefined>("");
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const popup = usePopup();
   const abort = useAbort();
 
   const handleSubmit = () => {
@@ -45,13 +58,7 @@ const RegisterWithRole = () => {
       password: password,
       birthDate: birthDate,
       phoneNumber: phoneNumber,
-      workSchedule: {
-        "MONDAY": { start: "", end: "" },
-        "TUESDAY": { start: "", end: "" },
-        "WEDNESDAY": { start: "", end: "" },
-        "THURSDAY": { start: "", end: "" },
-        "FRIDAY": { start: "", end: "" }
-      }
+      workSchedule: events
     }, abort).then(res => {
       if (res.ok) {
         navigate("/");
@@ -69,36 +76,66 @@ const RegisterWithRole = () => {
     });
   };
 
+  const addEvent = (day: number, start: string, end: string) => {
+    const tmp = { ...events };
+    
+    tmp[scheduleKeyFromNum[day]] = {
+      start: start,
+      end: end
+    };
+
+    setEvents(tmp);
+  };
+
+  const cols = [1, 2, 3, 4, 5].map(x => ({
+    name: t(`Schedule.Day${x}`),
+    property: (sch: Readonly<Schedule>) => {
+      const event = sch[scheduleKeyFromNum[x]];
+
+      if (!event.start || !event.end) {
+        return <Button type="button" onClick={e => popup(<SchedulePopup onSave={(st, en) => addEvent(x, st, en)} />)}>+</Button>;
+      }
+
+      return (
+        <>
+          <div className="my-1">{event.start} - {event.end}</div>
+          <Button type="button" onClick={e => popup(<SchedulePopup onSave={(st, en) => addEvent(x, st, en)} />)}>{t("Common.Edit")}</Button>
+          <Button type="button" className="mx-1" onClick={e => addEvent(x, "", "")}>X</Button>
+        </>
+      );
+    }
+  }));
+
   return (
-    <Container className="mt-5">
-      <h1 className="text-center">{t("Person.Adding")}</h1>
+    <Container className="my-3 justify-content-center text-center">
+      <h1>{t("Person.Adding")}</h1>
       <Form onSubmit={handleSubmit}>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center text-start">
           <EnumSelect id="role" required onChange={e => setRole(e.target.value)} onLoad={setRole} value={role} enum={RoleName} className="mb-3 w-50" label={t("Person.Role")} />
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center text-start">
           <NotBlank id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label={t("Person.FirstName")} />
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center text-start">
           <NotBlank id="lastName" required onChange={e => setLastName(e.target.value)} value={lastName} className="mb-3 w-50" label={t("Person.LastName")} />
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center text-start">
           <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label={t("Person.Email")} />
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center text-start">
           <Past id="birthDate" required onChange={e => setBirthDate(e.target.value)} value={birthDate} className="mb-3 w-50" label={t("Person.Birthdate")} />
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center text-start">
           <FormPhoneNumber id="phoneNumber" required onChange={e => setPhoneNumber(e.target.value)} value={phoneNumber} className="mb-3 w-50" label={t("Person.PhoneNumber")} />
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center text-start">
           <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Person.Password")} />
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center text-start">
           <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Check")} />
         </Row>
-        <h1 className="text-center">Grafik</h1>
-        <Calendar />
+        <h1>{t("Schedule.Schedule")}</h1>
+        <Table columns={cols} data={[events]} />
         <Row className="justify-content-center">
           <Submit className="my-3 w-25" canSubmit={error !== undefined}>{t("Person.Add")}</Submit>
         </Row>

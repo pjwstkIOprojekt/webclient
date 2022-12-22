@@ -1,12 +1,12 @@
-import { ScheduleKey, ScheduleDto } from "./adminCalls";
+import { Schedule } from "./adminCalls";
 import { get, post } from "./basicCalls";
 
 export interface UpdateScheduleRequest {
-  workSchedule: Record<ScheduleKey, ScheduleDto>
+  workSchedule: Schedule
 }
 
 export interface ScheduleResponse {
-  schedule: Record<ScheduleKey, ScheduleDto>
+  schedule: Schedule
 }
 
 export interface EmployeeResponse {

@@ -3,7 +3,6 @@ import { Container } from "react-bootstrap";
 import FullCalendar, { EventClickArg } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
 import plLocale from '@fullcalendar/core/locales/pl';
 import interactionPlugin from "@fullcalendar/interaction";
 import { useNavigate } from "react-router-dom";
@@ -57,7 +56,7 @@ const handleDateSelect=()=>{
 };
 const handleEventSelect=(eventInfo:EventClickArg)=>{
   console.log(eventInfo.event.id)
-  popup(<SchedulePopup /> );
+  //popup(<SchedulePopup /> );
   
 }
 
@@ -65,7 +64,7 @@ const handleEventSelect=(eventInfo:EventClickArg)=>{
     <Container className="mb-2 text-center">
       <h1>Grafik ratowników</h1>
       <FullCalendar
-        plugins={[dayGridPlugin,timeGridPlugin, listPlugin, interactionPlugin]}
+        plugins={[dayGridPlugin,timeGridPlugin, interactionPlugin]}
         initialView= 'dayGridWeek'
         displayEventTime
         dateClick={handleDateSelect }
