@@ -1,4 +1,4 @@
-import { TutorialResponse, getTutorialById } from "../../../api/tutorialCalls";
+import { addReview, updateReview, TutorialResponse, getTutorialById, getTutorialReviews, getTutorialsStyles } from "../../../api/tutorialCalls";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { useRoles } from "../../../hooks/useAuth";
 import { usePopup } from "../../../hooks/usePopup";
@@ -16,7 +16,8 @@ import { useParams } from "react-router-dom";
 import ViewLoader from "../../fragments/util/ViewLoader";
 
 interface TutorialPageParams {
-  tutorial: TutorialResponse
+  tutorial: TutorialResponse,
+  style: string
 }
 
 const TutorialPage = (props: Readonly<TutorialPageParams>) => {
@@ -69,7 +70,7 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
           <Row className="justify-content-end mx-1">
             {t("Tutorial.Average")} {props.tutorial.avarageRating}
           </Row>
-          <InnerHtml value={props.tutorial.tutorialHTML ?? ""} containerClass="tutorial-content" />
+          <InnerHtml value={props.tutorial.tutorialHTML ?? ""} containerClass="tutorial" style={props.style} />
         </Col>
       </Row>
     </Container>
@@ -86,6 +87,8 @@ const Tutorial = () => {
     thumbnail: ""
   });
 
+  const [style, setStyle] = useState("");
+  const [review, setReview] = useState(0);
   const { tutorialId } = useParams();
 
   useEffect(() => {
@@ -94,11 +97,15 @@ const Tutorial = () => {
     }
 
     const abort = new AbortController();
+    const tutReq = getTutorialById(parseInt(tutorialId), abort).then(res => res.json());
+    const revReq = getTutorialReviews(parseInt(tutorialId), abort).then(res => res.json());
 
-    getTutorialById(parseInt(tutorialId), abort).then(res => res.json()).then((data: TutorialResponse) => {
-      if (data.tutorialHTML) {
-        setTutorial(data);
+    Promise.all([tutReq, revReq]).then((data: [TutorialResponse, any]) => {
+      if (data[0].tutorialHTML) {
+        setTutorial(data[0]);
       }
+
+      console.log(data[1]);
     }).catch(err => {
       if (!abort.signal.aborted) {
         console.error(err);
@@ -108,7 +115,23 @@ const Tutorial = () => {
     return () => abort.abort();
   }, [tutorialId]);
 
-  return <ViewLoader isLoaded={tutorial.tutorialId > 0} element={<TutorialPage tutorial={tutorial} />} />;
+  useEffect(() => {
+    const abort = new AbortController();
+
+    getTutorialsStyles(abort).then(res => res.text()).then(data => {
+      if (data) {
+        setStyle(data);
+      }
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
+
+    return () => abort.abort();
+  }, []);
+
+  return <ViewLoader isLoaded={tutorial.tutorialId > 0 && style.length > 0} element={<TutorialPage tutorial={tutorial} style={style} />} />;
 };
 
 export default Tutorial;
