@@ -29,7 +29,7 @@ export const get = (path: string, abort?: AbortController) => fetch(`${baseUrl}/
 });
 
 // Basic POST request
-export const post = (path: string, body?: any, abort?: AbortController) => fetch(`${baseUrl}/${path}`, {
+export const post = (path: string, body?: unknown, abort?: AbortController) => fetch(`${baseUrl}/${path}`, {
   method: "POST",
   headers: addToken({
     "Content-type": "application/json; charset=UTF-8"
@@ -39,7 +39,7 @@ export const post = (path: string, body?: any, abort?: AbortController) => fetch
 });
 
 // Basic PUT request
-export const put = (path: string, body?: any, abort?: AbortController) => fetch(`${baseUrl}/${path}`, {
+export const put = (path: string, body?: unknown, abort?: AbortController) => fetch(`${baseUrl}/${path}`, {
   method: "PUT",
   headers: addToken({
     "Content-type": "application/json; charset=UTF-8"

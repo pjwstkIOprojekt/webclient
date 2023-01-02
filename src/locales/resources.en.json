@@ -79,6 +79,15 @@
         "GENERAL": "General",
         "COURSE": "Course"
     },
+    "BackupType": {
+        "POLICE": "Police",
+        "FIRE_FIGHTERS": "Fire fighters",
+        "AMBULANCE": "Ambulance",
+        "POLICE_AMBULANCE": "Police and ambulance",
+        "POLICE_FIRE": "Police and fire fighters",
+        "AMBULANCE_FIRE": "Ambulance and fire fighters",
+        "POLICE_AMBULANCE_FIRE": "Police, ambulance and fire fighters"
+    },
     "Ambulance": {
         "Ambulances": "Ambulances",
         "Ambulance": "Ambulance",
