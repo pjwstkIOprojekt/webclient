@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Schedule, registerEmployee, scheduleKeyFromNum } from "../../../api/adminCalls";
+import { Schedule, registerEmployee } from "../../../api/adminCalls";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAbort } from "../../../hooks/useAbort";
@@ -72,17 +72,6 @@ const RegisterWithRole = () => {
     });
   };
 
-  const addEvent = (day: number, start: string, end: string) => {
-    const tmp = { ...events };
-    
-    tmp[scheduleKeyFromNum[day]] = {
-      start: start,
-      end: end
-    };
-
-    setEvents(tmp);
-  };
-
   return (
     <Container className="my-3 justify-content-center text-center">
       <h1>{t("Person.Adding")}</h1>
@@ -112,7 +101,7 @@ const RegisterWithRole = () => {
           <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Check")} />
         </Row>
         <h1>{t("Schedule.Schedule")}</h1>
-        <ScheduleDisplay value={events} onChange={addEvent} />
+        <ScheduleDisplay value={events} onChange={setEvents} />
         <Row className="justify-content-center">
           <Submit className="my-3 w-25" canSubmit={error !== undefined}>{t("Person.Add")}</Submit>
         </Row>
