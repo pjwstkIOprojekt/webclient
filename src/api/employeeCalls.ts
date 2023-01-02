@@ -9,15 +9,23 @@ export interface ScheduleResponse {
   schedule: Schedule
 }
 
-export interface EmployeeResponse {
+interface User {
+  lastName: string,
+  email: string
+}
+
+export interface EmployeeResponse extends User {
   id: number,
   name: string,
-  lastName: string,
-  email: string,
   phone: string,
   birthDate: Date,
   employeeType: string,
   workSchedule: ScheduleResponse
+}
+
+export interface MedicResponse extends User {
+  firstName: string,
+  userId: number
 }
 
 const employeeBase = "employee";
@@ -27,3 +35,4 @@ export const updateSchedule = (req: Readonly<UpdateScheduleRequest>, abort: Abor
 export const getSchedule = (abort: AbortController) => get(`${employeeBase}/schedule`, abort);
 export const getAssignedAmbulance = (abort: AbortController) => get(`${employeeBase}/medic/assigned-to`, abort);
 export const getSchedules = (abort: AbortController) => get(`${employeeBase}/all/schedule`, abort);
+export const getMedics = (abort: AbortController) => get(`${employeeBase}/medic`, abort);

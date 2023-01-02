@@ -79,6 +79,15 @@
         "GENERAL": "Ogólne",
         "COURSE": "Kurs"
     },
+    "BackupType": {
+        "POLICE": "Policja",
+        "FIRE_FIGHTERS": "Straż pożarna",
+        "AMBULANCE": "Ambulans",
+        "POLICE_AMBULANCE": "Policja i ambulans",
+        "POLICE_FIRE": "Policja i straż pożarna",
+        "AMBULANCE_FIRE": "Ambulans i straż pożarna",
+        "POLICE_AMBULANCE_FIRE": "Policja, ambulans i straż pożarna"
+    },
     "Ambulance": {
         "Ambulances": "Karetki",
         "Ambulance": "Karetka",

@@ -183,6 +183,11 @@ export const ItemType = {
   medical: "MEDICAL"
 };
 
+export const BackupType = {
+  getter: (abort: AbortController) => get(`${enumBase}/backup_types`, abort),
+  name: "BackupType"
+};
+
 export const TutorialType = {
   getter: (abort: AbortController) => get(`${enumBase}/tutorial_type`, abort),
   name: "TutorialType"
