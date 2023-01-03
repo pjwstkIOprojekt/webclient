@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { usePopup } from "../../../hooks/usePopup";
 import SchedulePopup from "../../fragments/popups/SchedulePopup";
 
+
 const ScheduleList = () => {
   const navigate = useNavigate();
   const popup = usePopup();
@@ -16,21 +17,23 @@ const ScheduleList = () => {
     {
         id: '0',
         title: 'Jan Nowak',
-        start: new Date('2022-12-20T08:00:00.000'),
-        end: new Date('2022-12-20T16:00:00.000')
-        
+        start: new Date('2023-01-02T08:00:00.000'),
+        end: new Date('2023-01-02T16:00:00.000'),
+        url:'/paramedic/1'
     },
     {
       id: '1',
       title: 'Jan Nowak',
-      start: new Date('2022-12-20T16:00:00.000'),
-      end: new Date('2022-12-20T24:00:00.000'),
+      start: new Date('2023-01-02T16:00:00.000'),
+      end: new Date('2023-01-02T24:00:00.000'),
+      url:'/paramedic/1'
   },
   {
     id: '2',
     title: 'Paramedic 3',
     start: new Date('2022-11-22T24:00:00.000'),
     end: new Date('2022-11-23T08:00:00.000'),
+    url:'/paramedic/1'
 
 },
 {
@@ -56,7 +59,17 @@ const handleDateSelect=()=>{
 };
 const handleEventSelect=(eventInfo:EventClickArg)=>{
   console.log(eventInfo.event.id)
-  //popup(<SchedulePopup /> );
+  const startTime = eventInfo.event.start;
+  const endTime = eventInfo.event.end;
+  const url = eventInfo.event.url;
+  if(eventInfo.event.url){
+
+    eventInfo.jsEvent.preventDefault();
+  popup(<SchedulePopup onSave={function ( startTime, endTime): void {
+    throw new Error("Function not implemented.");
+  } } 
+  info={url}/> );
+  }
   
 }
 
@@ -79,7 +92,7 @@ const handleEventSelect=(eventInfo:EventClickArg)=>{
         headerToolbar={{
           left: "today prev next",
           center: "title",
-          right: "dayGridMonth dayGridWeek listWeek",
+          right: "dayGridMonth dayGridWeek",
         }}
         
 
