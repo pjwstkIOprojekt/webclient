@@ -301,5 +301,16 @@
         "Day3": "Wed.",
         "Day4": "Thu.",
         "Day5": "Fri."
+    },
+    "Backup": {
+        "Backup": "Additional Backup",
+        "Type": "Backup type",
+        "Time": "Updated at",
+        "Accepted": "Accepted",
+        "Justification": "Justification",
+        "ConfirmRemove": "Are you sure you want to delete this backup?",
+        "Create": "Create backup",
+        "Adding": "Add backup",
+        "Editing": "Edit backup"
     }
 }
