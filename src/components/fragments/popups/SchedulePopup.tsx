@@ -38,8 +38,8 @@ const SchedulePopup = (props: Readonly<ScheduleParams>) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <h2 className="my-3 text-center">{t("Common.Details")}</h2>
-      <h4 className="my-3 text-left">{t("Schedule.SetEvent")}</h4>
+      <h1 className="my-3  text-center">{t("Common.Details")}</h1>
+      <h4 className="my-3 text-center">{t("Schedule.SetEvent")}</h4>
       {props.date ? (
         <Row className="mb-3 justify-content-center">
           <Date id="popup-date" className="w-50" label={t("Schedule.Date")} value={props.date} disabled />
@@ -48,11 +48,11 @@ const SchedulePopup = (props: Readonly<ScheduleParams>) => {
       <Row className="mb-3 justify-content-center">
         <Time id="popup-start" className="w-50" label={t("Common.Since")} required value={start} onChange={e => setStart(e.target.value)} />
       </Row>
-      <Row className="mb-3 justify-content-center">
+      <Row className="mb-5 justify-content-center">
         <Time id="popup-end" className="w-50" label={t("Common.Until")} required value={end} onChange={e => setEnd(e.target.value)} error={t(error)} />
       </Row>
-      <Row className="mb-3 justify-content-center">
-      <h4 className="my-3 text-left">Szczegóły ratownika</h4>
+      <Row className="mb-2  justify-content-center">
+      <h4 className="my-3 text-center">{t("Medic.Details")}</h4>
       <Button className=" w-50"  onClick={e => navigate(url ? url : "/home")}>{t("EmployeeType.MEDIC")}</Button>
       </Row>
       <Row className="mb-3 mt-4 justify-content-center">

@@ -289,7 +289,8 @@
     },
     "Medic": {
         "Medics": "Medycy",
-        "Assigned": "Przypisani medycy"
+        "Assigned": "Przypisani medycy",
+        "Details": "Szczegóły ratownika"
     },
     "Schedule": {
         "Schedule": "Grafik",
