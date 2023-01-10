@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Schedule, registerEmployee } from "../../../api/adminCalls";
+import { Schedule, formatSchedule, registerEmployee } from "../../../api/adminCalls";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAbort } from "../../../hooks/useAbort";
@@ -54,7 +54,7 @@ const RegisterWithRole = () => {
       password: password,
       birthDate: birthDate,
       phoneNumber: phoneNumber,
-      workSchedule: events
+      workSchedule: formatSchedule(events)
     }, abort).then(res => {
       if (res.ok) {
         navigate("/");

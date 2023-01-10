@@ -20,6 +20,20 @@ export const scheduleKeyFromNum: Record<number, ScheduleKey> = {
   5: "FRIDAY"
 };
 
+export const formatSchedule = (x: Readonly<Schedule>) => {
+  const copy: Record<string, ScheduleDto> = { ...x };
+
+  for (const index in x) {
+    const tmp = copy[index];
+
+    if (!tmp.start || !tmp.end) {
+      delete copy[index];
+    }
+  }
+
+  return copy as Schedule;
+};
+
 export interface RegisterEmployeeRequest extends SignupRequest {
   workSchedule: Schedule
 }
