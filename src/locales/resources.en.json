@@ -290,6 +290,7 @@
     "Medic": {
         "Medics": "Medics",
         "Assigned": "Assigned medics",
+        "Details": "Paramedic details"
         "Assign": "Assign medics"
     },
     "Schedule": {
