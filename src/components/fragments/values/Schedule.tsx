@@ -25,7 +25,7 @@ const Schedule = (props: Readonly<ScheduleParams>) => {
       return (
         <>
           <div className="my-1">{event.start} - {event.end}</div>
-          <Button type="button" onClick={e => popup(<SchedulePopup onSave={(st, en) => props.onChange(x, st, en)} startTime={""} endTime={""} url={""} />)}>{t("Common.Edit")}</Button>
+          <Button type="button" onClick={e => popup(<SchedulePopup onSave={(st, en) => props.onChange(x, st, en)} />)}>{t("Common.Edit")}</Button>
           <Button type="button" className="mx-1" onClick={e => props.onChange(x, "", "")}>X</Button>
         </>
       );
