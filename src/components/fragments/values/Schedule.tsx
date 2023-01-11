@@ -20,6 +20,7 @@ const Schedule = (props: Readonly<ScheduleParams>) => {
       const event = sch[scheduleKeyFromNum[x]];
 
       if (!event.start || !event.end) {
+        return <Button type="button" onClick={e => popup(<SchedulePopup onSave={(st, en) => props.onChange(x, st, en)} />)}>+</Button>;
       }
 
       return (
