@@ -54,22 +54,24 @@ const ScheduleList = () => {
 }
 
   ]);
-const handleDateSelect=()=>{
-  navigate('./add')
-};
+  const handleDateSelect=()=>{
+    navigate('./add')
+  };
+
 const handleEventSelect=(eventInfo:EventClickArg)=>{
   console.log(eventInfo.event.id)
-  const startTime = eventInfo.event.start;
-  const endTime = eventInfo.event.end;
+  const startTime = eventInfo.event.startStr;
+  const endTime = eventInfo.event.endStr;
   const url = eventInfo.event.url;
   if(eventInfo.event.url){
 
     eventInfo.jsEvent.preventDefault();
-  popup(<SchedulePopup onSave={function ( startTime, endTime): void {
+    console.log(startTime)
+  popup(<SchedulePopup onSave={function (start: string, end: string): void {
     throw new Error("Function not implemented.");
-  } } 
-  info={url}/> );
+  } } startTime={startTime} endTime={endTime} url={url}  /> );
   }
+
   
 }
 
