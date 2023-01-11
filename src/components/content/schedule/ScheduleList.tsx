@@ -69,7 +69,7 @@ const handleEventSelect=(eventInfo:EventClickArg)=>{
     console.log(startTime)
   popup(<SchedulePopup onSave={function (start: string, end: string): void {
     throw new Error("Function not implemented.");
-  } } startTime={startTime} endTime={endTime} url={url}  /> );
+  } } startTime={startTime} endTime={endTime}  /> );
   }
 
   
