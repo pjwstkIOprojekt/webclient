@@ -18,6 +18,8 @@ import Navtab from "../../fragments/navigation/Navtab";
 import { Routes, Route } from "react-router-dom";
 import ReportData from "./ReportData";
 import AssignAmbulance from "./AssignAmbulance";
+import BackupsList from "./BackupsList";
+import BackupForm from "./BackupForm";
 
 const ReportView = () => {
   const [statusType, setStatusType] = useState("");
@@ -95,7 +97,8 @@ const ReportView = () => {
 
   const links = [
     { to: "data", text: t("Common.Details") },
-    { to: "ass", text: t("Report.Assign") }
+    { to: "ass", text: t("Report.Assign") },
+    { to: "back", text: t("Backup.Backup") }
   ];
 
   return (
@@ -118,6 +121,9 @@ const ReportView = () => {
         <Route path="" element={<Navigate replace to="data" />} />
         <Route path="data" element={<ReportData data={accidentData} />} />
         <Route path="ass" element={<AssignAmbulance />} />
+        <Route path="back" element={<BackupsList />} />
+        <Route path="back/new" element={<BackupForm />} />
+        <Route path="back/edit/:backupId" element={<BackupForm />} />
       </Routes>
     </Container>
   );

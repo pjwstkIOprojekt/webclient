@@ -289,7 +289,8 @@
     },
     "Medic": {
         "Medics": "Medycy",
-        "Assigned": "Przypisani medycy"
+        "Assigned": "Przypisani medycy",
+        "Assign": "Przypisz medyków"
     },
     "Schedule": {
         "Schedule": "Grafik",
@@ -300,5 +301,16 @@
         "Day3": "Śro.",
         "Day4": "Czw.",
         "Day5": "Pią."
+    },
+    "Backup": {
+        "Backup": "Dodatkowe wsparcie",
+        "Type": "Rodzaj wsparcia",
+        "Time": "Zaktualizowano",
+        "Accepted": "Zaakceptowane",
+        "Justification": "Uzasadnienie",
+        "ConfirmRemove": "Czy na pewno chcesz usunąć to wsparcie?",
+        "Create": "Dodaj wsparcie",
+        "Adding": "Dodawanie wsparcia",
+        "Editing": "Edycja wsparcia"
     }
 }
