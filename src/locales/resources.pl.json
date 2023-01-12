@@ -207,6 +207,7 @@
         "New": "Nowe hasło",
         "Forgot": "Nie pamiętam hasła",
         "Reseting": "Odzyskiwanie hasła",
+        "Reseted": "Twoje hasło zostało zmnienione.",
         "Reset": "Zmień hasło",
         "Email": "Wpisz adres email. Prześlemy specjalny token do zmiany hasła",
         "Token": "Wpisz token, który otrzymałeś/aś email'em"

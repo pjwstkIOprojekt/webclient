@@ -207,6 +207,7 @@
         "New": "New password",
         "Forgot": "I forgot my password",
         "Reseting": "Password recovery",
+        "Reseted": "Your password successfully changed.",
         "Reset": "Reset password",
         "Email": "Enter email address. We will send you a token to reset your password",
         "Token": "Enter the token you received on your email"
