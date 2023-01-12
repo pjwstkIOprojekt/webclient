@@ -202,12 +202,12 @@
     "Password": {
         "Check": "Powtórz nowe hasło",
         "Change": "Zmiana hasła",
-        "Changed": "Twoje hasło zostało zmnienione.",
+        "Changed": "Twoje hasło zostało zmienione.",
         "Old": "Stare hasło",
         "New": "Nowe hasło",
         "Forgot": "Nie pamiętam hasła",
         "Reseting": "Odzyskiwanie hasła",
-        "Reseted": "Twoje hasło zostało zmnienione.",
+        "Reseted": "Twoje hasło zostało zmienione.",
         "Reset": "Zmień hasło",
         "Email": "Wpisz adres email. Prześlemy specjalny token do zmiany hasła",
         "Token": "Wpisz token, który otrzymałeś/aś email'em"
