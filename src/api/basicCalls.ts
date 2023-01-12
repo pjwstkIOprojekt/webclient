@@ -54,3 +54,13 @@ export const del = (path: string, abort?: AbortController) => fetch(`${baseUrl}/
   headers: addToken({}),
   signal: abort?.signal
 });
+
+// Basic DELETE request with body
+export const delBody = (path: string, body?: unknown, abort?: AbortController) => fetch(`${baseUrl}/${path}`, {
+  method: "DELETE",
+  headers: addToken({
+    "Content-type": "application/json; charset=UTF-8"
+  }),
+  body: JSON.stringify(body),
+  signal: abort?.signal
+});

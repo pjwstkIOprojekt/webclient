@@ -1,9 +1,6 @@
-import { get, post } from "./basicCalls";
+import { get, post, put, del } from "./basicCalls";
 
-export interface ItemRequest {
-  // Enum - ItemType
-  type: string,
-
+export interface ItemBase {
   // Not blank
   // All
   name?: string,
@@ -14,7 +11,18 @@ export interface ItemRequest {
 
   // Not blank
   // Not in SINGLE_USE and MULTI_USE
-  manufacturer?: string,
+  manufacturer?: string
+}
+
+export interface UpdateItemRequest extends ItemBase {
+  // Datetime
+  // Only in MEDICAL
+  expirationDate: Date
+}
+
+export interface ItemRequest extends ItemBase {
+  // Enum - ItemType
+  type: string,
 
   // Datetime
   // Only in MEDICAL
@@ -40,3 +48,5 @@ const itemBase = "item";
 export const getItems = (abort: AbortController) => get(itemBase, abort);
 export const getItemById = (id: number, abort: AbortController) => get(`${itemBase}/${id}`, abort);
 export const createItem = (req: Readonly<ItemRequest>, abort: AbortController) => post(`${itemBase}/create`, req, abort);
+export const updateItem = (id: number, req: Readonly<UpdateItemRequest>, abort: AbortController) => put(`${itemBase}/edit/${id}`, req, abort);
+export const deleteItem = (id: number, abort: AbortController) => del(`${itemBase}/delete/${id}`, abort);

@@ -1,4 +1,4 @@
-import { Location, PathElement, get, post, put, del } from "./basicCalls";
+import { Location, PathElement, get, post, delBody, put, del } from "./basicCalls";
 
 interface LicensePlate {
   // Length = 3-8
@@ -59,6 +59,7 @@ export const getAmbulanceHistory = (licensePlate: string, abort: AbortController
 export const getAmbulanceState = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/state`, abort);
 export const getAmbulancePath = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/location/path`, abort);
 export const getItems = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/equipment`, abort);
+export const getCurrentIncident = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/incident`, abort);
 export const getMedics = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/crew`, abort);
 
 export const addItem = (licensePlate: string, itemId: number, abort: AbortController, count?: number) => post(`${ambulanceBase}/${licensePlate}/items/add/${itemId}?count=${count ?? 1}`, undefined, abort);
@@ -66,6 +67,7 @@ export const changeAmbulanceState = (licensePlate: string, ambulanceState: strin
 export const createAmbulance = (req: Readonly<AddAmbulanceRequest>, abort: AbortController) => post(ambulanceBase, req, abort);
 export const postAmbulanceLocation = (licensePlate: string, req: Readonly<PostAmbulanceLocationRequest>, abort: AbortController) => post(`${ambulanceBase}/${licensePlate}/location`, req, abort);
 export const addMedics = (licensePlate: string, medics: Readonly<number[]>, abort: AbortController) => post(`${ambulanceBase}/${licensePlate}/crew`, medics, abort);
+export const removeMedics = (licensePlate: string, medics: Readonly<number[]>, abort: AbortController) => delBody(`${ambulanceBase}/${licensePlate}/crew`, medics, abort);
 
 export const updateAmbulance = (req: Readonly<AddAmbulanceRequest>, abort: AbortController) => put(ambulanceBase, req, abort);
 

@@ -105,7 +105,8 @@
         "SameState": "This ambulance is already in this state",
         "Adding": "Add ambulance",
         "Editing": "Edit ambulance",
-        "Add": "Add ambulance"
+        "Add": "Add ambulance",
+        "Incident": "Current incident"
     },
     "Report": {
         "Reports": "Reports",
@@ -201,8 +202,15 @@
     "Password": {
         "Check": "Repeat new password",
         "Change": "Change password",
+        "Changed": "Your password successfully changed.",
         "Old": "Old password",
-        "New": "New password"
+        "New": "New password",
+        "Forgot": "I forgot my password",
+        "Reseting": "Password recovery",
+        "Reseted": "Your password successfully changed.",
+        "Reset": "Reset password",
+        "Email": "Enter email address. We will send you a token to reset your password",
+        "Token": "Enter the token you received on your email"
     },
     "HomePage": {
         "HomePage": "Home page",
@@ -264,7 +272,8 @@
         "Value": "Value",
         "Details": "Details",
         "Contents": "Contents",
-        "Thumbnail": "Thumbnail"
+        "Thumbnail": "Thumbnail",
+        "Send": "Send"
     },
     "Map": {
         "Map": "Map",
@@ -291,7 +300,8 @@
         "Medics": "Medics",
         "Assigned": "Assigned medics",
         "Details": "Paramedic details",
-        "Assign": "Assign medics"
+        "Assign": "Assign medics",
+        "Unassign": "Unassign"
     },
     "Schedule": {
         "Schedule": "Schedule",

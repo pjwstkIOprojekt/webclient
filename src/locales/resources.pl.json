@@ -105,7 +105,8 @@
         "SameState": "Karetka jest już w tym stanie",
         "Adding": "Dodawanie karetki",
         "Editing": "Edycja karetki",
-        "Add": "Dodaj karetkę"
+        "Add": "Dodaj karetkę",
+        "Incident": "Aktualne zgłoszenie"
     },
     "Report": {
         "Reports": "Zgłoszenia",
@@ -201,8 +202,15 @@
     "Password": {
         "Check": "Powtórz nowe hasło",
         "Change": "Zmiana hasła",
+        "Changed": "Twoje hasło zostało zmienione.",
         "Old": "Stare hasło",
-        "New": "Nowe hasło"
+        "New": "Nowe hasło",
+        "Forgot": "Nie pamiętam hasła",
+        "Reseting": "Odzyskiwanie hasła",
+        "Reseted": "Twoje hasło zostało zmienione.",
+        "Reset": "Zmień hasło",
+        "Email": "Wpisz adres email. Prześlemy specjalny token do zmiany hasła",
+        "Token": "Wpisz token, który otrzymałeś/aś email'em"
     },
     "HomePage": {
         "HomePage": "Strona główna",
@@ -264,7 +272,8 @@
         "Value": "Wartość",
         "Details": "Szczegóły",
         "Contents": "Spis treści",
-        "Thumbnail": "Miniaturka"
+        "Thumbnail": "Miniaturka",
+        "Send": "Wyślij"
     },
     "Map": {
         "Map": "Mapa",
@@ -291,7 +300,8 @@
         "Medics": "Medycy",
         "Assigned": "Przypisani medycy",
         "Details": "Szczegóły ratownika",
-        "Assign": "Przypisz medyków"
+        "Assign": "Przypisz medyków",
+        "Unassign": "Wypisz"
     },
     "Schedule": {
         "Schedule": "Grafik",
