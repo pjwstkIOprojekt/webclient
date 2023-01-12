@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
-import { getAmbulanceByLicensePlate, AmbulanceResponse, updateAmbulance } from "../../../api/ambulanceCalls";
+import { getAmbulanceByLicensePlate, getCurrentIncident, AmbulanceResponse, updateAmbulance } from "../../../api/ambulanceCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
+import { IncidentResponse } from "../../../api/incidentCalls";
 import { Container, Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
@@ -11,6 +12,7 @@ import { AmbulanceClass, AmbulanceType } from "../../../api/enumCalls";
 import Number from "../../fragments/forms/api/Number";
 import Submit from "../../fragments/forms/Submit";
 import Button from "../../fragments/util/Button";
+import NavButton from "../../fragments/navigation/NavButton";
 import Error from "../../fragments/forms/Error";
 import Navtab from "../../fragments/navigation/Navtab";
 import { Routes, Route } from "react-router-dom";
@@ -25,6 +27,7 @@ const AmbulanceView = () => {
   const [ambulanceClass, setAmbulanceClass] = useState("");
   const [ambulanceType, setAmbulanceType] = useState("");
   const [seats, setSeats] = useState(1);
+  const [incident, setIncident] = useState<number | undefined>(undefined);
   const [error, setError] = useState<string | undefined>("");
   const [readOnly, setReadOnly] = useState(true);
   const { ambulanceId } = useParams();
@@ -46,8 +49,20 @@ const AmbulanceView = () => {
           setError(missingDataError);
         }
       }).catch(err => {
+        if (abortUpdate.signal.aborted) {
+          return;
+        }
+
         console.error(err);
         setError(loadingError);
+      });
+
+      getCurrentIncident(ambulanceId, abortUpdate).then(res => res.json()).then((data: IncidentResponse) => {
+        if (data) {
+          setIncident(data.incidentId);
+        } else {
+          setIncident(undefined);
+        }
       });
 
       return () => abortUpdate.abort();
@@ -111,6 +126,11 @@ const AmbulanceView = () => {
             <Submit className="w-25" canSubmit={error !== undefined}>{readOnly ? t("Common.Edit") : t("Common.Save")}</Submit>
             {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)} className="mx-3 w-25">{t("Common.Cancel")}</Button>}
           </Row>
+          {incident === undefined ? "" : (
+            <Row className="justify-content-center my-3">
+              <NavButton to={`/reports/${incident}`} className="w-25">{t("Ambulance.Incident")}</NavButton>
+            </Row>
+          )}
           <Error className="mb-3" error={error} />
         </Form>
       </Row>

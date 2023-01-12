@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 import ConditionalRoute from "./components/fragments/navigation/ConditionalRoute";
 import Login from "./components/content/auth/Login";
 import Register from "./components/content/auth/Register";
+import ForgotPassword from "./components/content/auth/ForgotPassword";
 import Settings from "./components/content/userinfo/Settings";
 import RegisterWithRole from "./components/content/auth/RegisterWithRole";
 import Home from "./components/content/home/Home";
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/register/:redirect" element={<ConditionalRoute condition={!auth} element={<Register />} />} />
           <Route path="/settings/*" element={<ConditionalRoute condition={auth} element={<Settings />} />} />
           <Route path="/newuser" element={<ConditionalRoute condition={dis || admin} element={<RegisterWithRole />} />} />
+          <Route path="/forgotpassword" element={<ConditionalRoute condition={!auth} element={<ForgotPassword />} />} />
 
           <Route path="/home" element={<Home />} />
           <Route path="/tutorial" element={<TutorialView />} />

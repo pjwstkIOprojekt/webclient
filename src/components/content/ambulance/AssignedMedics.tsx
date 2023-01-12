@@ -1,17 +1,21 @@
-import { MedicResponse, getMedics } from "../../../api/ambulanceCalls";
+import { MedicResponse, getMedics, removeMedics } from "../../../api/ambulanceCalls";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
 import { licensePlateError } from "../sharedStrings";
+import Delete from "../../fragments/forms/Delete";
 import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
 const AssignedMedics = () => {
   const [medics, setMedics] = useState<MedicResponse[]>([]);
+  const [removed, setRemoved] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
+  const abort = useAbort();
 
   useEffect(() => {
     if (ambulanceId === undefined) {
@@ -39,6 +43,32 @@ const AssignedMedics = () => {
     return () => abortUpdate.abort();
   }, [ambulanceId]);
 
+  const remove = (x: number) => {
+    if (ambulanceId === undefined) {
+      console.error(licensePlateError);
+      return;
+    }
+
+    setRemoved([...removed, x]);
+    
+    removeMedics(ambulanceId, [x], abort).then(res => {
+      if (res.ok) {
+        setMedics(medics.filter(m => m.userId !== x));
+      } else {
+        console.log(res);
+      }
+
+      setRemoved(removed.filter(u => u !== x));
+    }).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+
+      console.error(err);
+      setRemoved(removed.filter(u => u !== x));
+    });
+  };
+
   const firstField = "firstName";
   const lastField = "lastName";
   const emailField = "email";
@@ -46,7 +76,8 @@ const AssignedMedics = () => {
   const cols = [
     { name: t("Person.FirstName"), property: firstField, filterBy: firstField, sortBy: firstField },
     { name: t("Person.LastName"), property: lastField, filterBy: lastField, sortBy: lastField },
-    { name: t("Person.Email"), property: emailField, filterBy: emailField, sortBy: emailField }
+    { name: t("Person.Email"), property: emailField, filterBy: emailField, sortBy: emailField },
+    { name: t("Medic.Unassign"), property: (x: Readonly<MedicResponse>) => <Delete onClick={() => remove(x.userId)} canDelete={!removed.includes(x.userId)} /> }
   ];
 
   return (

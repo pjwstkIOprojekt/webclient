@@ -7,7 +7,7 @@ import plLocale from '@fullcalendar/core/locales/pl';
 import interactionPlugin from "@fullcalendar/interaction";
 import { useNavigate } from "react-router-dom";
 import { usePopup } from "../../../hooks/usePopup";
-import SchedulePopup from "../../fragments/popups/SchedulePopup";
+import SchedulePopup from "../../fragments/popups/CalendarPopup";
 
 
 const ScheduleList = () => {
@@ -69,7 +69,7 @@ const handleEventSelect=(eventInfo:EventClickArg)=>{
     console.log(startTime)
   popup(<SchedulePopup onSave={function (start: string, end: string): void {
     throw new Error("Function not implemented.");
-  } } startTime={startTime} endTime={endTime}  /> );
+  } } startTime={startTime} endTime={endTime} url={url} label="Medic.Details" /> );
   }
 
   

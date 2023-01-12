@@ -10,6 +10,7 @@ import Email from "../../fragments/forms/api/Email";
 import Password from "../../fragments/forms/api/Password";
 import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
+import Link from "../../fragments/navigation/Link";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -66,6 +67,9 @@ const Login = () => {
         </Row>
         <Row className="justify-content-center">
           <Error className="mt-3 w-50" error={error} />
+        </Row>
+        <Row className="text-center">
+          <Link to="/forgotpassword">{t("Password.Forgot")}</Link>
         </Row>
       </Form>
     </Container>
