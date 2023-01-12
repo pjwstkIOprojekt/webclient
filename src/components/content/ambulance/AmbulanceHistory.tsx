@@ -36,7 +36,7 @@ const AmbulanceHistory = () => {
       if (data.ambulanceHistory) {
         setStates(data.ambulanceHistory.map(s => ({
           type: s.type,
-          timestamp: new Date(s.timestamp)
+          timestamp: new Date(`${s.timestamp}Z`)
         })));
       }
 
