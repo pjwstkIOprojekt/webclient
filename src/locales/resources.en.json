@@ -157,6 +157,7 @@
         "NecessaryData": "All of the data above is necessary for proper provision of our services.",
         "LogOff": "Log off",
         "LoggedInto": "Successfully logged into the account",
+        "LoggedError": "Login was successful but permissions are missing.",
         "LogOut": "Logout",
         "LoggedOut": "Successfully logged out of account",
         "AllCapabilities": "Do you want to be able to use all the possibilities of our platform? Log in to your account now!",

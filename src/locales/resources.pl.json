@@ -157,6 +157,7 @@
         "NecessaryData": "Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.",
         "LogOff": "Wyloguj",
         "LoggedInto": "Pomyślnie zalogowano na konto",
+        "LoggedError": "Pomyślnie zalogowano, ale uprawnienia są zgubione.",
         "LogOut": "Wylogowanie",
         "LoggedOut": "Pomyślnie wylogowano z konta",
         "AllCapabilities": "Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!",

@@ -1,4 +1,4 @@
-import { Location, PathElement, get, post, delBody, put, del } from "./basicCalls";
+import { Location, PathElement, get, post, put, delBody, del } from "./basicCalls";
 
 interface LicensePlate {
   // Length = 3-8
@@ -63,6 +63,7 @@ export const getCurrentIncident = (licensePlate: string, abort: AbortController)
 export const getMedics = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/crew`, abort);
 
 export const addItem = (licensePlate: string, itemId: number, abort: AbortController, count?: number) => post(`${ambulanceBase}/${licensePlate}/items/add/${itemId}?count=${count ?? 1}`, undefined, abort);
+export const changeItemUnit = (licensePlate: string, itemId: number, unit: string, abort: AbortController) => put(`${ambulanceBase}/${licensePlate}/items/add/${itemId}?unit=${unit}`, undefined, abort);
 export const changeAmbulanceState = (licensePlate: string, ambulanceState: string, abort: AbortController)  => post(`${ambulanceBase}/${licensePlate}/state/${ambulanceState}`, undefined, abort);
 export const createAmbulance = (req: Readonly<AddAmbulanceRequest>, abort: AbortController) => post(ambulanceBase, req, abort);
 export const postAmbulanceLocation = (licensePlate: string, req: Readonly<PostAmbulanceLocationRequest>, abort: AbortController) => post(`${ambulanceBase}/${licensePlate}/location`, req, abort);
