@@ -1,3 +1,4 @@
+// Contains type definitions shared in chart components
 import { CurveType } from "recharts/types/shape/Curve";
 import { Margin } from "recharts/types/util/types";
 import { CategoricalChartFunc } from "recharts/types/chart/generateCategoricalChart";

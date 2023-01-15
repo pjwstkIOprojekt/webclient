@@ -22,6 +22,7 @@ export interface ScatterChartParams extends GridChartParams<ScatterChartData> {
   zAxisUnit: string
 }
 
+// Custom scatter chart component
 const ScatterChart = (props: Readonly<ScatterChartParams>) => {
   const darkMode = useDarkMode();
   const stroke = customStroke(darkMode);

@@ -8,6 +8,7 @@ export interface FormCheckParams extends IdControlParams<HTMLInputElement> {
   icon?: L.Icon<L.IconOptions> | L.DivIcon
 }
 
+// Custom form checkbox component
 const FormCheck = (props: Readonly<FormCheckParams>) => {
   const { t } = useTranslation();
   const size = props.icon?.options.iconSize as number[] ?? [25, 40];

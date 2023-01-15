@@ -8,6 +8,7 @@ export interface PieChartParams extends ChartBaseParams<NamedChartData> {
   innerRadius?: string | number
 }
 
+// Custom pie chart component
 const PieChart = (props: Readonly<PieChartParams>) => {
   const darkMode = useDarkMode();
   const stroke = customStroke(darkMode);

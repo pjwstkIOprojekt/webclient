@@ -7,6 +7,7 @@ export interface ComposedChartSettings extends KeyValueSizeSettings {
   kind?: "area" | "bar" | "line"
 }
 
+// Custom composed chart component
 const ComposedChart = (props: Readonly<KeyValueChartParams<KeyValueChartData, ComposedChartSettings>>) => {
   const darkMode = useDarkMode();
   const stroke = customStroke(darkMode);

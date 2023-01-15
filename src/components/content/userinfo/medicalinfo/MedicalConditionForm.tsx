@@ -13,6 +13,7 @@ import Submit from "../../../fragments/forms/Submit";
 import NavButton from "../../../fragments/navigation/NavButton";
 import Error from "../../../fragments/forms/Error";
 
+// Form for adding/editing conditions
 const MedicalConditionForm = () => {
   const [diseaseName, setDiseaseName] = useState("");
   const [description, setDescription] = useState("");
@@ -23,6 +24,7 @@ const MedicalConditionForm = () => {
   const { t } = useTranslation();
   const abort = useAbort();
 
+  // Loads condition data to edit
   useEffect(() => {
     if (diseaseId !== undefined) {
       setError(undefined);

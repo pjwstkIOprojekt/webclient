@@ -8,6 +8,7 @@ export interface FunnelChartParams extends ChartBaseParams<NamedChartData> {
   legendOnLeft?: boolean
 }
 
+// Custom funnel chart component
 const FunnelChart = (props: Readonly<FunnelChartParams>) => {
   const darkMode = useDarkMode();
   const stroke = customStroke(darkMode);

@@ -19,6 +19,7 @@ import L from "leaflet";
 import { hospitalIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
+// Facility form component
 const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     const [name, setName] = useState("");
     const [error, setError] = useState<string | undefined>("");
@@ -31,6 +32,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     const setFacilityType = props.setData;
     const canEdit = isDispositor(roles) || isDirector(roles);
   
+    // Loads facility data for editing
     useEffect(() => {
       if (facilityId !== undefined) {
         setError(undefined);
@@ -108,6 +110,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     );
   };
   
+  // Map wrapper for facility form
   const FacilityForm = () => {
     const [coords, setCoords] = useState<[number, number]>([0, 0]);
     const [loaded, setLoaded] = useState(false);
@@ -116,6 +119,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     const roles = useRoles();
     const canEdit = isDispositor(roles) || isDirector(roles);
 
+    // Centers map view on current location
     useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
       setCoords([pos.coords.latitude, pos.coords.longitude]);
       setLoaded(true);

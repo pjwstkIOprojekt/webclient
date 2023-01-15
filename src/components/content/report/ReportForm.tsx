@@ -22,6 +22,7 @@ import Error from "../../fragments/forms/Error";
 import { accidentIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
+// Report form component
 const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
   const [breathing, setBreathing] = useState(true);
   const [conscious, setConscious] = useState(true);
@@ -36,6 +37,7 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
   const abort = useAbort();
   const update = props.update;
 
+  // Loads report data for editing
   useEffect(() => {
     if (reportId === undefined) {
       return;
@@ -153,12 +155,14 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
   );
 };
 
+// Map wrapper for report form
 const ReportForm = () => {
   const [type, setType] = useState("");
   const [coords, setCoords] = useState<[number, number]>([0, 0]);
   const [loaded, setLoaded] = useState(false);
   const { t } = useTranslation();
 
+  // Centers map view on current location
   useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
     setCoords([pos.coords.latitude, pos.coords.longitude]);
     setLoaded(true);

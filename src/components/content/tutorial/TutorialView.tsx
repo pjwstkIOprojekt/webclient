@@ -13,7 +13,8 @@ interface TutorialCardParams {
   items: TutorialResponse[]
 }
 
-const TutorialCards = (props: Readonly<TutorialCardParams>) => {
+// Displays a single tutorial
+const TutorialCard = (props: Readonly<TutorialCardParams>) => {
   const { t } = useTranslation();
   const processTitle = (x: string) => x.length > 30 ? x.substring(0, 27) + "..." : x;
   
@@ -35,11 +36,13 @@ const TutorialCards = (props: Readonly<TutorialCardParams>) => {
   );
 };
 
+// Displays all tutorials
 const TutorialView = () => {
   const [items, setItems] = useState<TutorialResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
 
+  // Loads data to display
   useEffect(() => {
     const abort = new AbortController();
 
@@ -64,7 +67,7 @@ const TutorialView = () => {
   return (
     <>
       <h1 className="my-3 text-center">{t("Tutorial.Tutorials")}</h1>
-      <ViewLoader isLoaded={!isLoading} element={<TutorialCards items={items} />} />
+      <ViewLoader isLoaded={!isLoading} element={<TutorialCard items={items} />} />
     </>
   );
 };

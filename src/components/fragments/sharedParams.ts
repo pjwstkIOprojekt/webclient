@@ -1,3 +1,4 @@
+// Contains type definitions shared in fragment components
 import { ReactChild, ReactChildren } from "react";
 import { dark, light } from "../../hooks/useDarkMode";
 

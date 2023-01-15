@@ -8,6 +8,7 @@ export interface NotificationParams {
   notif: Notif
 }
 
+// Notification component with dark mode support
 const Notification = (props: Readonly<NotificationParams>) => {
   const notifManager = useNotificationsManager();
   const darkMode = useDarkMode();

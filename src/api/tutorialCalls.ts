@@ -1,3 +1,4 @@
+import { EmployeeResponse } from "./employeeCalls";
 import { get, post, put, del } from "./basicCalls";
 
 interface TutorialBase {
@@ -20,9 +21,18 @@ export interface TutorialResponse extends TutorialBase {
   avarageRating: number
 }
 
-export interface ReviewRequest {
-  value: number,
+interface ReviewBase {
+  value: number
+}
+
+export interface ReviewRequest extends ReviewBase {
   discription: string
+}
+
+export interface ReviewResponse extends ReviewBase {
+  reviewDescription: string,
+  tutorial: TutorialResponse,
+  reviewer: EmployeeResponse
 }
 
 const tutorialBase = "tutorial";

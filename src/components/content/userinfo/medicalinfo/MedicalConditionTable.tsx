@@ -11,6 +11,7 @@ import ConfirmPopup from "../../../fragments/popups/ConfirmPopup";
 import Table from "../../../fragments/util/Table";
 import NavButton from "../../../fragments/navigation/NavButton";
 
+// Conditions display table
 const MedicalConditionTable = (props: Readonly<TableViewParams<DiseaseResponse>>) => {
   const [removed, setRemoved] = useState<number[]>([]);
   const { t } = useTranslation();

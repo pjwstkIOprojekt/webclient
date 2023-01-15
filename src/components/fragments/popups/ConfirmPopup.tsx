@@ -8,6 +8,7 @@ export interface ConfirmParams {
   onConfirm: () => void
 }
 
+// Confirmation popup
 const ConfirmPopup = (props: Readonly<ConfirmParams>) => {
   const { t } = useTranslation();
   const popup = usePopup();
@@ -23,7 +24,7 @@ const ConfirmPopup = (props: Readonly<ConfirmParams>) => {
         <p>{t(props.text)}</p>
       </Row>
       <Row xs={2} className="my-3 justify-content-around">
-        <Button className="w-25" onClick={conf}>{t("Ok")}</Button>
+        <Button className="w-25" onClick={conf}>{t("Common.Ok")}</Button>
         <Button className="w-25" onClick={() => popup(null)}>{t("Common.Cancel")}</Button>
       </Row>
     </Container>

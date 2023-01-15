@@ -1,3 +1,4 @@
+// Contains type definitions shared in navigation components
 import { ParentComponentParams, customTheme } from "../sharedParams";
 import { To } from "react-router-dom";
 

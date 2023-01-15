@@ -13,6 +13,7 @@ import Submit from "../../../fragments/forms/Submit";
 import Button from "../../../fragments/util/Button";
 import Error from "../../../fragments/forms/Error";
 
+// Form for thrusted person adding/editing
 const TrustedPersonForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -24,6 +25,7 @@ const TrustedPersonForm = () => {
   const { t } = useTranslation();
   const abort = useAbort();
 
+  // Updates form data after changes
   useEffect(() => {
     if (!readOnly) {
       return;

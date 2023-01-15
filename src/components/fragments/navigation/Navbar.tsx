@@ -16,9 +16,13 @@ import { IoMdPerson, IoIosPaper } from "react-icons/io";
 import { BiLogIn } from "react-icons/bi";
 import { customTheme } from "../sharedParams";
 
+// Main navigation links menu
 const MenuBar = () => {
   const { t } = useTranslation();
   const roles = useRoles();
+  const auth = isAuth(roles);
+  const dis = isDispositor(roles);
+  const admin = isDirector(roles);
   
   return (
     <Nav className="me-auto">
@@ -26,7 +30,7 @@ const MenuBar = () => {
         <FaHome />
         <span className="px-1">{t("HomePage.HomePage")}</span>
       </NavLink>
-      {isAuth(roles) ? (
+      {auth ? (
         <NavLink to="/newreport">
           <FaMedkit />
           <span className="px-1">{t("Report.Report")}</span>
@@ -36,31 +40,31 @@ const MenuBar = () => {
         <FaBook />
         <span className="px-1">{t("Tutorial.Tutorials")}</span>
       </NavLink>
-      {isAuth(roles) ? (
+      {auth ? (
         <NavLink to="/facilities">
           <FaHospital />
           <span className="px-1">{t("Facility.Facilities")}</span>
         </NavLink>
       ) : ""}
-      {isDispositor(roles) || isDirector(roles) ? (
+      {dis || admin ? (
         <NavLink to="/map">
           <FaMap />
           <span className="px-1">{t("Map.Map")}</span>
         </NavLink>
       ) : ""}
-      {isDispositor(roles) ? (
+      {dis ? (
         <NavLink to="/reports">
           <FaNotesMedical />
           <span className="px-1">{t("Report.Reports")}</span>
         </NavLink>
       ) : ""}
-      {isDirector(roles) ? (
+      {admin ? (
         <NavLink to="/ambulances">
           <FaAmbulance />
           <span className="px-1">{t("Ambulance.Ambulances")}</span>
         </NavLink>
       ) : ""}
-      {isDirector(roles) ? (
+      {admin ? (
         <NavLink to="/equipments">
           <FaMedal />
           <span className="px-1">{t("Equipment.Equipment")}</span>
@@ -70,6 +74,7 @@ const MenuBar = () => {
   );
 };
 
+// Side menu with theme toggles and account options
 const SideMenu = () => {
   const darkMode = useDarkModeManager();
   const roles = useRoles();
@@ -88,6 +93,7 @@ const SideMenu = () => {
   );
 };
 
+// Language selection dropdown menu
 const LangDropdown = () => {
   const [lang, setLang] = useState(i18n.language);
   const darkMode = useDarkMode();
@@ -128,6 +134,7 @@ interface LangParams {
   update: (lang: string) => void
 }
 
+// Language selection dropdown menu item
 const LangDrop = (props: Readonly<LangParams>) => {
   if (props.current === props.lang) {
     return <></>;
@@ -140,11 +147,13 @@ const LangDrop = (props: Readonly<LangParams>) => {
   );
 };
 
+// Dropdown menu with account related functionalitites
 const UserDropdown = () => {
   const { t } = useTranslation();
   const darkMode = useDarkMode();
   const auth = useAuth();
   const roles = auth.roles;
+  const isLoggedIn = isAuth(roles);
 
   return (
     <NavDropdown align="end" title={
@@ -153,7 +162,7 @@ const UserDropdown = () => {
         <span className="px-1">{t("Person.Account")}</span>
       </span>
     } className={`nav-${customLink(darkMode)}`}>
-      {isAuth(roles) ? (
+      {isLoggedIn ? (
         <>
           <NavDrop to="/settings/userdata">
             <IoMdPerson />
@@ -179,7 +188,7 @@ const UserDropdown = () => {
           <NavDropdown.Divider />
         </>
       ) : ""}
-      {isAuth(roles) ? (
+      {isLoggedIn ? (
         <NavDropdown.Item onClick={auth.logout} className="d-inline-flex align-items-center">
           <BiLogIn />
           <span className="px-1">{t("Login.LogOff")}</span>
@@ -190,7 +199,7 @@ const UserDropdown = () => {
           <span className="px-1">{t("Login.SignIn")}</span>
         </NavDrop>
       )}
-      {isAuth(roles) ? "" : (
+      {isLoggedIn ? "" : (
         <NavDrop to="/register">
           <IoIosPaper />
           <span className="px-1">{t("Login.SignUp")}</span>
@@ -200,6 +209,7 @@ const UserDropdown = () => {
   );
 };
 
+// Navigation navbar to display at the top of page
 const Navbar = () => {
   const darkMode = useDarkMode();
 

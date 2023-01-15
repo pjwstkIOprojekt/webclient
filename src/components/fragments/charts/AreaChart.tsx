@@ -3,6 +3,7 @@ import { useDarkMode } from "../../../hooks/useDarkMode";
 import { AreaChart as Inner, CartesianGrid, XAxis, YAxis, Tooltip, Area, Legend } from "recharts";
 import { customTheme } from "../sharedParams";
 
+// Custom area chart component
 const AreaChart = (props: Readonly<KeyValueChartParams<KeyValueChartData, KeyValueCurveSettings>>) => {
   const darkMode = useDarkMode();
   const stroke = customStroke(darkMode);

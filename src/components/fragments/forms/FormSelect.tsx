@@ -6,6 +6,7 @@ export interface FormSelectParams extends SelectControlParams {
   allValid?: boolean
 }
 
+// Custom form select component
 const FormSelect = (props: Readonly<FormSelectParams>) => {
   return (
     <FormGroup controlId={props.id} className={props.className}>

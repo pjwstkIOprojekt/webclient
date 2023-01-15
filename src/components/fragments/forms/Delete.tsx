@@ -6,6 +6,7 @@ export interface DeleteParams {
   onClick?: () => void
 }
 
+// Delete button to use in elements lists
 const Delete = (props: Readonly<DeleteParams>) => {
   return props.canDelete ? <Button onClick={props.onClick}>X</Button> : <Spinner />;
 };

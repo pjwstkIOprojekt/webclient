@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Container, Row } from "react-bootstrap";
 import NavButton from "../navigation/NavButton";
 
+// Popup to use when user is not logged in
 const NotLoggedPopup = () => {
   const { t } = useTranslation();
 

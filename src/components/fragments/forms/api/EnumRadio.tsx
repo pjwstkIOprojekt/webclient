@@ -10,6 +10,7 @@ export interface EnumRadioParams extends RadioControlParams {
   value?: string
 }
 
+// Alternative enum constraint validation component
 const EnumRadio = (props: Readonly<EnumRadioParams>) => {
   const [values, setValues] = useState<string[]>([]);
   const { t } = useTranslation();

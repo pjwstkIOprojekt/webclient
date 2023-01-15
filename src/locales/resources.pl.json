@@ -157,6 +157,7 @@
         "NecessaryData": "Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.",
         "LogOff": "Wyloguj",
         "LoggedInto": "Pomyślnie zalogowano na konto",
+        "LoggedError": "Pomyślnie zalogowano, ale uprawnienia są zgubione.",
         "LogOut": "Wylogowanie",
         "LoggedOut": "Pomyślnie wylogowano z konta",
         "AllCapabilities": "Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!",
@@ -193,7 +194,8 @@
         "Network": "Nie można się połączyć z serwerem. Sprawdź swoje połączenie z Internetem",
         "PostRegisterFail": "Rejestracja się powiodła, ale nastąpił błąd przy logowaniu. Spróbuj się zalogować ponownie.",
         "NoDispatcherFound": "Nie znaleziono dostępnego dyspozytora.",
-        "ScheduleEnd": "Podana godzina musi być większa od godziny rozpoczęcia."
+        "ScheduleEnd": "Podana godzina musi być większa od godziny rozpoczęcia.",
+        "MailNotFound": "Nie znaleziono podanego maila w naszej bazie danych"
     },
     "Blood": {
         "Type": "Grupa krwi",
@@ -210,7 +212,8 @@
         "Reseted": "Twoje hasło zostało zmienione.",
         "Reset": "Zmień hasło",
         "Email": "Wpisz adres email. Prześlemy specjalny token do zmiany hasła",
-        "Token": "Wpisz token, który otrzymałeś/aś email'em"
+        "Token": "Wpisz token, który otrzymałeś/aś email'em",
+        "Repeat": "Powtórz hasło"
     },
     "HomePage": {
         "HomePage": "Strona główna",

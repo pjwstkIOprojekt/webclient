@@ -12,6 +12,7 @@ import Button from "../../../fragments/util/Button";
 import NavButton from "../../../fragments/navigation/NavButton";
 import Error from "../../../fragments/forms/Error";
 
+// Form for user data editing
 const UserDataForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

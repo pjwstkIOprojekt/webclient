@@ -12,6 +12,7 @@ import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
 import Link from "../../fragments/navigation/Link";
 
+// Login form
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

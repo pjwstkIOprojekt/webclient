@@ -6,6 +6,7 @@ export interface LengthParams extends RawTextControlParams {
   minLength?: number
 }
 
+// Length constraint validation component
 const Length = (props: Readonly<LengthParams>) => {
   return <FormControl pattern={`\\S{${props.minLength === undefined ? props.length : `${props.minLength},${props.length}`}}`} {...props} />;
 };

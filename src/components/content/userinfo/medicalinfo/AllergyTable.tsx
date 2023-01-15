@@ -13,6 +13,7 @@ import ConfirmPopup from "../../../fragments/popups/ConfirmPopup";
 import Table from "../../../fragments/util/Table";
 import NavButton from '../../../fragments/navigation/NavButton';
 
+// Allergies display table
 const AllergyTable = (props: Readonly<TableViewParams<AllergyResponse>>) => {
   const [removed, setRemoved] = useState<number[]>([]);
   const { t } = useTranslation();

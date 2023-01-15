@@ -157,6 +157,7 @@
         "NecessaryData": "All of the data above is necessary for proper provision of our services.",
         "LogOff": "Log off",
         "LoggedInto": "Successfully logged into the account",
+        "LoggedError": "Login was successful but permissions are missing.",
         "LogOut": "Logout",
         "LoggedOut": "Successfully logged out of account",
         "AllCapabilities": "Do you want to be able to use all the possibilities of our platform? Log in to your account now!",
@@ -193,7 +194,8 @@
         "Network": "Cannot connect with the server. Check your Internet connection.",
         "PostRegisterFail": "Registration was successful but an error has occured while logging in. Try to log in again.",
         "NoDispatcherFound": "No available dispatcher found.",
-        "ScheduleEnd": "Selected hour must be greater that the first."
+        "ScheduleEnd": "Selected hour must be greater that the first.",
+        "MailNotFound": "Provided email was not found in our database"
     },
     "Blood": {
         "Type": "Blood type",
@@ -210,7 +212,8 @@
         "Reseted": "Your password successfully changed.",
         "Reset": "Reset password",
         "Email": "Enter email address. We will send you a token to reset your password",
-        "Token": "Enter the token you received on your email"
+        "Token": "Enter the token you received on your email",
+        "Repeat": "Repeat password"
     },
     "HomePage": {
         "HomePage": "Home page",

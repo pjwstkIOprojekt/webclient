@@ -14,6 +14,7 @@ export interface ScheduleParams {
   endTime?: string
 }
 
+// Schedule edition popup
 const SchedulePopup = (props: Readonly<ScheduleParams>) => {
   const [start, setStart] = useState(props.startTime ? props.startTime : "08:00");
   const [end, setEnd] = useState(props.endTime ? props.endTime : "16:00");

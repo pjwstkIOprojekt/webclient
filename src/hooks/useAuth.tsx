@@ -32,8 +32,7 @@ export const AuthProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
     setRoles(usr.roles);
     login(usr);
     const correct = usr.roles !== Roles.None;
-    // Error messages should be in english. DO NOT TRANSLATE!!!
-    notifications.clear(correct ? "Login.Login" : "Err", correct ? "Login.LoggedInto" : "Login was successful but permissions are missing.");
+    notifications.clear(correct ? "Login.Login" : "Login.Error", correct ? "Login.LoggedInto" : "Login.LoggedError");
   };
 
   const handleLogout = () => {

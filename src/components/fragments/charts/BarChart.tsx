@@ -3,6 +3,7 @@ import { useDarkMode } from "../../../hooks/useDarkMode";
 import { BarChart as Inner, CartesianGrid, XAxis, YAxis, Tooltip, Bar, Legend } from "recharts";
 import { customTheme } from "../sharedParams";
 
+// Custom bar chart component
 const BarChart = (props: Readonly<KeyValueChartParams<KeyValueChartData, KeyValueSizeSettings>>) => {
   const darkMode = useDarkMode();
   const stroke = customStroke(darkMode);

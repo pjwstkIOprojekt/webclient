@@ -15,6 +15,7 @@ import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
 import CAlert from "../../fragments/util/Alert";
 
+// Registration form
 const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -116,7 +117,7 @@ const Register = () => {
           <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Person.Password")} />
         </Row>
         <Row className="justify-content-center">
-          <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Check")} />
+          <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Repeat")} />
         </Row>
         <Row className="justify-content-center mt-3">
           <Submit className="w-25" canSubmit={error !== undefined}>{t("Login.SignUp")}</Submit>

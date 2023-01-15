@@ -13,9 +13,11 @@ import Submit from "../../fragments/forms/Submit";
 import Button from "../../fragments/util/Button";
 import Error from "../../fragments/forms/Error";
 
+// Password recovery view
 const ForgotPassword = () => {
   const [input, setInput] = useState("");
   const [token, setToken] = useState("");
+  const [check, setCheck] = useState("");
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const { t } = useTranslation();
@@ -24,6 +26,11 @@ const ForgotPassword = () => {
   const notify = useNotify();
 
   const handleSubmit = () => {
+    if (sent && input !== check) {
+      setError("Error.DifferentPasswords");
+      return;
+    }
+
     setError(undefined);
 
     (sent ? resetPassword(token, {
@@ -40,6 +47,8 @@ const ForgotPassword = () => {
           setInput("");
           setSent(true);
         }
+      } else if (res.status === 404) {
+        setError("Error.MailNotFound");
       } else {
         console.log(res);
         setError(unknownError);
@@ -59,6 +68,7 @@ const ForgotPassword = () => {
 
     setInput("");
     setToken("");
+    setCheck("");
     setSent(false);
     setError("");
   };
@@ -71,17 +81,24 @@ const ForgotPassword = () => {
           {sent ? <Password id="token" className="mb-3 w-50" label={t("Password.Token")} value={token} required onChange={e => setToken(e.target.value)} /> : <Email id="email" className="mb-3 w-50" label={t("Password.Email")} value={input} required onChange={e => setInput(e.target.value)} />}
         </Row>
         {sent ? (
-          <Row className="justify-content-center">
-            <Password id="password" className="mb-3 w-50" label={t("Password.New")} value={input} required onChange={e => setInput(e.target.value)} />
-          </Row>
+          <>
+            <Row className="justify-content-center">
+              <Password id="password" className="mb-3 w-50" label={t("Password.New")} value={input} required onChange={e => setInput(e.target.value)} />
+            </Row>
+            <Row className="justify-content-center">
+              <Password id="passwordCheck" className="mb-3 w-50" label={t("Password.Check")} value={check} required onChange={e => setCheck(e.target.value)} />
+            </Row>
+          </>
         ) : ""}
         <Row className="justify-content-center my-3">
           <Submit className="w-25" canSubmit={error !== undefined}>{t(sent ? "Password.Reset" : "Common.Send")}</Submit>
         </Row>
-        <Row className="justify-content-center my-3">
-          <Button className="w-25" type="button" onClick={sent ? goBack : () => navigate("/login")}>{t(`Common.${sent ? "Back" : "Cancel"}`)}</Button>
-        </Row>
-        <Row className="justify-content-center">
+        {sent && error === undefined ? "" : (
+          <Row className="justify-content-center my-3">
+            <Button className="w-25" type="button" onClick={sent ? goBack : () => navigate("/login")}>{t(`Common.${sent ? "Back" : "Cancel"}`)}</Button>
+          </Row>
+        )}
+        <Row className="justify-content-center mx-3">
           <Error className="mt-3 w-50" error={error} />
         </Row>
       </Form>
