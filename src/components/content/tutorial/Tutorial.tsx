@@ -1,12 +1,11 @@
-import { TutorialResponse, addReview, updateReview, getTutorialById, getTutorialReviews, getTutorialsStyles } from "../../../api/tutorialCalls";
+import { TutorialResponse, ReviewResponse, addReview, updateReview, getTutorialById, getTutorialReviews, getTutorialsStyles } from "../../../api/tutorialCalls";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { useRoles } from "../../../hooks/useAuth";
 import { usePopup } from "../../../hooks/usePopup";
 import { useAbort } from "../../../hooks/useAbort";
 import { useTranslation } from "react-i18next";
-import { isAuth } from "../../../helpers/authHelper";
+import { isAuth, getEmail, getUserId } from "../../../helpers/authHelper";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
-import { getEmail } from "../../../helpers/authHelper";
 import { userEmailError } from "../sharedStrings";
 import { Container, Row, Col, Nav, NavDropdown } from "react-bootstrap";
 import { customTheme } from "../../fragments/sharedParams";
@@ -20,9 +19,11 @@ import ViewLoader from "../../fragments/util/ViewLoader";
 
 interface TutorialPageParams {
   tutorial: TutorialResponse,
-  style: string
+  style: string,
+  review: ReviewResponse | null
 }
 
+// Displays tutorial content
 const TutorialPage = (props: Readonly<TutorialPageParams>) => {
   const darkMode = useDarkMode();
   const roles = useRoles();
@@ -52,10 +53,13 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
       return;
     }
 
-    addReview(props.tutorial.tutorialId, user, {
+    const review = {
       value: x,
       discription: ""
-    }, abort).then(res => {
+    };
+
+    // TODO: Insert proper review id in update call
+    (props.review === null ? addReview(props.tutorial.tutorialId, user, review, abort) : updateReview(1, review, abort)).then(res => {
       if (!res.ok) {
         console.log(res);
       }
@@ -83,14 +87,14 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
               <br />
               <p>{t("Tutorial.Opinion")}</p>
               <Row onClick={review} className="text-center">
-                <Rating initialValue={0} disabled={!isAuth(roles)} onChange={onReviewChange} />
+                <Rating initialValue={(props.review?.value ?? 0) / 5} disabled={!isAuth(roles)} onChange={onReviewChange} />
               </Row>
             </span>
           </Nav>
         </Col>
         <Col xs={10}>
           <Row className="text-end">
-            <Rating initialValue={props.tutorial.avarageRating} disabled />
+            <Rating initialValue={props.tutorial.avarageRating / 5} disabled />
           </Row>
           <Row className="justify-content-end mx-1">
             {t("Tutorial.Average")} {props.tutorial.avarageRating}
@@ -102,6 +106,7 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
   );
 };
 
+// Wrapper component for tutorial page
 const Tutorial = () => {
   const [tutorial, setTutorial] = useState<TutorialResponse>({
     tutorialId: -1,
@@ -112,9 +117,12 @@ const Tutorial = () => {
     thumbnail: ""
   });
 
+  const [review, setReview] = useState<ReviewResponse | null>(null);
   const [style, setStyle] = useState("");
   const { tutorialId } = useParams();
+  const userId = getUserId();
 
+  // Loads tutorial content and user review
   useEffect(() => {
     if (tutorialId === undefined) {
       return;
@@ -124,12 +132,16 @@ const Tutorial = () => {
     const tutReq = getTutorialById(parseInt(tutorialId), abort).then(res => res.json());
     const revReq = getTutorialReviews(parseInt(tutorialId), abort).then(res => res.json());
 
-    Promise.all([tutReq, revReq]).then((data: [TutorialResponse, unknown[]]) => {
+    Promise.all([tutReq, revReq]).then((data: [TutorialResponse, ReviewResponse[]]) => {
       if (data[0].tutorialHTML) {
         setTutorial(data[0]);
       }
 
-      console.log(data[1][0]);
+      const reviews = data[1].filter(r => r.reviewer.id === userId);
+
+      if (reviews.length > 0) {
+        setReview(reviews[0]);
+      }
     }).catch(err => {
       if (!abort.signal.aborted) {
         console.error(err);
@@ -137,8 +149,9 @@ const Tutorial = () => {
     });
 
     return () => abort.abort();
-  }, [tutorialId]);
+  }, [tutorialId, userId]);
 
+  // Loads tutorial styles
   useEffect(() => {
     const abort = new AbortController();
 
@@ -155,7 +168,7 @@ const Tutorial = () => {
     return () => abort.abort();
   }, []);
 
-  return <ViewLoader isLoaded={tutorial.tutorialId > 0 && style.length > 0} element={<TutorialPage tutorial={tutorial} style={style} />} />;
+  return <ViewLoader isLoaded={tutorial.tutorialId > 0 && style.length > 0} element={<TutorialPage tutorial={tutorial} style={style} review={review} />} />;
 };
 
 export default Tutorial;

@@ -5,6 +5,7 @@ import NavButton from "../../fragments/navigation/NavButton";
 import { isAuth } from "../../../helpers/authHelper";
 import Carousel from "../../fragments/util/Carousel";
 
+// Home page for users without permissions and visitors
 const GuestHome = () => {
   const { t } = useTranslation();
   const roles = useRoles();

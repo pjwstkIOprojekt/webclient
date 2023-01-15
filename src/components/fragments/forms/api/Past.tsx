@@ -3,6 +3,7 @@ import { useState, ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import Dat from "./Date";
 
+// Past constraint validation component
 const Past = (props: Readonly<DateControlParams>) => {
   const [error, setError] = useState(props.error);
   const { t } = useTranslation();

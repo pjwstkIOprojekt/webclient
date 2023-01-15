@@ -19,6 +19,7 @@ export interface ProgressChartParams extends BareBonesChartParams {
   tooltip?: boolean
 }
 
+// Custom progress chart component
 const ProgressChart = (props: Readonly<ProgressChartParams>) => {
   const darkMode = useDarkMode();
   const value = props.value > 100 ? 100 : (props.value < 0 ? 0 : props.value);

@@ -9,6 +9,7 @@ export interface RatingParams {
   onHover?: (x: number) => void
 }
 
+// Custom 5-star rating component
 const Rating = (props: Readonly<RatingParams>) => {
   const calcRating = (x: number) => {
     const normalized = x * 5;

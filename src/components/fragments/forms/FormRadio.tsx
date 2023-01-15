@@ -7,6 +7,7 @@ export interface FormRadioParams extends RadioControlParams {
   value?: string
 }
 
+// Custom radio buttons component
 const FormRadio = (props: Readonly<FormRadioParams>) => {
   return (
     <FormGroup className={props.className}>

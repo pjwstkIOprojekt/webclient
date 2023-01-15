@@ -7,6 +7,7 @@ export interface MapViewParams extends MapParams {
   element?: JSX.Element
 }
 
+// Map view container for loaded map
 const MapLoadView = (props: Readonly<MapViewParams>) => {
   return (
     <Container fluid>
@@ -22,6 +23,7 @@ const MapLoadView = (props: Readonly<MapViewParams>) => {
   );
 };
 
+// Map view wrapper with view loader
 const MapView = (props: Readonly<MapViewParams>) => {
   return <ViewLoader isLoaded={props.isLoaded} element={<MapLoadView {...props} />} />;
 };

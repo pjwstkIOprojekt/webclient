@@ -18,7 +18,6 @@ export const AbortProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => 
   useEffect(() => {
     const tmp = new AbortController();
     setAbort(tmp);
-
     return () => tmp.abort();
   }, [location]);
 

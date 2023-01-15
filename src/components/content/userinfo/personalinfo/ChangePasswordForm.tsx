@@ -12,6 +12,7 @@ import Submit from "../../../fragments/forms/Submit";
 import NavButton from "../../../fragments/navigation/NavButton";
 import Error from "../../../fragments/forms/Error";
 
+// Change password form
 const ChangePasswordForm = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");

@@ -1,4 +1,3 @@
-// Custom cookie consent component
 import { useState, useEffect } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { useTranslation } from "react-i18next";
@@ -7,6 +6,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { customVar } from "../sharedParams";
 import Button from "../util/Button";
 
+// Custom cookie consent component
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const darkMode = useDarkMode();

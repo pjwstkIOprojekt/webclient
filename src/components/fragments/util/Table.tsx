@@ -1,5 +1,5 @@
 import { ChildrenType, ClassNameParam, customTheme } from "../sharedParams";
-import { useState, useEffect, ChangeEventHandler, ChangeEvent } from "react";
+import { useState, ChangeEventHandler, ChangeEvent } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Table as Inner, Row, Col, Container } from "react-bootstrap";
 import Button from "./Button";
@@ -7,6 +7,7 @@ import Spinner from "./Spinner";
 import { useTranslation } from "react-i18next";
 import FormControl from "../forms/FormControl";
 
+// Defines column properties
 export interface TableColumnParams<T> {
   name: (() => ChildrenType) | string,
   property: ((x: Readonly<T>) => ChildrenType) | string,
@@ -15,6 +16,7 @@ export interface TableColumnParams<T> {
   size?: number
 }
 
+// Table component params
 export interface TableParams<T> extends ClassNameParam {
   columns: TableColumnParams<T>[],
   data: T[],
@@ -26,57 +28,56 @@ export interface TableParams<T> extends ClassNameParam {
   isLoading?: boolean
 }
 
+// Represents a sort state
 interface SortState {
   property: string,
   reversed: boolean
 }
 
+// Custom table with columns generation, filtering and sorting systems
 const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) => {
-  const darkMode = useDarkMode();
-  const [copy, setCopy] = useState([...props.data]);
-  const [filter, setFilter] = useState<Record<string, string>>({});
-
   const [sort, setSort] = useState<SortState>({
     property: "",
     reversed: false
   });
 
-  useEffect(() => {
-    let tmp = [...props.data];
-
-    for (const prop in filter) {
-      if (filter[prop]) {
-        tmp = tmp.filter(e => e[prop].toString().toLowerCase().includes(filter[prop].toLowerCase()));
-      }
-    }
-
-    if (sort.property) {
-      tmp.sort((a, b) => {
-        if (a[sort.property] < b[sort.property]) {
-          return sort.reversed ? 1 : -1;
-        }
-
-        if (a[sort.property] > b[sort.property]) {
-          return sort.reversed ? -1 : 1;
-        }
-
-        return 0;
-      });
-    }
-
-    setCopy(tmp);
-  }, [props.data, filter, sort.property, sort.reversed]);
+  const [filter, setFilter] = useState<Record<string, string>>({});
+  const darkMode = useDarkMode();
 
   const sortData = (x: string) => setSort({
     property: x,
     reversed: sort.property === x ? !sort.reversed : false
   });
 
-  const filterData = (x: string, val: string) => {
+  const filterData = (key: string, value: string) => {
     const tmp = { ...filter };
-    tmp[x] = val;
+    tmp[key] = value;
     setFilter(tmp);
   };
+
+  let displayData = props.data;
+
+  // Data filtration
+  for (const prop in filter) {
+    if (filter[prop]) {
+      displayData = displayData.filter(e => e[prop].toString().toLowerCase().includes(filter[prop].toLowerCase()));
+    }
+  }
+
+  // Data sorting
+  if (sort.property) {
+    displayData.sort((a, b) => {
+      if (a[sort.property] < b[sort.property]) {
+        return sort.reversed ? 1 : -1;
+      }
+
+      if (a[sort.property] > b[sort.property]) {
+        return sort.reversed ? -1 : 1;
+      }
+
+      return 0;
+    });
+  }
 
   return (
     <Inner striped bordered hover variant={customTheme(darkMode)} className={props.className}>
@@ -112,7 +113,7 @@ const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) =
               </td>
             ))}
           </tr>
-        ) : copy.map((row, index) => (
+        ) : displayData.map((row, index) => (
           <tr key={index} className={props.rowClass}>
             {props.columns.map((col, key) => <td key={key} className={props.dataClass}>{typeof(col.property) === "string" ? row[col.property] : col.property(row)}</td>)}
           </tr>
@@ -126,6 +127,7 @@ interface Bind {
   callback: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
 }
 
+// Table search component
 const BindableControl = (props: Readonly<Bind>) => {
   const [value, setValue] = useState("");
   const { t } = useTranslation();

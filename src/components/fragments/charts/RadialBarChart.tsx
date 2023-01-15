@@ -11,6 +11,7 @@ export interface RadialBarChartParams extends ChartBaseParams<NamedChartData> {
   background?: boolean
 }
 
+// Custom radial bar chart component
 const RadialBarChart = (props: Readonly<RadialBarChartParams>) => {
   const darkMode = useDarkMode();
   const { t } = useTranslation();

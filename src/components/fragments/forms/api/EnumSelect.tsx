@@ -9,6 +9,7 @@ export interface EnumSelectParams extends SelectControlParams {
   onLoad?: (val: string) => void
 }
 
+// Enum constraint validation component
 const EnumSelect = (props: Readonly<EnumSelectParams>) => {
   const [values, setValues] = useState<string[]>([]);
   const { t } = useTranslation();

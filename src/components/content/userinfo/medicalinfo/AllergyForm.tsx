@@ -14,6 +14,7 @@ import Submit from "../../../fragments/forms/Submit";
 import NavButton from "../../../fragments/navigation/NavButton";
 import Error from "../../../fragments/forms/Error";
 
+// Form for adding/editing allergies
 const AllergyForm = () => {
   const [allergyType, setAllergyType] = useState("");
   const [allergyName, setAllergyName] = useState("");
@@ -24,6 +25,7 @@ const AllergyForm = () => {
   const { t } = useTranslation();
   const abort = useAbort();
 
+  // Loads allergy data to edit
   useEffect(() => {
     if (allergyId !== undefined) {
       setError(undefined);

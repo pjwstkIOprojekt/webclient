@@ -17,6 +17,7 @@ export interface Blood {
   rhType?: string
 }
 
+// Form component for editing blood data
 const BloodTypeForm = (props: Readonly<Blood>) => {
   const [group, setGroup] = useState(props.bloodType);
   const [rh, setRh] = useState(props.rhType);
@@ -25,6 +26,7 @@ const BloodTypeForm = (props: Readonly<Blood>) => {
   const { t } = useTranslation();
   const abort = useAbort();
 
+  // Updates values when outside props are updated
   useEffect(() => {
     setGroup(props.bloodType);
     setRh(props.rhType);

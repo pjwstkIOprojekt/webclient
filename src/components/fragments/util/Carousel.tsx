@@ -2,6 +2,7 @@ import { InnerClassParam } from "../sharedParams";
 import { useDarkMode, dark } from "../../../hooks/useDarkMode";
 import { Carousel as Inner } from "react-bootstrap";
 
+// Defines carousel item properties
 export interface CarouselItem {
   header: string,
   img: string,
@@ -17,6 +18,7 @@ export interface CarouselParams extends InnerClassParam {
   textClass?: string
 }
 
+// Custom carousel component with dark mode support
 const Carousel = (props: Readonly<CarouselParams>) => {
   const darkMode = useDarkMode();
 

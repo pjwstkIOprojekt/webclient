@@ -11,6 +11,7 @@ export interface RadarChartParams extends KeyValueChartParams<SingleKeyValueChar
   domain?: AxisDomain
 }
 
+// Custom radar chart component
 const RadarChart = (props: Readonly<RadarChartParams>) => {
   const darkMode = useDarkMode();
   const stroke = customStroke(darkMode);

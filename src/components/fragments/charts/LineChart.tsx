@@ -10,6 +10,7 @@ export interface LineChartSettings extends KeyParam {
   type?: CurveType
 }
 
+// Custom line chart component
 const LineChart = (props: Readonly<KeyValueChartParams<SingleKeyValueChartData, LineChartSettings>>) => {
   const darkMode = useDarkMode();
   const stroke = customStroke(darkMode);

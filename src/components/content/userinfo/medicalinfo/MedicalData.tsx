@@ -10,6 +10,7 @@ import BloodTypeForm, { Blood } from "./BloodTypeForm";
 import AllergyTable from "./AllergyTable";
 import MedicalConditionTable from "./MedicalConditionTable";
 
+// Displays complete set of user's medical data
 const MedicalData = () => {
   const [blood, setBlood] = useState<Blood>({});
   const [allergies, setAllergies] = useState<AllergyResponse[]>([]);
@@ -17,6 +18,7 @@ const MedicalData = () => {
   const [isloading, setIsLoading] = useState(true);
   const { t } = useTranslation();
 
+  // Loads user's medical data
   useEffect(() => {
     const email = getEmail();
 

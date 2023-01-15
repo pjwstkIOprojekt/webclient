@@ -14,6 +14,7 @@ export interface NavtabParams extends InnerClassParam {
   linkClass?: string
 }
 
+// Custom navigation tab component with dark mode support
 const Navtab = (props: Readonly<NavtabParams>) => {
   const darkMode = useDarkMode();
 

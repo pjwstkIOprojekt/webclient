@@ -33,6 +33,7 @@ export interface MapParams {
   onClick?: (x: Readonly<L.LatLng>) => void
 }
 
+// Leaflet map wrapper component with search and mouse clicking support
 const Map = (props: Readonly<MapParams>) => {
   const [geocoder] = useState(new geocoders.Nominatim({
     geocodingQueryParams: {
@@ -78,6 +79,7 @@ interface GeocodeParams extends GeocoderParam {
   onSearch?: MarkGeocodeEventHandlerFn
 }
 
+// Mouse click handler
 const ClickHandler = (props: Readonly<ClickParams>) => {
   const map = useMap();
 
@@ -97,6 +99,8 @@ const ClickHandler = (props: Readonly<ClickParams>) => {
   return null;
 };
 
+
+// Map search menu
 const GeocoderMenu = (props: Readonly<GeocodeParams>) => {
   const map = useMap();
   const { t } = useTranslation();

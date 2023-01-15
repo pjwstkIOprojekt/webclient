@@ -1,3 +1,4 @@
+// Contains type definitions shared in content components
 export interface TableViewParams<T> {
   data: T[],
   isLoading: boolean,

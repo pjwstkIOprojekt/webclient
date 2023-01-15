@@ -8,6 +8,7 @@ export interface ErrorParams extends ClassNameParam {
   innerError?: string
 }
 
+// Custom form error display component
 const Error = (props: Readonly<ErrorParams>) => {
   const { t } = useTranslation();
 

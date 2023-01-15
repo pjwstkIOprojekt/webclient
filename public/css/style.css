@@ -103,12 +103,6 @@
     border-color: var(--dark-text);
 }
 
-.circle-dark
-{
-    background-color: var(--dark-button);
-    color: var(--dark-text);
-}
-
 .contents-dark
 {
     background-color: var(--dark-bg);
@@ -221,12 +215,6 @@
 {
     background-color: var(--light-popup);
     border-color: var(--light-nav-hover);
-}
-
-.circle-light
-{
-    background-color: var(--light-button);
-    color: var(--light-text);
 }
 
 .contents-light
@@ -374,21 +362,6 @@
     border-radius: 10px;
     display: block;
     opacity: 2;
-}
-
-.circle
-{
-    width: 250px;
-    height: 250px;
-    line-height: 40px;
-    border-radius: 50%;
-    font-size: 80px;
-    text-align: center;
-}
-
-.circle-title
-{
-    font-size: 20px;
 }
 
 .contents
