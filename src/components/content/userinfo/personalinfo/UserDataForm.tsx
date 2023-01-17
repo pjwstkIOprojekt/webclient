@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../../hooks/useAbort";
+import { getUserData, updateUser } from "../../../../api/authCalls";
+import { EmployeeResponse } from "../../../../api/employeeCalls";
+import { missingDataError, loadingError, unknownError, networkError } from "../../sharedStrings";
 import { Container, Row } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
 import NotBlank from "../../../fragments/forms/api/NotBlank";
@@ -19,17 +22,42 @@ const UserDataForm = () => {
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [bandCode, setBandCode] = useState("");
   const [error, setError] = useState<string | undefined>("");
   const [readOnly, setReadOnly] = useState(true);
   const { t } = useTranslation();
   const abort = useAbort();
 
+  // Updates form data after changes
   useEffect(() => {
     if (!readOnly) {
       return;
     }
 
-    // TODO
+    setError(undefined);
+    const abortUpdate = new AbortController();
+
+    getUserData(abortUpdate).then(res => res.json()).then((data: EmployeeResponse) => {
+      if (data.email && data.name && data.lastName && data.phone && data.birthDate) {
+        setFirstName(data.name);
+        setLastName(data.lastName);
+        setEmail(data.email);
+        setBirthDate(data.birthDate.toString());
+        setPhoneNumber(data.phone);
+        setBandCode(data.bandCode);
+        setError("");
+      } else {
+        console.log(data);
+        setError(missingDataError);
+      }
+    }).catch(err => {
+      if (!abortUpdate.signal.aborted) {
+        console.error(err);
+        setError(loadingError);
+      }
+    });
+
+    return () => abortUpdate.abort();
   }, [readOnly]);
 
   const onSubmit = () => {
@@ -39,7 +67,28 @@ const UserDataForm = () => {
       return;
     }
 
-    // TODO
+    setError(undefined);
+
+    updateUser({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      birthDate: birthDate,
+      phoneNumber: phoneNumber
+    }, abort).then(res => {
+      if (res.ok) {
+        setReadOnly(true);
+        setError("");
+      } else {
+        console.log(res);
+        setError(unknownError);
+      }
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+        setError(networkError);
+      }
+    });
   };
 
   return (
@@ -55,6 +104,7 @@ const UserDataForm = () => {
           <FormPhoneNumber id="phoneNumber" required onChange={(e) => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label={t("Person.PhoneNumber")} disabled={readOnly} />
         </Row>
         <Past id="birthDate" required onChange={(e) => setBirthDate(e.target.value)} className="mb-3" value={birthDate} label={t("Person.Birthdate")} disabled={readOnly} />
+        <NotBlank id="bandCode" className="mb-3" value={bandCode} label={t("Report.BandCode")} disabled />
         <Submit canSubmit={error !== undefined}>{t(`Common.${readOnly ? "Edit" : "SaveChanges"}`)}</Submit>
         <NavButton to="password" className="mx-3">{t("Password.Change")}</NavButton>
         {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)}>{t("Common.Cancel")}</Button>}

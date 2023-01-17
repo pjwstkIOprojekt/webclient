@@ -14,6 +14,7 @@ import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 
+// Displays a list of all facilities
 const FacilitiesList = () => {
   const [facilities, setFacilities] = useState<FacilityResponse[]>([]);
   const [removed, setRemoved] = useState<number[]>([]);

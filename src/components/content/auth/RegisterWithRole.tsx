@@ -16,6 +16,7 @@ import ScheduleDisplay from "../../fragments/values/Schedule";
 import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
 
+// A registration form with role and schedule assignment
 const RegisterWithRole = () => {
   const [role, setRole] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -106,7 +107,7 @@ const RegisterWithRole = () => {
           <Submit className="my-3 w-25" canSubmit={error !== undefined}>{t("Person.Add")}</Submit>
         </Row>
         <Row className="justify-content-center">
-          <Error className="mb-3 w-50" error={error} />
+          <Error className="mb-3 w-50 text-start" error={error} />
         </Row>
       </Form>
     </Container>

@@ -11,7 +11,7 @@ interface AmountParams {
   unit: string,
   editing: boolean,
   processing: boolean,
-  update: (diff?: number) => void
+  update: (diff?: number, unit?: string) => void
 }
 
 const EquipmentAmount = (props: Readonly<AmountParams>) => {

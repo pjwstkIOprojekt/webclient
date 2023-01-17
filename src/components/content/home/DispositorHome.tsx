@@ -11,6 +11,7 @@ import PieChart from "../../fragments/charts/PieChart";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
+// Home page for ambulance dispatchers
 const DispositorHome = () => {
   const [accidents, setAccidents] = useState<IncidentResponse[]>([]);
 
@@ -95,8 +96,8 @@ const DispositorHome = () => {
   }
 
   return (
-    <Container className="mt-5">
-      <h1 className="mb-3 text-center">{t("HomePage.Dispositor")}</h1>
+    <Container className="mt-5 justify-content-center text-center">
+      <h1 className="mb-3">{t("HomePage.Dispositor")}</h1>
       <Row xs={3} className="justify-content-around">
         <ProgressChart width={350} height={350} value={ambulances.all !== 0 ? (ambulances.available / ambulances.all) * 100 : 0} innerRadius="100" label tooltip color={{
           r: 255,
@@ -118,7 +119,7 @@ const DispositorHome = () => {
       <Row className="my-3 justify-content-center">
         <NavButton to="/map" className="w-25">{t("HomePage.OpenMap")}</NavButton>
       </Row>
-      <h2 className="text-center">{t("Report.Reports")}</h2>
+      <h2>{t("Report.Reports")}</h2>
       <Row className="my-3">
         <Table columns={cols} data={accidents} isLoading={isLoading} />
       </Row>

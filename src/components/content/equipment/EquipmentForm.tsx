@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAbort } from "../../../hooks/useAbort";
 import { ItemType } from "../../../api/enumCalls";
-import { getItemById, ItemResponse, ItemRequest, createItem } from "../../../api/itemCalls";
+import { getItemById, ItemResponse, ItemBase, createItem, updateItem } from "../../../api/itemCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import Form from "../../fragments/forms/Form";
 import { Row } from "react-bootstrap";
@@ -28,7 +28,6 @@ const EquipmentForm = () => {
   const single = type === ItemType.singleUse;
   const multi = type === ItemType.multiUse;
   const medical = type === ItemType.medical;
-  const readOnly = itemId !== undefined;
 
   useEffect(() => {
     if (itemId === undefined) {
@@ -57,15 +56,9 @@ const EquipmentForm = () => {
   }, [itemId]);
 
   const onSubmit = () => {
-    if (itemId !== undefined) {
-      return;
-    }
-
     setError(undefined);
-    const tp = type;
 
-    const item: ItemRequest = {
-      type: tp,
+    const item: ItemBase = {
       name: name
     };
 
@@ -77,11 +70,14 @@ const EquipmentForm = () => {
       }
     }
 
-		if (medical) {
-      item.expiration_date = new Date(exp);
-    }
-
-    createItem(item, abort).then(res => {
+    (itemId === undefined ? createItem({
+      ...item,
+      expiration_date: medical ? new Date(exp) : undefined,
+      type: type
+    }, abort) : updateItem(parseInt(itemId), {
+      ...item,
+      expirationDate: medical ? new Date(exp) : undefined
+    }, abort)).then(res => {
       if (res.ok) {
         navigate("/equipments");
       } else {
@@ -102,27 +98,25 @@ const EquipmentForm = () => {
     <Form onSubmit={onSubmit} className="my-3">
       <h3 className="text-center">{t("Equipment.Adding")}</h3>
       <Row className="justify-content-center">
-        <EnumSelect id="type" label={t("Equipment.Type")} className="my-3 w-50" enum={ItemType} required value={type} onChange={e => setType(e.target.value)} onLoad={setType} disabled={readOnly} />
+        <EnumSelect id="type" label={t("Equipment.Type")} className="my-3 w-50" enum={ItemType} required value={type} onChange={e => setType(e.target.value)} onLoad={setType} disabled={itemId !== undefined} />
       </Row>
       <Row className="justify-content-center">
-        <NotBlank id="name" label={t("Equipment.Name")} className="mb-3 w-50" required value={name} onChange={e => setName(e.target.value)} disabled={readOnly} />
+        <NotBlank id="name" label={t("Equipment.Name")} className="mb-3 w-50" required value={name} onChange={e => setName(e.target.value)} />
       </Row>
       <Row className="justify-content-center">
-        <NotBlank id="description" label={t("Equipment.Description")} className="mb-3 w-50" required value={desc} onChange={e => setDesc(e.target.value)} disabled={multi || readOnly} />
+        <NotBlank id="description" label={t("Equipment.Description")} className="mb-3 w-50" required value={desc} onChange={e => setDesc(e.target.value)} disabled={multi} />
       </Row>
       <Row className="justify-content-center">
-        <NotBlank id="manufacturer" label={t("Equipment.Manufacturer")} className="mb-3 w-50" required value={manu} onChange={e => setManu(e.target.value)} disabled={single || multi || readOnly} />
+        <NotBlank id="manufacturer" label={t("Equipment.Manufacturer")} className="mb-3 w-50" required value={manu} onChange={e => setManu(e.target.value)} disabled={single || multi} />
       </Row>
       <Row className="justify-content-center">
-        <InDate id="expirationDate" label={t("Equipment.Expiration")} className="mb-3 w-50" required value={exp} onChange={e => setExp(e.target.value)} disabled={!medical || readOnly} />
+        <InDate id="expirationDate" label={t("Equipment.Expiration")} className="mb-3 w-50" required value={exp} onChange={e => setExp(e.target.value)} disabled={!medical} />
       </Row>
-      {itemId === undefined ? (
-        <Row className="justify-content-center">
-          <Submit className="mb-3 w-25" canSubmit={error !== undefined}>{t("Equipment.Add")}</Submit>
-        </Row>
-      ) : ""}
       <Row className="justify-content-center">
-        <NavButton className="mb-3 w-25" to="/equipments">{t(itemId === undefined ? "Common.Cancel" : "Common.Back")}</NavButton>
+        <Submit className="mb-3 w-25" canSubmit={error !== undefined}>{t(itemId === undefined ? "Equipment.Add" : "Common.SaveChanges")}</Submit>
+      </Row>
+      <Row className="justify-content-center">
+        <NavButton className="mb-3 w-25" to="/equipments">{t("Common.Cancel")}</NavButton>
       </Row>
       <Row className="mx-3 justify-content-center">
         <Error className="w-50" error={error} />

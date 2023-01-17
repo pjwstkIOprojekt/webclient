@@ -19,7 +19,6 @@ import { Routes, Route } from "react-router-dom";
 import AmbulanceHistory from "./AmbulanceHistory";
 import AmbulancePath from "./AmbulancePath";
 import AmbulanceEquipment from "./AmbulanceEquipment";
-import EquipmentForm from "./EquipmentForm";
 import AssignedMedics from "./AssignedMedics";
 import AssignMedics from "./AssignMedics";
 
@@ -140,7 +139,7 @@ const AmbulanceView = () => {
         <Route path="hist" element={<AmbulanceHistory />} />
         <Route path="path" element={<AmbulancePath />} />
         <Route path="equip" element={<AmbulanceEquipment />} />
-        <Route path="equip/new" element={<EquipmentForm />} />
+        <Route path="equip/new" element={<AmbulanceEquipment add />} />
         <Route path="medics" element={<AssignedMedics />} />
         <Route path="medics/add" element={<AssignMedics />} />
       </Routes>
