@@ -94,10 +94,10 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
         </Col>
         <Col xs={10}>
           <Row className="text-end">
-            <Rating initialValue={props.tutorial.avarageRating / 5} disabled />
+            <Rating initialValue={props.tutorial.averageRating / 5} disabled />
           </Row>
           <Row className="justify-content-end mx-1">
-            {t("Tutorial.Average")} {props.tutorial.avarageRating}
+            {t("Tutorial.Average")} {props.tutorial.averageRating}
           </Row>
           <InnerHtml value={props.tutorial.tutorialHTML ?? ""} containerClass="tutorial" style={props.style} />
         </Col>
@@ -112,7 +112,7 @@ const Tutorial = () => {
     tutorialId: -1,
     tutorialType: "",
     tutorialHTML: null,
-    avarageRating: 0,
+    averageRating: 0,
     name: "",
     thumbnail: ""
   });

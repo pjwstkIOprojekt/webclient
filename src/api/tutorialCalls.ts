@@ -18,7 +18,7 @@ export interface TutorialRequest extends TutorialBase {
 
 export interface TutorialResponse extends TutorialBase {
   tutorialId: number,
-  avarageRating: number
+  averageRating: number
 }
 
 interface ReviewBase {

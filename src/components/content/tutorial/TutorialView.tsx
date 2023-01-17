@@ -27,7 +27,7 @@ const TutorialCard = (props: Readonly<TutorialCardParams>) => {
             <Card.Body>
               <Card.Title>{processTitle(item.name)}</Card.Title>
               <p><Enum enum={TutorialType} value={item.tutorialType} /></p>
-              <Rating initialValue={item.avarageRating} disabled />
+              <Rating initialValue={item.averageRating} disabled />
             </Card.Body>
           </Link>
         </CustomCard>
