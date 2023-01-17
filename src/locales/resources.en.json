@@ -297,7 +297,8 @@
         "Name": "Item name",
         "Description": "Description",
         "Manufacturer": "Manufacturer",
-        "Expiration": "Expiration Date"
+        "Expiration": "Expiration Date",
+        "ConfirmRemove": "Are you sure you want to delete this item?"
     },
     "Medic": {
         "Medics": "Medics",

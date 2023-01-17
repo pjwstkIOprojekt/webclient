@@ -19,6 +19,7 @@ export interface EmployeeResponse extends User {
   name: string,
   phone: string,
   birthDate: Date,
+  bandCode: string,
   employeeType: string,
   workSchedule: ScheduleResponse
 }

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
 import { licensePlateError } from "../sharedStrings";
-import { getItems as getAmbulanceItems, addItem, removeItem } from "../../../api/ambulanceCalls";
+import { getItems as getAmbulanceItems, addItem, removeItem, changeItemUnit } from "../../../api/ambulanceCalls";
 import EquipmentAmount from "./EquipmentAmount";
 import Enum from "../../fragments/values/Enum";
 import { ItemType } from "../../../api/enumCalls";
@@ -12,13 +12,17 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
+interface AmbulanceEquipmentParams {
+  add?: boolean
+}
+
 interface ItemData extends ItemResponse {
   amount: number,
   unit: string
 }
 
-const AmbulanceEquipment = () => {
-  const [items, setItems] = useState<ItemData[]>([{ itemId: 1, type: "", amount: 3, unit: "cm"}, { itemId: 2, type: "", amount: 4, unit: "cm"}]);
+const AmbulanceEquipment = (props: Readonly<AmbulanceEquipmentParams>) => {
+  const [items, setItems] = useState<ItemData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [update, setUpdate] = useState({
@@ -68,16 +72,17 @@ const AmbulanceEquipment = () => {
     return () => abortUpdate.abort();
   }, [ambulanceId]);
 
-  const onUpdate = (itemId: number, diff?: number) => {
+  const onUpdate = (itemId: number, diff?: number, unit?: string) => {
     if (ambulanceId === undefined) {
       return;
     }
 
-    if (diff === undefined) {
+    if (diff === undefined && unit === undefined) {
       setUpdate({
         item: update.item === itemId ? null : itemId,
         processing: false
       });
+
       return;
     }
 
@@ -86,16 +91,35 @@ const AmbulanceEquipment = () => {
       processing: true
     });
 
-    (diff < 0 ? removeItem(ambulanceId, itemId, abort, -diff) : addItem(ambulanceId, itemId, abort, diff)).then(res => {
-      if (res.ok) {
-        setItems(items.map(i => i.itemId === itemId ? ({
-          ...i,
-          amount: i.amount + diff
-        }) : i));
-      } else {
-        console.log(res);
-      }
+    const requests: Promise<unknown>[] = [];
 
+    if (diff) {
+      requests.push((diff < 0 ? removeItem(ambulanceId, itemId, abort, -diff) : addItem(ambulanceId, itemId, abort, diff)).then(res => {
+        if (res.ok) {
+          setItems(items.map(i => i.itemId === itemId ? ({
+            ...i,
+            amount: i.amount + diff
+          }) : i).filter(i => i.amount > 0));
+        } else {
+          console.log(res);
+        }
+      }));
+    }
+
+    if (unit) {
+      requests.push(changeItemUnit(ambulanceId, itemId, unit, abort).then(res => {
+        if (res.ok) {
+          setItems(items.map(i => i.itemId === itemId ? ({
+            ...i,
+            unit: unit
+          }) : i));
+        } else {
+          console.log(res);
+        }
+      }));
+    }
+
+    Promise.all(requests).then(res => {
       setUpdate({
         item: null,
         processing: false
@@ -119,7 +143,7 @@ const AmbulanceEquipment = () => {
   const descField = "description";
 
   const cols = [
-    { name: t("Report.Assigned"), property: (x: Readonly<ItemData>) => <EquipmentAmount amount={x.amount} unit={x.unit} editing={update.item === x.itemId} processing={update.processing} update={diff => onUpdate(x.itemId, diff)} /> },
+    { name: t(props.add ? "Equipment.Add" :"Report.Assigned"), property: (x: Readonly<ItemData>) => <EquipmentAmount amount={x.amount} unit={x.unit} editing={update.item === x.itemId} processing={update.processing} update={(diff, unit) => onUpdate(x.itemId, diff, unit)} />, size: 25 },
     { name: t("Equipment.Name"), property: nameField, filterBy: nameField, sortBy: nameField },
     { name: t("Equipment.Type"), property: (x: Readonly<ItemData>) => <Enum enum={ItemType} value={x.type} />, filterBy: typeField, sortBy: typeField },
     { name: t("Equipment.Description"), property: descField, filterBy: descField, sortBy: descField }
@@ -127,11 +151,11 @@ const AmbulanceEquipment = () => {
 
   return (
     <Container className="my-3 justify-content-center text-center">
-      <h3>{t("Equipment.Ambulance")}</h3>
+      <h3>{t(props.add ? "Equipment.Adding" :"Equipment.Ambulance")}</h3>
       <Row className="my-3 justify-content-end">
         <Col />
         <Col md="auto">
-          <NavButton to="new">+</NavButton>
+          <NavButton to={props.add ? "../equip" : "new"}>{props.add ? t("Common.Back") : "+"}</NavButton>
         </Col>
       </Row>
       <Table columns={cols} data={items} isLoading={isLoading} />

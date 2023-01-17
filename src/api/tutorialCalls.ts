@@ -30,6 +30,7 @@ export interface ReviewRequest extends ReviewBase {
 }
 
 export interface ReviewResponse extends ReviewBase {
+  reviewId: number,
   reviewDescription: string,
   tutorial: TutorialResponse,
   reviewer: EmployeeResponse

@@ -58,8 +58,7 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
       discription: ""
     };
 
-    // TODO: Insert proper review id in update call
-    (props.review === null ? addReview(props.tutorial.tutorialId, user, review, abort) : updateReview(1, review, abort)).then(res => {
+    (props.review === null ? addReview(props.tutorial.tutorialId, user, review, abort) : updateReview(props.review.reviewId, review, abort)).then(res => {
       if (!res.ok) {
         console.log(res);
       }
@@ -87,17 +86,17 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
               <br />
               <p>{t("Tutorial.Opinion")}</p>
               <Row onClick={review} className="text-center">
-                <Rating initialValue={(props.review?.value ?? 0) / 5} disabled={!isAuth(roles)} onChange={onReviewChange} />
+                <Rating initialValue={props.review?.value ?? 0} disabled={!isAuth(roles)} onChange={onReviewChange} />
               </Row>
             </span>
           </Nav>
         </Col>
         <Col xs={10}>
           <Row className="text-end">
-            <Rating initialValue={props.tutorial.averageRating / 5} disabled />
+            <Rating initialValue={props.tutorial.averageRating} disabled />
           </Row>
           <Row className="justify-content-end mx-1">
-            {t("Tutorial.Average")} {props.tutorial.averageRating}
+            {t("Tutorial.Average")} {props.tutorial.averageRating.toFixed(2)}
           </Row>
           <InnerHtml value={props.tutorial.tutorialHTML ?? ""} containerClass="tutorial" style={props.style} />
         </Col>
@@ -138,10 +137,7 @@ const Tutorial = () => {
       }
 
       const reviews = data[1].filter(r => r.reviewer.id === userId);
-
-      if (reviews.length > 0) {
-        setReview(reviews[0]);
-      }
+      setReview(reviews.length > 0 ? reviews[0] : null);
     }).catch(err => {
       if (!abort.signal.aborted) {
         console.error(err);

@@ -297,7 +297,8 @@
         "Name": "Nazwa wyposażenia",
         "Description": "Opis",
         "Manufacturer": "Producent",
-        "Expiration": "Data ważności"
+        "Expiration": "Data ważności",
+        "ConfirmRemove": "Czy na pewno chcesz usunąć ten przedmiot?"
     },
     "Medic": {
         "Medics": "Medycy",

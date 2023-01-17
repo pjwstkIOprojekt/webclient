@@ -53,6 +53,10 @@ const TrustedPersonForm = () => {
         setError(missingDataError);
       }
     }).catch(err => {
+      if (abortUpdate.signal.aborted) {
+        return;
+      }
+
       console.error(err);
       setError("");
     });

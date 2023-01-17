@@ -192,3 +192,8 @@ export const TutorialType = {
   getter: (abort: AbortController) => get(`${enumBase}/tutorial_type`, abort),
   name: "TutorialType"
 };
+
+export const ItemUnit = {
+  getter: (abort: AbortController) => get(`${enumBase}/item_unit_types`, abort),
+  name: "ItemUnit"
+};

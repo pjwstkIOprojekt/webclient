@@ -17,7 +17,7 @@ export interface ItemBase {
 export interface UpdateItemRequest extends ItemBase {
   // Datetime
   // Only in MEDICAL
-  expirationDate: Date
+  expirationDate?: Date
 }
 
 export interface ItemRequest extends ItemBase {
