@@ -88,6 +88,11 @@
         "AMBULANCE_FIRE": "Ambulance and fire fighters",
         "POLICE_AMBULANCE_FIRE": "Police, ambulance and fire fighters"
     },
+    "ItemUnit": {
+        "COUNT": "Count",
+        "VOLUME": "Volumes",
+        "BOX": "Boxes"
+    },
     "Ambulance": {
         "Ambulances": "Ambulances",
         "Ambulance": "Ambulance",
@@ -239,7 +244,7 @@
         "ReportAccepted": "Accepted",
         "ReportPending": "Pending/Rejected",
         "ReportsAccepted": "Accepted reports",
-        "StaffState": "Staff members state"
+        "AmbulancesState": "Ambulances state"
     },
     "Cookies": {
         "Info": "This site uses cookies. Make the only right decision.",

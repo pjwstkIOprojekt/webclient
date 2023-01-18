@@ -88,6 +88,11 @@
         "AMBULANCE_FIRE": "Ambulans i straż pożarna",
         "POLICE_AMBULANCE_FIRE": "Policja, ambulans i straż pożarna"
     },
+    "ItemUnit": {
+        "COUNT": "Sztuk",
+        "VOLUME": "Objętości",
+        "BOX": "Opakowań"
+    },
     "Ambulance": {
         "Ambulances": "Karetki",
         "Ambulance": "Karetka",
@@ -239,7 +244,7 @@
         "ReportAccepted": "Przyjęte",
         "ReportPending": "Oczekujące/Odrzucone",
         "ReportsAccepted": "Przyjęte zgłoszenia",
-        "StaffState": "Stan personelu"
+        "AmbulancesState": "Stan karetek"
     },
     "Cookies": {
         "Info": "Ta strona używa plików cookies. Podejmij jedyną słuszną decyzję.",

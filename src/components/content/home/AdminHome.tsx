@@ -4,12 +4,12 @@ import { AccidentReportResponse, getAccidents } from "../../../api/accidentRepor
 import { useTranslation } from "react-i18next";
 import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
-import { AmbulanceClass, AmbulanceType, AmbulanceState } from "../../../api/enumCalls";
-import { EmergencyType } from "../../../api/enumCalls";
+import { AmbulanceClass, AmbulanceType, AmbulanceState, EnumType, EmergencyType } from "../../../api/enumCalls";
 import { Container, Row } from "react-bootstrap";
 import PieChart from "../../fragments/charts/PieChart";
 import Table from "../../fragments/util/Table";
 
+// Home page for ambulance directors
 const AdminHome = () => {
   const [ambulances, setAmbulances] = useState<AmbulanceResponse[]>([]);
   const [accidents, setAccidents] = useState<AccidentReportResponse[]>([]);
@@ -52,37 +52,40 @@ const AdminHome = () => {
     { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceResponse>) => <Enum enum={AmbulanceState} value={x.ambulanceStateType} />, filterBy: stateField, sortBy: stateField }
   ];
 
-  const pieDat = [
-    { name: "Nieaktywni", value: 4, fill: "#bbbb00", fillDark: "#5dbf62" },
-    { name: "Oczekujący", value: 24, fill: "#5dbf62", fillDark: "#c59812" },
-    { name: "W akcji", value: 11, fill: "#343489", fillDark: "#aaaa00" }
-  ];
+  const processPieData = (enumType: EnumType, provider: (x: string) => number) => {
+    const result = [];
+    const defColor = "#777777";
 
-  const pieDat2 = [];
-  const yesterday = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
-  const defColor = "#777777";
-
-  for (const eType in EmergencyType.values) {
-    const tmp = {
-      name: t(`${EmergencyType.name}.${eType}`),
-      value: accidents.filter(a => a.date > yesterday && a.emergencyType === eType).length,
-      fill: EmergencyType.values[eType].light ?? defColor,
-      fillDark: EmergencyType.values[eType].dark ?? defColor
-    };
-
-    if (tmp.value > 0) {
-      pieDat2.push(tmp);
-    }
-  }
-
-  if (pieDat2.length < 1) {
-    pieDat2.push({
+    const defObj = {
       name: "",
       value: 1,
       fill: defColor,
       fillDark: defColor
-    });
-  }
+    };
+
+    for (const val in enumType.values) {
+      const tmp = {
+        name: t(`${enumType.name}.${val}`),
+        value: provider(val),
+        fill: enumType.values[val].light ?? defColor,
+        fillDark: enumType.values[val].dark ?? defColor
+      };
+
+      if (tmp.value > 0) {
+        result.push(tmp);
+      }
+    }
+
+    if (result.length < 1) {
+      result.push(defObj);
+    }
+
+    return result;
+  };
+
+  const yesterday = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
+  const pieDat = processPieData(AmbulanceState, x => ambulances.filter(a => a.ambulanceStateType === x).length);
+  const pieDat2 = processPieData(EmergencyType, x => accidents.filter(a => a.date > yesterday && a.emergencyType === x).length);
 
   return (
     <Container className="mt-5 justify-content-center text-center">
@@ -92,7 +95,7 @@ const AdminHome = () => {
         <PieChart width={400} height={400} data={pieDat2} label legend tooltip innerRadius="100" />
       </Row>
       <Row xs={2} className="text-center">
-        <h3>{t("HomePage.StaffState")}</h3>
+        <h3>{t("HomePage.AmbulancesState")}</h3>
         <h3>{t("HomePage.Report24h")}</h3>
       </Row>
       <h2 className="my-3">{t("Ambulance.Ambulances")}</h2>

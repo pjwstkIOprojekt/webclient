@@ -39,7 +39,7 @@ const CheckIn = () => {
   };
 
   return (
-    <Nav.Link onClick={onToggle} className={`d-inline-flex align-items-center nav-link-${darkMode ? "dark" : "light"}`}>
+    <Nav.Link onClick={onToggle} className={`d-inline-flex align-items-center ${checked ? "bg-danger" : `nav-link-${darkMode ? "dark" : "light"}`}`}>
       <CgWorkAlt />
       <span className="px-1">{processing ? <Spinner animation="border" /> : (checked ? t("Person.FinishDuty") : t("Person.StartDuty"))}</span>
     </Nav.Link>

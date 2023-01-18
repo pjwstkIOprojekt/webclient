@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
 import { licensePlateError } from "../sharedStrings";
-import { getItems as getAmbulanceItems, addItem, removeItem, changeItemUnit } from "../../../api/ambulanceCalls";
+import { getItems as getAmbulanceItems, removeItem, addItem, changeItemUnit } from "../../../api/ambulanceCalls";
 import EquipmentAmount from "./EquipmentAmount";
 import Enum from "../../fragments/values/Enum";
 import { ItemType } from "../../../api/enumCalls";
@@ -46,17 +46,21 @@ const AmbulanceEquipment = (props: Readonly<AmbulanceEquipmentParams>) => {
 
     Promise.all([itemsReq, ambReq]).then((data: [ItemResponse[], EquipmentResponse[]]) => {
       if (data) {
-        const ambulanceItems = data[1].map(i => i.item.itemId);
+        if (props.add) {
+          const ambulanceItems = data[1].map(i => i.item.itemId);
 
-        setItems([...data[1].map(i => ({
-          ...i.item,
-          amount: i.itemData.count,
-          unit: i.itemData.unit
-        })), ...data[0].filter(i => !ambulanceItems.includes(i.itemId)).map(i => ({
-          ...i,
-          amount: 0,
-          unit: ""
-        }))]);
+          setItems([...data[0].filter(i => !ambulanceItems.includes(i.itemId)).map(i => ({
+            ...i,
+            amount: 0,
+            unit: ""
+          }))]);
+        } else {
+          setItems([...data[1].map(i => ({
+            ...i.item,
+            amount: i.itemData.count,
+            unit: i.itemData.unit
+          }))]);
+        }
       }
 
       setIsLoading(false);
@@ -70,7 +74,7 @@ const AmbulanceEquipment = (props: Readonly<AmbulanceEquipmentParams>) => {
     });
 
     return () => abortUpdate.abort();
-  }, [ambulanceId]);
+  }, [ambulanceId, props.add]);
 
   const onUpdate = (itemId: number, diff?: number, unit?: string) => {
     if (ambulanceId === undefined) {
@@ -93,20 +97,20 @@ const AmbulanceEquipment = (props: Readonly<AmbulanceEquipmentParams>) => {
 
     const requests: Promise<unknown>[] = [];
 
-    if (diff) {
+    if (diff !== undefined) {
       requests.push((diff < 0 ? removeItem(ambulanceId, itemId, abort, -diff) : addItem(ambulanceId, itemId, abort, diff)).then(res => {
         if (res.ok) {
           setItems(items.map(i => i.itemId === itemId ? ({
             ...i,
             amount: i.amount + diff
-          }) : i).filter(i => i.amount > 0));
+          }) : i).filter(props.add ? i => i.amount === 0 : i => true));
         } else {
           console.log(res);
         }
       }));
     }
 
-    if (unit) {
+    if (unit !== undefined) {
       requests.push(changeItemUnit(ambulanceId, itemId, unit, abort).then(res => {
         if (res.ok) {
           setItems(items.map(i => i.itemId === itemId ? ({
