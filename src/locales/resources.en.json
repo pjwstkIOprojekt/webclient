@@ -200,7 +200,10 @@
         "PostRegisterFail": "Registration was successful but an error has occured while logging in. Try to log in again.",
         "NoDispatcherFound": "No available dispatcher found.",
         "ScheduleEnd": "Selected hour must be greater that the first.",
-        "MailNotFound": "Provided email was not found in our database"
+        "MailNotFound": "Provided email was not found in our database.",
+        "IncorrectPassword": "Provided password is incorrect.",
+        "IncorrectToken": "Provided token is incorrect.",
+        "ExpiredToken": "Provided token is expired."
     },
     "Blood": {
         "Type": "Blood type",

@@ -29,7 +29,8 @@ const UserSchedule = () => {
 
     getSchedule(abortUpdate).then(res => res.json()).then((data: ScheduleResponse) => {
       if (data.schedule) {
-        setData(data.schedule);
+        console.log(data);
+        //setData(data.schedule);
         setError("");
       } else {
         console.log(data);
