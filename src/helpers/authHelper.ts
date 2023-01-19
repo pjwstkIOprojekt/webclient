@@ -1,16 +1,17 @@
 export enum Roles {
   None = 0,
-  User = 1, // User = 1
-  Paramedic = 3, // Paramedic = 2
-  Dispatcher = 5, // Dispatcher = 4
-  AmbulanceManager = 11, // AmbulanceManager = 8
-  Admin = 31 // Admin = 16
+  User = 1,
+  Employee = 2,
+  Paramedic = 4,
+  Dispatcher = 8,
+  AmbulanceManager = 16,
+  Admin = 32
 }
 
 // Roles values operations
 const rolesTable: Record<string, Roles> = {
   "ROLE_USER": Roles.User,
-  "ROLE_EMPLOYEE": Roles.User,
+  "ROLE_EMPLOYEE": Roles.Employee,
   "ROLE_MEDIC": Roles.Paramedic,
   "ROLE_DISPATCHER": Roles.Dispatcher,
   "ROLE_AMBULANCE_MANAGER": Roles.AmbulanceManager,
@@ -46,6 +47,7 @@ export const getToken = () => getUser()?.token;
 export const getRoles = () => getUser()?.roles;
 export const getEmail = () => getUser()?.email;
 export const getUserId = () => getUser()?.userId;
-export const isAuth = (roles: Roles) => (roles & Roles.User) !== Roles.None;
-export const isDispositor = (roles: Roles) => (roles & (Roles.Dispatcher - Roles.User)) !== Roles.None;
-export const isDirector = (roles: Roles) => (roles & (Roles.AmbulanceManager - Roles.Paramedic)) !== Roles.None;
+export const hasRole = (roles: Roles, required: Roles) => (roles & required) !== Roles.None;
+export const isAuth = (roles: Roles) => hasRole(roles, roles);
+export const isDispositor = (roles: Roles) => hasRole(roles, Roles.Paramedic | Roles.Dispatcher | Roles.Admin);
+export const isDirector = (roles: Roles) => hasRole(roles, Roles.AmbulanceManager | Roles.Admin);

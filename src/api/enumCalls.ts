@@ -12,7 +12,8 @@ export interface EnumValues {
 export interface EnumType {
   getter: (abort: AbortController) => Promise<Response>,
   name: string,
-  values?: Record<string, EnumValues>
+  values?: Record<string, EnumValues>,
+  available?: string
 }
 
 export enum MarkTypes {
@@ -50,7 +51,7 @@ export const BloodType = {
   name: "BloodType"
 };
 
-export const AmbulanceState = {
+export const AmbulanceState: EnumType = {
   getter: (abort: AbortController) => get(`${enumBase}/ambulance_states`, abort),
   name: "AmbulanceStateType",
   values: {

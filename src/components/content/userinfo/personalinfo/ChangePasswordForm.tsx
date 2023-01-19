@@ -4,7 +4,7 @@ import { useAbort } from "../../../../hooks/useAbort";
 import { useNavigate } from "react-router-dom";
 import { useNotify } from "../../../../hooks/useNotify";
 import { changePassword } from "../../../../api/authCalls";
-import { unknownError, networkError } from "../../sharedStrings";
+import { networkError } from "../../sharedStrings";
 import { Container } from "react-bootstrap";
 import Form from "../../../fragments/forms/Form";
 import Password from "../../../fragments/forms/api/Password";
@@ -40,7 +40,7 @@ const ChangePasswordForm = () => {
         navigate("../userdata");
       } else {
         console.log(res);
-        setError(unknownError);
+        setError("Error.IncorrectPassword");
       }
     }).catch(err => {
       if (!abort.signal.aborted) {

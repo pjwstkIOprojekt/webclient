@@ -3,6 +3,9 @@ import { useTranslation } from "react-i18next";
 import Form from "../../fragments/forms/Form";
 import { Row } from "react-bootstrap";
 import Number from "../../fragments/forms/api/Number";
+import EnumSelect from "../../fragments/forms/api/EnumSelect";
+import { ItemUnit } from "../../../api/enumCalls";
+import Enum from "../../fragments/values/Enum";
 import Submit from "../../fragments/forms/Submit";
 import Button from "../../fragments/util/Button";
 
@@ -16,28 +19,31 @@ interface AmountParams {
 
 const EquipmentAmount = (props: Readonly<AmountParams>) => {
 	const [newAmount, setNewAmount] = useState(props.amount);
+  const [newUnit, setNewUnit] = useState(props.unit);
   const { t } = useTranslation();
 
 	useEffect(() => {
     if (!props.editing) {
       setNewAmount(props.amount);
+      setNewUnit(props.unit);
     }
-  }, [props.amount, props.editing]);
+  }, [props.amount, props.unit, props.editing]);
 
   const onSubmit = () => {
-    if (!props.editing || newAmount === props.amount) {
+    if (!props.editing) {
       props.update();
       return;
     }
 
-    props.update(newAmount - props.amount);
+    const diff = newAmount - props.amount;
+    props.update(diff === 0 ? undefined : diff, newUnit === props.unit ? undefined : newUnit);
   };
 
 	return (
 		<Form onSubmit={onSubmit}>
 			<Row xs="2" className="justify-content-center">
-				{props.editing && !props.processing ? <Number required value={newAmount} onChange={e => setNewAmount(parseFloat(e.target.value))} minValue="0" /> : props.amount}
-         {props.unit}
+				{props.editing ? <Number required value={newAmount} onChange={e => setNewAmount(parseFloat(e.target.value))} minValue="0" disabled={props.processing} /> : props.amount}
+        {props.editing ? <EnumSelect required value={newUnit} onChange={e => setNewUnit(e.target.value)} onLoad={setNewUnit} enum={ItemUnit} disabled={props.processing} /> : (props.unit ? <Enum enum={ItemUnit} value={props.unit} /> : "")}
 			</Row>
       <Row xs="2" className="justify-content-center">
         <Submit className="my-3 w-25" canSubmit={!props.processing}>{t(`Common.${props.editing ? "SaveChanges" : "Edit"}`)}</Submit>

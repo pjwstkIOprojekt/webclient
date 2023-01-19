@@ -22,7 +22,7 @@ export interface ProgressChartParams extends BareBonesChartParams {
 // Custom progress chart component
 const ProgressChart = (props: Readonly<ProgressChartParams>) => {
   const darkMode = useDarkMode();
-  const value = props.value > 100 ? 100 : (props.value < 0 ? 0 : props.value);
+  const value = props.value > 100 ? 100 : (props.value < 0 ? 0 : Math.round(props.value));
   const stroke = customStroke(darkMode);
 
   const data = [

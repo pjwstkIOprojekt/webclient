@@ -55,7 +55,7 @@ const RegisterWithRole = () => {
       password: password,
       birthDate: birthDate,
       phoneNumber: phoneNumber,
-      workSchedule: formatSchedule(events)
+      workSchedule: role === "DISPOSITOR" ? formatSchedule(events) : undefined as any
     }, abort).then(res => {
       if (res.ok) {
         navigate("/");

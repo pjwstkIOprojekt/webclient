@@ -88,6 +88,11 @@
         "AMBULANCE_FIRE": "Ambulans i straż pożarna",
         "POLICE_AMBULANCE_FIRE": "Policja, ambulans i straż pożarna"
     },
+    "ItemUnit": {
+        "COUNT": "Sztuk",
+        "VOLUME": "Objętości",
+        "BOX": "Opakowań"
+    },
     "Ambulance": {
         "Ambulances": "Karetki",
         "Ambulance": "Karetka",
@@ -195,7 +200,10 @@
         "PostRegisterFail": "Rejestracja się powiodła, ale nastąpił błąd przy logowaniu. Spróbuj się zalogować ponownie.",
         "NoDispatcherFound": "Nie znaleziono dostępnego dyspozytora.",
         "ScheduleEnd": "Podana godzina musi być większa od godziny rozpoczęcia.",
-        "MailNotFound": "Nie znaleziono podanego maila w naszej bazie danych"
+        "MailNotFound": "Nie znaleziono podanego maila w naszej bazie danych.",
+        "IncorrectPassword": "Podane hasło jest nieprawidłowe.",
+        "IncorrectToken": "Podany token jest nieprawidłowy.",
+        "ExpiredToken": "Podany token jest przeterminowany."
     },
     "Blood": {
         "Type": "Grupa krwi",
@@ -239,7 +247,7 @@
         "ReportAccepted": "Przyjęte",
         "ReportPending": "Oczekujące/Odrzucone",
         "ReportsAccepted": "Przyjęte zgłoszenia",
-        "StaffState": "Stan personelu"
+        "AmbulancesState": "Stan karetek"
     },
     "Cookies": {
         "Info": "Ta strona używa plików cookies. Podejmij jedyną słuszną decyzję.",

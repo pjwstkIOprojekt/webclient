@@ -15,7 +15,8 @@ export interface FacilityRequest extends FacilityBase {
 
 export interface FacilityResponse extends FacilityBase {
   facilityId: number,
-  location: Location
+  location: Location,
+  address: string
 }
 
 const facilityBase = "facility";

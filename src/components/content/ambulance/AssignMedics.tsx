@@ -1,10 +1,10 @@
-import { MedicResponse, getMedics, addMedics } from "../../../api/ambulanceCalls";
+import { MedicResponse, addMedics } from "../../../api/ambulanceCalls";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
 import { licensePlateError, unknownError, networkError } from "../sharedStrings";
-import { getMedics as getAllMedics, MedicResponse as UserResponse } from "../../../api/employeeCalls";
+import { getFreeMedics, MedicResponse as UserResponse } from "../../../api/employeeCalls";
 import FormCheck from "../../fragments/forms/FormCheck";
 import { Container } from "react-bootstrap";
 import Spinner from "../../fragments/util/Spinner";
@@ -32,14 +32,10 @@ const AssignMedics = () => {
     }
 
     const abortUpdate = new AbortController();
-    const crewReq = getMedics(ambulanceId, abortUpdate).then(res => res.json());
-    const medReq = getAllMedics(abortUpdate).then(res => res.json());
 
-    Promise.all([crewReq, medReq]).then((data: [MedicResponse[], UserResponse[]]) => {
+    getFreeMedics(abortUpdate).then(res => res.json()).then((data: UserResponse[]) => {
       if (data) {
-        const medicIds = data[0].map(m => m.userId);
-
-        setMedics(data[1].filter(m => !medicIds.includes(m.userId)).map(m => ({
+        setMedics(data.map(m => ({
           ...m,
           assigned: false
         })));

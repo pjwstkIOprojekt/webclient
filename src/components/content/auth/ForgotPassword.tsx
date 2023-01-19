@@ -49,9 +49,11 @@ const ForgotPassword = () => {
         }
       } else if (res.status === 404) {
         setError("Error.MailNotFound");
+      } else if (res.status === 403) {
+        setError("Error.ExpiredToken");
       } else {
         console.log(res);
-        setError(unknownError);
+        setError(sent ? "Error.IncorrectToken" : unknownError);
       }
     }).catch(err => {
       if (!abort.signal.aborted) {
