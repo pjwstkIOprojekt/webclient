@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Schedule as ScheduleData, formatSchedule } from "../../../api/adminCalls";
+import { Schedule as ScheduleData, getEmptySchedule, loadSchedule, formatSchedule } from "../../../api/adminCalls";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
 import { getSchedule, ScheduleResponse, updateSchedule } from "../../../api/employeeCalls";
@@ -11,14 +11,7 @@ import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
 
 const UserSchedule = () => {
-  const [data, setData] = useState<ScheduleData>({
-    "MONDAY": { start: "", end: "" },
-    "TUESDAY": { start: "", end: "" },
-    "WEDNESDAY": { start: "", end: "" },
-    "THURSDAY": { start: "", end: "" },
-    "FRIDAY": { start: "", end: "" }
-  });
-
+  const [data, setData] = useState<ScheduleData>(getEmptySchedule());
   const [error, setError] = useState<string | undefined>("");
   const { t } = useTranslation();
   const abort = useAbort();
@@ -29,8 +22,7 @@ const UserSchedule = () => {
 
     getSchedule(abortUpdate).then(res => res.json()).then((data: ScheduleResponse) => {
       if (data.schedule) {
-        console.log(data);
-        //setData(data.schedule);
+        setData(loadSchedule(data.schedule));
         setError("");
       } else {
         console.log(data);
