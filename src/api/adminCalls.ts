@@ -20,13 +20,13 @@ export const scheduleKeyFromNum: Record<number, ScheduleKey> = {
   5: "FRIDAY"
 };
 
-export const emptySchedule: Schedule = {
+export const getEmptySchedule = () => ({
   "MONDAY": { start: "", end: "" },
   "TUESDAY": { start: "", end: "" },
   "WEDNESDAY": { start: "", end: "" },
   "THURSDAY": { start: "", end: "" },
   "FRIDAY": { start: "", end: "" }
-};
+}) as Schedule;
 
 export const formatSchedule = (x: Readonly<Schedule>) => {
   const copy: Record<string, ScheduleDto> = { ...x };
@@ -43,12 +43,10 @@ export const formatSchedule = (x: Readonly<Schedule>) => {
 };
 
 export const loadSchedule = (x: Readonly<Record<string, ScheduleDto>>) => {
-  const copy: Record<string, ScheduleDto> = { ...emptySchedule };
+  const copy: Record<string, ScheduleDto> = getEmptySchedule();
 
   for (const index in x) {
     const tmp = x[index];
-    // Prevent overriding empty schedule
-    copy[index] = { ...copy[index] };
     const target = copy[index];
 
     if (tmp.start && tmp.end) {

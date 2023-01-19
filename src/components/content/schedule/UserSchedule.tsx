@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Schedule as ScheduleData, emptySchedule, loadSchedule, formatSchedule } from "../../../api/adminCalls";
+import { Schedule as ScheduleData, getEmptySchedule, loadSchedule, formatSchedule } from "../../../api/adminCalls";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
 import { getSchedule, ScheduleResponse, updateSchedule } from "../../../api/employeeCalls";
@@ -11,7 +11,7 @@ import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
 
 const UserSchedule = () => {
-  const [data, setData] = useState<ScheduleData>({ ...emptySchedule });
+  const [data, setData] = useState<ScheduleData>(getEmptySchedule());
   const [error, setError] = useState<string | undefined>("");
   const { t } = useTranslation();
   const abort = useAbort();
