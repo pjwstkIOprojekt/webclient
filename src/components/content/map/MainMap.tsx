@@ -103,7 +103,7 @@ const MainMap = () => {
       if (data) {
         setFacilities(data.map(f => ({
           coords: [f.location.latitude, f.location.longitude],
-          desc: [t("Facility.Facility"), f.name],
+          desc: [t("Facility.Facility"), f.name, f.address],
           type: FacilityType.values?.[f.facilityType].markType ?? MarkTypes.None,
           icon: FacilityType.values?.[f.facilityType].icon,
           to: `/facilities/${f.facilityId}`

@@ -8,7 +8,7 @@ import { CgWorkAlt } from "react-icons/cg";
 
 const CheckIn = () => {
   const [checked, setChecked] = useState(false);
-  const [processing, setProcessing] = useState(false);
+  const [processing, setProcessing] = useState(true);
   const darkMode = useDarkMode();
   const { t } = useTranslation();
   const abort = useAbort();
@@ -16,10 +16,23 @@ const CheckIn = () => {
   useEffect(() => {
     const abortUpdate = new AbortController();
 
-    isDuringShift(abortUpdate).then(res => res.json()).then(console.log).catch(console.error);
+    isDuringShift(abortUpdate).then(res => res.json()).then((data: boolean) => {
+      if (typeof(data) === "boolean") {
+        setChecked(data);
+      } else {
+        console.log(data);
+      }
+
+      setProcessing(false);
+    }).catch(err => {
+      if (!abortUpdate.signal.aborted) {
+        console.error(err);
+        setProcessing(false);
+      }
+    });
 
     return () => abortUpdate.abort();
-  });
+  }, []);
 
   const onToggle = () => {
     if (processing) {
@@ -37,12 +50,10 @@ const CheckIn = () => {
 
       setProcessing(false);
     }).catch(err => {
-      if (abort.signal.aborted) {
-        return;
+      if (!abort.signal.aborted) {
+        console.error(err);
+        setProcessing(false);
       }
-      
-      console.error(err);
-      setProcessing(false);
     });
   };
 
