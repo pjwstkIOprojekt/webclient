@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Schedule, formatSchedule, registerEmployee } from "../../../api/adminCalls";
+import { Schedule, emptySchedule, formatSchedule, registerEmployee } from "../../../api/adminCalls";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAbort } from "../../../hooks/useAbort";
@@ -26,15 +26,7 @@ const RegisterWithRole = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
-
-  const [events, setEvents] = useState<Schedule>({
-    "MONDAY": { start: "", end: "" },
-    "TUESDAY": { start: "", end: "" },
-    "WEDNESDAY": { start: "", end: "" },
-    "THURSDAY": { start: "", end: "" },
-    "FRIDAY": { start: "", end: "" }
-  });
-
+  const [events, setEvents] = useState<Schedule>({ ...emptySchedule });
   const [error, setError] = useState<string | undefined>("");
   const { t } = useTranslation();
   const navigate = useNavigate();
