@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
-import { endShift, startShift } from "../../../api/employeeCalls";
+import { isDuringShift, endShift, startShift } from "../../../api/employeeCalls";
 import { Nav, Spinner } from "react-bootstrap";
 import { CgWorkAlt } from "react-icons/cg";
 
@@ -12,6 +12,14 @@ const CheckIn = () => {
   const darkMode = useDarkMode();
   const { t } = useTranslation();
   const abort = useAbort();
+
+  useEffect(() => {
+    const abortUpdate = new AbortController();
+
+    isDuringShift(abortUpdate).then(res => res.json()).then(console.log).catch(console.error);
+
+    return () => abortUpdate.abort();
+  });
 
   const onToggle = () => {
     if (processing) {

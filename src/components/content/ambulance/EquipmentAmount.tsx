@@ -43,7 +43,7 @@ const EquipmentAmount = (props: Readonly<AmountParams>) => {
 		<Form onSubmit={onSubmit}>
 			<Row xs="2" className="justify-content-center">
 				{props.editing ? <Number required value={newAmount} onChange={e => setNewAmount(parseFloat(e.target.value))} minValue="0" disabled={props.processing} /> : props.amount}
-        {props.editing ? <EnumSelect required value={newUnit} onChange={e => setNewUnit(e.target.value)} onLoad={setNewUnit} enum={ItemUnit} disabled={props.processing} /> : <Enum enum={ItemUnit} value={props.unit} />}
+        {props.editing ? <EnumSelect required value={newUnit} onChange={e => setNewUnit(e.target.value)} onLoad={setNewUnit} enum={ItemUnit} disabled={props.processing} /> : (props.unit ? <Enum enum={ItemUnit} value={props.unit} /> : "")}
 			</Row>
       <Row xs="2" className="justify-content-center">
         <Submit className="my-3 w-25" canSubmit={!props.processing}>{t(`Common.${props.editing ? "SaveChanges" : "Edit"}`)}</Submit>

@@ -43,7 +43,7 @@ const EquipmentForm = () => {
         setName(data.name ?? "");
         setDesc(data.description ?? "");
         setManu(data.manufacturer ?? "");
-        setExp(data.expiration_date?.toString() ?? "");
+        setExp(data.expirationDate?.toString() ?? "");
       } else {
         setError(missingDataError);
       }

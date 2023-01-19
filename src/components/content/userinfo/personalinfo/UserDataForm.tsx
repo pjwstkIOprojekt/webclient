@@ -72,7 +72,6 @@ const UserDataForm = () => {
     updateUser({
       firstName: firstName,
       lastName: lastName,
-      email: email,
       birthDate: birthDate,
       phoneNumber: phoneNumber
     }, abort).then(res => {
@@ -100,11 +99,11 @@ const UserDataForm = () => {
           <NotBlank id="lastName" required onChange={(e) => setLastName(e.target.value)} className="mb-3" value={lastName} label={t("Person.LastName")} disabled={readOnly} />
         </Row>
         <Row md={2}>
-          <Email id="email" required onChange={(e) => setEmail(e.target.value)} className="mb-3" value={email} label={t("Person.Email")} disabled={readOnly} />
+          <Past id="birthDate" required onChange={(e) => setBirthDate(e.target.value)} className="mb-3" value={birthDate} label={t("Person.Birthdate")} disabled={readOnly} />
           <FormPhoneNumber id="phoneNumber" required onChange={(e) => setPhoneNumber(e.target.value)} className="mb-3" value={phoneNumber} label={t("Person.PhoneNumber")} disabled={readOnly} />
         </Row>
-        <Past id="birthDate" required onChange={(e) => setBirthDate(e.target.value)} className="mb-3" value={birthDate} label={t("Person.Birthdate")} disabled={readOnly} />
         <NotBlank id="bandCode" className="mb-3" value={bandCode} label={t("Report.BandCode")} disabled />
+        <Email id="email" className="mb-3" value={email} label={t("Person.Email")} disabled />
         <Submit canSubmit={error !== undefined}>{t(`Common.${readOnly ? "Edit" : "SaveChanges"}`)}</Submit>
         <NavButton to="password" className="mx-3">{t("Password.Change")}</NavButton>
         {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)}>{t("Common.Cancel")}</Button>}

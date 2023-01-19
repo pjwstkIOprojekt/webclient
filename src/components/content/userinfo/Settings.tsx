@@ -8,6 +8,7 @@ import TrustedPersonForm from "./trustedperson/TrustedPersonForm";
 import MedicalData from "./medicalinfo/MedicalData";
 import AllergyForm from "./medicalinfo/AllergyForm";
 import MedicalConditionForm from "./medicalinfo/MedicalConditionForm";
+import UserSchedule from "../schedule/UserSchedule";
 
 const Settings = () => {
   const { t } = useTranslation();
@@ -15,7 +16,8 @@ const Settings = () => {
   const links = [
     { to: "userdata", text: t("Person.UserData") },
     { to: "medicaldata", text: t("Person.MedicalData") },
-    { to: "trustedperson", text: t("Person.TrustedPerson") }
+    { to: "trustedperson", text: t("Person.TrustedPerson") },
+    { to: "schedule", text: t("Schedule.Schedule") }
   ];
 
   return (
@@ -31,6 +33,7 @@ const Settings = () => {
         <Route path="medicaldata/disease" element={<MedicalConditionForm />} />
         <Route path="medicaldata/disease/:diseaseId" element={<MedicalConditionForm />} />
         <Route path="trustedperson" element={<TrustedPersonForm />} />
+        <Route path="schedule" element={<UserSchedule />} />
       </Routes>
     </Container>
   );

@@ -97,20 +97,35 @@ const AmbulanceEquipment = (props: Readonly<AmbulanceEquipmentParams>) => {
 
     const requests: Promise<unknown>[] = [];
 
-    if (diff !== undefined) {
-      requests.push((diff < 0 ? removeItem(ambulanceId, itemId, abort, -diff) : addItem(ambulanceId, itemId, abort, diff)).then(res => {
+    if (diff !== undefined && diff > 0 && unit && props.add) {
+      requests.push(addItem(ambulanceId, itemId, abort, diff).then(res => {
         if (res.ok) {
           setItems(items.map(i => i.itemId === itemId ? ({
             ...i,
             amount: i.amount + diff
-          }) : i).filter(props.add ? i => i.amount === 0 : i => true));
+          }) : i).filter(i => i.amount === 0));
+
+          changeItemUnit(ambulanceId, itemId, unit, abort);
         } else {
           console.log(res);
         }
       }));
     }
 
-    if (unit !== undefined) {
+    if (diff !== undefined && !props.add) {
+      requests.push((diff < 0 ? removeItem(ambulanceId, itemId, abort, -diff) : addItem(ambulanceId, itemId, abort, diff)).then(res => {
+        if (res.ok) {
+          setItems(items.map(i => i.itemId === itemId ? ({
+            ...i,
+            amount: i.amount + diff
+          }) : i));
+        } else {
+          console.log(res);
+        }
+      }));
+    }
+
+    if (unit !== undefined && !props.add) {
       requests.push(changeItemUnit(ambulanceId, itemId, unit, abort).then(res => {
         if (res.ok) {
           setItems(items.map(i => i.itemId === itemId ? ({

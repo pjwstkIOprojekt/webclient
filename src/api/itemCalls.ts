@@ -29,8 +29,9 @@ export interface ItemRequest extends ItemBase {
   expiration_date?: Date
 }
 
-export interface ItemResponse extends ItemRequest {
-  itemId: number
+export interface ItemResponse extends UpdateItemRequest {
+  itemId: number,
+  type: string
 }
 
 export interface ItemContainer {

@@ -41,7 +41,7 @@ export interface ChangePasswordRequest extends ResetPasswordRequest {
   oldPassword: string
 }
 
-export interface EditUserRequest extends PasswordTokenRequest {
+export interface EditUserRequest {
   // Not blank
   firstName: string,
 
