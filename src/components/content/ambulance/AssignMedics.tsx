@@ -16,6 +16,7 @@ interface Medic extends MedicResponse {
   assigned: boolean
 }
 
+// Displays all medics that can be assigned to ambulance
 const AssignMedics = () => {
   const [medics, setMedics] = useState<Medic[]>([]);
   const [isLoading, setIsLoading] = useState(true);

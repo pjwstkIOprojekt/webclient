@@ -10,6 +10,7 @@ import Schedule from "../../fragments/values/Schedule";
 import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
 
+// Schedule edit form component
 const UserSchedule = () => {
   const [data, setData] = useState<ScheduleData>(getEmptySchedule());
   const [error, setError] = useState<string | undefined>("");

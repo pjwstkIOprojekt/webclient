@@ -16,11 +16,13 @@ interface AmbulanceEquipmentParams {
   add?: boolean
 }
 
+// Contains ambulance item data
 interface ItemData extends ItemResponse {
   amount: number,
   unit: string
 }
 
+// Displays the list of assigned/unassined equipment with editing functionality
 const AmbulanceEquipment = (props: Readonly<AmbulanceEquipmentParams>) => {
   const [items, setItems] = useState<ItemData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +36,7 @@ const AmbulanceEquipment = (props: Readonly<AmbulanceEquipmentParams>) => {
   const { t } = useTranslation();
   const abort = useAbort();
 
+  // Loads items to display
   useEffect(() => {
     if (ambulanceId === undefined) {
       console.error(licensePlateError);
@@ -76,6 +79,7 @@ const AmbulanceEquipment = (props: Readonly<AmbulanceEquipmentParams>) => {
     return () => abortUpdate.abort();
   }, [ambulanceId, props.add]);
 
+  // Performs ambulance equipment updates
   const onUpdate = (itemId: number, diff?: number, unit?: string) => {
     if (ambulanceId === undefined) {
       return;

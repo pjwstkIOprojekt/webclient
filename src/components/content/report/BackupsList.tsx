@@ -14,6 +14,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
+// Displays all requested backups
 const BackupsList = () => {
   const [backups, setBackups] = useState<BackupResponse[]>([]);
   const [removed, setRemoved] = useState<number[]>([]);

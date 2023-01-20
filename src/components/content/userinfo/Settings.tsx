@@ -10,6 +10,7 @@ import AllergyForm from "./medicalinfo/AllergyForm";
 import MedicalConditionForm from "./medicalinfo/MedicalConditionForm";
 import UserSchedule from "../schedule/UserSchedule";
 
+// User settings router
 const Settings = () => {
   const { t } = useTranslation();
 

@@ -12,6 +12,7 @@ import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import { Container, Row, Col } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
+// Displays all ambulances
 const AmbulanceList = () => {
   const [ambulances, setAmbulances] = useState<AmbulanceResponse[]>([]); 
   const [removed, setRemoved] = useState<string[]>([]);
@@ -20,6 +21,7 @@ const AmbulanceList = () => {
   const popup = usePopup();
   const abort = useAbort();
 
+  // Loads ambulances to display
   useEffect(() => {
     const abortUpdate = new AbortController();
 

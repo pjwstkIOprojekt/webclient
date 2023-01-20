@@ -20,6 +20,7 @@ interface Ambulance extends AmbulanceResponse {
   assigned: boolean
 }
 
+// Displays ambulances that can be assigned to incident
 const AssignAmbulance = () => {
   const [ambulances, setAmbulances] = useState<Ambulance[]>([]);
   const [isLoading, setIsLoading] = useState(true);

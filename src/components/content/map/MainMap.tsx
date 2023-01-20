@@ -19,6 +19,7 @@ interface MapFormParams {
   setFilters: (x: MarkTypes) => void
 }
 
+// Main map display component
 const MapForm = (props: Readonly<MapFormParams>) => {
   const { t } = useTranslation();
   const values = [];
@@ -47,6 +48,7 @@ const MapForm = (props: Readonly<MapFormParams>) => {
   );
 };
 
+// Map view wrapper for main map component
 const MainMap = () => {
   const [coords, setCoords] = useState<[number, number]>([0, 0]);
   const [loaded, setLoaded] = useState(false);

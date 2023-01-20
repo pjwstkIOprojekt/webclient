@@ -13,6 +13,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
+// Displays all equipment items
 const EquipmentList = () => {
   const [items, setItems] = useState<ItemResponse[]>([]);
   const [removed, setRemoved] = useState<number[]>([]);

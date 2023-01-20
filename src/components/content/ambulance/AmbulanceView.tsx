@@ -22,6 +22,7 @@ import AmbulanceEquipment from "./AmbulanceEquipment";
 import AssignedMedics from "./AssignedMedics";
 import AssignMedics from "./AssignMedics";
 
+// Ambulance details view with tabs
 const AmbulanceView = () => {
   const [ambulanceClass, setAmbulanceClass] = useState("");
   const [ambulanceType, setAmbulanceType] = useState("");
@@ -33,6 +34,7 @@ const AmbulanceView = () => {
   const { t } = useTranslation();
   const abort = useAbort();
 
+  // Loads ambulance details
   useEffect(() => {
     if (ambulanceId !== undefined && readOnly) {
       setError(undefined);

@@ -17,6 +17,7 @@ import L from "leaflet";
 import { ambulanceIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
+// Ambulance form
 const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
   const [licensePlate, setLicensePlate] = useState("");
   const [ambulanceClass, setAmbulanceClass] = useState("");
@@ -76,6 +77,7 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
   );
 };
 
+// Map view wrapper for ambulance form
 const AmbulanceForm = () => {
   const [coords, setCoords] = useState<[number, number]>([0, 0]);
   const [loaded, setLoaded] = useState(false);

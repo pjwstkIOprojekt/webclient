@@ -15,6 +15,7 @@ import Button from "../../fragments/util/Button";
 import Error from "../../fragments/forms/Error";
 import Table from "../../fragments/util/Table";
 
+// Displays ambulance states history
 const AmbulanceHistory = () => {
   const [states, setStates] = useState<AmbulanceStateResponse[]>([]);
   const [newState, setNewState] = useState("");
@@ -24,6 +25,7 @@ const AmbulanceHistory = () => {
   const { t } = useTranslation();
   const abort = useAbort();
 
+  // Loads data to display
   useEffect(() => {
     if (ambulanceId === undefined) {
       console.error(licensePlateError);

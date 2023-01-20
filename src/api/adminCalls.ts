@@ -47,11 +47,9 @@ export const loadSchedule = (x: Readonly<Record<string, ScheduleDto>>) => {
 
   for (const index in x) {
     const tmp = x[index];
-    const target = copy[index];
-
+    
     if (tmp.start && tmp.end) {
-      target.start = tmp.start;
-      target.end = tmp.end;
+      copy[index] = tmp;
     }
   }
 

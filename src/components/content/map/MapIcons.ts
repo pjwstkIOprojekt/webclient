@@ -14,6 +14,7 @@ const createPingIcon = (url: string, offset: number) => L.icon({
   iconUrl: url
 });
 
+// Map icons definitions
 export const ambulanceIcon = createIcon("/img/map/ambulance_icon.svg", 0);
 export const accidentIcon = createIcon("/img/map/accident_icon.svg", 6);
 export const floodIcon = createIcon("/img/map/flood_icon.svg", 4);
