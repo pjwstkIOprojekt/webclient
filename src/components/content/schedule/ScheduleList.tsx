@@ -1,113 +1,63 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { EventSourceInput } from "@fullcalendar/react";
+import { useTranslation } from "react-i18next";
+import { getSchedules, EmployeeResponse } from "../../../api/employeeCalls";
+import { toScheduleKey, scheduleToDate } from "../../../api/adminCalls";
 import { Container } from "react-bootstrap";
-import FullCalendar, { EventClickArg } from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid';
-import plLocale from '@fullcalendar/core/locales/pl';
-import interactionPlugin from "@fullcalendar/interaction";
-import { useNavigate } from "react-router-dom";
-import { usePopup } from "../../../hooks/usePopup";
-import SchedulePopup from "../../fragments/popups/CalendarPopup";
+import ViewLoader from "../../fragments/util/ViewLoader";
+import Calendar from "../../fragments/util/Calendar";
 
-
+// Displays all workers schedules
 const ScheduleList = () => {
-  const navigate = useNavigate();
-  const popup = usePopup();
-  const [events] = useState([
-    {
-        id: '0',
-        title: 'Jan Nowak',
-        start: new Date('2023-01-02T08:00:00.000'),
-        end: new Date('2023-01-02T16:00:00.000'),
-        url:'/paramedic/1'
-    },
-    {
-      id: '1',
-      title: 'Jan Nowak',
-      start: new Date('2023-01-02T16:00:00.000'),
-      end: new Date('2023-01-02T24:00:00.000'),
-      url:'/paramedic/1'
-  },
-  {
-    id: '2',
-    title: 'Paramedic 3',
-    start: new Date('2022-11-22T24:00:00.000'),
-    end: new Date('2022-11-23T08:00:00.000'),
-    url:'/paramedic/1'
+  const [events, setEvents] = useState<EventSourceInput>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
 
-},
-{
-  id: '3',
-  title: 'Paramedic 4',
-  start: new Date('2022-11-23T08:00:00.000'),
-  end: new Date('2022-11-23T16:00:00.000'),
-  url:'/paramedic/1'
+  useEffect(() => {
+    const abort = new AbortController();
 
-},
-{
-  id: '4',
-  title: 'Paramedic 5',
-  start: new Date('2022-11-22T24:00:00.000'),
-  end: new Date('2022-11-23T08:00:00.000'),
-  url:'/paramedic/1'
+    getSchedules(abort).then(res => res.json()).then((data: EmployeeResponse[]) => {
+      if (data) {
+        const res = [];
+        const dualNum = (x: number) => x > 9 ? x.toString() : `0${x}`;
+        let count = 0;
 
-}
+        for (const emp of data) {
+          for (const day in emp.schedule) {
+            const tmp = emp.schedule[toScheduleKey(day)];
+            const date = scheduleToDate(toScheduleKey(day));
 
-  ]);
-  const handleDateSelect=()=>{
-    navigate('./add')
-  };
+            if (tmp.start && tmp.end) {
+              res.push({
+                id: (count++).toString(),
+                title: `${emp.name} ${emp.lastName}`,
+                start: new Date(`${date.getFullYear()}-${dualNum(date.getMonth() + 1)}-${dualNum(date.getDate())}T${tmp.start}:00`),
+                end: new Date(`${date.getFullYear()}-${dualNum(date.getMonth() + 1)}-${dualNum(date.getDate())}T${tmp.end}:00`)
+              });
+            }
+          }
+        }
 
-const handleEventSelect=(eventInfo:EventClickArg)=>{
-  console.log(eventInfo.event.id)
-  const startTime = eventInfo.event.startStr;
-  const endTime = eventInfo.event.endStr;
-  const url = eventInfo.event.url;
-  if(eventInfo.event.url){
+        setEvents(res);
+      }
 
-    eventInfo.jsEvent.preventDefault();
-    console.log(startTime)
-  popup(<SchedulePopup onSave={function (start: string, end: string): void {
-    throw new Error("Function not implemented.");
-  } } startTime={startTime} endTime={endTime} url={url} label="Medic.Details" /> );
-  }
+      setIsLoading(false);
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+        setIsLoading(false);
+      }
+    });
 
-  
-}
+    return () => abort.abort();
+  }, []);
 
   return (
-    <Container className="mb-2 text-center">
-      <h1>Grafik ratowników</h1>
-      <FullCalendar
-        plugins={[dayGridPlugin,timeGridPlugin, interactionPlugin]}
-        initialView= 'dayGridWeek'
-        displayEventTime
-        dateClick={handleDateSelect }
-        eventClick={handleEventSelect}
-        selectable={false}
-        editable={true}
-        displayEventEnd={true}
-        initialEvents={events}
-        firstDay={1}
-        expandRows={true}
-        locale={plLocale}
-        headerToolbar={{
-          left: "today prev next",
-          center: "title",
-          right: "dayGridMonth dayGridWeek",
-        }}
-        
-
-        
-
-        
-        
-      />
-      
+    <Container className="my-5">
+      <h1 className="text-center">{t("Schedule.Schedule")}</h1>
+      <ViewLoader isLoaded={!isLoading} element={<Calendar events={events} />} />
     </Container>
   );
 };
 
 export default ScheduleList;
-
-

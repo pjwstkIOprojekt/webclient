@@ -28,32 +28,62 @@ export const getEmptySchedule = () => ({
   "FRIDAY": { start: "", end: "" }
 }) as Schedule;
 
-export const formatSchedule = (x: Readonly<Schedule>) => {
-  const copy: Record<string, ScheduleDto> = { ...x };
+export const scheduleToDate = (key: ScheduleKey) => {
+  let day = 0;
 
-  for (const index in x) {
-    const tmp = copy[index];
-
-    if (!tmp.start || !tmp.end) {
-      delete copy[index];
+  for (let i = 1; i < 6; ++i) {
+    if (scheduleKeyFromNum[i] === key) {
+      day = i;
+      i = 5;
     }
   }
 
-  return copy as Schedule;
+  const today = new Date();
+  const diff = day - today.getDay();
+  return new Date(new Date().setDate(today.getDate() + diff - 7));
+};
+
+export const toScheduleKey: (x: string) => ScheduleKey = (x: string) => {
+  switch (x) {
+    case "MONDAY":
+      return "MONDAY";
+    case "TUESDAY":
+      return "TUESDAY";
+    case "WEDNESDAY":
+      return "WEDNESDAY";
+    case "THURSDAY":
+      return "THURSDAY";
+    default:
+      return "FRIDAY";
+  }
+};
+
+export const formatSchedule = (x: Readonly<Schedule>) => {
+  const copy: Schedule = { ...x };
+
+  for (const index in x) {
+    const tmp = copy[toScheduleKey(index)];
+
+    if (!tmp.start || !tmp.end) {
+      delete copy[toScheduleKey(index)];
+    }
+  }
+
+  return copy;
 };
 
 export const loadSchedule = (x: Readonly<Record<string, ScheduleDto>>) => {
-  const copy: Record<string, ScheduleDto> = getEmptySchedule();
+  const copy: Schedule = getEmptySchedule();
 
   for (const index in x) {
-    const tmp = x[index];
+    const tmp = x[toScheduleKey(index)];
     
     if (tmp.start && tmp.end) {
-      copy[index] = tmp;
+      copy[toScheduleKey(index)] = tmp;
     }
   }
 
-  return copy as Schedule;
+  return copy;
 };
 
 export interface RegisterEmployeeRequest extends SignupRequest {

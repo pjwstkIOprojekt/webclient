@@ -121,7 +121,7 @@
         "Date": "Data",
         "Description": "Opis",
         "Type": "Rodzaj zdarzenia",
-        "VictimsCount": "Ilość poszkodowanych",
+        "VictimsCount": "Liczba poszkodowanych",
         "ConfirmRemove": "Czy na pewno chcesz usunąć to zgłoszenie?",
         "ConfirmCreate": "Czy na pewno chcesz zgłosić zdarzenie?",
         "ConfirmEdit": "Czy na pewno chcesz zapisać te zmiany?",

@@ -67,8 +67,8 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
       <EnumSelect id="ambulanceType" className="mb-3" label={t("Ambulance.Type")} required enum={AmbulanceType} value={ambulanceType} onLoad={setAmbulanceType} onChange={e => setAmbulanceType(e.target.value)} />
       <Number id="seats" className="mb-3" label={t("Ambulance.Seats")} required value={seats} minValue="1" onChange={e => setSeats(parseInt(e.target.value))} />
       <h4 className="text-center mb-3">{t("Map.Location")}</h4>
-      <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} />
-      <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update([props.lat, parseFloat(e.target.value)])} />
+      <Number id="latitude" className="mb-3" value={props.lat} disabled />
+      <Number id="longitude" className="mb-3" value={props.lng} disabled />
       <Row className="justify-content-center mt-3">
         <Submit className="w-75" canSubmit={error !== undefined}>{t("Ambulance.Add")}</Submit>
       </Row>
@@ -96,7 +96,7 @@ const AmbulanceForm = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<AmbulanceFormView update={setCoords} lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} searchable onSearch={e => update(e.geocode.center)} marks={[mark]} />;
+  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<AmbulanceFormView lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} searchable onSearch={e => update(e.geocode.center)} marks={[mark]} />;
 };
 
 export default AmbulanceForm;

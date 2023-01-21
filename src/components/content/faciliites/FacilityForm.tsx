@@ -37,12 +37,13 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
       if (facilityId !== undefined) {
         setError(undefined);
         const abortUpdate = new AbortController();
+        const updateCoords = update ?? (x => null);
 
         getFacilityById(parseInt(facilityId), abortUpdate).then(res => res.json()).then((data: FacilityResponse) => {
           if (data.name && data.facilityType && data.location) {
             setName(data.name);
             setFacilityType(data.facilityType);
-            update([data.location.latitude, data.location.longitude]);
+            updateCoords([data.location.latitude, data.location.longitude]);
             setError("");
           } else {
             setError(missingDataError);
@@ -98,8 +99,8 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
         <NotBlank id="name" className="mb-3" required value={name} onChange={e => setName(e.target.value)} label={t("Facility.Name")} disabled={!canEdit} />
         <EnumSelect id="facilityType" className="mb-3" required value={props.data} onChange={e => props.setData(e.target.value)} enum={FacilityType} onLoad={props.setData} label={t("Facility.Type")} disabled={!canEdit} />
         <h4 className="text-center mb-3">{t("Map.Location")}</h4>
-        <Number id="latitude" className="mb-3" required value={props.lat} onChange={e => props.update([parseFloat(e.target.value), props.lng])} disabled={!canEdit} />
-        <Number id="longitude" className="mb-3" required value={props.lng} onChange={e => props.update([props.lat, parseFloat(e.target.value)])} disabled={!canEdit} />
+        <Number id="latitude" className="mb-3" value={props.lat} disabled />
+        <Number id="longitude" className="mb-3" value={props.lng} disabled />
         {canEdit ? (
           <Row className="justify-content-center mt-3">
             <Submit className="w-75" canSubmit={error !== undefined}>{facilityId === undefined ? t("Facility.Add") : t("Common.SaveChanges")}</Submit>

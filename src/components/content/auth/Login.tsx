@@ -66,7 +66,7 @@ const Login = () => {
         <Row className="justify-content-center my-3">
           <Submit className="w-25" canSubmit={error !== undefined}>{t("Login.SignIn")}</Submit>
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center mx-3">
           <Error className="mt-3 w-50" error={error} />
         </Row>
         <Row className="text-center">

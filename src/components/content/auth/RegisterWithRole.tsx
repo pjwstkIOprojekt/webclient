@@ -98,7 +98,7 @@ const RegisterWithRole = () => {
         <Row className="justify-content-center">
           <Submit className="my-3 w-25" canSubmit={error !== undefined}>{t("Person.Add")}</Submit>
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center mx-3">
           <Error className="mb-3 w-50 text-start" error={error} />
         </Row>
       </Form>

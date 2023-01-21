@@ -61,7 +61,7 @@ const AmbulancePathView = (props: Readonly<MapDataHelperParams<[number, number][
     setOffset(x);
     const value = props.data[x];
 
-    if (value) {
+    if (value && props.update) {
       props.update(value);
     }
   };
