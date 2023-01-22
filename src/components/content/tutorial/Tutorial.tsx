@@ -5,7 +5,7 @@ import { useRoles } from "../../../hooks/useAuth";
 import { usePopup } from "../../../hooks/usePopup";
 import { useAbort } from "../../../hooks/useAbort";
 import { useTranslation } from "react-i18next";
-import { getUserId, isAuth, getEmail } from "../../../helpers/authHelper";
+import { getUserId, hasPerm, getEmail } from "../../../helpers/authHelper";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
 import { userEmailError } from "../sharedStrings";
 import { Container, Row, Col, Nav, NavDropdown } from "react-bootstrap";
@@ -34,6 +34,7 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
   const abort = useAbort();
   const { t } = useTranslation();
   const userId = getUserId();
+  const auth = hasPerm(roles, roles);
 
   // Loads user review
   useEffect(() => {
@@ -85,8 +86,8 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
   };
 
   const onReview = () => {
-    if (!isAuth(roles)) {
-      popup(<NotLoggedPopup />);
+    if (!auth) {
+      popup(<NotLoggedPopup redirect="tutorial" />);
     }
   };
 
@@ -141,7 +142,7 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
               <br />
               <p>{t("Tutorial.Opinion")}</p>
               <Row onClick={onReview} className="justify-content-center text-center">
-                {isProcessing ? <Spinner /> :<Rating initialValue={review?.value ?? 0} disabled={!isAuth(roles)} onChange={onReviewChange} />}
+                {isProcessing ? <Spinner /> :<Rating initialValue={review?.value ?? 0} disabled={!auth} onChange={onReviewChange} />}
               </Row>
             </span>
           </Nav>

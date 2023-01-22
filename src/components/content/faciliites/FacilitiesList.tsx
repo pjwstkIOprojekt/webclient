@@ -3,7 +3,7 @@ import { usePopup } from "../../../hooks/usePopup";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "../../../hooks/useAuth";
 import { useAbort } from "../../../hooks/useAbort";
-import { isDispositor, isDirector } from "../../../helpers/authHelper";
+import { hasPerm, facilityManagement } from "../../../helpers/authHelper";
 import { FacilityResponse, getFacilities, deleteFacility } from "../../../api/facilityCalls";
 import Table, {TableColumnParams} from "../../fragments/util/Table";
 import Link from "../../fragments/navigation/Link";
@@ -23,7 +23,7 @@ const FacilitiesList = () => {
   const { t } = useTranslation();
   const roles = useRoles();
   const abort = useAbort();
-  const canRemove = isDispositor(roles) || isDirector(roles);
+  const canRemove = hasPerm(roles, facilityManagement);
 
   useEffect(() => {
     const abortUpdate = new AbortController();

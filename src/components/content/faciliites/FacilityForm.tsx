@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "../../../hooks/useAuth";
 import { useAbort } from "../../../hooks/useAbort";
-import { isDispositor, isDirector } from "../../../helpers/authHelper";
+import { hasPerm, facilityManagement } from "../../../helpers/authHelper";
 import { getFacilityById, FacilityResponse, createFacility, updateFacility } from "../../../api/facilityCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import { Row } from "react-bootstrap";
@@ -30,7 +30,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     const abort = useAbort();
     const update = props.update;
     const setFacilityType = props.setData;
-    const canEdit = isDispositor(roles) || isDirector(roles);
+    const canEdit = hasPerm(roles, facilityManagement);
   
     // Loads facility data for editing
     useEffect(() => {
@@ -118,7 +118,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     const [facilityType, setFacilityType] = useState("");
     const { t } = useTranslation();
     const roles = useRoles();
-    const canEdit = isDispositor(roles) || isDirector(roles);
+    const canEdit = hasPerm(roles, facilityManagement);
 
     // Centers map view on current location
     useEffect(() => navigator.geolocation.getCurrentPosition(pos => {

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
+import { useRoles } from "../../../hooks/useAuth";
+import { hasPerm, ambulanceManagement } from "../../../helpers/authHelper";
 import { getAmbulances } from "../../../api/ambulanceCalls";
 import { AmbulanceState, AmbulanceClass, AmbulanceType } from "../../../api/enumCalls";
 import { addAmbulances } from "../../../api/incidentCalls";
@@ -28,6 +30,8 @@ const AssignAmbulance = () => {
   const { reportId } = useParams();
   const { t } = useTranslation();
   const abort = useAbort();
+  const roles = useRoles();
+  const ambulanceAccess = hasPerm(roles, ambulanceManagement);
 
   useEffect(() => {
     const abortUpdate = new AbortController();
@@ -95,7 +99,7 @@ const AssignAmbulance = () => {
 
   const cols = [
     { name: t("Report.Assigned"), property: (x: Readonly<Ambulance>) => <FormCheck value={x.assigned} onChange={e => assign(x)} disabled={error === undefined} /> },
-    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<Ambulance>) => <Link to={`/ambulances/${x.licensePlate}`}>{x.licensePlate}</Link>, filterBy: licenseField, sortBy: licenseField },
+    { name: t("Ambulance.LicensePlate"), property: (x: Readonly<Ambulance>) => ambulanceAccess ? <Link to={`/ambulances/${x.licensePlate}`}>{x.licensePlate}</Link> : x.licensePlate, filterBy: licenseField, sortBy: licenseField },
     { name: t("Ambulance.Class"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, filterBy: classField, sortBy: classField },
     { name: t("Ambulance.Type"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, filterBy: typeField, sortBy: typeField }
   ];

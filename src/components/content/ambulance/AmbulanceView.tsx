@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
+import { useRoles } from "../../../hooks/useAuth";
+import { hasPerm, incidentManagement } from "../../../helpers/authHelper";
 import { getAmbulanceByLicensePlate, getCurrentIncident, AmbulanceResponse, updateAmbulance } from "../../../api/ambulanceCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import { IncidentResponse } from "../../../api/incidentCalls";
@@ -33,6 +35,8 @@ const AmbulanceView = () => {
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
   const abort = useAbort();
+  const roles = useRoles();
+  const incidentAccess = hasPerm(roles, incidentManagement);
 
   // Loads ambulance details
   useEffect(() => {
@@ -127,7 +131,7 @@ const AmbulanceView = () => {
             <Submit className="w-25" canSubmit={error !== undefined}>{readOnly ? t("Common.Edit") : t("Common.Save")}</Submit>
             {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)} className="mx-3 w-25">{t("Common.Cancel")}</Button>}
           </Row>
-          {incident === undefined ? "" : (
+          {incident === undefined || !incidentAccess ? "" : (
             <Row className="justify-content-center my-3">
               <NavButton to={`/reports/${incident}`} className="w-25">{t("Ambulance.Incident")}</NavButton>
             </Row>

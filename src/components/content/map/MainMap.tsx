@@ -5,6 +5,8 @@ import FormCheck from "../../fragments/forms/FormCheck";
 import { Container, Form } from "react-bootstrap";
 import { ambulanceIcon } from "./MapIcons";
 import { useState, useEffect } from "react";
+import { useRoles } from "../../../hooks/useAuth";
+import { hasPerm, incidentManagement, ambulanceManagement } from "../../../helpers/authHelper";
 import { getAccidents, AccidentReportResponse } from "../../../api/accidentReportCalls";
 import { getAmbulances, AmbulanceResponse } from "../../../api/ambulanceCalls";
 import { getFacilities, FacilityResponse } from "../../../api/facilityCalls";
@@ -57,6 +59,9 @@ const MainMap = () => {
   const [filters, setFilters] = useState(MarkTypes.All);
   const [update, setUpdate] = useState(false);
   const { t } = useTranslation();
+  const roles = useRoles();
+  const incidentAccess = hasPerm(roles, incidentManagement);
+  const ambulanceAccess = hasPerm(roles, ambulanceManagement);
 
   useEffect(() => {
     const abort = new AbortController();
@@ -70,13 +75,13 @@ const MainMap = () => {
           desc: [t("Report.Report"), t(`EmergencyType.${a.emergencyType}`), a.address],
           type: EmergencyType.values?.[a.emergencyType].markType ?? MarkTypes.None,
           icon: EmergencyType.values?.[a.emergencyType].icon,
-          to: `/reports/${a.accidentId}`
+          to: incidentAccess ? `/reports/${a.accidentId}` : undefined
         })), ...data[1].map(a => ({
           coords: [a.currentLocation.latitude, a.currentLocation.longitude] as [number, number],
           desc: [t("Ambulance.Ambulance"), a.licensePlate],
           type: MarkTypes.Ambulance,
           icon: ambulanceIcon,
-          to: `/ambulances/${a.licensePlate}`
+          to: ambulanceAccess ? `/ambulances/${a.licensePlate}` : undefined
         }))]);
       }
     }).catch(err => {
@@ -91,7 +96,7 @@ const MainMap = () => {
       clearTimeout(timeout);
       abort.abort();
     };
-  }, [update, t]);
+  }, [update, t, ambulanceAccess, incidentAccess]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos => {

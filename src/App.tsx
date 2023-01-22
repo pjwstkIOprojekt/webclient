@@ -1,5 +1,5 @@
 import { useRoles } from "./hooks/useAuth";
-import { isAuth, isDispositor, isDirector } from "./helpers/authHelper";
+import { hasPerm, employeeManagement, incidentManagement, facilityManagement, mapAccess, scheduleManagement, ambulanceManagement, itemManagement } from "./helpers/authHelper";
 import Navbar from "./components/fragments/navigation/Navbar"
 import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
@@ -17,6 +17,7 @@ import ReportForm from "./components/content/report/ReportForm";
 import FacilitiesList from "./components/content/faciliites/FacilitiesList";
 import FacilityForm from "./components/content/faciliites/FacilityForm";
 import MainMap from "./components/content/map/MainMap";
+import ScheduleList from "./components/content/schedule/ScheduleList";
 import ReportsList from "./components/content/report/ReportsList";
 import ReportView from "./components/content/report/ReportView";
 import AmbulanceList from "./components/content/ambulance/AmbulanceList";
@@ -27,16 +28,16 @@ import EquipmentForm from "./components/content/equipment/EquipmentForm";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
 import CookieConsent from "./components/fragments/cookies/CookieConsent";
 
-import ParamedicView from "./components/content/staff/ParamedicView";
-import ParamedicInfo from "./components/content/staff/ParamedicInfo"
-import ScheduleList from "./components/content/schedule/ScheduleList";
-import ScheduleAdd from "./components/content/schedule/ScheduleAdd";
-
 const App = () => {
   const roles = useRoles();
-  const auth = isAuth(roles);
-  const dis = isDispositor(roles);
-  const admin = isDirector(roles);
+  const auth = hasPerm(roles, roles);
+  const employee = hasPerm(roles, employeeManagement);
+  const incident = hasPerm(roles, incidentManagement);
+  const facility = hasPerm(roles, facilityManagement);
+  const map = hasPerm(roles, mapAccess);
+  const schedule = hasPerm(roles, scheduleManagement);
+  const ambulance = hasPerm(roles, ambulanceManagement);
+  const item = hasPerm(roles, itemManagement);
 
   return (
     <>
@@ -49,32 +50,28 @@ const App = () => {
           <Route path="/register" element={<ConditionalRoute condition={!auth} element={<Register />} />} />
           <Route path="/register/:redirect" element={<ConditionalRoute condition={!auth} element={<Register />} />} />
           <Route path="/settings/*" element={<ConditionalRoute condition={auth} element={<Settings />} />} />
-          <Route path="/newuser" element={<ConditionalRoute condition={dis || admin} element={<RegisterWithRole />} />} />
+          <Route path="/newuser" element={<ConditionalRoute condition={employee} element={<RegisterWithRole />} />} />
           <Route path="/forgotpassword" element={<ConditionalRoute condition={!auth} element={<ForgotPassword />} />} />
 
           <Route path="/home" element={<Home />} />
           <Route path="/tutorial" element={<TutorialView />} />
           <Route path="/tutorial/:tutorialId" element={<Tutorial />} />
           <Route path="/newreport" element={<ConditionalRoute condition={auth} element={<ReportForm />} />} />
-          <Route path="/newreport/:reportId" element={<ConditionalRoute condition={dis} element={<ReportForm />} />} />
+          <Route path="/newreport/:reportId" element={<ConditionalRoute condition={incident} element={<ReportForm />} />} />
           <Route path="/facilities" element={<ConditionalRoute condition={auth} element={<FacilitiesList />} />} />
-          <Route path="/newfacility" element={<ConditionalRoute condition={dis || admin} element={<FacilityForm />} />} />
+          <Route path="/newfacility" element={<ConditionalRoute condition={facility} element={<FacilityForm />} />} />
           <Route path="/facilities/:facilityId" element={<ConditionalRoute condition={auth} element={<FacilityForm />} />} />
-          <Route path="/map" element={<ConditionalRoute condition={dis || admin} element={<MainMap />} />} />
+          <Route path="/map" element={<ConditionalRoute condition={map} element={<MainMap />} />} />
+          <Route path="/schedules" element={<ConditionalRoute condition={schedule} element={<ScheduleList />} />} />
 
-          <Route path="/reports" element={<ConditionalRoute condition={dis} element={<ReportsList />} />} />
-          <Route path="/reports/:reportId/*" element={<ConditionalRoute condition={dis} element={<ReportView />} />} />
-          <Route path="/ambulances" element={<ConditionalRoute condition={admin} element={<AmbulanceList />} />} />
-          <Route path="/newambulance" element={<ConditionalRoute condition={admin} element={<AmbulanceForm />} />} />
-          <Route path="/ambulances/:ambulanceId/*" element={<ConditionalRoute condition={admin} element={<AmbulanceView />} />} />
-          <Route path="/equipments" element={<ConditionalRoute condition={admin} element={<EquipmentList />} />} />
-          <Route path="/equipments/:itemId" element={<ConditionalRoute condition={admin} element={<EquipmentForm />} />} />
-          <Route path="/newequipment" element={<ConditionalRoute condition={admin} element={<EquipmentForm />} />} />
-
-          <Route path="/paramedic/:paramedicId/*" element={<ParamedicView />} />
-          <Route path="/paramedic" element={<ParamedicInfo />} />
-          <Route path="/schedule" element={<ScheduleList />} />
-          <Route path="/schedule/add" element={<ScheduleAdd />} />
+          <Route path="/reports" element={<ConditionalRoute condition={incident} element={<ReportsList />} />} />
+          <Route path="/reports/:reportId/*" element={<ConditionalRoute condition={incident} element={<ReportView />} />} />
+          <Route path="/ambulances" element={<ConditionalRoute condition={ambulance} element={<AmbulanceList />} />} />
+          <Route path="/newambulance" element={<ConditionalRoute condition={ambulance} element={<AmbulanceForm />} />} />
+          <Route path="/ambulances/:ambulanceId/*" element={<ConditionalRoute condition={ambulance} element={<AmbulanceView />} />} />
+          <Route path="/equipments" element={<ConditionalRoute condition={item} element={<EquipmentList />} />} />
+          <Route path="/equipments/:itemId" element={<ConditionalRoute condition={item} element={<EquipmentForm />} />} />
+          <Route path="/newequipment" element={<ConditionalRoute condition={item} element={<EquipmentForm />} />} />
         </Routes>
         <NotificationArea />
       </Container>
