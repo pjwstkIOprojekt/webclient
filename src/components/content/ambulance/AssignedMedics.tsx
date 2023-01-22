@@ -9,6 +9,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
 import Table from "../../fragments/util/Table";
 
+// Displays a list of assigned medics
 const AssignedMedics = () => {
   const [medics, setMedics] = useState<MedicResponse[]>([]);
   const [removed, setRemoved] = useState<number[]>([]);
@@ -17,6 +18,7 @@ const AssignedMedics = () => {
   const { t } = useTranslation();
   const abort = useAbort();
 
+  // Loads medics to display
   useEffect(() => {
     if (ambulanceId === undefined) {
       console.error(licensePlateError);

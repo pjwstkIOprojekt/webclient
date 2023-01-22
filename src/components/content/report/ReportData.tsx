@@ -14,6 +14,7 @@ interface ReportParams {
   data: AccidentReportResponse | null
 }
 
+// Displays incident report data
 const ReportData = (props: Readonly<ReportParams>) => {
 	const { t } = useTranslation();
 

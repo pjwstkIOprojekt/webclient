@@ -6,9 +6,9 @@ export interface TableViewParams<T> {
 }
 
 export interface MapViewHelperParams {
-  update: (x: [number, number]) => void,
   lat: number,
-  lng: number
+  lng: number,
+  update?: (x: [number, number]) => void
 }
 
 export interface MapDataHelperParams<T> extends MapViewHelperParams {

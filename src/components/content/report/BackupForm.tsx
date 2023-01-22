@@ -14,6 +14,7 @@ import FormCheck from "../../fragments/forms/FormCheck";
 import Submit from "../../fragments/forms/Submit";
 import Error from "../../fragments/forms/Error";
 
+// Backup add/edit form component
 const BackupForm = () => {
   const [backupType, setBackupType] = useState("");
   const [justification, setJustification] = useState("");

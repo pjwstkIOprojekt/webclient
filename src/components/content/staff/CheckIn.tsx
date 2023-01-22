@@ -6,6 +6,7 @@ import { isDuringShift, endShift, startShift } from "../../../api/employeeCalls"
 import { Nav, Spinner } from "react-bootstrap";
 import { CgWorkAlt } from "react-icons/cg";
 
+// Shift toggle button for users
 const CheckIn = () => {
   const [checked, setChecked] = useState(false);
   const [processing, setProcessing] = useState(true);

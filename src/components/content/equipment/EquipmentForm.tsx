@@ -14,6 +14,7 @@ import Submit from "../../fragments/forms/Submit";
 import NavButton from "../../fragments/navigation/NavButton";
 import Error from "../../fragments/forms/Error";
 
+// Equipment item add/edit form component
 const EquipmentForm = () => {
   const [type, setType] = useState("");
   const [name, setName] = useState("");
@@ -55,6 +56,7 @@ const EquipmentForm = () => {
     return () => abortUpdate.abort();
   }, [itemId]);
 
+  // Certain fields can only be assigned to certain item types
   const onSubmit = () => {
     setError(undefined);
 

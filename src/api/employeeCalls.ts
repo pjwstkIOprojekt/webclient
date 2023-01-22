@@ -21,7 +21,7 @@ export interface EmployeeResponse extends User {
   birthDate: Date,
   bandCode: string,
   employeeType: string,
-  workSchedule: ScheduleResponse
+  schedule: Schedule
 }
 
 export interface MedicResponse extends User {

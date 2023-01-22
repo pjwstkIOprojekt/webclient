@@ -11,6 +11,7 @@ import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import { Container } from "react-bootstrap";
 import Table from "../../fragments/util/Table";
 
+// Displays all reported incidents
 const ReportsList = () => {
   const [reports, setReports] = useState<IncidentResponse[]>([]);
   const [removed, setRemoved] = useState<number[]>([]);

@@ -45,6 +45,7 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
 
     setError(undefined);
     const abortUpdate = new AbortController();
+    const updateCoords = update ?? (x => null);
 
     getAccidentById(parseInt(reportId), abortUpdate).then(res => res.json()).then((data: AccidentReportResponse) => {
       if (data.location && data.victimCount !== undefined) {
@@ -53,7 +54,7 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
         setAmountVictims(data.victimCount);
         setBandCode(data.bandCode);
         setDesc(data.description);
-        update([data.location.latitude, data.location.longitude]);
+        updateCoords([data.location.latitude, data.location.longitude]);
         setError("");
       } else {
         console.log(data);
@@ -142,10 +143,10 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
       </Row>
       <h4 className="text-center mt-3">{t("Map.Location")}</h4>
       <Row className="justify-content-center mb-3">
-        <Number id="lat" onChange={e => props.update([parseFloat(e.target.value), props.lng])} required value={props.lat} />
+        <Number id="lat" value={props.lat} disabled />
       </Row>
       <Row className="justify-content-center mb-3">
-        <Number id="lng" onChange={e => props.update([props.lat, parseFloat(e.target.value)])} required value={props.lng} />
+        <Number id="lng" value={props.lng} disabled />
       </Row>
       <Row className="justify-content-center mb-5 mt-3">
         <Submit className="w-50" canSubmit={error !== undefined}>{reportId === undefined ? t("Report.Create") : t("Common.SaveChanges")}</Submit>

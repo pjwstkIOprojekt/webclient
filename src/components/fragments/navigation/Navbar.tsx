@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useRoles, useAuth } from "../../../hooks/useAuth";
+import { hasPerm, mapAccess, incidentManagement, ambulanceManagement, itemManagement, scheduleOwner, medicalInfo, employeeManagement } from "../../../helpers/authHelper";
 import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
 import { FaHome, FaMedkit, FaBook, FaHospital, FaUserCircle, FaMap, FaNotesMedical, FaAmbulance, FaMedal, FaUserSecret, FaCalendar, FaPlusCircle } from "react-icons/fa";
-import { isAuth, isDispositor, isDirector } from "../../../helpers/authHelper";
 import { customLink } from "./sharedNavigationParams";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
@@ -20,9 +20,11 @@ import { customTheme } from "../sharedParams";
 const MenuBar = () => {
   const { t } = useTranslation();
   const roles = useRoles();
-  const auth = isAuth(roles);
-  const dis = isDispositor(roles);
-  const admin = isDirector(roles);
+  const auth = hasPerm(roles, roles);
+  const map = hasPerm(roles, mapAccess);
+  const incident = hasPerm(roles, incidentManagement);
+  const ambulance = hasPerm(roles, ambulanceManagement);
+  const item = hasPerm(roles, itemManagement);
   
   return (
     <Nav className="me-auto">
@@ -46,25 +48,25 @@ const MenuBar = () => {
           <span className="px-1">{t("Facility.Facilities")}</span>
         </NavLink>
       ) : ""}
-      {dis || admin ? (
+      {map ? (
         <NavLink to="/map">
           <FaMap />
           <span className="px-1">{t("Map.Map")}</span>
         </NavLink>
       ) : ""}
-      {dis ? (
+      {incident ? (
         <NavLink to="/reports">
           <FaNotesMedical />
           <span className="px-1">{t("Report.Reports")}</span>
         </NavLink>
       ) : ""}
-      {admin ? (
+      {ambulance ? (
         <NavLink to="/ambulances">
           <FaAmbulance />
           <span className="px-1">{t("Ambulance.Ambulances")}</span>
         </NavLink>
       ) : ""}
-      {admin ? (
+      {item ? (
         <NavLink to="/equipments">
           <FaMedal />
           <span className="px-1">{t("Equipment.Equipment")}</span>
@@ -79,10 +81,11 @@ const SideMenu = () => {
   const darkMode = useDarkModeManager();
   const roles = useRoles();
   const { t } = useTranslation();
+  const schedule = hasPerm(roles, scheduleOwner);
 
   return (
     <Nav>
-      {isDispositor(roles) ? <CheckIn /> : ""}
+      {schedule ? <CheckIn /> : ""}
       <Nav.Link onClick={darkMode.toggle} className={`d-inline-flex align-items-center nav-${customLink(darkMode.isDark)}`}>
         <HiOutlineLightBulb />
         <span className="px-1">{t("HomePage.ChangeTheme")}</span>
@@ -153,7 +156,10 @@ const UserDropdown = () => {
   const darkMode = useDarkMode();
   const auth = useAuth();
   const roles = auth.roles;
-  const isLoggedIn = isAuth(roles);
+  const isLoggedIn = hasPerm(roles, roles);
+  const medical = hasPerm(roles, medicalInfo);
+  const schedule = hasPerm(roles, scheduleOwner);
+  const employee = hasPerm(roles, employeeManagement);
 
   return (
     <NavDropdown align="end" title={
@@ -168,22 +174,28 @@ const UserDropdown = () => {
             <IoMdPerson />
             <span className="px-1">{t("Person.UserData")}</span>
           </NavDrop>
-          <NavDrop to="/settings/medicaldata">
-            <FaNotesMedical />
-            <span className="px-1">{t("Person.MedicalData")}</span>
-          </NavDrop>
-          <NavDrop to="/settings/trustedperson">
-            <FaUserSecret />
-            <span className="px-1">{t("Person.TrustedPerson")}</span>
-          </NavDrop>
-          <NavDrop to="/settings/schedule">
-            <FaCalendar />
-            <span className="px-1">{t("Schedule.Schedule")}</span>
-          </NavDrop>
+          {medical ? (
+            <>
+              <NavDrop to="/settings/medicaldata">
+                <FaNotesMedical />
+                <span className="px-1">{t("Person.MedicalData")}</span>
+              </NavDrop>
+              <NavDrop to="/settings/trustedperson">
+                <FaUserSecret />
+                <span className="px-1">{t("Person.TrustedPerson")}</span>
+              </NavDrop>
+            </>
+          ) : ""}
+          {schedule ? (
+            <NavDrop to="/settings/schedule">
+              <FaCalendar />
+              <span className="px-1">{t("Schedule.Schedule")}</span>
+            </NavDrop>
+          ) : ""}
           <NavDropdown.Divider />
         </>
       ) : ""}
-      {isDispositor(roles) || isDirector(roles) ? (
+      {employee ? (
         <>
           <NavDrop to="/newuser">
             <FaPlusCircle />

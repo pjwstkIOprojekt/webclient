@@ -121,7 +121,7 @@
         "Date": "Date",
         "Description": "Description",
         "Type": "Type of accident",
-        "VictimsCount": "Amount of victims",
+        "VictimsCount": "Number of victims",
         "ConfirmRemove": "Are you sure you want to delete this report?",
         "ConfirmCreate": "Are you sure you want to report incident?",
         "ConfirmEdit": "Are you sure you want to save those changes?",

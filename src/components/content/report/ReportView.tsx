@@ -21,6 +21,7 @@ import AssignAmbulance from "./AssignAmbulance";
 import BackupsList from "./BackupsList";
 import BackupForm from "./BackupForm";
 
+// Root view with all report details
 const ReportView = () => {
   const [statusType, setStatusType] = useState("");
   const [dangerScale, setDangerScale] = useState(1);

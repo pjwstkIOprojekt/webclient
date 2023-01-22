@@ -47,7 +47,15 @@ export const getToken = () => getUser()?.token;
 export const getRoles = () => getUser()?.roles;
 export const getEmail = () => getUser()?.email;
 export const getUserId = () => getUser()?.userId;
-export const hasRole = (roles: Roles, required: Roles) => (roles & required) !== Roles.None;
-export const isAuth = (roles: Roles) => hasRole(roles, roles);
-export const isDispositor = (roles: Roles) => hasRole(roles, Roles.Paramedic | Roles.Dispatcher | Roles.Admin);
-export const isDirector = (roles: Roles) => hasRole(roles, Roles.AmbulanceManager | Roles.Admin);
+export const hasPerm = (roles: Roles, required: Roles) => (roles & required) !== Roles.None;
+
+// Permissions definitions
+export const facilityManagement = Roles.Admin;
+export const mapAccess = Roles.Employee | Roles.Paramedic | Roles.Dispatcher | Roles.AmbulanceManager | Roles.Admin;
+export const incidentManagement = Roles.Paramedic | Roles.Dispatcher | Roles.Admin;
+export const ambulanceManagement = Roles.AmbulanceManager | Roles.Admin;
+export const itemManagement = Roles.Admin;
+export const scheduleManagement = Roles.Admin;
+export const employeeManagement = Roles.Admin;
+export const scheduleOwner = Roles.Paramedic | Roles.Dispatcher;
+export const medicalInfo = Roles.User;

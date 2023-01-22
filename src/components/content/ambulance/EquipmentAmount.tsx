@@ -17,6 +17,7 @@ interface AmountParams {
   update: (diff?: number, unit?: string) => void
 }
 
+// Special form component used in ambulance equipment tables
 const EquipmentAmount = (props: Readonly<AmountParams>) => {
 	const [newAmount, setNewAmount] = useState(props.amount);
   const [newUnit, setNewUnit] = useState(props.unit);

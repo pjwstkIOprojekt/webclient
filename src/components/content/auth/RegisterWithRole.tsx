@@ -47,7 +47,7 @@ const RegisterWithRole = () => {
       password: password,
       birthDate: birthDate,
       phoneNumber: phoneNumber,
-      workSchedule: role === "DISPOSITOR" ? formatSchedule(events) : undefined as any
+      workSchedule: formatSchedule(events)
     }, abort).then(res => {
       if (res.ok) {
         navigate("/");
@@ -91,14 +91,14 @@ const RegisterWithRole = () => {
           <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Person.Password")} />
         </Row>
         <Row className="justify-content-center text-start">
-          <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Check")} />
+          <Password id="passwordCheck" required onChange={e => setPasswordCheck(e.target.value)} value={passwordCheck} className="mb-3 w-50" label={t("Password.Repeat")} />
         </Row>
         <h1>{t("Schedule.Schedule")}</h1>
         <ScheduleDisplay value={events} onChange={setEvents} />
         <Row className="justify-content-center">
           <Submit className="my-3 w-25" canSubmit={error !== undefined}>{t("Person.Add")}</Submit>
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center mx-3">
           <Error className="mb-3 w-50 text-start" error={error} />
         </Row>
       </Form>
