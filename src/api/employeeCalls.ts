@@ -1,4 +1,5 @@
-import { Schedule } from "./adminCalls";
+import { Schedule } from "./sharedTypes";
+import { IncidentResponse } from "./incidentCalls";
 import { get, post } from "./basicCalls";
 
 export interface UpdateScheduleRequest {
@@ -14,19 +15,26 @@ interface User {
   email: string
 }
 
-export interface EmployeeResponse extends User {
-  id: number,
+export interface AmbulanceManagerResponse extends User {
   name: string,
+  employeeType: string
+}
+
+export interface EmployeeResponse extends AmbulanceManagerResponse {
+  id: number,
   phone: string,
   birthDate: Date,
   bandCode: string,
-  employeeType: string,
   schedule: Schedule
 }
 
 export interface MedicResponse extends User {
   firstName: string,
   userId: number
+}
+
+export interface DispatcherResponse extends MedicResponse {
+  assignedIncidents: IncidentResponse[]
 }
 
 const employeeBase = "employee";
@@ -40,3 +48,5 @@ export const getAssignedAmbulance = (abort: AbortController) => get(`${employeeB
 export const getSchedules = (abort: AbortController) => get(`${employeeBase}/all/schedule`, abort);
 export const getFreeMedics = (abort: AbortController) => get(`${employeeBase}/medic/free`, abort);
 export const getMedics = (abort: AbortController) => get(`${employeeBase}/medic`, abort);
+export const getDispatchers = (abort: AbortController) => get(`${employeeBase}/dispatcher`, abort);
+export const getAmbulanceManagers = (abort: AbortController) => get(`${employeeBase}/ambulance-manager`, abort);

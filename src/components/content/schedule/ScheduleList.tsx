@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { EventSourceInput } from "@fullcalendar/react";
 import { useTranslation } from "react-i18next";
 import { getSchedules, EmployeeResponse } from "../../../api/employeeCalls";
-import { toScheduleKey, scheduleToDate } from "../../../api/adminCalls";
+import { toScheduleKey, scheduleToDate } from "../../../api/sharedTypes";
 import { Container } from "react-bootstrap";
 import ViewLoader from "../../fragments/util/ViewLoader";
 import Calendar from "../../fragments/util/Calendar";

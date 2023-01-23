@@ -1,7 +1,8 @@
-import { Location, get, post, put, del } from "./basicCalls";
+import { Location } from "./sharedTypes";
+import { get, post, put, del } from "./basicCalls";
 
 interface AccidentReportBase {
-  bandCode: string,
+  bandCode: string | null,
 
   // Enum - EmergencyType
   emergencyType: string,

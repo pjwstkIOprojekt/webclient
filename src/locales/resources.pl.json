@@ -19,7 +19,8 @@
     },
     "EmployeeType": {
         "DISPATCHER": "Dyspozytor",
-        "MEDIC": "Ratownik"
+        "MEDIC": "Ratownik",
+        "AMBULANCE_MANAGER": "Kierownik karetki"
     },
     "EmergencyType": {
         "CAR_ACCIDENT": "Wypadek samochodowy",

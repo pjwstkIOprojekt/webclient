@@ -1,4 +1,5 @@
-import { Location, PathElement, get, post, put, delBody, del } from "./basicCalls";
+import { Location, PathElement } from "./sharedTypes";
+import { get, post, put, delBody, del } from "./basicCalls";
 
 interface LicensePlate {
   // Length = 3-8
@@ -42,7 +43,8 @@ export interface AmbulanceHistoryResponse extends LicensePlate {
 }
 
 export interface AmbulancePathResponse {
-  path: PathElement[]
+  path: PathElement[],
+  incidentId: number
 }
 
 export interface MedicResponse {
@@ -58,8 +60,10 @@ export const getAmbulanceByLicensePlate = (licensePlate: string, abort: AbortCon
 export const getAmbulanceHistory = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/history`, abort);
 export const getAmbulanceState = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/state`, abort);
 export const getAmbulancePath = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/location/path`, abort);
+export const getIncidentPath = (licensePlate: string, incidentId: number, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/location/path/${incidentId}`, abort);
 export const getItems = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/equipment`, abort);
 export const getCurrentIncident = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/incident`, abort);
+export const getAmbulanceIncidents = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/incident/all`, abort);
 export const getMedics = (licensePlate: string, abort: AbortController) => get(`${ambulanceBase}/${licensePlate}/crew`, abort);
 
 export const addItem = (licensePlate: string, itemId: number, abort: AbortController, count?: number) => post(`${ambulanceBase}/${licensePlate}/items/add/${itemId}?count=${count ?? 1}`, undefined, abort);

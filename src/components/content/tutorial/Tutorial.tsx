@@ -6,14 +6,15 @@ import { usePopup } from "../../../hooks/usePopup";
 import { useAbort } from "../../../hooks/useAbort";
 import { useTranslation } from "react-i18next";
 import { getUserId, hasPerm, getEmail } from "../../../helpers/authHelper";
+import { missingDataError, loadingError, userEmailError, unknownError, networkError } from "../sharedStrings";
 import NotLoggedPopup from "../../fragments/popups/NotLoggedPopup";
-import { userEmailError } from "../sharedStrings";
 import { Container, Row, Col, Nav, NavDropdown } from "react-bootstrap";
 import { customTheme } from "../../fragments/sharedParams";
 import ContentsGenerator from "../../fragments/util/ContentsGenerator";
 import ItemLink from "../../fragments/navigation/ItemLink";
 import Spinner from "../../fragments/util/Spinner";
 import Rating from "../../fragments/util/Rating";
+import Error from "../../fragments/forms/Error";
 import InnerHtml from "../../fragments/values/InnerHtml";
 import { useParams } from "react-router-dom";
 import ViewLoader from "../../fragments/util/ViewLoader";
@@ -27,7 +28,7 @@ interface TutorialPageParams {
 const TutorialPage = (props: Readonly<TutorialPageParams>) => {
   const [review, setReview] = useState<ReviewResponse | null>(null);
   const [average, setAverage] = useState(props.tutorial.averageRating);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState<string | undefined>("");
   const darkMode = useDarkMode();
   const roles = useRoles();
   const popup = usePopup();
@@ -38,20 +39,22 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
 
   // Loads user review
   useEffect(() => {
-    setIsProcessing(true);
+    setError(undefined);
     const abortUpdate = new AbortController();
 
     getTutorialReviews(props.tutorial.tutorialId, abortUpdate).then(res => res.json()).then((data: ReviewResponse[]) => {
       if (data) {
         const reviews = data.filter(r => r.reviewer.id === userId);
         setReview(reviews.length > 0 ? reviews[0] : null);
+        setError("");
+      } else {
+        console.log(data);
+        setError(missingDataError);
       }
-
-      setIsProcessing(false);
     }).catch(err => {
       if (!abortUpdate.signal.aborted) {
         console.error(err);
-        setIsProcessing(false);
+        setError(loadingError);
       }
     });
 
@@ -75,12 +78,12 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
         setAverage(data.averageRating);
       } else {
         console.log(data);
-        setIsProcessing(false);
+        setError(missingDataError);
       }
     }).catch(err => {
       if (!abort.signal.aborted) {
         console.error(err);
-        setIsProcessing(false);
+        setError(loadingError);
       }
     });
   };
@@ -92,7 +95,7 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
   };
 
   const onReviewChange = (x: number) => {
-    if (isProcessing) {
+    if (error === undefined) {
       return;
     }
 
@@ -103,7 +106,7 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
       return;
     }
 
-    setIsProcessing(true);
+    setError(undefined);
 
     const reviewReq = {
       value: x,
@@ -115,12 +118,12 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
         updateAverage();
       } else {
         console.log(res);
-        setIsProcessing(false);
+        setError(unknownError);
       }
     }).catch(err => {
       if (!abort.signal.aborted) {
         console.error(err);
-        setIsProcessing(false);
+        setError(networkError);
       }
     });
   };
@@ -142,8 +145,9 @@ const TutorialPage = (props: Readonly<TutorialPageParams>) => {
               <br />
               <p>{t("Tutorial.Opinion")}</p>
               <Row onClick={onReview} className="justify-content-center text-center">
-                {isProcessing ? <Spinner /> :<Rating initialValue={review?.value ?? 0} disabled={!auth} onChange={onReviewChange} />}
+                {error === undefined ? <Spinner /> :<Rating initialValue={review?.value ?? 0} disabled={!auth} onChange={onReviewChange} />}
               </Row>
+              <Error className="mx-1 my-3" error={error} />
             </span>
           </Nav>
         </Col>

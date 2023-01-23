@@ -105,15 +105,21 @@ const EquipmentForm = () => {
       <Row className="justify-content-center">
         <NotBlank id="name" label={t("Equipment.Name")} className="mb-3 w-50" required value={name} onChange={e => setName(e.target.value)} />
       </Row>
-      <Row className="justify-content-center">
-        <NotBlank id="description" label={t("Equipment.Description")} className="mb-3 w-50" required value={desc} onChange={e => setDesc(e.target.value)} disabled={multi} />
-      </Row>
-      <Row className="justify-content-center">
-        <NotBlank id="manufacturer" label={t("Equipment.Manufacturer")} className="mb-3 w-50" required value={manu} onChange={e => setManu(e.target.value)} disabled={single || multi} />
-      </Row>
-      <Row className="justify-content-center">
-        <InDate id="expirationDate" label={t("Equipment.Expiration")} className="mb-3 w-50" required value={exp} onChange={e => setExp(e.target.value)} disabled={!medical} />
-      </Row>
+      {multi ? "" : (
+        <Row className="justify-content-center">
+          <NotBlank id="description" label={t("Equipment.Description")} className="mb-3 w-50" required value={desc} onChange={e => setDesc(e.target.value)} />
+        </Row>
+      )}
+      {single || multi ? "" : (
+        <Row className="justify-content-center">
+          <NotBlank id="manufacturer" label={t("Equipment.Manufacturer")} className="mb-3 w-50" required value={manu} onChange={e => setManu(e.target.value)} />
+        </Row>
+      )}
+      {medical ? (
+        <Row className="justify-content-center">
+          <InDate id="expirationDate" label={t("Equipment.Expiration")} className="mb-3 w-50" required value={exp} onChange={e => setExp(e.target.value)} />
+        </Row>
+      ) : ""}
       <Row className="justify-content-center">
         <Submit className="mb-3 w-25" canSubmit={error !== undefined}>{t(itemId === undefined ? "Equipment.Add" : "Common.SaveChanges")}</Submit>
       </Row>
