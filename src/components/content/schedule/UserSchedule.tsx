@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Schedule as ScheduleData, getEmptySchedule, loadSchedule, formatSchedule } from "../../../api/adminCalls";
+import { Schedule as ScheduleData, getEmptySchedule, loadSchedule, formatSchedule } from "../../../api/sharedTypes";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
 import { getSchedule, ScheduleResponse, updateSchedule } from "../../../api/employeeCalls";

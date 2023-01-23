@@ -19,7 +19,8 @@
     },
     "EmployeeType": {
         "DISPATCHER": "Dispatcher",
-        "MEDIC": "Paramedic"
+        "MEDIC": "Paramedic",
+        "AMBULANCE_MANAGER": "Ambulance manager"
     },
     "EmergencyType": {
         "CAR_ACCIDENT": "Car accident",

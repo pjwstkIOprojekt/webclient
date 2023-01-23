@@ -1,4 +1,5 @@
-import { Location, get, del, post, put } from "./basicCalls";
+import { Location } from "./sharedTypes";
+import { get, del, post, put } from "./basicCalls";
 
 interface FacilityBase {
   // Not blank

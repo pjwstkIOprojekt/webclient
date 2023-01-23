@@ -52,7 +52,7 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
         setBreathing(data.breathing);
         setConscious(data.consciousness);
         setAmountVictims(data.victimCount);
-        setBandCode(data.bandCode);
+        setBandCode(data.bandCode ?? "");
         setDesc(data.description);
         updateCoords([data.location.latitude, data.location.longitude]);
         setError("");

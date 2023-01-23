@@ -42,16 +42,16 @@ const MenuBar = () => {
         <FaBook />
         <span className="px-1">{t("Tutorial.Tutorials")}</span>
       </NavLink>
-      {auth ? (
-        <NavLink to="/facilities">
-          <FaHospital />
-          <span className="px-1">{t("Facility.Facilities")}</span>
-        </NavLink>
-      ) : ""}
       {map ? (
         <NavLink to="/map">
           <FaMap />
           <span className="px-1">{t("Map.Map")}</span>
+        </NavLink>
+      ) : ""}
+      {auth ? (
+        <NavLink to="/facilities">
+          <FaHospital />
+          <span className="px-1">{t("Facility.Facilities")}</span>
         </NavLink>
       ) : ""}
       {incident ? (

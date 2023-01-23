@@ -1,6 +1,6 @@
 import { usePopup } from "../../../hooks/usePopup";
 import { useTranslation } from "react-i18next";
-import { Schedule as ScheduleData, scheduleKeyFromNum } from "../../../api/adminCalls";
+import { Schedule as ScheduleData, scheduleKeyFromNum } from "../../../api/sharedTypes";
 import Button from "../util/Button";
 import SchedulePopup from "../popups/SchedulePopup";
 import Table from "../util/Table";

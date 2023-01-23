@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Schedule, getEmptySchedule, formatSchedule, registerEmployee } from "../../../api/adminCalls";
+import { Schedule, getEmptySchedule, formatSchedule } from "../../../api/sharedTypes";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAbort } from "../../../hooks/useAbort";
+import { registerEmployee } from "../../../api/adminCalls";
 import { Container, Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import EnumSelect from "../../fragments/forms/api/EnumSelect";
-import { RoleName } from "../../../api/enumCalls";
+import { EmployeeType } from "../../../api/enumCalls";
 import NotBlank from "../../fragments/forms/api/NotBlank";
 import Email from "../../fragments/forms/api/Email";
 import Past from "../../fragments/forms/api/Past";
@@ -70,7 +71,7 @@ const RegisterWithRole = () => {
       <h1>{t("Person.Adding")}</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center text-start">
-          <EnumSelect id="role" required onChange={e => setRole(e.target.value)} onLoad={setRole} value={role} enum={RoleName} className="mb-3 w-50" label={t("Person.Role")} />
+          <EnumSelect id="role" required onChange={e => setRole(e.target.value)} onLoad={setRole} value={role} enum={EmployeeType} className="mb-3 w-50" label={t("Person.Role")} />
         </Row>
         <Row className="justify-content-center text-start">
           <NotBlank id="firstName" required onChange={e => setFirstName(e.target.value)} value={firstName} className="mb-3 w-50" label={t("Person.FirstName")} />

@@ -198,3 +198,8 @@ export const ItemUnit = {
   getter: (abort: AbortController) => get(`${enumBase}/item_unit_types`, abort),
   name: "ItemUnit"
 };
+
+export const EmployeeType = {
+  getter: (abort: AbortController) => get(`${enumBase}/employee_types`, abort),
+  name: "EmployeeType"
+};

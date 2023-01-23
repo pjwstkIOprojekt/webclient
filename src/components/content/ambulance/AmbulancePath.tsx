@@ -1,9 +1,9 @@
 import { MapDataHelperParams } from "../sharedViewsParams";
-import { PathElement } from "../../../api/basicCalls";
+import { PathElement } from "../../../api/sharedTypes";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { getAmbulancePath, AmbulancePathResponse } from "../../../api/ambulanceCalls";
+import { getAmbulancePath, AmbulancePathResponse, getAmbulanceIncidents } from "../../../api/ambulanceCalls";
 import { licensePlateError, missingDataError, loadingError } from "../sharedStrings";
 import Form from "../../fragments/forms/Form";
 import FormSelect from "../../fragments/forms/FormSelect";
@@ -13,6 +13,8 @@ import Error from "../../fragments/forms/Error";
 import { ambulanceIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
+import { getDispatchers } from "../../../api/employeeCalls";
+// Displays ambulance path during selected incident response
 const AmbulancePathView = (props: Readonly<MapDataHelperParams<[number, number][]>>) => {
   const [ori, setOri] = useState<PathElement[]>([]);
   const [day, setDay] = useState(0);
@@ -87,16 +89,32 @@ const AmbulancePathView = (props: Readonly<MapDataHelperParams<[number, number][
   );
 };
 
+// Mini-map wrapper for ambulance path view
 const AmbulancePath = () => {
   const [coords, setCoords] = useState<[number, number]>([0, 0]);
   const [loaded, setLoaded] = useState(false);
   const [path, setPath] = useState<[number, number][]>([]);
   const { t } = useTranslation();
+  const { ambulanceId } = useParams();
 
   useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
     setCoords([pos.coords.latitude, pos.coords.longitude]);
     setLoaded(true);
   }, err => setLoaded(true)), []);
+
+  useEffect(() => {
+    if (ambulanceId === undefined) {
+      console.error(licensePlateError);
+      return;
+    }
+
+    const abort = new AbortController();
+
+    getAmbulanceIncidents(ambulanceId, abort).then(res => res.json()).then(data => console.log(data)).catch(console.error);
+    getDispatchers(abort).then(res => res.json()).then(data => console.log(data)).catch(console.error);
+
+    return () => abort.abort();
+  }, [ambulanceId]);
 
   const mark = {
     coords: coords,

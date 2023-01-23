@@ -1,14 +1,5 @@
 import { getToken } from "../helpers/authHelper";
 
-export interface Location {
-  longitude: number,
-  latitude: number
-}
-
-export interface PathElement extends Location {
-  timestamp: Date
-}
-
 // Base url for requests, change to 'http://localhost:8080' if you want to test with local backend
 const baseUrl = "http://172.21.40.111:8080";
 

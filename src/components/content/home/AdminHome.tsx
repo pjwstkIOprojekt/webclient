@@ -24,7 +24,11 @@ const AdminHome = () => {
     Promise.all([ambReq, accReq]).then((data: [AmbulanceResponse[], AccidentReportResponse[]]) => {
       if (data) {
         setAmbulances(data[0]);
-        setAccidents(data[1]);
+        
+        setAccidents(data[1].map(a => ({
+          ...a,
+          date: new Date(`${a.date}Z`)
+        })));
       }
 
       setIsLoading(false);
