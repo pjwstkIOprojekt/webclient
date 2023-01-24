@@ -204,7 +204,8 @@
         "MailNotFound": "Provided email was not found in our database.",
         "IncorrectPassword": "Provided password is incorrect.",
         "IncorrectToken": "Provided token is incorrect.",
-        "ExpiredToken": "Provided token is expired."
+        "ExpiredToken": "Provided token is expired.",
+        "LocationBlocked": "Location usage is blocked for this website. Please, enable it if you want the map to be centered on your location."
     },
     "Blood": {
         "Type": "Blood type",

@@ -1,11 +1,11 @@
-import { MapDataHelperParams } from "../sharedViewsParams";
+import { MapViewHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopup } from "../../../hooks/usePopup";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
-import { getAccidentById, AccidentReportResponse, createAccident, updateAccident } from "../../../api/accidentReportCalls";
-import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
+import { createAccident, updateAccident, getAccidentById, AccidentReportResponse } from "../../../api/accidentReportCalls";
+import { unknownError, networkError, geolocationError, missingDataError, loadingError } from "../sharedStrings";
 import { getEmail } from "../../../helpers/authHelper";
 import { userEmailError } from "../sharedStrings";
 import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
@@ -22,55 +22,32 @@ import Error from "../../fragments/forms/Error";
 import { accidentIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
+interface ReportViewParams extends MapViewHelperParams {
+  type: string,
+  setType: (x: string) => void,
+  breathing: boolean,
+  setBreathing: (x: boolean) => void,
+  conscious: boolean,
+  setConscious: (x: boolean) => void,
+  amountVictims: number,
+  setAmountVictims: (x: number) => void,
+  bandCode: string,
+  setBandCode: (x: string) => void,
+  desc: string,
+  setDesc: (x: string) => void
+}
+
 // Report form component
-const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
-  const [breathing, setBreathing] = useState(true);
-  const [conscious, setConscious] = useState(true);
-  const [amountVictims, setAmountVictims] = useState(1);
-  const [bandCode, setBandCode] = useState("");
-  const [desc, setDesc] = useState("");
-  const [error, setError] = useState<string | undefined>("");
+const ReportView = (props: Readonly<ReportViewParams>) => {
+  const [error, setError] = useState(props.error);
   const navigate = useNavigate();
   const { reportId } = useParams();
   const popup = usePopup();
   const { t } = useTranslation();
   const abort = useAbort();
-  const update = props.update;
 
-  // Loads report data for editing
-  useEffect(() => {
-    if (reportId === undefined) {
-      return;
-    }
-
-    setError(undefined);
-    const abortUpdate = new AbortController();
-    const updateCoords = update ?? (x => null);
-
-    getAccidentById(parseInt(reportId), abortUpdate).then(res => res.json()).then((data: AccidentReportResponse) => {
-      if (data.location && data.victimCount !== undefined) {
-        setBreathing(data.breathing);
-        setConscious(data.consciousness);
-        setAmountVictims(data.victimCount);
-        setBandCode(data.bandCode ?? "");
-        setDesc(data.description);
-        updateCoords([data.location.latitude, data.location.longitude]);
-        setError("");
-      } else {
-        console.log(data);
-        setError(missingDataError);
-      }
-    }).catch(err => {
-      if (abortUpdate.signal.aborted) {
-        return;
-      }
-
-      console.error(err);
-      setError(loadingError);
-    });
-
-    return () => abortUpdate.abort();
-  }, [reportId, update]);
+  // Updates error message
+  useEffect(() => setError(props.error), [props.error]);
 
   const handleSubmit = () => {
     setError(undefined);
@@ -83,22 +60,22 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
     }
 
     const report = {
-      bandCode: bandCode,
-      emergencyType: props.data,
-      victimCount: amountVictims,
-      breathing: breathing,
+      bandCode: props.bandCode,
+      emergencyType: props.type,
+      victimCount: props.amountVictims,
+      breathing: props.breathing,
       longitude: props.lng,
       latitude: props.lat,
-      description: desc
+      description: props.desc
     };
 
     (reportId === undefined ? createAccident({
       ...report,
-      concious: conscious,
+      concious: props.conscious,
       email: email
     }, abort) : updateAccident(parseInt(reportId), {
       ...report,
-      consciousness: conscious
+      consciousness: props.conscious
     }, abort)).then(res => {
       if (res.ok) {
         navigate("/home");
@@ -124,22 +101,22 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
     <Form onSubmit={onSubmit} className="w-50">
       <h1 className="text-center mt-3">{t("Report.Report")}</h1>
       <Row className="justify-content-center mb-3">
-        <EnumSelect id="emergencyType" enum={EmergencyType} onChange={e => props.setData(e.target.value)} required value={props.data} onLoad={props.setData} label={t("Report.Type")} />
+        <EnumSelect id="emergencyType" enum={EmergencyType} onChange={e => props.setType(e.target.value)} required value={props.type} onLoad={props.setType} loadIf={props.type === ""} label={t("Report.Type")} />
       </Row>
       <Row className="justify-content-center mb-3 ml-2">
-        <FormCheck id="breathing" onChange={e => setBreathing(!breathing)} value={breathing} label={t("Report.Breathing")} />
+        <FormCheck id="breathing" onChange={e => props.setBreathing(!props.breathing)} value={props.breathing} label={t("Report.Breathing")} />
       </Row>
       <Row className="justify-content-center mb-3 ml-2">
-        <FormCheck id="conscious" onChange={e => setConscious(!conscious)} value={conscious} label={t("Report.Consious")} />
+        <FormCheck id="conscious" onChange={e => props.setConscious(!props.conscious)} value={props.conscious} label={t("Report.Consious")} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <Number id="amountVictims" minValue={1} onChange={e => setAmountVictims(parseInt(e.target.value))} required value={amountVictims} label={t("Report.VictimsCount")} />
+        <Number id="amountVictims" minValue={1} onChange={e => props.setAmountVictims(parseInt(e.target.value))} required value={props.amountVictims} label={t("Report.VictimsCount")} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <NotBlank id="bandCode" onChange={e => setBandCode(e.target.value)} value={bandCode} label={t("Report.BandCode")} />
+        <NotBlank id="bandCode" onChange={e => props.setBandCode(e.target.value)} value={props.bandCode} label={t("Report.BandCode")} />
       </Row>
       <Row className="justify-content-center mb-3">
-        <FormTextArea id="description" onChange={e => setDesc(e.target.value)} value={desc} label={t("Report.Description")} maxLength={100} />
+        <FormTextArea id="description" onChange={e => props.setDesc(e.target.value)} value={props.desc} label={t("Report.Description")} maxLength={100} />
       </Row>
       <h4 className="text-center mt-3">{t("Map.Location")}</h4>
       <Row className="justify-content-center mb-3">
@@ -158,16 +135,56 @@ const ReportView = (props: Readonly<MapDataHelperParams<string>>) => {
 
 // Map wrapper for report form
 const ReportForm = () => {
-  const [type, setType] = useState("");
   const [coords, setCoords] = useState<[number, number]>([0, 0]);
-  const [loaded, setLoaded] = useState(false);
+  const [type, setType] = useState("");
+  const [breathing, setBreathing] = useState(true);
+  const [conscious, setConscious] = useState(true);
+  const [amountVictims, setAmountVictims] = useState(1);
+  const [bandCode, setBandCode] = useState("");
+  const [desc, setDesc] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const { t } = useTranslation();
+  const { reportId } = useParams();
 
-  // Centers map view on current location
-  useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
-    setCoords([pos.coords.latitude, pos.coords.longitude]);
-    setLoaded(true);
-  }, err => setLoaded(true)), []);
+  // Loads report data for editing
+  useEffect(() => {
+    setError(undefined);
+
+    if (reportId === undefined) {
+      // Centers map view on current location
+      navigator.geolocation.getCurrentPosition(pos => {
+        setCoords([pos.coords.latitude, pos.coords.longitude]);
+        setError("");
+      }, err => setError(geolocationError));
+
+      return;
+    }
+
+    const abortUpdate = new AbortController();
+
+    getAccidentById(parseInt(reportId), abortUpdate).then(res => res.json()).then((data: AccidentReportResponse) => {
+      if (data.emergencyType && data.location && data.victimCount !== undefined) {
+        setType(data.emergencyType);
+        setBreathing(data.breathing);
+        setConscious(data.consciousness);
+        setAmountVictims(data.victimCount);
+        setBandCode(data.bandCode ?? "");
+        setDesc(data.description);
+        setCoords([data.location.latitude, data.location.longitude]);
+        setError("");
+      } else {
+        console.log(data);
+        setError(missingDataError);
+      }
+    }).catch(err => {
+      if (!abortUpdate.signal.aborted) {
+        console.error(err);
+        setError(loadingError);
+      }
+    });
+
+    return () => abortUpdate.abort();
+  }, [reportId]);
 
   const update = (x: Readonly<L.LatLng>) => setCoords([x.lat, x.lng]);
 
@@ -177,7 +194,7 @@ const ReportForm = () => {
     icon: EmergencyType.values?.[type]?.icon ?? accidentIcon
   };
 
-  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<ReportView update={setCoords} lat={coords[0]} lng={coords[1]} data={type} setData={setType} />} searchable clickable onClick={e => update(e)} onSearch={e => update(e.geocode.center)} marks={[mark]} />;
+  return <MapView isLoaded={error !== undefined} center={coords} initialZoom={12} element={<ReportView update={setCoords} lat={coords[0]} lng={coords[1]} error={error} type={type} setType={setType} breathing={breathing} setBreathing={setBreathing} conscious={conscious} setConscious={setConscious} amountVictims={amountVictims} setAmountVictims={setAmountVictims} bandCode={bandCode} setBandCode={setBandCode} desc={desc} setDesc={setDesc} />} searchable clickable onClick={e => update(e)} onSearch={e => update(e.geocode.center)} marks={[mark]} />;
 };
 
 export default ReportForm;

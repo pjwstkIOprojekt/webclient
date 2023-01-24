@@ -173,7 +173,9 @@ export const RoleName = {
 export const IncidentType = {
   getter: (abort: AbortController) => get(`${enumBase}/incident_status`, abort),
   name: "IncidentStatusType",
-  accepted: "ACCEPTED"
+  accepted: "ACCEPTED",
+  assigned: "ASSIGNED",
+  closed: "CLOSED"
 };
 
 export const ItemType = {

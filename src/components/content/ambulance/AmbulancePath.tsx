@@ -1,89 +1,96 @@
-import { MapDataHelperParams } from "../sharedViewsParams";
-import { PathElement } from "../../../api/sharedTypes";
+import { MapViewHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { getAmbulancePath, AmbulancePathResponse, getAmbulanceIncidents } from "../../../api/ambulanceCalls";
+import { useRoles } from "../../../hooks/useAuth";
+import { hasPerm, incidentManagement } from "../../../helpers/authHelper";
+import { getIncidentPath, AmbulancePathResponse, getAmbulanceIncidents } from "../../../api/ambulanceCalls";
 import { licensePlateError, missingDataError, loadingError } from "../sharedStrings";
 import Form from "../../fragments/forms/Form";
 import FormSelect from "../../fragments/forms/FormSelect";
+import { EmergencyType, IncidentType } from "../../../api/enumCalls";
 import Range from "../../fragments/forms/Range";
 import Number from "../../fragments/forms/api/Number";
+import NavButton from "../../fragments/navigation/NavButton";
 import Error from "../../fragments/forms/Error";
+import { IncidentResponse } from "../../../api/incidentCalls";
 import { ambulanceIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
-import { getDispatchers } from "../../../api/employeeCalls";
+interface IncidentData {
+  id: number,
+  type: string
+}
+
+interface AmbulancePathParams extends MapViewHelperParams {
+  path: [number, number][],
+  setPath: (x: [number, number][]) => void,
+  incidents: IncidentData[]
+}
+
 // Displays ambulance path during selected incident response
-const AmbulancePathView = (props: Readonly<MapDataHelperParams<[number, number][]>>) => {
-  const [ori, setOri] = useState<PathElement[]>([]);
-  const [day, setDay] = useState(0);
+const AmbulancePathView = (props: Readonly<AmbulancePathParams>) => {
+  const [incident, setIncident] = useState(props.incidents[0]?.id ?? 0);
   const [offset, setOffset] = useState(0);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(props.error);
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
-  const setPath = props.setData;
+  const roles = useRoles();
+  const setPath = props.setPath;
+  const incidentAccess = hasPerm(roles, incidentManagement);
 
+  // Updated incident id
+  useEffect(() => setIncident(props.incidents[0]?.id ?? 0), [props.incidents]);
+
+  // Updates error message
+  useEffect(() => setError(props.error), [props.error]);
+
+  // Loads ambulance path
   useEffect(() => {
-    setError("");
-
     if (ambulanceId === undefined) {
       console.error(licensePlateError);
       return;
     }
 
     const abort = new AbortController();
+    setError(undefined);
 
-    getAmbulancePath(ambulanceId, abort).then(res => res.json()).then((data: AmbulancePathResponse) => {
-      if (data.path) {
-        setOri(data.path.map(p => ({
-          ...p,
-          timestamp: new Date(p.timestamp)
-        })));
-
-        const from = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24);
-        const to = new Date();
-        setPath(data.path.filter(p => p.timestamp >= from && p.timestamp <= to).map(p => [p.latitude, p.longitude] as [number, number]));
+    getIncidentPath(ambulanceId, incident, abort).then(res => res.json()).then((data: AmbulancePathResponse) => {
+      if (data.path && data.incidentId === incident) {
+        setPath(data.path.map(p => [p.latitude, p.longitude] as [number, number]));
+        setError("");
       } else {
+        console.log(data);
         setError(missingDataError);
       }
     }).catch(err => {
-      if (abort.signal.aborted) {
-        return;
+      if (!abort.signal.aborted) {
+        console.error(err);
+        setError(loadingError);
       }
-
-      console.error(err);
-      setError(loadingError);
     });
 
     return () => abort.abort();
-  }, [ambulanceId, setPath]);
+  }, [ambulanceId, incident, setPath]);
 
   const onMove = (x: number) => {
     setOffset(x);
-    const value = props.data[x];
+    const value = props.path[x];
 
     if (value && props.update) {
       props.update(value);
     }
   };
 
-  const changeDay = (x: number) => {
-    setDay(x);
-    const from = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24 * (day + 1));
-    const to = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24 * day);
-    setPath(ori.filter(p => p.timestamp >= from && p.timestamp <= to).map(p => [p.latitude, p.longitude] as [number, number]));
-    onMove(0);
-  };
-
   return (
     <Form>
       <h1 className="my-3 text-center">{t("Ambulance.Path")}</h1>
-      <FormSelect id="timeSpan" className="mb-3" value={day.toString()} options={["0", "1", "2", "3"]} onChange={e => changeDay(parseInt(e.target.value))} />
-      <Range id="timeline" className="mb-3" minValue="0" maxValue={props.data.length - 1} value={offset} onChange={e => onMove(parseInt(e.target.value))} />
+      <FormSelect id="timeSpan" className="mb-3" value={incident} options={props.incidents.map(i => `${i.id} - ${t(`${EmergencyType.name}.${i.type}`)}`)} provider={opt => opt.split(" -")[0]} allValid onChange={e => setIncident(parseInt(e.target.value))} />
+      <Range id="timeline" className="mb-3" minValue="0" maxValue={props.path.length - 1} value={offset} onChange={e => onMove(parseInt(e.target.value))} />
       <h4 className="text-center mb-3">{t("Map.Location")}</h4>
       <Number id="latitude" className="mb-3" value={props.lat} disabled />
       <Number id="longitude" className="mb-3" value={props.lng} disabled />
+      {incidentAccess && props.incidents.length > 0 ? <NavButton to={`/reports/${incident}`} className="w-100">{t("Common.Details")}</NavButton> : ""}
       <Error className="mt-3" error={error} />
     </Form>
   );
@@ -92,16 +99,13 @@ const AmbulancePathView = (props: Readonly<MapDataHelperParams<[number, number][
 // Mini-map wrapper for ambulance path view
 const AmbulancePath = () => {
   const [coords, setCoords] = useState<[number, number]>([0, 0]);
-  const [loaded, setLoaded] = useState(false);
   const [path, setPath] = useState<[number, number][]>([]);
+  const [incidents, setIncidents] = useState<IncidentData[]>([]);
+  const [error, setError] = useState<string | undefined>("");
   const { t } = useTranslation();
   const { ambulanceId } = useParams();
 
-  useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
-    setCoords([pos.coords.latitude, pos.coords.longitude]);
-    setLoaded(true);
-  }, err => setLoaded(true)), []);
-
+  // Loads all ambulance related incidents
   useEffect(() => {
     if (ambulanceId === undefined) {
       console.error(licensePlateError);
@@ -109,9 +113,29 @@ const AmbulancePath = () => {
     }
 
     const abort = new AbortController();
+    setError(undefined);
 
-    getAmbulanceIncidents(ambulanceId, abort).then(res => res.json()).then(data => console.log(data)).catch(console.error);
-    getDispatchers(abort).then(res => res.json()).then(data => console.log(data)).catch(console.error);
+    getAmbulanceIncidents(ambulanceId, abort).then(res => res.json()).then((data: Record<string, IncidentResponse[]>) => {
+      if (!data) {
+        setError(missingDataError);
+        return;
+      }
+
+      const mapData = (x?: Readonly<IncidentResponse[]>) => x ? x.map(i => ({
+        id: i.incidentId,
+        type: i.accidentReport.emergencyType
+      })) : [];
+
+      setIncidents([...mapData(data[IncidentType.assigned]), ...mapData(data[IncidentType.closed])]);
+      const loc = [...data[IncidentType.assigned], ...data[IncidentType.closed]][0]?.accidentReport.location;
+      setCoords([loc?.latitude ?? 0, loc?.longitude ?? 0]);
+      setError("");
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+        setError(loadingError);
+      }
+    });
 
     return () => abort.abort();
   }, [ambulanceId]);
@@ -122,7 +146,7 @@ const AmbulancePath = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView isLoaded={loaded} center={coords} initialZoom={12} small element={<AmbulancePathView update={setCoords} lat={coords[0]} lng={coords[1]} data={path} setData={setPath} />} paths={[{
+  return <MapView isLoaded={error !== undefined} center={coords} initialZoom={12} small element={<AmbulancePathView update={setCoords} lat={coords[0]} lng={coords[1]} error={error} path={path} setPath={setPath} incidents={incidents} />} paths={[{
     points: path,
     color: "red"
   }]} marks={[mark]} />;
