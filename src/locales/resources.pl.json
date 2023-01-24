@@ -205,7 +205,7 @@
         "IncorrectPassword": "Podane hasło jest nieprawidłowe.",
         "IncorrectToken": "Podany token jest nieprawidłowy.",
         "ExpiredToken": "Podany token jest przeterminowany.",
-        "LocationBlocked": "Wykorzystanie lokalizacji jest zablokowane dla tej witryny. Włącz tę opcję, jeśli chcesz, aby mapa była wyśrodkowana na Twojej lokalizacji."
+        "LocationBlocked": "Wykorzystanie lokalizacji jest zablokowane dla tej witryny. Włącz tą opcję, jeśli chcesz, aby mapa była wyśrodkowana na Twojej lokalizacji."
     },
     "Blood": {
         "Type": "Grupa krwi",
