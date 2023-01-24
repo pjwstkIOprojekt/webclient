@@ -1,10 +1,10 @@
+import { OkParams } from "./OkPopup";
 import { useTranslation } from "react-i18next";
 import { usePopup } from "../../../hooks/usePopup";
 import { Container, Row } from "react-bootstrap";
 import Button from "../util/Button";
 
-export interface ConfirmParams {
-  text: string,
+export interface ConfirmParams extends OkParams {
   onConfirm: () => void
 }
 

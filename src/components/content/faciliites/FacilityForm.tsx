@@ -1,12 +1,12 @@
-import { MapDataHelperParams } from "../sharedViewsParams";
+import { MapViewHelperParams } from "../sharedViewsParams";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "../../../hooks/useAuth";
 import { useAbort } from "../../../hooks/useAbort";
 import { hasPerm, facilityManagement } from "../../../helpers/authHelper";
-import { getFacilityById, FacilityResponse, createFacility, updateFacility } from "../../../api/facilityCalls";
-import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
+import { createFacility, updateFacility, getFacilityById, FacilityResponse } from "../../../api/facilityCalls";
+import { unknownError, networkError, geolocationError, missingDataError, loadingError } from "../sharedStrings";
 import { Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import NotBlank from "../../fragments/forms/api/NotBlank";
@@ -19,47 +19,25 @@ import L from "leaflet";
 import { hospitalIcon } from "../map/MapIcons";
 import MapView from "../../fragments/map/MapView";
 
+interface FacilityFormParams extends MapViewHelperParams {
+  facilityType: string,
+  setFacilityType: (x: string) => void,
+  name: string,
+  setName: (x: string) => void
+}
+
 // Facility form component
-const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
-    const [name, setName] = useState("");
-    const [error, setError] = useState<string | undefined>("");
+const FacilityFormView = (props: Readonly<FacilityFormParams>) => {
+    const [error, setError] = useState(props.error);
     const { facilityId } = useParams();
     const navigate = useNavigate();
     const { t } = useTranslation();
     const roles = useRoles();
     const abort = useAbort();
-    const update = props.update;
-    const setFacilityType = props.setData;
     const canEdit = hasPerm(roles, facilityManagement);
-  
-    // Loads facility data for editing
-    useEffect(() => {
-      if (facilityId !== undefined) {
-        setError(undefined);
-        const abortUpdate = new AbortController();
-        const updateCoords = update ?? (x => null);
 
-        getFacilityById(parseInt(facilityId), abortUpdate).then(res => res.json()).then((data: FacilityResponse) => {
-          if (data.name && data.facilityType && data.location) {
-            setName(data.name);
-            setFacilityType(data.facilityType);
-            updateCoords([data.location.latitude, data.location.longitude]);
-            setError("");
-          } else {
-            setError(missingDataError);
-          }
-        }).catch(err => {
-          if (abortUpdate.signal.aborted) {
-            return;
-          }
-
-          console.error(err);
-          setError(loadingError);
-        });
-
-        return () => abortUpdate.abort();
-      }
-    }, [facilityId, setFacilityType, update]);
+    // Update error message
+    useEffect(() => setError(props.error), [props.error]);
   
     const onSubmit = () => {
       if (!canEdit) {
@@ -70,8 +48,8 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
       setError(undefined);
   
       const facility = {
-        name: name,
-        facilityType: props.data,
+        name: props.name,
+        facilityType: props.facilityType,
         longitude: props.lng,
         latitude: props.lat
       };
@@ -96,8 +74,8 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
     return (
       <Form onSubmit={onSubmit} className="w-50">
         <h1 className="my-3 text-center">{facilityId === undefined ? t("Facility.Adding") : (canEdit ? t("Facility.Editing") : t("Facility.Facility"))}</h1>
-        <NotBlank id="name" className="mb-3" required value={name} onChange={e => setName(e.target.value)} label={t("Facility.Name")} disabled={!canEdit} />
-        <EnumSelect id="facilityType" className="mb-3" required value={props.data} onChange={e => props.setData(e.target.value)} enum={FacilityType} onLoad={props.setData} label={t("Facility.Type")} disabled={!canEdit} />
+        <NotBlank id="name" className="mb-3" required value={props.name} onChange={e => props.setName(e.target.value)} label={t("Facility.Name")} disabled={!canEdit} />
+        <EnumSelect id="facilityType" className="mb-3" required value={props.facilityType} onChange={e => props.setFacilityType(e.target.value)} enum={FacilityType} onLoad={props.setFacilityType} loadIf={props.facilityType === ""} label={t("Facility.Type")} disabled={!canEdit} />
         <h4 className="text-center mb-3">{t("Map.Location")}</h4>
         <Number id="latitude" className="mb-3" value={props.lat} disabled />
         <Number id="longitude" className="mb-3" value={props.lng} disabled />
@@ -114,17 +92,48 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
   // Map wrapper for facility form
   const FacilityForm = () => {
     const [coords, setCoords] = useState<[number, number]>([0, 0]);
-    const [loaded, setLoaded] = useState(false);
     const [facilityType, setFacilityType] = useState("");
+    const [name, setName] = useState("");
+    const [error, setError] = useState<string | undefined>("");
     const { t } = useTranslation();
+    const { facilityId } = useParams();
     const roles = useRoles();
     const canEdit = hasPerm(roles, facilityManagement);
 
-    // Centers map view on current location
-    useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
-      setCoords([pos.coords.latitude, pos.coords.longitude]);
-      setLoaded(true);
-    }, err => setLoaded(true)), []);
+    // Loads facility data for editing
+    useEffect(() => {
+      setError(undefined);
+
+      if (facilityId === undefined) {
+        // Centers map view on current location
+        navigator.geolocation.getCurrentPosition(pos => {
+          setCoords([pos.coords.latitude, pos.coords.longitude]);
+          setError("");
+        }, err => setError(geolocationError));
+
+        return;
+      }
+      
+      const abortUpdate = new AbortController();
+
+      getFacilityById(parseInt(facilityId), abortUpdate).then(res => res.json()).then((data: FacilityResponse) => {
+        if (data.name && data.facilityType && data.location) {
+          setName(data.name);
+          setFacilityType(data.facilityType);
+          setCoords([data.location.latitude, data.location.longitude]);
+          setError("");
+        } else {
+          setError(missingDataError);
+        }
+      }).catch(err => {
+        if (!abortUpdate.signal.aborted) {
+          console.error(err);
+          setError(loadingError);
+        }
+      });
+
+      return () => abortUpdate.abort();
+    }, [facilityId]);
 
     const update = (x: Readonly<L.LatLng>) => setCoords([x.lat, x.lng]);
   
@@ -134,7 +143,7 @@ const FacilityFormView = (props: Readonly<MapDataHelperParams<string>>) => {
       icon: FacilityType.values?.[facilityType]?.icon ?? hospitalIcon
     };
   
-    return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<FacilityFormView update={setCoords} lat={coords[0]} lng={coords[1]} data={facilityType} setData={setFacilityType} />} clickable={canEdit} onClick={e => update(e)} searchable onSearch={e => update(e.geocode.center)} marks={[mark]} />;
+    return <MapView isLoaded={error !== undefined} center={coords} initialZoom={12} element={<FacilityFormView lat={coords[0]} lng={coords[1]} facilityType={facilityType} setFacilityType={setFacilityType} name={name} setName={setName} error={error} />} clickable={canEdit} onClick={e => update(e)} searchable onSearch={e => update(e.geocode.center)} marks={[mark]} />;
   };
   
   export default FacilityForm;

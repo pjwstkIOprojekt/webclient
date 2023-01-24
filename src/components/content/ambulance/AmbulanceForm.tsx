@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
 import { createAmbulance } from "../../../api/ambulanceCalls";
-import { unknownError, networkError } from "../sharedStrings";
+import { unknownError, networkError, geolocationError } from "../sharedStrings";
 import { Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import Length from "../../fragments/forms/api/Length";
@@ -23,10 +23,13 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
   const [ambulanceClass, setAmbulanceClass] = useState("");
   const [ambulanceType, setAmbulanceType] = useState("");
   const [seats, setSeats] = useState(1);
-  const [error, setError] = useState<string | undefined>("");
+  const [error, setError] = useState(props.error);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const abort = useAbort();
+
+  // Update error message
+  useEffect(() => setError(props.error), [props.error]);
 
   const onSubmit = () => {
     setError(undefined);
@@ -80,13 +83,13 @@ const AmbulanceFormView = (props: Readonly<MapViewHelperParams>) => {
 // Map view wrapper for ambulance form
 const AmbulanceForm = () => {
   const [coords, setCoords] = useState<[number, number]>([0, 0]);
-  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState<string | undefined>(undefined);
   const { t } = useTranslation();
 
   useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
     setCoords([pos.coords.latitude, pos.coords.longitude]);
-    setLoaded(true);
-  }, err => setLoaded(true)), []);
+    setError("");
+  }, err => setError(geolocationError)), []);
 
   const update = (x: Readonly<L.LatLng>) => setCoords([x.lat, x.lng]);
 
@@ -96,7 +99,7 @@ const AmbulanceForm = () => {
     icon: ambulanceIcon
   };
 
-  return <MapView isLoaded={loaded} center={coords} initialZoom={12} element={<AmbulanceFormView lat={coords[0]} lng={coords[1]} />} clickable onClick={e => update(e)} searchable onSearch={e => update(e.geocode.center)} marks={[mark]} />;
+  return <MapView isLoaded={error !== undefined} center={coords} initialZoom={12} element={<AmbulanceFormView lat={coords[0]} lng={coords[1]} error={error} />} clickable onClick={e => update(e)} searchable onSearch={e => update(e.geocode.center)} marks={[mark]} />;
 };
 
 export default AmbulanceForm;

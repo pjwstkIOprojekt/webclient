@@ -8,10 +8,6 @@ export interface TableViewParams<T> {
 export interface MapViewHelperParams {
   lat: number,
   lng: number,
-  update?: (x: [number, number]) => void
-}
-
-export interface MapDataHelperParams<T> extends MapViewHelperParams {
-  data: T,
-  setData: (x: T) => void
+  update?: (x: [number, number]) => void,
+  error?: string
 }

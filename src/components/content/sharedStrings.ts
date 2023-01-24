@@ -5,3 +5,4 @@ export const loadingError = "Error.LoadingProblem";
 export const unknownError = "Error.UnknownError";
 export const networkError = "Error.Network";
 export const missingDataError = "Error.NoResponseServer";
+export const geolocationError = "Error.LocationBlocked";
