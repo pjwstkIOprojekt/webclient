@@ -1,5 +1,5 @@
 import { useRoles } from "../../../hooks/useAuth";
-import { hasPerm, ambulanceManagement, incidentManagement } from "../../../helpers/authHelper";
+import { hasPerm, ambulanceManagement, incidentInfo } from "../../../helpers/authHelper";
 import DispositorHome from "./DispositorHome";
 import AdminHome from "./AdminHome";
 import GuestHome from "./GuestHome";
@@ -8,7 +8,7 @@ import GuestHome from "./GuestHome";
 const Home = () => {
   const roles = useRoles();
   const ambulance = hasPerm(roles, ambulanceManagement);
-  const incident = hasPerm(roles, incidentManagement);
+  const incident = hasPerm(roles, incidentInfo);
 
   if (ambulance) {
     return <AdminHome />;

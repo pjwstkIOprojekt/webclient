@@ -25,9 +25,9 @@ const ScheduleList = () => {
         for (const emp of data) {
           for (const day in emp.schedule) {
             const tmp = emp.schedule[toScheduleKey(day)];
-            const date = scheduleToDate(toScheduleKey(day));
+            const date = scheduleToDate(day);
 
-            if (tmp.start && tmp.end) {
+            if (tmp.start && tmp.end && date !== null) {
               res.push({
                 id: (count++).toString(),
                 title: `${emp.name} ${emp.lastName}`,
@@ -54,7 +54,7 @@ const ScheduleList = () => {
 
   return (
     <Container className="my-5">
-      <h1 className="text-center">{t("Schedule.Schedule")}</h1>
+      <h1 className="text-center">{t("Staff.Schedules")}</h1>
       <ViewLoader isLoaded={!isLoading} element={<Calendar events={events} />} />
     </Container>
   );

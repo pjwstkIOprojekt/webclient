@@ -50,7 +50,7 @@ const AllergyTable = (props: Readonly<TableViewParams<AllergyResponse>>) => {
 
   const cols = [
     { name: "#", property: (x: Readonly<AllergyResponse>) => <Link to={`allergy/${x.allergyId}`}>{x.allergyId}</Link>, filterBy: idField, sortBy: idField },
-    { name: t("Allergy.Type"), property: (x: Readonly<AllergyResponse>) => <Enum enum={AllergyType} value={x.allergyType} />, filterBy: typeField, sortBy: typeField },
+    { name: t("Allergy.Type"), property: (x: Readonly<AllergyResponse>) => <Enum enum={AllergyType} value={x.allergyType} />, filterBy: typeField, sortBy: typeField, filterEnum: AllergyType },
     { name: t("Allergy.Name"), property: nameField, filterBy: nameField, sortBy: nameField },
     { name: t("Allergy.Other"), property: otherField, filterBy: otherField, sortBy: otherField },
     { name: t("Common.Remove"), property: (x: Readonly<AllergyResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Allergy.ConfirmRemove" onConfirm={() => remove(x)} />)} canDelete={!removed.includes(x.allergyId)} /> }

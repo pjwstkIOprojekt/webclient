@@ -20,7 +20,7 @@ const Calendar = (props: Readonly<CalendarParams>) => {
 
   return (
     <span className={`calendar-${customTheme(darkMode)}`}>
-      <FullCalendar plugins={[listPlugin, interactionPlugin]} initialView="listWeek" displayEventTime displayEventEnd selectable headerToolbar={false} initialEvents={props.events} firstDay={1} expandRows locale={i18n.language === "pl" ? plLocale : enLocale} dateClick={props.onClick} eventClick={props.onSelect} />
+      <FullCalendar plugins={[listPlugin, interactionPlugin]} initialView="listWeek" displayEventTime displayEventEnd selectable headerToolbar={false} initialEvents={props.events} expandRows locale={i18n.language === "pl" ? plLocale : enLocale} dateClick={props.onClick} eventClick={props.onSelect} />
     </span>
   );
 };

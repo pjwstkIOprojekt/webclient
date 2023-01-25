@@ -3,6 +3,8 @@ import { AccidentReportResponse } from "../../../api/accidentReportCalls";
 import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
+import { useRoles } from "../../../hooks/useAuth";
+import { hasPerm, incidentManagement } from "../../../helpers/authHelper";
 import { getIncidentById, IncidentResponse, updateIncident } from "../../../api/incidentCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import { Container, Row } from "react-bootstrap";
@@ -17,6 +19,7 @@ import Error from "../../fragments/forms/Error";
 import Navtab from "../../fragments/navigation/Navtab";
 import { Routes, Route } from "react-router-dom";
 import ReportData from "./ReportData";
+import ConditionalRoute from "../../fragments/navigation/ConditionalRoute";
 import AssignAmbulance from "./AssignAmbulance";
 import BackupsList from "./BackupsList";
 import BackupForm from "./BackupForm";
@@ -32,6 +35,8 @@ const ReportView = () => {
   const { reportId } = useParams();
   const { t } = useTranslation();
   const abort = useAbort();
+  const roles = useRoles();
+  const canEdit = hasPerm(roles, incidentManagement);
 
   useEffect(() => {
     if (reportId !== undefined && readOnly) {
@@ -62,7 +67,7 @@ const ReportView = () => {
   }, [reportId, readOnly]);
 
   const onSubmit = () => {
-    if (reportId === undefined) {
+    if (reportId === undefined || !canEdit) {
       return;
     }
 
@@ -98,9 +103,12 @@ const ReportView = () => {
 
   const links = [
     { to: "data", text: t("Common.Details") },
-    { to: "ass", text: t("Report.Assign") },
     { to: "back", text: t("Backup.Backup") }
   ];
+
+  if (canEdit) {
+    links.push({ to: "ass", text: t("Report.Assign") });
+  }
 
   return (
     <Container fluid className="my-3">
@@ -110,10 +118,12 @@ const ReportView = () => {
           <EnumSelect id="statusType" className="mb-3" label={t("Report.StatusType")} required enum={IncidentType} value={statusType} onChange={e => setStatusType(e.target.value)} onLoad={setStatusType} disabled={readOnly} />
           <Number id="dangerScale" className="mb-3" label={t("Report.DangerScale")} required value={dangerScale} onChange={e => setDangerScale(parseInt(e.target.value))} minValue="1" maxValue="10" disabled={readOnly} />
           <NotBlank id="reaction" className="mb-3" label={t("Report.Justification")} required value={reaction} onChange={e => setReaction(e.target.value)} disabled={readOnly} />
-          <Row xs="2" className="justify-content-center my-3">
-            <Submit className="w-25" canSubmit={error !== undefined}>{readOnly ? t("Common.Edit") : t("Common.Save")}</Submit>
-            {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)} className="mx-3 w-25">{t("Common.Cancel")}</Button>}
-          </Row>
+          {canEdit ? (
+            <Row xs="2" className="justify-content-center my-3">
+              <Submit className="w-25" canSubmit={error !== undefined}>{readOnly ? t("Common.Edit") : t("Common.Save")}</Submit>
+              {readOnly ? "" : <Button type="button" onClick={e => setReadOnly(true)} className="mx-3 w-25">{t("Common.Cancel")}</Button>}
+            </Row>
+          ) : ""}
           <Error className="mb-3" error={error} />
         </Form>
       </Row>
@@ -121,7 +131,7 @@ const ReportView = () => {
       <Routes>
         <Route path="" element={<Navigate replace to="data" />} />
         <Route path="data" element={<ReportData data={accidentData} />} />
-        <Route path="ass" element={<AssignAmbulance />} />
+        <Route path="ass" element={<ConditionalRoute condition={canEdit} element={<AssignAmbulance />} />} />
         <Route path="back" element={<BackupsList />} />
         <Route path="back/new" element={<BackupForm />} />
         <Route path="back/edit/:backupId" element={<BackupForm />} />

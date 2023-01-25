@@ -3,6 +3,9 @@ import { BackupResponse, getBackups, deleteBackup } from "../../../api/backupCal
 import { useTranslation } from "react-i18next";
 import { usePopup } from "../../../hooks/usePopup";
 import { useAbort } from "../../../hooks/useAbort";
+import { useRoles } from "../../../hooks/useAuth";
+import { hasPerm, incidentManagement } from "../../../helpers/authHelper";
+import Table, { TableColumnParams } from "../../fragments/util/Table";
 import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
 import { BackupType } from "../../../api/enumCalls";
@@ -12,7 +15,6 @@ import Delete from "../../fragments/forms/Delete";
 import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import { Container, Row, Col } from "react-bootstrap";
 import NavButton from "../../fragments/navigation/NavButton";
-import Table from "../../fragments/util/Table";
 
 // Displays all requested backups
 const BackupsList = () => {
@@ -22,6 +24,8 @@ const BackupsList = () => {
   const { t } = useTranslation();
   const popup = usePopup();
   const abort = useAbort();
+  const roles = useRoles();
+  const canRemove = hasPerm(roles, incidentManagement);
 
   useEffect(() => {
     const abortUpdate = new AbortController();
@@ -48,6 +52,10 @@ const BackupsList = () => {
   }, []);
 
   const remove = (id: number) => {
+    if (!canRemove) {
+      return;
+    }
+
     setRemoved([...removed, id]);
     
     deleteBackup(id, abort).then(res => {
@@ -72,13 +80,19 @@ const BackupsList = () => {
   const typeField = "backupType";
   const timeField = "time";
 
-  const cols = [
+  const cols: TableColumnParams<BackupResponse>[] = [
     { name: "#", property: (x: Readonly<BackupResponse>) => <Link to={`edit/${x.backupId}`}>{x.backupId}</Link>, filterBy: idField, sortBy: idField },
-    { name: t("Backup.Type"), property: (x: Readonly<BackupResponse>) => <Enum enum={BackupType} value={x.backupType} />, filterBy: typeField, sortBy: typeField },
+    { name: t("Backup.Type"), property: (x: Readonly<BackupResponse>) => <Enum enum={BackupType} value={x.backupType} />, filterBy: typeField, sortBy: typeField, filterEnum: BackupType },
     { name: t("Backup.Time"), property: (x: Readonly<BackupResponse>) => <DateDisplay value={x.time} />, filterBy: timeField, sortBy: timeField },
-    { name: t("Backup.Accepted"), property: (x: Readonly<BackupResponse>) => <FormCheck value={x.accepted} disabled /> },
-    { name: t("Common.Remove"), property: (x: Readonly<BackupResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Backup.ConfirmRemove" onConfirm={() => remove(x.backupId)} />)} canDelete={!removed.includes(x.backupId)} /> }
+    { name: t("Backup.Accepted"), property: (x: Readonly<BackupResponse>) => <FormCheck value={x.accepted} disabled /> }
   ];
+
+  if (canRemove) {
+    cols.push({
+      name: t("Common.Remove"),
+      property: (x: Readonly<BackupResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Backup.ConfirmRemove" onConfirm={() => remove(x.backupId)} />)} canDelete={!removed.includes(x.backupId)} />
+    });
+  }
 
   return (
     <Container className="mt-3 justify-content-center text-center">

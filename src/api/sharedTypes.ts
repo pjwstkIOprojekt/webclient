@@ -34,19 +34,24 @@ export const getEmptySchedule = () => ({
   "FRIDAY": { start: "", end: "" }
 }) as Schedule;
 
-export const scheduleToDate = (key: ScheduleKey) => {
+export const scheduleToDate = (key: string) => {
   let day = 0;
 
   for (let i = 1; i < 6; ++i) {
     if (scheduleKeyFromNum[i] === key) {
       day = i;
-      i = 5;
+      i = 6;
     }
   }
 
+  if (day === 0) {
+    return null;
+  }
+
   const today = new Date();
-  const diff = day - today.getDay();
-  return new Date(new Date().setDate(today.getDate() + diff));
+  const numOfDay = today.getDay();
+  const diff = day - numOfDay;
+  return new Date(new Date().setDate(today.getDate() + diff - (numOfDay === 0 ? 7 : 0)));
 };
 
 export const toScheduleKey: (x: string) => ScheduleKey = (x: string) => {

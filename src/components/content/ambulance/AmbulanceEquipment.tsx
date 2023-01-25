@@ -168,7 +168,7 @@ const AmbulanceEquipment = (props: Readonly<AmbulanceEquipmentParams>) => {
   const cols = [
     { name: t(props.add ? "Equipment.Add" :"Report.Assigned"), property: (x: Readonly<ItemData>) => <EquipmentAmount amount={x.amount} unit={x.unit} editing={update.item === x.itemId} processing={update.processing} update={(diff, unit) => onUpdate(x.itemId, diff, unit)} />, size: 25 },
     { name: t("Equipment.Name"), property: nameField, filterBy: nameField, sortBy: nameField },
-    { name: t("Equipment.Type"), property: (x: Readonly<ItemData>) => <Enum enum={ItemType} value={x.type} />, filterBy: typeField, sortBy: typeField },
+    { name: t("Equipment.Type"), property: (x: Readonly<ItemData>) => <Enum enum={ItemType} value={x.type} />, filterBy: typeField, sortBy: typeField, filterEnum: ItemType },
     { name: t("Equipment.Description"), property: descField, filterBy: descField, sortBy: descField }
   ];
 

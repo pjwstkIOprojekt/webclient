@@ -143,7 +143,7 @@ const FacilityFormView = (props: Readonly<FacilityFormParams>) => {
       icon: FacilityType.values?.[facilityType]?.icon ?? hospitalIcon
     };
   
-    return <MapView isLoaded={error !== undefined} center={coords} initialZoom={12} element={<FacilityFormView lat={coords[0]} lng={coords[1]} facilityType={facilityType} setFacilityType={setFacilityType} name={name} setName={setName} error={error} />} clickable={canEdit} onClick={e => update(e)} searchable onSearch={e => update(e.geocode.center)} marks={[mark]} />;
+    return <MapView isLoaded={error !== undefined} center={coords} initialZoom={12} element={<FacilityFormView lat={coords[0]} lng={coords[1]} facilityType={facilityType} setFacilityType={setFacilityType} name={name} setName={setName} error={error} />} clickable={canEdit} onClick={e => update(e)} searchable={canEdit} onSearch={e => update(e.geocode.center)} marks={[mark]} />;
   };
   
   export default FacilityForm;

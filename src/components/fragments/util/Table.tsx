@@ -1,10 +1,11 @@
 import { ChildrenType, ClassNameParam, customTheme } from "../sharedParams";
+import { EnumType } from "../../../api/enumCalls";
 import { useState, ChangeEventHandler, ChangeEvent } from "react";
 import { useDarkMode } from "../../../hooks/useDarkMode";
+import { useTranslation } from "react-i18next";
 import { Table as Inner, Row, Col, Container } from "react-bootstrap";
 import Button from "./Button";
 import Spinner from "./Spinner";
-import { useTranslation } from "react-i18next";
 import FormControl from "../forms/FormControl";
 
 // Defines column properties
@@ -13,7 +14,8 @@ export interface TableColumnParams<T> {
   property: ((x: Readonly<T>) => ChildrenType) | string,
   sortBy?: string,
   filterBy?: string,
-  size?: number
+  size?: number,
+  filterEnum?: EnumType
 }
 
 // Table component params
@@ -34,6 +36,12 @@ interface SortState {
   reversed: boolean
 }
 
+// Represents filter values
+interface Filter {
+  pattern: string,
+  enumeration?: EnumType
+}
+
 // Custom table with columns generation, filtering and sorting systems
 const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) => {
   const [sort, setSort] = useState<SortState>({
@@ -41,17 +49,29 @@ const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) =
     reversed: false
   });
 
-  const [filter, setFilter] = useState<Record<string, string>>({});
+  const [filter, setFilter] = useState<Record<string, Filter>>({});
   const darkMode = useDarkMode();
+  const { t } = useTranslation();
 
   const sortData = (x: string) => setSort({
     property: x,
     reversed: sort.property === x ? !sort.reversed : false
   });
 
-  const filterData = (key: string, value: string) => {
+  const filterData = (key: string, value: string, enumeration?: EnumType) => {
     const tmp = { ...filter };
-    tmp[key] = value;
+    const data = tmp[key];
+
+    if (data === undefined) {
+      tmp[key] = {
+        pattern: value,
+        enumeration: enumeration
+      };
+    } else {
+      data.pattern = value;
+      data.enumeration = enumeration;
+    }
+
     setFilter(tmp);
   };
 
@@ -59,8 +79,15 @@ const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) =
 
   // Data filtration
   for (const prop in filter) {
-    if (filter[prop]) {
-      displayData = displayData.filter(e => e[prop].toString().toLowerCase().includes(filter[prop].toLowerCase()));
+    const tmp = filter[prop];
+
+    if (tmp) {
+      if (tmp.enumeration) {
+        const enumName = tmp.enumeration.name;
+        displayData = displayData.filter(e => t(`${enumName}.${e[prop]}`).toLowerCase().includes(tmp.pattern.toLowerCase()));
+      } else {
+        displayData = displayData.filter(e => e[prop].toString().toLowerCase().includes(tmp.pattern.toLowerCase()));
+      }
     }
   }
 
@@ -90,7 +117,7 @@ const Table = <T extends Record<string, any>>(props: Readonly<TableParams<T>>) =
               {col.sortBy || col.filterBy ? (
                 <>
                   <Row className="justify-content-center">
-                    {col.filterBy ? <Col><BindableControl callback={e => filterData(col.filterBy ?? "", e.target.value)} /></Col> : ""}
+                    {col.filterBy ? <Col><BindableControl callback={e => filterData(col.filterBy ?? "", e.target.value, col.filterEnum)} /></Col> : ""}
                     {col.sortBy ? <Col md="auto"><Button type="button" onClick={e => sortData(col.sortBy ?? "")}>^</Button></Col> : ""}
                   </Row>
                   <Row className="justify-content-center">

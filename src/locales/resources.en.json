@@ -134,7 +134,8 @@
         "Location": "Incident location",
         "Address": "Address",
         "Assign": "Assign ambulance",
-        "Assigned": "Assigned"
+        "Assigned": "Assigned",
+        "Details": "Incident details"
     },
     "Person": {
         "FirstName": "First name",
@@ -205,7 +206,8 @@
         "IncorrectPassword": "Provided password is incorrect.",
         "IncorrectToken": "Provided token is incorrect.",
         "ExpiredToken": "Provided token is expired.",
-        "LocationBlocked": "Location usage is blocked for this website. Please, enable it if you want the map to be centered on your location."
+        "LocationBlocked": "Location usage is blocked for this website. Please, enable it if you want the map to be centered on your location.",
+        "NoData": "No available data found."
     },
     "Blood": {
         "Type": "Blood type",
@@ -240,8 +242,8 @@
         "GiveHelp": "Give first aid",
         "WatchTutorials": "Browse through the numerous first aid guides and use the acquired knowledge to save someone's life.",
         "ReportIncident": "Report an incident",
-        "Dispositor": "Dispositor's main page",
-        "Admin": "Manager's main page",
+        "Dispositor": "Home page",
+        "Admin": "Ambulance manager's home page",
         "ChangeTheme": "Change theme",
         "AmbulanceAvailable": "Available",
         "AmbulanceUnavailable": "Unavailable",
@@ -337,5 +339,9 @@
         "Create": "Create backup",
         "Adding": "Add backup",
         "Editing": "Edit backup"
+    },
+    "Staff": {
+        "Schedules": "Employee schedule",
+        "Workers": "Employee list"
     }
 }

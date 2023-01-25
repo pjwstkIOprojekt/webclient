@@ -100,8 +100,8 @@ const AssignAmbulance = () => {
   const cols = [
     { name: t("Report.Assigned"), property: (x: Readonly<Ambulance>) => <FormCheck value={x.assigned} onChange={e => assign(x)} disabled={error === undefined} /> },
     { name: t("Ambulance.LicensePlate"), property: (x: Readonly<Ambulance>) => ambulanceAccess ? <Link to={`/ambulances/${x.licensePlate}`}>{x.licensePlate}</Link> : x.licensePlate, filterBy: licenseField, sortBy: licenseField },
-    { name: t("Ambulance.Class"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, filterBy: classField, sortBy: classField },
-    { name: t("Ambulance.Type"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, filterBy: typeField, sortBy: typeField }
+    { name: t("Ambulance.Class"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceClass} value={x.ambulanceClass} />, filterBy: classField, sortBy: classField, filterEnum: AmbulanceClass },
+    { name: t("Ambulance.Type"), property: (x: Readonly<Ambulance>) => <Enum enum={AmbulanceType} value={x.ambulanceType} />, filterBy: typeField, sortBy: typeField, filterEnum: AmbulanceType }
   ];
 
   return (

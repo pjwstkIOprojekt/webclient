@@ -134,7 +134,8 @@
         "Location": "Miejsce zdarzenia",
         "Address": "Adres",
         "Assign": "Przypisz karetkę",
-        "Assigned": "Przypisane"
+        "Assigned": "Przypisane",
+        "Details": "Szczegóły zdarzenia"
     },
     "Person": {
         "FirstName": "Imię",
@@ -205,7 +206,8 @@
         "IncorrectPassword": "Podane hasło jest nieprawidłowe.",
         "IncorrectToken": "Podany token jest nieprawidłowy.",
         "ExpiredToken": "Podany token jest przeterminowany.",
-        "LocationBlocked": "Wykorzystanie lokalizacji jest zablokowane dla tej witryny. Włącz tą opcję, jeśli chcesz, aby mapa była wyśrodkowana na Twojej lokalizacji."
+        "LocationBlocked": "Wykorzystanie lokalizacji jest zablokowane dla tej witryny. Włącz tą opcję, jeśli chcesz, aby mapa była wyśrodkowana na Twojej lokalizacji.",
+        "NoData": "Nie znaleziono dostępnych danych."
     },
     "Blood": {
         "Type": "Grupa krwi",
@@ -240,8 +242,8 @@
         "GiveHelp": "Udziel pierwszej pomocy",
         "WatchTutorials": "Przeglądaj liczne poradniki udzielania pierwszej pomocy i wykorzystaj nabytą wiedzę, żeby uratować czyjeś życie.",
         "ReportIncident": "Zgłoś zdarzenie",
-        "Dispositor": "Strona główna dyspozytora",
-        "Admin": "Strona główna kierownika",
+        "Dispositor": "Strona główna",
+        "Admin": "Strona główna kierownika karetki",
         "ChangeTheme": "Zmień motyw",
         "AmbulanceAvailable": "Dostępne",
         "AmbulanceUnavailable": "Niedostępne",
@@ -337,5 +339,9 @@
         "Create": "Dodaj wsparcie",
         "Adding": "Dodawanie wsparcia",
         "Editing": "Edycja wsparcia"
+    },
+    "Staff": {
+        "Schedules": "Grafik pracowników",
+        "Workers": "Lista pracowników"
     }
 }

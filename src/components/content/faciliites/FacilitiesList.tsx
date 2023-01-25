@@ -77,7 +77,7 @@ const FacilitiesList = () => {
 
   const cols: TableColumnParams<FacilityResponse>[] = [
     { name: "#", property: (x: Readonly<FacilityResponse>) => <Link to={x.facilityId.toString()}>{x.facilityId}</Link>, sortBy: idField, filterBy: idField },
-    { name: t("Facility.Type"), property: (x: Readonly<FacilityResponse>) => <Enum enum={FacilityType} value={x.facilityType} />, sortBy: typeField, filterBy: typeField },
+    { name: t("Facility.Type"), property: (x: Readonly<FacilityResponse>) => <Enum enum={FacilityType} value={x.facilityType} />, sortBy: typeField, filterBy: typeField, filterEnum: FacilityType },
     { name: t("Facility.Name"), property: nameField, sortBy: nameField, filterBy: nameField }
   ];
 
