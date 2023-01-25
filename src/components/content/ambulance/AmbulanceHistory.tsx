@@ -93,7 +93,7 @@ const AmbulanceHistory = () => {
   const timestampField = "timestamp";
 
   const cols = [
-    { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceStateResponse>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: typeField, sortBy: typeField },
+    { name: t("Ambulance.Status"), property: (x: Readonly<AmbulanceStateResponse>) => <Enum enum={AmbulanceState} value={x.type} />, filterBy: typeField, sortBy: typeField, filterEnum: AmbulanceState },
     { name: t("Common.Since"), property: (x: Readonly<AmbulanceStateResponse>) => <DateDisplay value={x.timestamp} />, filterBy: timestampField, sortBy: timestampField }
   ];
 

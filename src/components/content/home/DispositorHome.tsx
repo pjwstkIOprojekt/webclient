@@ -66,7 +66,7 @@ const DispositorHome = () => {
     { name: "#", property: (x: Readonly<IncidentResponse>) => <Link to={`/reports/${x.incidentId}`}>{x.incidentId}</Link>, sortBy: idField, filterBy: idField },
     { name: t("Report.DangerScale"), property: dangerField, filterBy: dangerField, sortBy: dangerField },
     { name: t("Report.Justification"), property: reactionField, sortBy: reactionField, filterBy: reactionField },
-    { name: t("Report.StatusType"), property: (x: Readonly<IncidentResponse>) => <Enum enum={IncidentType} value={x.incidentStatusType} />, filterBy: statusField, sortBy: statusField }
+    { name: t("Report.StatusType"), property: (x: Readonly<IncidentResponse>) => <Enum enum={IncidentType} value={x.incidentStatusType} />, filterBy: statusField, sortBy: statusField, filterEnum: IncidentType }
   ];
 
   const chartData = [];

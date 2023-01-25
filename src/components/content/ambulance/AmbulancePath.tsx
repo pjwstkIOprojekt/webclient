@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useRoles } from "../../../hooks/useAuth";
-import { hasPerm, incidentManagement } from "../../../helpers/authHelper";
+import { hasPerm, incidentInfo } from "../../../helpers/authHelper";
 import { getIncidentPath, AmbulancePathResponse, getAmbulanceIncidents } from "../../../api/ambulanceCalls";
 import { licensePlateError, missingDataError, loadingError } from "../sharedStrings";
 import Form from "../../fragments/forms/Form";
@@ -30,17 +30,17 @@ interface AmbulancePathParams extends MapViewHelperParams {
 
 // Displays ambulance path during selected incident response
 const AmbulancePathView = (props: Readonly<AmbulancePathParams>) => {
-  const [incident, setIncident] = useState(props.incidents[0]?.id ?? 0);
+  const [incident, setIncident] = useState<number | undefined>(props.incidents[0]?.id);
   const [offset, setOffset] = useState(0);
   const [error, setError] = useState(props.error);
   const { ambulanceId } = useParams();
   const { t } = useTranslation();
   const roles = useRoles();
   const setPath = props.setPath;
-  const incidentAccess = hasPerm(roles, incidentManagement);
+  const incidentAccess = hasPerm(roles, incidentInfo);
 
   // Updated incident id
-  useEffect(() => setIncident(props.incidents[0]?.id ?? 0), [props.incidents]);
+  useEffect(() => setIncident(props.incidents[0]?.id), [props.incidents]);
 
   // Updates error message
   useEffect(() => setError(props.error), [props.error]);
@@ -49,6 +49,11 @@ const AmbulancePathView = (props: Readonly<AmbulancePathParams>) => {
   useEffect(() => {
     if (ambulanceId === undefined) {
       console.error(licensePlateError);
+      return;
+    }
+
+    if (incident === undefined) {
+      setError("Error.NoData");
       return;
     }
 
@@ -90,7 +95,7 @@ const AmbulancePathView = (props: Readonly<AmbulancePathParams>) => {
       <h4 className="text-center mb-3">{t("Map.Location")}</h4>
       <Number id="latitude" className="mb-3" value={props.lat} disabled />
       <Number id="longitude" className="mb-3" value={props.lng} disabled />
-      {incidentAccess && props.incidents.length > 0 ? <NavButton to={`/reports/${incident}`} className="w-100">{t("Common.Details")}</NavButton> : ""}
+      {incidentAccess && incident !== undefined ? <NavButton to={`/reports/${incident}`} className="w-100">{t("Report.Details")}</NavButton> : ""}
       <Error className="mt-3" error={error} />
     </Form>
   );

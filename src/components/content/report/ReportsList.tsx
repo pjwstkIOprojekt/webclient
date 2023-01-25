@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { usePopup } from "../../../hooks/usePopup";
 import { useAbort } from "../../../hooks/useAbort";
+import { useRoles } from "../../../hooks/useAuth";
+import { hasPerm, incidentManagement } from "../../../helpers/authHelper";
 import { IncidentResponse, getIncidents, deleteIncident } from "../../../api/incidentCalls";
-import { useTranslation } from "react-i18next";
+import Table, { TableColumnParams } from "../../fragments/util/Table";
 import Link from "../../fragments/navigation/Link";
 import Enum from "../../fragments/values/Enum";
 import { IncidentType } from "../../../api/enumCalls";
 import Delete from "../../fragments/forms/Delete";
 import ConfirmPopup from "../../fragments/popups/ConfirmPopup";
 import { Container } from "react-bootstrap";
-import Table from "../../fragments/util/Table";
 
 // Displays all reported incidents
 const ReportsList = () => {
@@ -19,6 +21,8 @@ const ReportsList = () => {
   const { t } = useTranslation();
   const popup = usePopup();
   const abort = useAbort();
+  const roles = useRoles();
+  const canRemove = hasPerm(roles, incidentManagement);
 
   useEffect(() => {
     const abortUpdate = new AbortController();
@@ -42,6 +46,10 @@ const ReportsList = () => {
   }, []);
 
   const remove = (id: number) => {
+    if (!canRemove) {
+      return;
+    }
+
     setRemoved([...removed, id]);
     
     deleteIncident(id, abort).then(res => {
@@ -67,13 +75,19 @@ const ReportsList = () => {
   const dangerField = "dangerScale";
   const reactionField = "reactionJustification";
 
-  const cols = [
+  const cols: TableColumnParams<IncidentResponse>[] = [
     { name: "#", property: (x: Readonly<IncidentResponse>) => <Link to={x.incidentId.toString()}>{x.incidentId}</Link>, filterBy: idField, sortBy: idField },
-    { name: t("Report.StatusType"), property: (x: Readonly<IncidentResponse>) => <Enum enum={IncidentType} value={x.incidentStatusType} />, filterBy: statusField, sortBy: statusField },
+    { name: t("Report.StatusType"), property: (x: Readonly<IncidentResponse>) => <Enum enum={IncidentType} value={x.incidentStatusType} />, filterBy: statusField, sortBy: statusField, filterEnum: IncidentType },
     { name: t("Report.DangerScale"), property: dangerField, filterBy: dangerField, sortBy: dangerField },
-    { name: t("Report.Justification"), property: reactionField, filterBy: reactionField, sortBy: reactionField },
-    { name: t("Common.Remove"), property: (x: Readonly<IncidentResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Report.ConfirmRemove" onConfirm={() => remove(x.incidentId)} />)} canDelete={!removed.includes(x.incidentId)} /> }
+    { name: t("Report.Justification"), property: reactionField, filterBy: reactionField, sortBy: reactionField }
   ];
+
+  if (canRemove) {
+    cols.push({
+      name: t("Common.Remove"),
+      property: (x: Readonly<IncidentResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Report.ConfirmRemove" onConfirm={() => remove(x.incidentId)} />)} canDelete={!removed.includes(x.incidentId)} />
+    });
+  }
 
   return (
     <Container className="mt-3 justify-content-center text-center">

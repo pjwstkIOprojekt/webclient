@@ -7,7 +7,7 @@ import { ambulanceIcon } from "./MapIcons";
 import { useState, useEffect } from "react";
 import { usePopup } from "../../../hooks/usePopup";
 import { useRoles } from "../../../hooks/useAuth";
-import { hasPerm, incidentManagement, ambulanceManagement } from "../../../helpers/authHelper";
+import { hasPerm, incidentInfo, ambulanceManagement } from "../../../helpers/authHelper";
 import { getAccidents, AccidentReportResponse } from "../../../api/accidentReportCalls";
 import { getAmbulances, AmbulanceResponse } from "../../../api/ambulanceCalls";
 import OkPopup from "../../fragments/popups/OkPopup";
@@ -64,7 +64,7 @@ const MainMap = () => {
   const { t } = useTranslation();
   const popup = usePopup();
   const roles = useRoles();
-  const incidentAccess = hasPerm(roles, incidentManagement);
+  const incidentAccess = hasPerm(roles, incidentInfo);
   const ambulanceAccess = hasPerm(roles, ambulanceManagement);
 
   // Loads and regularly updates "movable" objects

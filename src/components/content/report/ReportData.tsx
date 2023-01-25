@@ -36,7 +36,7 @@ const ReportData = (props: Readonly<ReportParams>) => {
       </Row>
       <FormControl id="amountVictims" className="mb-3" label={t("Report.VictimsCount")} value={props.data.victimCount} disabled />
       <FormControl id="bandCode" className="mb-3" label={t("Report.BandCode")} value={props.data.bandCode ?? ""} disabled />
-      <Date id="date" className="mb-3" label={t("Report.Date")} value={props.data.date.toString()} disabled />
+      <Date id="date" className="mb-3" label={t("Report.Date")} value={props.data.date.toString().split("T")[0]} disabled />
       <FormTextArea id="description" className="mb-3" label={t("Report.Description")} value={props.data.description} disabled />
       <FormControl id="address" className="mb-3" label={t("Report.Address")} value={props.data.address} disabled />
       <Row className="justify-content-center mb-3">

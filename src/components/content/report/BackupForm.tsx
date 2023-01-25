@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAbort } from "../../../hooks/useAbort";
 import { useTranslation } from "react-i18next";
+import { useRoles } from "../../../hooks/useAuth";
+import { hasPerm, incidentManagement } from "../../../helpers/authHelper";
 import { getBackupById, BackupResponse, addBackup, updateBackup } from "../../../api/backupCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import { getEmail } from "../../../helpers/authHelper";
@@ -24,6 +26,8 @@ const BackupForm = () => {
   const navigate = useNavigate();
   const abort = useAbort();
   const { t } = useTranslation();
+  const roles = useRoles();
+  const canAccept = hasPerm(roles, incidentManagement);
 
   useEffect(() => {
     if (backupId === undefined) {
@@ -99,10 +103,10 @@ const BackupForm = () => {
           <EnumSelect id="backupType" label={t("Backup.Type")} required enum={BackupType} value={backupType} onChange={e => setBackupType(e.target.value)} onLoad={setBackupType} />
         </Row>
         <Row className="justify-content-center mb-3">
-          <NotBlank id="justification" label={t("Backup.Justification")} required value={justification} onChange={e => setJustification(e.target.value)} />
+          <NotBlank id="justification" label={t("Backup.Justification")} required value={justification} onChange={e => setJustification(e.target.value)} disabled={!canAccept} />
         </Row>
         <Row className="justify-content-center mb-3 ml-2">
-          <FormCheck id="accepted" label={t("Backup.Accepted")} value={accepted} onChange={e => setAccepted(!accepted)} />
+          <FormCheck id="accepted" label={t("Backup.Accepted")} value={accepted} onChange={e => setAccepted(!accepted)} disabled={!canAccept} />
         </Row>
         <Row className="justify-content-center mb-5 mt-3">
           <Submit className="w-50" canSubmit={error !== undefined}>{backupId === undefined ? t("Backup.Create") : t("Common.SaveChanges")}</Submit>

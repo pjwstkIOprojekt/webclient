@@ -72,7 +72,7 @@ const EquipmentList = () => {
   const cols = [
     { name: "#", property: (x: Readonly<ItemResponse>) => <Link to={x.itemId.toString()}>{x.itemId}</Link>, filterBy: idField, sortBy: idField },
     { name: t("Equipment.Name"), property: nameField, filterBy: nameField, sortBy: nameField },
-    { name: t("Equipment.Type"), property: (x: Readonly<ItemResponse>) => <Enum enum={ItemType} value={x.type} />, filterBy: typeField, sortBy: typeField },
+    { name: t("Equipment.Type"), property: (x: Readonly<ItemResponse>) => <Enum enum={ItemType} value={x.type} />, filterBy: typeField, sortBy: typeField, filterEnum: ItemType },
     { name: t("Equipment.Description"), property: descField, filterBy: descField, sortBy: descField },
     { name: t("Common.Remove"), property: (x: Readonly<ItemResponse>) => <Delete onClick={() => popup(<ConfirmPopup text="Equipment.ConfirmRemove" onConfirm={() => remove(x.itemId)} />)} canDelete={!removed.includes(x.itemId)} /> }
   ];

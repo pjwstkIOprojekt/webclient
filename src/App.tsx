@@ -1,5 +1,5 @@
 import { useRoles } from "./hooks/useAuth";
-import { hasPerm, employeeManagement, incidentManagement, facilityManagement, mapAccess, ambulanceManagement, itemManagement } from "./helpers/authHelper";
+import { hasPerm, employeeManagement, incidentInfo, facilityManagement, mapAccess, ambulanceManagement, itemManagement } from "./helpers/authHelper";
 import Navbar from "./components/fragments/navigation/Navbar"
 import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
@@ -24,8 +24,7 @@ import AmbulanceView from "./components/content/ambulance/AmbulanceView";
 import EquipmentList from "./components/content/equipment/EquipmentList";
 import EquipmentForm from "./components/content/equipment/EquipmentForm";
 import RegisterWithRole from "./components/content/auth/RegisterWithRole";
-import ScheduleList from "./components/content/schedule/ScheduleList";
-import StaffList from "./components/content/staff/StaffList";
+import StaffView from "./components/content/staff/StaffView";
 import NotificationArea from "./components/fragments/notifications/NotificationArea";
 import CookieConsent from "./components/fragments/cookies/CookieConsent";
 
@@ -33,7 +32,7 @@ const App = () => {
   const roles = useRoles();
   const auth = hasPerm(roles, roles);
   const employee = hasPerm(roles, employeeManagement);
-  const incident = hasPerm(roles, incidentManagement);
+  const incident = hasPerm(roles, incidentInfo);
   const facility = hasPerm(roles, facilityManagement);
   const map = hasPerm(roles, mapAccess);
   const ambulance = hasPerm(roles, ambulanceManagement);
@@ -72,8 +71,7 @@ const App = () => {
           <Route path="/newequipment" element={<ConditionalRoute condition={item} element={<EquipmentForm />} />} />
 
           <Route path="/newuser" element={<ConditionalRoute condition={employee} element={<RegisterWithRole />} />} />
-          <Route path="/schedules" element={<ConditionalRoute condition={employee} element={<ScheduleList />} />} />
-          <Route path="/staff" element={<ConditionalRoute condition={employee} element={<StaffList />} />} />
+          <Route path="/staff/*" element={<ConditionalRoute condition={employee} element={<StaffView />} />} />
         </Routes>
         <NotificationArea />
       </Container>

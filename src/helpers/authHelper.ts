@@ -52,7 +52,8 @@ export const hasPerm = (roles: Roles, required: Roles) => (roles & required) !==
 // Permissions definitions
 export const facilityManagement = Roles.Admin;
 export const mapAccess = Roles.Employee | Roles.Paramedic | Roles.Dispatcher | Roles.AmbulanceManager | Roles.Admin;
-export const incidentManagement = Roles.Paramedic | Roles.Dispatcher | Roles.Admin;
+export const incidentInfo = Roles.Paramedic | Roles.Dispatcher | Roles.Admin;
+export const incidentManagement = Roles.Dispatcher | Roles.Admin;
 export const ambulanceManagement = Roles.AmbulanceManager | Roles.Admin;
 export const itemManagement = Roles.Admin;
 export const employeeManagement = Roles.Admin;

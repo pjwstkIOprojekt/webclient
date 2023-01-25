@@ -63,7 +63,7 @@ const StaffList = () => {
 
   return (
     <Container className="mt-3 justify-content-center text-center">
-      <h3>{t("Ambulance.Ambulances")}</h3>
+      <h3>{t("Staff.Workers")}</h3>
       <Table columns={cols} data={workers} isLoading={isLoading} />
     </Container>
   );

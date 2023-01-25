@@ -3,7 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAbort } from "../../../hooks/useAbort";
 import { useRoles } from "../../../hooks/useAuth";
-import { hasPerm, incidentManagement } from "../../../helpers/authHelper";
+import { hasPerm, incidentInfo } from "../../../helpers/authHelper";
 import { getAmbulanceByLicensePlate, getCurrentIncident, AmbulanceResponse, updateAmbulance } from "../../../api/ambulanceCalls";
 import { missingDataError, loadingError, unknownError, networkError } from "../sharedStrings";
 import { IncidentResponse } from "../../../api/incidentCalls";
@@ -36,7 +36,7 @@ const AmbulanceView = () => {
   const { t } = useTranslation();
   const abort = useAbort();
   const roles = useRoles();
-  const incidentAccess = hasPerm(roles, incidentManagement);
+  const incidentAccess = hasPerm(roles, incidentInfo);
 
   // Loads ambulance details
   useEffect(() => {

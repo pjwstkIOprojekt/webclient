@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useRoles, useAuth } from "../../../hooks/useAuth";
-import { hasPerm, mapAccess, incidentManagement, ambulanceManagement, itemManagement, scheduleOwner, medicalInfo, employeeManagement } from "../../../helpers/authHelper";
+import { hasPerm, mapAccess, incidentInfo, ambulanceManagement, itemManagement, scheduleOwner, medicalInfo, employeeManagement } from "../../../helpers/authHelper";
 import { useDarkMode, useDarkModeManager } from "../../../hooks/useDarkMode";
 import { Nav, NavDropdown, Navbar as Inner, Container } from "react-bootstrap";
 import NavLink from "./NavLink";
-import { FaHome, FaMedkit, FaBook, FaHospital, FaUserCircle, FaMap, FaNotesMedical, FaAmbulance, FaMedal, FaUserSecret, FaCalendar, FaPlusCircle } from "react-icons/fa";
+import { FaHome, FaMedkit, FaBook, FaHospital, FaUserCircle, FaMap, FaNotesMedical, FaAmbulance, FaMedal, FaUserSecret, FaCalendar, FaPlusCircle, FaList } from "react-icons/fa";
 import { customLink } from "./sharedNavigationParams";
 import CheckIn from "../../content/staff/CheckIn";
 import { HiOutlineLightBulb } from "react-icons/hi";
@@ -22,7 +22,7 @@ const MenuBar = () => {
   const roles = useRoles();
   const auth = hasPerm(roles, roles);
   const map = hasPerm(roles, mapAccess);
-  const incident = hasPerm(roles, incidentManagement);
+  const incident = hasPerm(roles, incidentInfo);
   const ambulance = hasPerm(roles, ambulanceManagement);
   const item = hasPerm(roles, itemManagement);
   
@@ -200,6 +200,14 @@ const UserDropdown = () => {
           <NavDrop to="/newuser">
             <FaPlusCircle />
             <span className="px-1">{t("Person.Add")}</span>
+          </NavDrop>
+          <NavDrop to="/staff/workers">
+            <FaList />
+            <span className="px-1">{t("Staff.Workers")}</span>
+          </NavDrop>
+          <NavDrop to="/staff/schedules">
+            <FaCalendar />
+            <span className="px-1">{t("Staff.Schedules")}</span>
           </NavDrop>
           <NavDropdown.Divider />
         </>
