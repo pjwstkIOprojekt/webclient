@@ -112,7 +112,8 @@
         "Adding": "Dodawanie karetki",
         "Editing": "Edycja karetki",
         "Add": "Dodaj karetkę",
-        "Incident": "Aktualne zgłoszenie"
+        "Incident": "Aktualne zgłoszenie",
+        "RelatedIncidents": "Powiązane zdarzenia"
     },
     "Report": {
         "Reports": "Zgłoszenia",

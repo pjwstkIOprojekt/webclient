@@ -47,7 +47,7 @@
         "MAINTENANCE": "Maintenance",
         "AVAILABLE": "Available",
         "ON_ACTION": "In action",
-        "CREW_BRAKE": "Crew brake"
+        "CREW_BRAKE": "Crew break"
     },
     "AmbulanceClass": {
         "BASIC": "Basic",
@@ -104,7 +104,7 @@
         "Status": "Ambulance status",
         "History": "History of the ambulance",
         "Path": "Ambulance path",
-        "Confirm": "Are you sure you want to remove this carriage?",
+        "Confirm": "Are you sure you want to remove this ambulance?",
         "ChangingState": "Change status in ambulance",
         "ChangeState": "Change ambulance status",
         "Exists": "Ambulance with this license plate already exists.",
@@ -112,7 +112,8 @@
         "Adding": "Add ambulance",
         "Editing": "Edit ambulance",
         "Add": "Add ambulance",
-        "Incident": "Current incident"
+        "Incident": "Current incident",
+        "RelatedIncidents": "Related incidents"
     },
     "Report": {
         "Reports": "Reports",

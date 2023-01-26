@@ -23,6 +23,7 @@ import AmbulancePath from "./AmbulancePath";
 import AmbulanceEquipment from "./AmbulanceEquipment";
 import AssignedMedics from "./AssignedMedics";
 import AssignMedics from "./AssignMedics";
+import RelatedIncidents from "./RelatedIncidents";
 
 // Ambulance details view with tabs
 const AmbulanceView = () => {
@@ -116,7 +117,8 @@ const AmbulanceView = () => {
     { to: "hist", text: t("Ambulance.History") },
     { to: "path", text: t("Ambulance.Path") },
     { to: "equip", text: t("Equipment.Equipment") },
-    { to: "medics", text: t("Medic.Assigned") }
+    { to: "medics", text: t("Medic.Assigned") },
+    { to: "incidents", text: t("Ambulance.RelatedIncidents") }
   ];
 
   return (
@@ -148,6 +150,7 @@ const AmbulanceView = () => {
         <Route path="equip/new" element={<AmbulanceEquipment add />} />
         <Route path="medics" element={<AssignedMedics />} />
         <Route path="medics/add" element={<AssignMedics />} />
+        <Route path="incidents" element={<RelatedIncidents />} />
       </Routes>
     </Container>
   );

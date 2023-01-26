@@ -103,7 +103,7 @@ const BackupForm = () => {
           <EnumSelect id="backupType" label={t("Backup.Type")} required enum={BackupType} value={backupType} onChange={e => setBackupType(e.target.value)} onLoad={setBackupType} />
         </Row>
         <Row className="justify-content-center mb-3">
-          <NotBlank id="justification" label={t("Backup.Justification")} required value={justification} onChange={e => setJustification(e.target.value)} disabled={!canAccept} />
+          <NotBlank id="justification" label={t("Backup.Justification")} required value={justification} onChange={e => setJustification(e.target.value)} />
         </Row>
         <Row className="justify-content-center mb-3 ml-2">
           <FormCheck id="accepted" label={t("Backup.Accepted")} value={accepted} onChange={e => setAccepted(!accepted)} disabled={!canAccept} />

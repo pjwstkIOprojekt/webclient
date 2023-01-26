@@ -34,7 +34,7 @@ const BackupsList = () => {
       if (data) {
         setBackups(data.map(b => ({
           ...b,
-          time: new Date(b.time)
+          time: new Date(`${b.time}Z`)
         })));
       }
 
