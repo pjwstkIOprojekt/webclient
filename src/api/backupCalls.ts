@@ -20,6 +20,7 @@ export interface BackupAddRequest extends BackupUpdateRequest {
 
 export interface BackupResponse extends BackupUpdateRequest {
   backupId: number,
+  incidentId: number,
   time: Date
 }
 

@@ -173,9 +173,7 @@ export const RoleName = {
 export const IncidentType = {
   getter: (abort: AbortController) => get(`${enumBase}/incident_status`, abort),
   name: "IncidentStatusType",
-  accepted: "ACCEPTED",
-  assigned: "ASSIGNED",
-  closed: "CLOSED"
+  accepted: "ACCEPTED"
 };
 
 export const ItemType = {
@@ -203,5 +201,18 @@ export const ItemUnit = {
 
 export const EmployeeType = {
   getter: (abort: AbortController) => get(`${enumBase}/employee_types`, abort),
-  name: "EmployeeType"
+  name: "EmployeeType",
+  dispatcher: "DISPATCHER",
+  medic: "MEDIC",
+  manager: "AMBULANCE_MANAGER"
+};
+
+export const VictimStatus = {
+  getter: (abort: AbortController) => get(`${enumBase}/victim_statuses`, abort),
+  name: "VictimStatus"
+};
+
+export const Gender = {
+  getter: (abort: AbortController) => get(`${enumBase}/genders`, abort),
+  name: "Gender"
 };

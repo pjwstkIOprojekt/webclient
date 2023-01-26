@@ -21,6 +21,7 @@ const BackupForm = () => {
   const [backupType, setBackupType] = useState("");
   const [justification, setJustification] = useState("");
   const [accepted, setAccepted] = useState(false);
+  const [incidentId, setIncidentId] = useState<number | null>(null);
   const [error, setError] = useState<string | undefined>("");
   const { reportId, backupId } = useParams();
   const navigate = useNavigate();
@@ -30,18 +31,21 @@ const BackupForm = () => {
   const canAccept = hasPerm(roles, incidentManagement);
 
   useEffect(() => {
-    if (backupId === undefined) {
+    if (reportId === undefined || backupId === undefined) {
       return;
     }
 
     setError(undefined);
+    setIncidentId(null);
     const abortUpdate = new AbortController();
+    const id = parseInt(reportId);
 
     getBackupById(parseInt(backupId), abortUpdate).then(res => res.json()).then((data: BackupResponse) => {
-      if (data.backupType && data.justification) {
+      if (data.backupType && data.justification && data.incidentId === id) {
         setBackupType(data.backupType);
         setJustification(data.justification);
         setAccepted(data.accepted);
+        setIncidentId(data.incidentId);
         setError("");
       } else {
         console.log(data);
@@ -57,12 +61,12 @@ const BackupForm = () => {
     });
 
     return () => abortUpdate.abort();
-  }, [backupId]);
+  }, [reportId, backupId]);
 
   const onSubmit = () => {
     const user = getEmail();
 
-    if (reportId === undefined || user === undefined) {
+    if (reportId === undefined || user === undefined || (backupId !== undefined && incidentId === null)) {
       return;
     }
 
@@ -103,7 +107,7 @@ const BackupForm = () => {
           <EnumSelect id="backupType" label={t("Backup.Type")} required enum={BackupType} value={backupType} onChange={e => setBackupType(e.target.value)} onLoad={setBackupType} />
         </Row>
         <Row className="justify-content-center mb-3">
-          <NotBlank id="justification" label={t("Backup.Justification")} required value={justification} onChange={e => setJustification(e.target.value)} disabled={!canAccept} />
+          <NotBlank id="justification" label={t("Backup.Justification")} required value={justification} onChange={e => setJustification(e.target.value)} />
         </Row>
         <Row className="justify-content-center mb-3 ml-2">
           <FormCheck id="accepted" label={t("Backup.Accepted")} value={accepted} onChange={e => setAccepted(!accepted)} disabled={!canAccept} />

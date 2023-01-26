@@ -8,7 +8,7 @@ import { getIncidentPath, AmbulancePathResponse, getAmbulanceIncidents } from ".
 import { licensePlateError, missingDataError, loadingError } from "../sharedStrings";
 import Form from "../../fragments/forms/Form";
 import FormSelect from "../../fragments/forms/FormSelect";
-import { EmergencyType, IncidentType } from "../../../api/enumCalls";
+import { EmergencyType } from "../../../api/enumCalls";
 import Range from "../../fragments/forms/Range";
 import Number from "../../fragments/forms/api/Number";
 import NavButton from "../../fragments/navigation/NavButton";
@@ -126,13 +126,19 @@ const AmbulancePath = () => {
         return;
       }
 
-      const mapData = (x?: Readonly<IncidentResponse[]>) => x ? x.map(i => ({
+      const mapData = (x: Readonly<IncidentResponse[]>) => x.map(i => ({
         id: i.incidentId,
         type: i.accidentReport.emergencyType
-      })) : [];
+      }));
 
-      setIncidents([...mapData(data[IncidentType.assigned]), ...mapData(data[IncidentType.closed])]);
-      const loc = [...data[IncidentType.assigned], ...data[IncidentType.closed]][0]?.accidentReport.location;
+      let tmp: IncidentResponse[] = [];
+
+      for (const key in data) {
+        tmp = tmp.concat(data[key]);
+      }
+
+      setIncidents(mapData(tmp));
+      const loc = tmp[0]?.accidentReport.location;
       setCoords([loc?.latitude ?? 0, loc?.longitude ?? 0]);
       setError("");
     }).catch(err => {
