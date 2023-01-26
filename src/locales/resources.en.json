@@ -94,6 +94,16 @@
         "VOLUME": "Volumes",
         "BOX": "Boxes"
     },
+    "VictimStatus": {
+        "STABLE": "Stable",
+        "UNSTABLE": "Unstable",
+        "DECEASED": "Deceased"
+    },
+    "Gender": {
+        "MALE": "Male",
+        "FEMALE": "Female",
+        "OTHER": "Other"
+    },
     "Ambulance": {
         "Ambulances": "Ambulances",
         "Ambulance": "Ambulance",
@@ -136,7 +146,8 @@
         "Address": "Address",
         "Assign": "Assign ambulance",
         "Assigned": "Assigned",
-        "Details": "Incident details"
+        "Details": "Incident details",
+        "Victims": "Victims"
     },
     "Person": {
         "FirstName": "First name",
@@ -154,7 +165,8 @@
         "MyData": "My data",
         "Add": "Add employee",
         "Adding": "Add employee",
-        "Role": "Role"
+        "Role": "Role",
+        "Gender": "Gender"
     },
     "Login": {
         "Login": "Login",
@@ -344,5 +356,11 @@
     "Staff": {
         "Schedules": "Employee schedule",
         "Workers": "Employee list"
+    },
+    "Victim": {
+        "Create": "Add victim",
+        "Status": "Status",
+        "Adding": "Add victim",
+        "Editing": "Edit victim"
     }
 }

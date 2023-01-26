@@ -101,7 +101,7 @@ const ReportView = (props: Readonly<ReportViewParams>) => {
     <Form onSubmit={onSubmit} className="w-50">
       <h1 className="text-center mt-3">{t("Report.Report")}</h1>
       <Row className="justify-content-center mb-3">
-        <EnumSelect id="emergencyType" enum={EmergencyType} onChange={e => props.setType(e.target.value)} required value={props.type} onLoad={props.setType} loadIf={props.type === ""} label={t("Report.Type")} />
+        <EnumSelect id="emergencyType" enum={EmergencyType} onChange={e => props.setType(e.target.value)} required value={props.type} onLoad={props.setType} label={t("Report.Type")} />
       </Row>
       <Row className="justify-content-center mb-3 ml-2">
         <FormCheck id="breathing" onChange={e => props.setBreathing(!props.breathing)} value={props.breathing} label={t("Report.Breathing")} />

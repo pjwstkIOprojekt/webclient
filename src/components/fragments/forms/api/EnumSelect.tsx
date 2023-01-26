@@ -6,8 +6,7 @@ import { FormGroup, Form } from "react-bootstrap";
 
 export interface EnumSelectParams extends SelectControlParams {
   enum: EnumType,
-  onLoad?: (val: string) => void,
-  loadIf?: boolean
+  onLoad?: (val: string) => void
 }
 
 // Enum constraint validation component
@@ -18,13 +17,17 @@ const EnumSelect = (props: Readonly<EnumSelectParams>) => {
   const loaded = props.onLoad;
 
   useEffect(() => {
+    if (values.length > 0) {
+      return;
+    }
+
     const abort = new AbortController();
 
     getter(abort).then(res => res.json()).then((data: string[]) => {
       if (data) {
         setValues(data);
         
-        if (loaded && props.loadIf !== false) {
+        if (loaded && !props.value) {
           loaded(data[0]);
         }
       } else {
@@ -37,7 +40,7 @@ const EnumSelect = (props: Readonly<EnumSelectParams>) => {
     });
 
     return () => abort.abort();
-  }, [getter, loaded, props.loadIf, props.enum.name]);
+  }, [values, getter, loaded, props.value, props.enum.name]);
 
   return (
     <FormGroup controlId={props.id} className={props.className}>

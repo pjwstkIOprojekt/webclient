@@ -3,6 +3,7 @@ import { BackupResponse, getBackups, deleteBackup } from "../../../api/backupCal
 import { useTranslation } from "react-i18next";
 import { usePopup } from "../../../hooks/usePopup";
 import { useAbort } from "../../../hooks/useAbort";
+import { useParams } from "react-router-dom";
 import { useRoles } from "../../../hooks/useAuth";
 import { hasPerm, incidentManagement } from "../../../helpers/authHelper";
 import Table, { TableColumnParams } from "../../fragments/util/Table";
@@ -24,15 +25,21 @@ const BackupsList = () => {
   const { t } = useTranslation();
   const popup = usePopup();
   const abort = useAbort();
+  const { reportId } = useParams();
   const roles = useRoles();
   const canRemove = hasPerm(roles, incidentManagement);
 
   useEffect(() => {
+    if (reportId === undefined) {
+      return;
+    }
+
     const abortUpdate = new AbortController();
+    const incident = parseInt(reportId);
 
     getBackups(abortUpdate).then(res => res.json()).then((data: BackupResponse[]) => {
       if (data) {
-        setBackups(data.map(b => ({
+        setBackups(data.filter(b => b.incidentId === incident).map(b => ({
           ...b,
           time: new Date(`${b.time}Z`)
         })));
@@ -49,7 +56,7 @@ const BackupsList = () => {
     });
 
     return () => abortUpdate.abort();
-  }, []);
+  }, [reportId]);
 
   const remove = (id: number) => {
     if (!canRemove) {

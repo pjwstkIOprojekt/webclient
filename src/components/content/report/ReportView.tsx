@@ -23,6 +23,8 @@ import ConditionalRoute from "../../fragments/navigation/ConditionalRoute";
 import AssignAmbulance from "./AssignAmbulance";
 import BackupsList from "./BackupsList";
 import BackupForm from "./BackupForm";
+import VictimsList from "./VictimsList";
+import VictimForm from "./VictimForm";
 
 // Root view with all report details
 const ReportView = () => {
@@ -103,7 +105,8 @@ const ReportView = () => {
 
   const links = [
     { to: "data", text: t("Common.Details") },
-    { to: "back", text: t("Backup.Backup") }
+    { to: "back", text: t("Backup.Backup") },
+    { to: "vict", text: t("Report.Victims") }
   ];
 
   if (canEdit) {
@@ -135,6 +138,9 @@ const ReportView = () => {
         <Route path="back" element={<BackupsList />} />
         <Route path="back/new" element={<BackupForm />} />
         <Route path="back/edit/:backupId" element={<BackupForm />} />
+        <Route path="vict" element={<VictimsList />} />
+        <Route path="vict/new" element={<VictimForm />} />
+        <Route path="vict/edit/:victimId" element={<VictimForm />} />
       </Routes>
     </Container>
   );

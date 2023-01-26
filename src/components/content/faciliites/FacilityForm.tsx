@@ -75,7 +75,7 @@ const FacilityFormView = (props: Readonly<FacilityFormParams>) => {
       <Form onSubmit={onSubmit} className="w-50">
         <h1 className="my-3 text-center">{facilityId === undefined ? t("Facility.Adding") : (canEdit ? t("Facility.Editing") : t("Facility.Facility"))}</h1>
         <NotBlank id="name" className="mb-3" required value={props.name} onChange={e => props.setName(e.target.value)} label={t("Facility.Name")} disabled={!canEdit} />
-        <EnumSelect id="facilityType" className="mb-3" required value={props.facilityType} onChange={e => props.setFacilityType(e.target.value)} enum={FacilityType} onLoad={props.setFacilityType} loadIf={props.facilityType === ""} label={t("Facility.Type")} disabled={!canEdit} />
+        <EnumSelect id="facilityType" className="mb-3" required value={props.facilityType} onChange={e => props.setFacilityType(e.target.value)} enum={FacilityType} onLoad={props.setFacilityType} label={t("Facility.Type")} disabled={!canEdit} />
         <h4 className="text-center mb-3">{t("Map.Location")}</h4>
         <Number id="latitude" className="mb-3" value={props.lat} disabled />
         <Number id="longitude" className="mb-3" value={props.lng} disabled />

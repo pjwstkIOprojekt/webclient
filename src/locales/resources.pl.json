@@ -94,6 +94,16 @@
         "VOLUME": "Objętości",
         "BOX": "Opakowań"
     },
+    "VictimStatus": {
+        "STABLE": "Stabilny/a",
+        "UNSTABLE": "Niestabilny/a",
+        "DECEASED": "Zmarły/a"
+    },
+    "Gender": {
+        "MALE": "Mężczyzna",
+        "FEMALE": "Kobieta",
+        "OTHER": "Inna"
+    },
     "Ambulance": {
         "Ambulances": "Karetki",
         "Ambulance": "Karetka",
@@ -136,7 +146,8 @@
         "Address": "Adres",
         "Assign": "Przypisz karetkę",
         "Assigned": "Przypisane",
-        "Details": "Szczegóły zdarzenia"
+        "Details": "Szczegóły zdarzenia",
+        "Victims": "Poszkodowani"
     },
     "Person": {
         "FirstName": "Imię",
@@ -154,7 +165,8 @@
         "MyData": "Moje dane",
         "Add": "Dodaj pracownika",
         "Adding": "Dodawanie pracownika",
-        "Role": "Rola"
+        "Role": "Rola",
+        "Gender": "Płeć"
     },
     "Login": {
         "Login": "Logowanie",
@@ -344,5 +356,11 @@
     "Staff": {
         "Schedules": "Grafik pracowników",
         "Workers": "Lista pracowników"
+    },
+    "Victim": {
+        "Create": "Dodaj poszkodowanego",
+        "Status": "Stan",
+        "Adding": "Dodawanie poszkodowanego",
+        "Editing": "Edycja poszkodowanego"
     }
 }
