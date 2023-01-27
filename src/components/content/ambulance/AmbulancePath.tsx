@@ -37,6 +37,7 @@ const AmbulancePathView = (props: Readonly<AmbulancePathParams>) => {
   const { t } = useTranslation();
   const roles = useRoles();
   const setPath = props.setPath;
+  const update = props.update;
   const incidentAccess = hasPerm(roles, incidentInfo);
 
   // Updated incident id
@@ -63,6 +64,13 @@ const AmbulancePathView = (props: Readonly<AmbulancePathParams>) => {
     getIncidentPath(ambulanceId, incident, abort).then(res => res.json()).then((data: AmbulancePathResponse) => {
       if (data.path && data.incidentId === incident) {
         setPath(data.path.map(p => [p.latitude, p.longitude] as [number, number]));
+        setOffset(0);
+        const value = data.path[0];
+
+        if (value && update) {
+          update([value.latitude, value.longitude]);
+        }
+
         setError("");
       } else {
         console.log(data);
@@ -76,14 +84,14 @@ const AmbulancePathView = (props: Readonly<AmbulancePathParams>) => {
     });
 
     return () => abort.abort();
-  }, [ambulanceId, incident, setPath]);
+  }, [ambulanceId, incident, setPath, update]);
 
   const onMove = (x: number) => {
     setOffset(x);
     const value = props.path[x];
 
-    if (value && props.update) {
-      props.update(value);
+    if (value && update) {
+      update(value);
     }
   };
 
